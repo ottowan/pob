@@ -800,7 +800,8 @@
 
 
     function createFooterCode(){
-
+      $code .="?>";
+      return $code;
     }
   }
 
