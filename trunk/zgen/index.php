@@ -56,11 +56,11 @@
     $pnadmin = new PNAdmin($module);
     $pnadmin->createPNAdminFile();
 
-  /*
+
     //Create pnadminform.php file
     $pnadminform = new PNAdminForm($module, $mindmap);
     $pnadminform->createPNAdminFormFile();
-  */
+
     unset($mindmap);
     unset($pnversion);
     unset($pninit);
