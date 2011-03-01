@@ -2,11 +2,11 @@
   include "util/DirectoryUtil.class.php";
   include "util/FileUtil.class.php";
   include "util/MySQLUtil.class.php";
-  include "class/PNTables.class.php";
-  include "class/PNVersion.class.php";
-  include "class/PNInit.class.php";
-  include "class/PNAdmin.class.php";
-  include "class/PNAdminForm.class.php";
+  include "classes/PNTables.class.php";
+  include "classes/PNVersion.class.php";
+  include "classes/PNInit.class.php";
+  include "classes/PNAdmin.class.php";
+  include "classes/PNAdminForm.class.php";
 
   $url = "http://localhost/zgen/upload/mindmap.mm";
 
