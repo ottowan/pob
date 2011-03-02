@@ -7,8 +7,12 @@
   include "classes/PNInit.class.php";
   include "classes/PNAdmin.class.php";
   include "classes/PNAdminForm.class.php";
+  include "classes/PNUser.class.php";
+  include "classes/PNUserForm.class.php";
+  include "classes/ClassGenerator.class.php";
 
-  $url = "http://localhost/zgen/upload/mindmap.mm";
+
+  $url = "http://localhost/pob/zgen/upload/mindmap.mm";
 
   //Use curl for get data from link.
   $client = curl_init($url);
@@ -25,8 +29,8 @@
     $mindmap = simplexml_load_string ($response);
     $module = $mindmap->node->attributes()->TEXT;
 
-    echo "[<B>Generate </B>: $module module from $url]<br><br>";
-
+    echo "[<B>Generate ::</B> $module module from $url]<br>";
+    echo "<BR>/////////////////////// Create the $module Project Directory ////////////////////////////<BR>";
     //Make new directory for module generator
     if(!DirectoryUtil::isDirectory($module)){
       DirectoryUtil::createDirectory($module);
@@ -38,7 +42,8 @@
       echo "$module directory is created.<br><br>";
     }
 
-    
+
+    echo "<BR>/////////////////////// Create the installation file ////////////////////////////<BR>";
     //Create pnversion.php file
     $pnversion = new PNVersion($module, $description);
     $pnversion->createPNVersionFile();
@@ -52,6 +57,7 @@
     $pntable->createPNTableFile();
 
 
+    echo "<BR>/////////////////////// Create the controller file ////////////////////////////<BR>";
     //Create pnadmin.php file
     $pnadmin = new PNAdmin($module);
     $pnadmin->createPNAdminFile();
@@ -61,11 +67,28 @@
     $pnadminform = new PNAdminForm($module, $mindmap);
     $pnadminform->createPNAdminFormFile();
 
+    //Create pnuserform.php file
+    $pnuser = new PNUser($module, $mindmap);
+    $pnuser->createPNUserFile();
+
+    //Create pnuserform.php file
+    $pnuserform = new PNUserForm($module, $mindmap);
+    $pnuserform->createPNUserFormFile();
+
+    echo "<BR>/////////////////////// Create the model(classes) file ////////////////////////////<BR>";
+    //Create Class file
+    $classes = new ClassGenerator($module, $mindmap);
+    $classes->createClassFile();
+
     unset($mindmap);
     unset($pnversion);
     unset($pninit);
     unset($pntable);
     unset($pnadmin);
+    unset($pnadminform);
+    unset($pnuser);
+    unset($pnuserform);
+    unset($classes);
   }
 ?>
 

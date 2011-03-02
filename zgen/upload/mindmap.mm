@@ -1,4 +1,4 @@
-<map version="0.8.1">
+<map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node COLOR="#000000" CREATED="1297056498000" ID="Freemind_Link_80543465" LINK="http://www.touristway.com" MODIFIED="1297759093453" TEXT="POBClient">
 <edge COLOR="#969696"/>
@@ -26,7 +26,7 @@
 <node COLOR="#000000" CREATED="1297083795000" ID="Freemind_Link_80603467" MODIFIED="1297083795000" TEXT="Book">
 <font NAME="Dialog" SIZE="12"/>
 </node>
-<node COLOR="#000000" CREATED="1297083841000" ID="Freemind_Link_80603651" MODIFIED="1297083841000" TEXT="Facility">
+<node COLOR="#000000" CREATED="1297083841000" FOLDED="true" ID="Freemind_Link_80603651" MODIFIED="1299050930889" TEXT="facility">
 <font NAME="Dialog" SIZE="12"/>
 <node COLOR="#000000" CREATED="1297171717000" ID="Freemind_Link_80825182" MODIFIED="1297676304890" TEXT="id">
 <font NAME="Dialog" SIZE="12"/>

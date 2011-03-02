@@ -38,10 +38,10 @@
           foreach($this->mindmap->node->node as $mvc){
             if($mvc->attributes()->TEXT == "models"){
 
-              foreach($mvc->node as $model){
-                  if($model->node && $model->node->attributes()->TEXT){
-                    echo "Table ::".$model->attributes()->TEXT."<br>";
-                    $this->setTable($model);
+              foreach($mvc->node as $table){
+                  if($table->node && $table->node->attributes()->TEXT){
+                    echo "Table ::".$table->attributes()->TEXT."<br>";
+                    $this->setTable($table);
                     $code .= $this->createBodyCode();
                 }
               }//End loop model

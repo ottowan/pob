@@ -51,8 +51,8 @@ class PNAdminForm{
   function createPermissionMethodCode() {
     $code .= "  function ".$this->module."_permission() {";$code .= "\r\n";
     $code .= "    // Security check";$code .= "\r\n";
-    $code .= "    //we are allow for admin access level , see in config.php variable name ACCESS_ADMIN";$code .= "\r\n";
-    $code .= "    if (!SecurityUtil::checkPermission('".$this->module."::', '::', ACCESS_ADMIN)) {";$code .= "\r\n";
+    $code .= "    //we are allow for admin access level , see in config.php variable name ACCESS_COMMENT";$code .= "\r\n";
+    $code .= "    if (!SecurityUtil::checkPermission('".$this->module."::', '::', ACCESS_COMMENT)) {";$code .= "\r\n";
     $code .= "        LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));";$code .= "\r\n";
     $code .= "    }";$code .= "\r\n";
     $code .= "  }";$code .= "\r\n";$code .= "\r\n";
