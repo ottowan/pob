@@ -4,8 +4,11 @@ class MySQLUtil {
 
   public static function validateDataType($dataType){
     switch (strtolower($dataType)) {
+//        case "string":
+//            $sqlType = "VARCHAR(255) ";
+//            break;
         case "string":
-            $sqlType = "VARCHAR(255) ";
+            $sqlType = "TEXT ";
             break;
         case "int":
             $sqlType = "INT(11) ";
