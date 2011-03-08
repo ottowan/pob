@@ -29,24 +29,51 @@
               $className = "PN".ucfirst($table->attributes()->TEXT);
               $tableName = strtolower($table->attributes()->TEXT);
               $moduleName = strtolower($this->module);
-              $joinField = array();
-              $extendsionField = array();
+              $joinFieldArray = array();
+              $extendFieldArray = array();
               $numberOfLoop = 0;
               echo "Create ".$className."<BR>";
-              foreach($table->node as $field){
-                if(strstr($field->attributes()->TEXT, "_id") == true){
-                  //Split table name
-                  $tableNameSplit = split('_id', strtolower($field->attributes()->TEXT));
-                  $joinField[$numberOfLoop]['field'] = strtolower($field->attributes()->TEXT);
-                  $joinField[$numberOfLoop]['table'] = strtolower($tableNameSplit[0]);
 
-                  echo "Join field : ".$field->attributes()->TEXT."<br>";
-                  $numberOfLoop++;
+              //Loop get all field
+              foreach($table->node as $field){
+                $fieldName = $field->attributes()->TEXT;
+                //var_dump($fieldName); 
+
+                //Check field is join
+                if("zkjoin"==strtolower($fieldName)){
+                  //var_dump($fieldName); 
+                  foreach($field->node as $joinTable){
+                    $joinTableName = $joinTable->attributes()->TEXT;
+                    //var_dump($joinTableName); 
+                    foreach($joinTable->node as $joinField){
+                      $joinFieldName = $joinField->attributes()->TEXT;
+                      //var_dump($joinFieldName); 
+                      $joinFieldArray[(string)$joinTableName][] = strtolower($joinFieldName);
+                    }
+                  }
+                  echo "Join field : ";
+                  var_dump($joinFieldArray); 
+                }
+
+                //Check field is extend
+                if("zkextend"==strtolower($fieldName)){
+                  //var_dump($fieldName); 
+                  foreach($field->node as $extendTable){
+                    $extendTableName = $extendTable->attributes()->TEXT;
+                    //var_dump($extendTable); 
+                    foreach($extendTable->node as $extendField){
+                      $extendFieldName = $extendField->attributes()->TEXT;
+                      //var_dump($joinFieldName); 
+                      $extendFieldArray[(string)$extendTableName][] = strtolower($extendFieldName);
+                    }
+                  }
+                  echo "Extendsion field: ";
+                  var_dump($extendFieldArray); 
                 }
               }
-
-              $class = $this->createClass($className, $tableName, $moduleName, $joinField);
-              $classArray = $this->createClassArray($className, $tableName, $moduleName, $joinField);
+              
+              $class = $this->createClass($className, $tableName, $moduleName, $extendFieldArray);
+              $classArray = $this->createClassArray($className, $tableName, $moduleName, $joinFieldArray);
 
               fwrite($isCreateFile, $class);
               fwrite($isCreateFileArray, $classArray);
@@ -77,7 +104,7 @@
       }
     }
 
-    function createClassArray($className, $tableName, $moduleName, $joinField=false){
+    function createClassArray($className, $tableName, $moduleName, $joinFieldArray=false){
 
       $text .= "<?php"."\r\n";
       $text .= "  class ".$className."Array extends PNObjectArray {"."\r\n";
@@ -89,15 +116,42 @@
       $text .= "      \$this->_objPath       = 'form';"."\r\n";
       $text .= ""."\r\n";
 
-      //Loop joinfield
-      if($joinField){
-        foreach($joinField as $item){
-          $text .= "      \$this->_objJoin[]     = array ( 'join_table'  =>  '".$moduleName."_".$item['table']."',"."\r\n";
-          $text .= "                              'join_field'          =>  array('name'),"."\r\n";
-          $text .= "                              'object_field_name'   =>  array('".$item['table']."_name'),"."\r\n";
-          $text .= "                              'compare_field_table' =>  '".$item['field']."',"."\r\n";
+      //Is check has been value
+      if($joinFieldArray){
+        $loop = 1;
+
+        //Loop join table 
+        foreach($joinFieldArray as $keyJoinTable=>$itemJoinTable){
+          var_dump($keyJoinTable);
+          $text .= "      \$this->_objJoin[]     = array ( 'join_table'  =>  '".$moduleName."_".$keyJoinTable."',"."\r\n";
+
+          $joinField .= "                              'join_field'          =>  array(";
+          $objectJoinField .= "                              'object_field_name'   =>  array(";
+
+          $lastKey = end(array_keys($itemJoinTable));
+          foreach($itemJoinTable as $keyJoinField => $itemJoinField){
+
+            if ($keyJoinField == $lastKey) {
+                // last element
+                $joinField .= "'".$itemJoinField."' ";
+                $objectJoinField .= "'".$keyJoinTable."_".$itemJoinField."'";
+            } else {
+                // not last element
+                $joinField .= "'".$itemJoinField."', ";
+                $objectJoinField .= "'".$keyJoinTable."_".$itemJoinField."',";
+            }
+          }
+          $joinField .= "),"."\r\n";
+          $objectJoinField .= "),"."\r\n";
+          $text .= $joinField;
+          $text .= $objectJoinField;
+          $text .= "                              'compare_field_table' =>  '".$keyJoinTable."_id',"."\r\n";
           $text .= "                              'compare_field_join'  =>  'id');"."\r\n";
           $text .= ""."\r\n";
+
+          //Clear value
+          $joinField = "";
+          $objectJoinField = "";
         }
       }
 
@@ -125,7 +179,7 @@
       return $text;
     }
 
-    function createClass($className, $tableName, $moduleName, $extendsionField=false){
+    function createClass($className, $tableName, $moduleName, $extendFieldArray=false){
 
       $text .= "<?php"."\r\n";
       $text .= "  class ".$className." extends PNObject {"."\r\n";
@@ -140,7 +194,6 @@
       $text .= "    }"."\r\n";
       $text .= "  }"."\r\n";
       $text .= "?>";
-
 
       return $text;
     }
