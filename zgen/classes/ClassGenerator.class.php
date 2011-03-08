@@ -173,6 +173,7 @@
       $text .= "      return \$where;"."\r\n";
       $text .= "    }"."\r\n";
 
+       //Generate footer code
       $text .= "  }"."\r\n";
       $text .= "?>";
 
@@ -192,6 +193,57 @@
       $text .= "    "."\r\n";
       $text .= "      \$this->_init(\$init, \$where);"."\r\n";
       $text .= "    }"."\r\n";
+      $text .= "    "."\r\n";
+
+
+
+      //Is check has been value
+      if($extendFieldArray){
+        $loop = 1;
+
+        //Generate selectExtendResult() method
+        $text .= "    function selectExtendResult(){"."\r\n";
+        $text .= "      \$id = FormUtil::getPassedValue ('id', false );"."\r\n";
+        $text .= "      \$result = array();"."\r\n";
+        $text .= "      if (\$id){"."\r\n";
+        //Loop extend table 
+        foreach($extendFieldArray as $keyExtendTable=>$itemExtendTable){
+          var_dump($keyExtendTable);
+
+          $text .= "        \$result['".$keyExtendTable."'] = DBUtil::selectObjectArray("."\r\n";
+          $text .= "                                                     '".$moduleName."_".$keyExtendTable."', "."\r\n";
+          $text .= "                                                     'WHERE ".$tableName."_id = \$id' , "."\r\n";
+          $text .= "                                                      '', "."\r\n";
+          $text .= "                                                      -1, "."\r\n";
+          $text .= "                                                      -1,"."\r\n";
+          $text .= "                                                      '', "."\r\n";
+          $text .= "                                                      null, "."\r\n";
+          $text .= "                                                      null, "."\r\n";
+          $text .= "                                                      array("."\r\n";
+
+          //Loop extend field
+          $lastKey = end(array_keys($itemExtendTable));
+          foreach($itemExtendTable as $keyExtendField => $itemExtendField){
+            if ($keyExtendField == $lastKey) {
+              // last element
+              $text .= "                                                            '".$itemExtendField."'"."\r\n";
+            } else {
+              // not last element
+              $text .= "                                                            '".$itemExtendField."',"."\r\n";
+            }
+          }
+
+        }
+
+        $text .= "                                                            )"."\r\n";
+        $text .= "                                                      );"."\r\n";
+        $text .= "      }"."\r\n";
+        $text .= "      "."\r\n";
+        $text .= "      return \$result;"."\r\n";
+        $text .= "    }"."\r\n";
+      }
+
+
       $text .= "  }"."\r\n";
       $text .= "?>";
 
