@@ -562,7 +562,7 @@
         $code .= "";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  \$class = Loader::loadClassFromModule ('".$this->module."', $ctrl, true);";
+        $code .= "  \$class = Loader::loadClassFromModule ('".$this->module."', \$ctrl, true);";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  if (\$class){";
@@ -589,7 +589,7 @@
         $code .= "    if (method_exists(\$objectArray,'genSort')){";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "        $sort = \$objectArray->genSort();";
+        $code .= "        \$sort = \$objectArray->genSort();";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "    }";
@@ -741,7 +741,7 @@
         $code .= "    if(\$forward){";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "      \$list_url = pnModURL('".$this->module."', 'admin', 'list' , array('ctrl'   => \$ctrl);";
+        $code .= "      \$list_url = pnModURL('".$this->module."', 'admin', 'list' , array('ctrl'   => \$ctrl";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "                                                              )";
