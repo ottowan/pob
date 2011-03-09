@@ -105,66 +105,68 @@
       $amountFieldIndex = 0;
       $fieldSize = sizeof($this->table->node);
       foreach($this->table->node as $field){
+        $fieldName = (string)$field->attributes()->TEXT;
+        if($fieldName != "zkjoin" && $fieldName != "zkextend" ){
+          //Explode field name & type on mysql
+          $value = explode(":", $field->attributes()->TEXT);
 
-        //Explode field name & type on mysql
-        $value = explode(":", $field->attributes()->TEXT);
+          $fieldname = $value[0];
+          $fieldtype = $value[1];
 
-        $fieldname = $value[0];
-        $fieldtype = $value[1];
+          $column .= "                                          ";
+          if($amountFiled == $fieldSize){
+            $column .= "'".strtolower($fieldname)."' => '".strtolower($tablename)."_".strtolower($fieldname)."'"."\r\n";
+          }else{
+            $column .= "'".strtolower($fieldname)."' => '".strtolower($tablename)."_".strtolower($fieldname)."',"."\r\n";
+          }
 
-        $column .= "                                          ";
-        if($amountFiled == $fieldSize){
-          $column .= "'".strtolower($fieldname)."' => '".strtolower($tablename)."_".strtolower($fieldname)."'"."\r\n";
-        }else{
-          $column .= "'".strtolower($fieldname)."' => '".strtolower($tablename)."_".strtolower($fieldname)."',"."\r\n";
+          $def .= "                                          ";
+          if($fieldname == "id"){
+            //Check this filed is last element
+            if($amountFiled == $fieldSize){
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." NOTNULL AUTOINCREMENT PRIMARY'"."\r\n";
+            }else{
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." NOTNULL AUTOINCREMENT PRIMARY',"."\r\n";
+            }
+          }else if( isset($fieldname) && !isset($fieldtype)){
+            //Check this filed is last element
+            if($amountFiled == $fieldSize){
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL'"."\r\n";
+            }else{
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL',"."\r\n";
+            }
+
+            //Split data for check other the id field
+            $fieldNameSplit = split('_', strtolower($fieldname));
+            $size = sizeOf($fieldNameSplit);
+            $lastElement = $size-1;
+            //Check index field
+            if($size > 1 && $fieldNameSplit[$lastElement] == "id"){
+              $tempFieldIndex[$amountFieldIndex] = $fieldname;
+              $amountFieldIndex++;
+            }
+
+          } else {
+            //Check this filed is last element
+            
+            if($amountFiled == $fieldSize){
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL'"."\r\n";
+            }else{
+              $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL',"."\r\n";
+            }
+
+            //Split data for check other the id field
+            $fieldNameSplit = split('_', strtolower($fieldname));
+            $size = sizeOf($fieldNameSplit);
+            $lastElement = $size-1;
+            //Check index field
+            if($size > 1 && $fieldNameSplit[$lastElement] == "id"){
+              $tempFieldIndex[$amountFieldIndex] = $fieldname;
+              $amountFieldIndex++;
+            }
+          }
+          $amountFiled++;
         }
-
-        $def .= "                                          ";
-        if($fieldname == "id"){
-          //Check this filed is last element
-          if($amountFiled == $fieldSize){
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." NOTNULL AUTOINCREMENT PRIMARY'"."\r\n";
-          }else{
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." NOTNULL AUTOINCREMENT PRIMARY',"."\r\n";
-          }
-        }else if( isset($fieldname) && !isset($fieldtype)){
-          //Check this filed is last element
-          if($amountFiled == $fieldSize){
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL'"."\r\n";
-          }else{
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL',"."\r\n";
-          }
-
-          //Split data for check other the id field
-          $fieldNameSplit = split('_', strtolower($fieldname));
-          $size = sizeOf($fieldNameSplit);
-          $lastElement = $size-1;
-          //Check index field
-          if($size > 1 && $fieldNameSplit[$lastElement] == "id"){
-            $tempFieldIndex[$amountFieldIndex] = $fieldname;
-            $amountFieldIndex++;
-          }
-
-        } else {
-          //Check this filed is last element
-          
-          if($amountFiled == $fieldSize){
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL'"."\r\n";
-          }else{
-            $def .="'".strtolower($fieldname)."' => '".MySQLUtil::validateDataType($fieldtype)." DEFAULT NULL',"."\r\n";
-          }
-
-          //Split data for check other the id field
-          $fieldNameSplit = split('_', strtolower($fieldname));
-          $size = sizeOf($fieldNameSplit);
-          $lastElement = $size-1;
-          //Check index field
-          if($size > 1 && $fieldNameSplit[$lastElement] == "id"){
-            $tempFieldIndex[$amountFieldIndex] = $fieldname;
-            $amountFieldIndex++;
-          }
-        }
-        $amountFiled++;
       }
 
       $sizeFieldIndex = sizeOf($tempFieldIndex);
