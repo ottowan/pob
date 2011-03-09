@@ -227,6 +227,8 @@
             if ($keyExtendField == $lastKey) {
               // last element
               $text .= "                                                            '".$itemExtendField."'"."\r\n";
+              $text .= "                                                            )"."\r\n";
+              $text .= "                                                      );"."\r\n";
             } else {
               // not last element
               $text .= "                                                            '".$itemExtendField."',"."\r\n";
@@ -235,8 +237,7 @@
 
         }
 
-        $text .= "                                                            )"."\r\n";
-        $text .= "                                                      );"."\r\n";
+
         $text .= "      }"."\r\n";
         $text .= "      "."\r\n";
         $text .= "      return \$result;"."\r\n";
