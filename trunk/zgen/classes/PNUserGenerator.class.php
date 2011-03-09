@@ -478,7 +478,7 @@
         $code .= "  _preRender(\$render);";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "    return \$render->fetch('user_'.\$func.'_'.strtolower($ctrl).'.htm');";
+        $code .= "    return \$render->fetch('user_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
