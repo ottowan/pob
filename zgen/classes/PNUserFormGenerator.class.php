@@ -1,6 +1,6 @@
 <?php
 
-class PNUserForm{
+class PNUserFormGenerator{
 
   var $table;
   var $module;

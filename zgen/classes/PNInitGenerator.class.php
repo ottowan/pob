@@ -1,5 +1,5 @@
 <?php
-  class PNInit{
+  class PNInitGenerator{
 
     var $table;
     var $module;

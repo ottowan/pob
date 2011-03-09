@@ -1,6 +1,6 @@
 <?php
 
-  class PNVersion{
+  class PNVersionGenerator{
 
     var $module;
     var $file;

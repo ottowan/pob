@@ -1,6 +1,6 @@
 <?php
 
-class PNAdminForm{
+class PNAdminFormGenerator{
 
   var $table;
   var $module;
