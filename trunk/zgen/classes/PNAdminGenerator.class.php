@@ -1,6 +1,6 @@
 <?php
 
-  class PNUser {
+  class PNAdminGenerator {
 
     var $table;
     var $module;
@@ -11,11 +11,11 @@
     function __construct($module){
       $this->module = $module;
       $this->mindmap = $mindmap;
-      $this->filePath = "pnuser.php";
-      $this->newFilePath = $module."/"."pnuser.php";
+      $this->filePath = "pnadmin.php";
+      $this->newFilePath = $module."/"."pnadmin.php";
     }
 
-    function createPNUserFile(){
+    function createPNAdminFile(){
       $isCreateFile = FileUtil::createFile($this->filePath);
       if($isCreateFile){
         echo $this->filePath." Created.<br>";
@@ -79,19 +79,19 @@
         $code .= "  // Security check";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  //we are allow for user access level , see in config.php variable name ACCESS_COMMENT";
+        $code .= "  //we are allow for admin access level , see in config.php variable name ACCESS_ADMIN";
         $code .= "\r\n";
-        //$code .= "  ";
-        //$code .= "  if (!SecurityUtil::checkPermission('".$this->module."::', '::', ACCESS_COMMENT)) {";
-        //$code .= "\r\n";
-        //$code .= "  ";
-        //$code .= "      LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));";
-        //$code .= "\r\n";
-        //$code .= "  ";
-        //$code .= "  }";
-        //$code .= "\r\n";
-        //$code .= "  ";
+        $code .= "  ";
+        $code .= "  if (!SecurityUtil::checkPermission('".$this->module."::', '::', ACCESS_ADMIN)) {";
+        $code .= "\r\n";
+        $code .= "  ";
+        $code .= "      LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));";
+        $code .= "\r\n";
+        $code .= "  ";
         $code .= "  }";
+        $code .= "\r\n";
+        $code .= "  ";
+        $code .= "}";
         $code .= "\r\n";
         $code .= "\r\n";
         return $code;
@@ -161,7 +161,7 @@
 
   function createMainMethodCode(){
         //////////////////////////////////
-        //Start _user_main method
+        //Start _admin_main method
         /////////////////////////////////
         $code .= "  ";
         $code .= "/**";
@@ -179,13 +179,13 @@
         $code .= "*/";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_main() {";
+        $code .= "function ".$this->module."_admin_main() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  return ".$this->module."_user_list();";
+        $code .= "  return ".$this->module."_admin_list();";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
@@ -196,7 +196,7 @@
 
     function createPageMethodCode(){
         //////////////////////////////////
-        //Start _user_page method
+        //Start _admin_page method
         /////////////////////////////////
         $code .= "  ";
         $code .= "/**";
@@ -208,7 +208,7 @@
         $code .= "*/";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_page() {";
+        $code .= "function ".$this->module."_admin_page() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
@@ -232,7 +232,7 @@
         $code .= "  _preRender(\$render);";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  return \$render->fetch('user_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
+        $code .= "  return \$render->fetch('admin_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
@@ -243,7 +243,7 @@
 
     function createViewMethodCode(){
         //////////////////////////////////
-        //Start _user_page method
+        //Start _admin_page method
         /////////////////////////////////
         $code .= "  ";
         $code .= "/**";
@@ -255,7 +255,7 @@
         $code .= "*/";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_view() {";
+        $code .= "function ".$this->module."_admin_view() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
@@ -345,7 +345,7 @@
         $code .= "  }";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  return \$render->fetch('user_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
+        $code .= "  return \$render->fetch('admin_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
@@ -367,7 +367,7 @@
         $code .= "*/";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_form() {";
+        $code .= "function ".$this->module."_admin_form() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
@@ -478,7 +478,7 @@
         $code .= "  _preRender(\$render);";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "    return \$render->fetch('user_'.\$func.'_'.strtolower($ctrl).'.htm');";
+        $code .= "    return \$render->fetch('admin_'.\$func.'_'.strtolower($ctrl).'.htm');";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
@@ -502,7 +502,7 @@
         $code .= "*/";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_list() {";
+        $code .= "function ".$this->module."_admin_list() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
@@ -673,7 +673,7 @@
         $code .= "";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "  return \$render->fetch('user_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
+        $code .= "  return \$render->fetch('admin_'.\$func.'_'.strtolower(\$ctrl).'.htm');";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "}";
@@ -693,7 +693,7 @@
         $code .= "      */";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "function ".$this->module."_user_delete() {";
+        $code .= "function ".$this->module."_admin_delete() {";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "  ".$this->module."_permission();";
@@ -741,7 +741,7 @@
         $code .= "    if(\$forward){";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "      \$list_url = pnModURL('".$this->module."', 'user', 'list' , array('ctrl'   => \$ctrl);";
+        $code .= "      \$list_url = pnModURL('".$this->module."', 'admin', 'list' , array('ctrl'   => \$ctrl);";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "                                                              )";
@@ -753,7 +753,7 @@
         $code .= "    }else{";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "      \$list_url = pnModURL('".$this->module."', 'user', 'list' , array('ctrl'=>\$ctrl";
+        $code .= "      \$list_url = pnModURL('".$this->module."', 'admin', 'list' , array('ctrl'=>\$ctrl";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "                                                              )";

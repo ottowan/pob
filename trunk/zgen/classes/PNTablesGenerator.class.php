@@ -1,5 +1,5 @@
 <?php
-  class PNTables{
+  class PNTablesGenerator{
 
     var $table;
     var $module;
