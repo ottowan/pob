@@ -10,7 +10,7 @@
     }
 
     function createPNTemplateFile() {
-      echo "aaa";
+
       foreach($this->mindmap->node->node as $mvc){
         if($mvc->attributes()->TEXT == "models"){
 
@@ -19,8 +19,6 @@
             $tableName = strtolower($table->attributes()->TEXT);
             var_dump($tableName);
             if($table->node && $table->node->attributes()->TEXT){
-
-
               ///////////////////////////////////////////
               // Generate admin page
               ///////////////////////////////////////////
@@ -42,8 +40,6 @@
               $isCreateViewFile = FileUtil::createFile($viewPath);
               echo "Create view : ".$viewPath."<BR>";
 
-
-
               ///////////////////////////////////////////
               // Generate user page
               ///////////////////////////////////////////
@@ -59,29 +55,16 @@
               $isCreateUserViewFile = FileUtil::createFile($userViewPath);
               echo "Create user view : ".$userViewPath."<BR>";
 
-              //Loop get all field
-              foreach($table->node as $field){
-                $fieldName = $field->attributes()->TEXT;
-                var_dump($fieldName); 
-
-                //Check field is join
-                if("zkjoin"==strtolower($fieldName)){
-
-                }
-
-                //Check field is extend
-                if("zkextend"==strtolower($fieldName)){
-
-                }
-              }
-
               //Get code data for method
-              //$class = $this->createClass($className, $tableName, $moduleName, $extendFieldArray);
+
+              $className = ucfirst($table->attributes()->TEXT);
+              $moduleName = $this->module;
+              $adminForm = $this->createPNTemplateCode($className, $moduleName, $table->node);
 
               //Write the pntemplate admin code to file
-              fwrite($isCreateFormFile, $form);
-              fwrite($isCreateViewFile, $view);
-              fwrite($isCreateListFile, $list);
+              fwrite($isCreateFormFile, $adminForm);
+              fwrite($isCreateViewFile, $adminView);
+              fwrite($isCreateListFile, $adminList);
 
               //Write the pntemplate user code to file
               fwrite($isCreateUserViewFile, $userView);
@@ -142,150 +125,42 @@
       }//End loop mvc
     }
 
-    function createClassArray($className, $tableName, $moduleName, $joinFieldArray=false){
 
-      $text .= "<?php"."\r\n";
-      $text .= "  class ".$className."Array extends PNObjectArray {"."\r\n";
-      $text .= "    function ".$className."(\$init=null, \$where='') {"."\r\n";
-      $text .= "      \$this->PNObject();"."\r\n";
-      $text .= "    "."\r\n";
-      $text .= "      \$this->_objType       = '".$moduleName."_".$tableName."';"."\r\n";
-      $text .= "      \$this->_objField      = 'id';"."\r\n";
-      $text .= "      \$this->_objPath       = 'form';"."\r\n";
-      $text .= ""."\r\n";
+    function createPNTemplateCode($className, $moduleName ,$fieldArray){
 
-      //Is check has been value
-      if($joinFieldArray){
-        $loop = 1;
+      $code .= "<fieldset>"."\r\n";
+      $code .= "  <legend>".$className."</legend>"."\r\n";
+      $code .= "    <form id=\"form\" class=\"form\" action=\"<!--[pnmodurl modname='".$moduleName."' type='adminform' func='submit' ctrl='".$className."']-->\" method=\"post\" >"."\r\n";
+      $code .= "        <input type=\"hidden\" name=\"form[id]\" value=\"<!--[\$smarty.get.id]-->\" />"."\r\n";
+      $code .= "        <TABLE width=\"100%\" border=\"0\">"."\r\n";
+          //Loop get all field
+          foreach($fieldArray as $field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
 
-        //Loop join table 
-        foreach($joinFieldArray as $keyJoinTable=>$itemJoinTable){
-          var_dump($keyJoinTable);
-          $text .= "      \$this->_objJoin[]     = array ( 'join_table'  =>  '".$moduleName."_".$keyJoinTable."',"."\r\n";
-
-          $joinField .= "                              'join_field'          =>  array(";
-          $objectJoinField .= "                              'object_field_name'   =>  array(";
-
-          $lastKey = end(array_keys($itemJoinTable));
-          foreach($itemJoinTable as $keyJoinField => $itemJoinField){
-
-            if ($keyJoinField == $lastKey) {
-                // last element
-                $joinField .= "'".$itemJoinField."' ";
-                $objectJoinField .= "'".$keyJoinTable."_".$itemJoinField."'";
-            } else {
-                // not last element
-                $joinField .= "'".$itemJoinField."', ";
-                $objectJoinField .= "'".$keyJoinTable."_".$itemJoinField."',";
-            }
-          }
-          $joinField .= "),"."\r\n";
-          $objectJoinField .= "),"."\r\n";
-          $text .= $joinField;
-          $text .= $objectJoinField;
-          $text .= "                              'compare_field_table' =>  '".$keyJoinTable."_id',"."\r\n";
-          $text .= "                              'compare_field_join'  =>  'id');"."\r\n";
-          $text .= ""."\r\n";
-
-          //Clear value
-          $joinField = "";
-          $objectJoinField = "";
-        }
-      }
-
-      $text .= "      \$this->_init(\$init, \$where);"."\r\n";
-      $text .= "    }"."\r\n";
-      $text .= ""."\r\n";
-
-      //Generate genSort() method
-      $text .= "    function genSort(){"."\r\n";
-      $text .= "      \$order = ' ORDER BY ".$$tableName."_id ASC';"."\r\n";
-      $text .= "     return \$order;"."\r\n";
-      $text .= "    }"."\r\n";
-      $text .= ""."\r\n";
-
-      //Generate genFilter() method
-      $text .= "    function genFilter(){"."\r\n";
-      $text .= "      //implement code here"."\r\n";
-      $text .= "      \$where = '';"."\r\n";
-      $text .= "      return \$where;"."\r\n";
-      $text .= "    }"."\r\n";
-
-       //Generate footer code
-      $text .= "  }"."\r\n";
-      $text .= "?>";
-
-      return $text;
-    }
-
-    function createClass($className, $tableName, $moduleName, $extendFieldArray=false){
-
-      $text .= "<?php"."\r\n";
-      $text .= "  class ".$className." extends PNObject {"."\r\n";
-      $text .= "    function ".$className."(\$init=null, \$where='') {"."\r\n";
-      $text .= "      \$this->PNObject();"."\r\n";
-      $text .= "    "."\r\n";
-      $text .= "      \$this->_objType       = '".$moduleName."_".$tableName."';"."\r\n";
-      $text .= "      \$this->_objField      = 'id';"."\r\n";
-      $text .= "      \$this->_objPath       = 'form';"."\r\n";
-      $text .= "    "."\r\n";
-      $text .= "      \$this->_init(\$init, \$where);"."\r\n";
-      $text .= "    }"."\r\n";
-      $text .= "    "."\r\n";
-
-
-
-      //Is check has been value
-      if($extendFieldArray){
-        $loop = 1;
-
-        //Generate selectExtendResult() method
-        $text .= "    function selectExtendResult(){"."\r\n";
-        $text .= "      \$id = FormUtil::getPassedValue ('id', false );"."\r\n";
-        $text .= "      \$result = array();"."\r\n";
-        $text .= "      if (\$id){"."\r\n";
-        //Loop extend table 
-        foreach($extendFieldArray as $keyExtendTable=>$itemExtendTable){
-          var_dump($keyExtendTable);
-
-          $text .= "        \$result['".$keyExtendTable."'] = DBUtil::selectObjectArray("."\r\n";
-          $text .= "                                                     '".$moduleName."_".$keyExtendTable."', "."\r\n";
-          $text .= "                                                     'WHERE ".$tableName."_id = \$id' , "."\r\n";
-          $text .= "                                                      '', "."\r\n";
-          $text .= "                                                      -1, "."\r\n";
-          $text .= "                                                      -1,"."\r\n";
-          $text .= "                                                      '', "."\r\n";
-          $text .= "                                                      null, "."\r\n";
-          $text .= "                                                      null, "."\r\n";
-          $text .= "                                                      array("."\r\n";
-
-          //Loop extend field
-          $lastKey = end(array_keys($itemExtendTable));
-          foreach($itemExtendTable as $keyExtendField => $itemExtendField){
-            if ($keyExtendField == $lastKey) {
-              // last element
-              $text .= "                                                            '".$itemExtendField."'"."\r\n";
-            } else {
-              // not last element
-              $text .= "                                                            '".$itemExtendField."',"."\r\n";
+            //Check field is join
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend") && (strtolower($fieldnameValue)!="id") && (strpos($fieldnameValue, "id") <= 0)){
+              $code .= "              <TR>"."\r\n";
+              $code .= "                  <TD align=\"right\" width=\"20%\"><B>".$fieldnameValue." : </B></TD>"."\r\n";
+              $code .= "                  <TD align=\"left\" width=\"80%\">"."\r\n";
+              $code .= "                    <input id=\"name\" type=\"text\" name=\"form[".$fieldnameValue."]\" value=\"<!--[\$form.".$fieldnameValue."]-->\" title=\"".$fieldnameValue."\" class=\"required\"  />"."\r\n";
+              $code .= "                  </TD>"."\r\n";
+              $code .= "              </TR>"."\r\n";
             }
           }
 
-        }
+      $code .= "             <TR>"."\r\n";
+      $code .= "                <TD align=\"left\" width=\"100%\">"."\r\n";
+      $code .= "                  <INPUT TYPE=\"submit\" value=\"submit\">"."\r\n";
+      $code .= "                  <input type=\"button\" name=\"Cancel\" value=\"Cancel\" onclick=\"window.location = '<!--[pnmodurl modname=".$moduleName." type=admin func=list ctrl=".$className."]-->'\" />"."\r\n";
+      $code .= "                </TD>"."\r\n";
+      $code .= "            </TR>"."\r\n";
+      $code .= "        </TABLE>"."\r\n";
+      $code .= "    </form><BR>"."\r\n";
+      $code .= "</fieldset>"."\r\n";
 
-        $text .= "                                                            )"."\r\n";
-        $text .= "                                                      );"."\r\n";
-        $text .= "      }"."\r\n";
-        $text .= "      "."\r\n";
-        $text .= "      return \$result;"."\r\n";
-        $text .= "    }"."\r\n";
-      }
-
-
-      $text .= "  }"."\r\n";
-      $text .= "?>";
-
-      return $text;
+      return $code;
     }
   }
 ?>
