@@ -2,14 +2,16 @@
   include "util/DirectoryUtil.class.php";
   include "util/FileUtil.class.php";
   include "util/MySQLUtil.class.php";
-  include "classes/PNTables.class.php";
-  include "classes/PNVersion.class.php";
-  include "classes/PNInit.class.php";
-  include "classes/PNAdmin.class.php";
-  include "classes/PNAdminForm.class.php";
-  include "classes/PNUser.class.php";
-  include "classes/PNUserForm.class.php";
+  include "classes/PNTablesGenerator.class.php";
+  include "classes/PNVersionGenerator.class.php";
+  include "classes/PNInitGenerator.class.php";
+  include "classes/PNAdminGenerator.class.php";
+  include "classes/PNAdminFormGenerator.class.php";
+  include "classes/PNUserGenerator.class.php";
+  include "classes/PNUserFormGenerator.class.php";
   include "classes/ClassGenerator.class.php";
+  include "classes/PNTemplateGenerator.class.php";
+
 
 
   $url = "http://localhost/pob/zgen/upload/mindmap.mm";
@@ -45,40 +47,46 @@
 
     echo "<BR>/////////////////////// Create the installation file ////////////////////////////<BR>";
     //Create pnversion.php file
-    $pnversion = new PNVersion($module, $description);
+    $pnversion = new PNVersionGenerator($module, $description);
     $pnversion->createPNVersionFile();
 
     //Create pninit.php file
-    $pninit = new PNInit($module, $mindmap);
+    $pninit = new PNInitGenerator($module, $mindmap);
     $pninit->createPNInitFile();
 
     //Create pntables.php file
-    $pntable = new PNTables($module, $mindmap);
+    $pntable = new PNTablesGenerator($module, $mindmap);
     $pntable->createPNTableFile();
 
 
     echo "<BR>/////////////////////// Create the controller file ////////////////////////////<BR>";
     //Create pnadmin.php file
-    $pnadmin = new PNAdmin($module);
+    $pnadmin = new PNAdminGenerator($module);
     $pnadmin->createPNAdminFile();
 
 
     //Create pnadminform.php file
-    $pnadminform = new PNAdminForm($module, $mindmap);
+    $pnadminform = new PNAdminFormGenerator($module, $mindmap);
     $pnadminform->createPNAdminFormFile();
 
     //Create pnuserform.php file
-    $pnuser = new PNUser($module, $mindmap);
+    $pnuser = new PNUserGenerator($module, $mindmap);
     $pnuser->createPNUserFile();
 
     //Create pnuserform.php file
-    $pnuserform = new PNUserForm($module, $mindmap);
+    $pnuserform = new PNUserFormGenerator($module, $mindmap);
     $pnuserform->createPNUserFormFile();
 
     echo "<BR>/////////////////////// Create the model(classes) file ////////////////////////////<BR>";
     //Create Class file
     $classes = new ClassGenerator($module, $mindmap);
     $classes->createClassFile();
+
+
+    echo "<BR>/////////////////////// Create the view(pntemplate) file ////////////////////////////<BR>";
+    //Create Class file
+    $pntemplate = new PNTemplateGenerator($module, $mindmap);
+    $pntemplate->createPNTemplateFile();
 
     unset($mindmap);
     unset($pnversion);
@@ -89,6 +97,7 @@
     unset($pnuser);
     unset($pnuserform);
     unset($classes);
+    unset($pntemplate);
   }
 ?>
 
