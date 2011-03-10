@@ -212,7 +212,7 @@
 
           $text .= "        \$result['".$keyExtendTable."'] = DBUtil::selectObjectArray("."\r\n";
           $text .= "                                                     '".$moduleName."_".$keyExtendTable."', "."\r\n";
-          $text .= "                                                     'WHERE ".$tableName."_id = \$id' , "."\r\n";
+          $text .= "                                                     'WHERE ".$keyExtendTable."_".$tableName."_id = '.\$id , "."\r\n";
           $text .= "                                                      '', "."\r\n";
           $text .= "                                                      -1, "."\r\n";
           $text .= "                                                      -1,"."\r\n";
@@ -236,7 +236,6 @@
           }
 
         }
-
 
         $text .= "      }"."\r\n";
         $text .= "      "."\r\n";

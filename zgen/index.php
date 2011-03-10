@@ -11,8 +11,8 @@
   include "classes/PNUserFormGenerator.class.php";
   include "classes/ClassGenerator.class.php";
   include "classes/PNTemplateGenerator.class.php";
-
-
+  include "classes/PluginsGenerator.class.php";
+  include "classes/PNIncludeGenerator.class.php";
 
   $url = "http://localhost/pob/zgen/upload/mindmap.mm";
 
@@ -82,11 +82,21 @@
     $classes = new ClassGenerator($module, $mindmap);
     $classes->createClassFile();
 
-
     echo "<BR>/////////////////////// Create the view(pntemplate) file ////////////////////////////<BR>";
     //Create Class file
     $pntemplate = new PNTemplateGenerator($module, $mindmap);
     $pntemplate->createPNTemplateFile();
+
+    echo "<BR>/////////////////////// Create the plugins file ////////////////////////////<BR>";
+    //Create Class file
+    $plugins = new PluginsGenerator($module, $mindmap);
+    $plugins->createPluginsFile();
+
+    echo "<BR>/////////////////////// Create the PNInclude file ////////////////////////////<BR>";
+    //Create Class file
+    $pninclude = new PNIncludeGenerator($module, $mindmap);
+    $pninclude->createPNIncludeFile();
+
 
     unset($mindmap);
     unset($pnversion);
@@ -98,6 +108,7 @@
     unset($pnuserform);
     unset($classes);
     unset($pntemplate);
+    unset($plugins);
   }
 ?>
 

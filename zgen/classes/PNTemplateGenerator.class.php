@@ -59,7 +59,9 @@
 
               $className = ucfirst($table->attributes()->TEXT);
               $moduleName = $this->module;
-              $adminForm = $this->createPNTemplateCode($className, $moduleName, $table->node);
+              $adminForm = $this->createPNTemplateAdminForm($className, $moduleName, $table->node);
+              $adminView = $this->createPNTemplateAdminView($className, $moduleName, $table->node);
+              $adminList = $this->createPNTemplateAdminList($className, $moduleName, $table->node);
 
               //Write the pntemplate admin code to file
               fwrite($isCreateFormFile, $adminForm);
@@ -125,8 +127,130 @@
       }//End loop mvc
     }
 
+    function createPNTemplateAdminForm($className, $moduleName ,$fieldArray){
 
-    function createPNTemplateCode($className, $moduleName ,$fieldArray){
+      $code .= "<fieldset>"."\r\n";
+      $code .= "  <legend>".$className."</legend>"."\r\n";
+      $code .= "    <form id=\"form\" class=\"form\" action=\"<!--[pnmodurl modname='".$moduleName."' type='adminform' func='submit' ctrl='".$className."']-->\" method=\"post\" >"."\r\n";
+      $code .= "        <input type=\"hidden\" name=\"form[id]\" value=\"<!--[\$smarty.get.id]-->\" />"."\r\n";
+      $code .= "        <TABLE width=\"100%\" border=\"0\">"."\r\n";
+          //Loop get all field
+          foreach($fieldArray as $field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+
+            //Check field is join
+            if((strtolower($fieldnameValue)!="zkjoin") && strtolower($fieldnameValue)!="zkextend" && (strtolower($fieldnameValue)!="id") ){
+              if(strpos($fieldnameValue, "_id") > 0){
+
+                $fieldLabel = explode("_id", $fieldnameValue);
+                $fieldnameValueResult = $fieldLabel[0];
+                $extendTable = strtolower($fieldnameValueResult);
+                $extendClass = ucfirst(strtolower($extendTable));
+
+                  $code .= "              <TR>"."\r\n";
+                  $code .= "                <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$extendTable." : </B></TD>"."\r\n";
+                  $code .= "                    <TD align=\"left\" width=\"80%\">"."\r\n";
+                  $code .= "                    <!--[selector_object_array_ex modname='".$moduleName."'"."\r\n";
+                  $code .= "                                                  class='".$extendClass."'"."\r\n";
+                  $code .= "                                                  field='id'"."\r\n";
+                  $code .= "                                                  displayField='name'"."\r\n";
+                  $code .= "                                                  name='form[".$fieldnameValue."]'"."\r\n"; 
+                  $code .= "                                                  selectedValue=\$form.id"."\r\n";
+                  $code .= "                                                  sort='".$extendTable."_name'"."\r\n";
+                  $code .= "                     ]-->"."\r\n";
+                  $code .= "                    </TD>"."\r\n";
+                  $code .= "              </TR>"."\r\n";
+/*
+                //loop table
+                foreach($field->node as $table){
+                  $code .= "              <TR>"."\r\n";
+                  $code .= "                <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$table->attributes()->TEXT." : </B></TD>"."\r\n";
+                  $code .= "                    <TD align=\"left\" width=\"80%\">"."\r\n";
+
+                  $code .= "                    </TD>"."\r\n";
+                  $code .= "              </TR>"."\r\n";
+
+                }*/
+              }else{
+                $code .= "              <TR>"."\r\n";
+                $code .= "                  <TD align=\"right\" width=\"20%\"><B>".$fieldnameValue." : </B></TD>"."\r\n";
+                $code .= "                  <TD align=\"left\" width=\"80%\">"."\r\n";
+                $code .= "                    <input id=\"name\" type=\"text\" name=\"form[".$fieldnameValue."]\" value=\"<!--[\$form.".$fieldnameValue."]-->\" title=\"".$fieldnameValue."\" class=\"required\"  />"."\r\n";
+                $code .= "                  </TD>"."\r\n";
+                $code .= "              </TR>"."\r\n";
+              }
+            }
+
+          }
+
+      $code .= "             <TR>"."\r\n";
+      $code .= "                <TD align=\"left\" width=\"100%\" colspan=\"2\">"."\r\n";
+      $code .= "                  <INPUT TYPE=\"submit\" value=\"submit\">"."\r\n";
+      $code .= "                  <input type=\"button\" name=\"Cancel\" value=\"Cancel\" onclick=\"window.location = '<!--[pnmodurl modname=".$moduleName." type=admin func=list ctrl=".$className."]-->'\" />"."\r\n";
+      $code .= "                </TD>"."\r\n";
+      $code .= "            </TR>"."\r\n";
+      $code .= "        </TABLE>"."\r\n";
+      $code .= "    </form><BR>"."\r\n";
+      $code .= "</fieldset>"."\r\n";
+
+      return $code;
+    }
+
+
+    function createPNTemplateAdminView($className, $moduleName ,$fieldArray){
+
+      $code .= "<fieldset>"."\r\n";
+      $code .= "  <legend>".$className."</legend>"."\r\n";
+      $code .= "    <form id=\"form\" class=\"form\" action=\"<!--[pnmodurl modname='".$moduleName."' type='adminform' func='submit' ctrl='".$className."']-->\" method=\"post\" >"."\r\n";
+      $code .= "        <input type=\"hidden\" name=\"form[id]\" value=\"<!--[\$smarty.get.id]-->\" />"."\r\n";
+      $code .= "        <TABLE width=\"100%\" border=\"0\">"."\r\n";
+          //Loop get all field
+          foreach($fieldArray as $field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+
+            //Check field is join
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="id") && (strpos($fieldnameValue, "id") <= 0)){
+              if(strtolower($fieldnameValue)=="zkextend"){
+
+                //loop table
+                foreach($field->node as $table){
+                  $code .= "              <TR>"."\r\n";
+                  $code .= "                <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$table->attributes()->TEXT." : </B></TD>"."\r\n";
+                  $code .= "                    <TD align=\"left\" width=\"80%\">"."\r\n";
+                  $code .= "                  <!--[foreach from=\$extendResult.".$table->attributes()->TEXT." item=item]-->"."\r\n";
+
+                  //loop field
+                  foreach($table->node as $field){
+                    $code .= "                        <!--[\$item.".$field->attributes()->TEXT."]-->"."\r\n";
+                  }
+                  $code .= "                        <BR>"."\r\n";
+                  $code .= "                  <!--[/foreach]-->"."\r\n";
+                  $code .= "                    </TD>"."\r\n";
+                  $code .= "              </TR>"."\r\n";
+                }
+              }else{
+                $code .= "              <TR>"."\r\n";
+                $code .= "                  <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$fieldnameValue." : </B></TD>"."\r\n";
+                $code .= "                  <TD align=\"left\" width=\"80%\">"."\r\n";
+                $code .= "                    <!--[\$view.".$fieldnameValue."]-->\r\n";
+                $code .= "                  </TD>"."\r\n";
+                $code .= "              </TR>"."\r\n";
+              }
+            }
+          }
+      $code .= "        </TABLE>"."\r\n";
+      $code .= "    </form><BR>"."\r\n";
+      $code .= "</fieldset>"."\r\n";
+
+      return $code;
+    }
+
+
+    function createPNTemplateAdminList($className, $moduleName ,$fieldArray){
 
       $code .= "<fieldset>"."\r\n";
       $code .= "  <legend>".$className."</legend>"."\r\n";
@@ -151,7 +275,7 @@
           }
 
       $code .= "             <TR>"."\r\n";
-      $code .= "                <TD align=\"left\" width=\"100%\">"."\r\n";
+      $code .= "                <TD align=\"left\" width=\"100%\" colspan=\"2\">"."\r\n";
       $code .= "                  <INPUT TYPE=\"submit\" value=\"submit\">"."\r\n";
       $code .= "                  <input type=\"button\" name=\"Cancel\" value=\"Cancel\" onclick=\"window.location = '<!--[pnmodurl modname=".$moduleName." type=admin func=list ctrl=".$className."]-->'\" />"."\r\n";
       $code .= "                </TD>"."\r\n";
@@ -162,5 +286,6 @@
 
       return $code;
     }
+
   }
 ?>

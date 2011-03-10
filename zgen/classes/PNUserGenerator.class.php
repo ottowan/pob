@@ -741,7 +741,7 @@
         $code .= "    if(\$forward){";
         $code .= "\r\n";
         $code .= "  ";
-        $code .= "      \$list_url = pnModURL('".$this->module."', 'user', 'list' , array('ctrl'   => \$ctrl);";
+        $code .= "      \$list_url = pnModURL('".$this->module."', 'user', 'list' , array('ctrl'   => \$ctrl";
         $code .= "\r\n";
         $code .= "  ";
         $code .= "                                                              )";
