@@ -108,7 +108,7 @@
 
       $text .= "<?php"."\r\n";
       $text .= "  class ".$className."Array extends PNObjectArray {"."\r\n";
-      $text .= "    function ".$className."(\$init=null, \$where='') {"."\r\n";
+      $text .= "    function ".$className."Array(\$init=null, \$where='') {"."\r\n";
       $text .= "      \$this->PNObject();"."\r\n";
       $text .= "    "."\r\n";
       $text .= "      \$this->_objType       = '".$moduleName."_".$tableName."';"."\r\n";
@@ -161,7 +161,7 @@
 
       //Generate genSort() method
       $text .= "    function genSort(){"."\r\n";
-      $text .= "      \$order = ' ORDER BY ".$$tableName."_id ASC';"."\r\n";
+      $text .= "      \$order = ' ORDER BY ".$tableName."_id ASC';"."\r\n";
       $text .= "     return \$order;"."\r\n";
       $text .= "    }"."\r\n";
       $text .= ""."\r\n";
