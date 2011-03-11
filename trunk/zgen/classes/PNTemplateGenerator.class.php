@@ -318,8 +318,20 @@
             $value = explode(":", $fieldName);
             $fieldnameValue = $value[0];
 
-            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
-              $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+            if(strtolower($fieldnameValue)!="zkextend" && strpos($fieldnameValue, "_id") <= 0){
+              if(strtolower($fieldnameValue)=="zkjoin"){
+                //loop table
+                foreach($field->node as $table){
+                  //loop field
+                  foreach($table->node as $field){
+                    echo "Display join field: "; var_dump($table->attributes()->TEXT."_".$field->attributes()->TEXT);
+                    $code .="      <TH>".$table->attributes()->TEXT."_".$field->attributes()->TEXT."</TH>"."\r\n";
+                  }
+                }
+                
+              }else{
+                $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+              }
             }
           }
 
@@ -333,8 +345,21 @@
             $fieldName = $field->attributes()->TEXT;
             $value = explode(":", $fieldName);
             $fieldnameValue = $value[0];
-            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
-              $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+
+            if(strtolower($fieldnameValue)!="zkextend"  && strpos($fieldnameValue, "_id") <= 0){
+              if(strtolower($fieldnameValue)=="zkjoin"){
+                //loop table
+                foreach($field->node as $table){
+                  //loop field
+                  foreach($table->node as $field){
+                    echo "Display join field: "; var_dump($table->attributes()->TEXT."_".$field->attributes()->TEXT);
+                    $code .="        <TD><!--[\$item.".$table->attributes()->TEXT."_".$field->attributes()->TEXT."]--></TD>"."\r\n";
+                  }
+                }
+                
+              }else{
+                $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+              }
             }
           }
 
@@ -355,7 +380,7 @@
           $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
           $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
           $code .="                   rowcount=\$pager.numitems "."\r\n";
-          $code .="                   limit\=$pager.itemsperpage "."\r\n";
+          $code .="                   limit=\$pager.itemsperpage "."\r\n";
           $code .="                   posvar=startnum "."\r\n";
           $code .="                   shift=0 "."\r\n";
           $code .="  ]-->"."\r\n";
@@ -385,8 +410,20 @@
             $value = explode(":", $fieldName);
             $fieldnameValue = $value[0];
 
-            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
-              $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+            if(strtolower($fieldnameValue)!="zkextend" && strpos($fieldnameValue, "_id") <= 0){
+              if(strtolower($fieldnameValue)=="zkjoin"){
+                //loop table
+                foreach($field->node as $table){
+                  //loop field
+                  foreach($table->node as $field){
+                    echo "Display join field: "; var_dump($table->attributes()->TEXT."_".$field->attributes()->TEXT);
+                    $code .="      <TH>".$table->attributes()->TEXT."_".$field->attributes()->TEXT."</TH>"."\r\n";
+                  }
+                }
+                
+              }else{
+                $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+              }
             }
           }
 
@@ -399,8 +436,20 @@
             $fieldName = $field->attributes()->TEXT;
             $value = explode(":", $fieldName);
             $fieldnameValue = $value[0];
-            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
-              $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+            if(strtolower($fieldnameValue)!="zkextend"&& strpos($fieldnameValue, "_id") <= 0){
+              if(strtolower($fieldnameValue)=="zkjoin"){
+                //loop table
+                foreach($field->node as $table){
+                  //loop field
+                  foreach($table->node as $field){
+                    echo "Display join field: "; var_dump($table->attributes()->TEXT."_".$field->attributes()->TEXT);
+                    $code .="        <TD><!--[\$item.".$table->attributes()->TEXT."_".$field->attributes()->TEXT."]--></TD>"."\r\n";
+                  }
+                }
+                
+              }else{
+                $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+              }
             }
           }
 
@@ -410,7 +459,7 @@
           $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
           $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
           $code .="                   rowcount=\$pager.numitems "."\r\n";
-          $code .="                   limit\=$pager.itemsperpage "."\r\n";
+          $code .="                   limit=\$pager.itemsperpage "."\r\n";
           $code .="                   posvar=startnum "."\r\n";
           $code .="                   shift=0 "."\r\n";
           $code .="  ]-->"."\r\n";

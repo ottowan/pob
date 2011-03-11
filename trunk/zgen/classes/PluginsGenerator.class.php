@@ -43,15 +43,14 @@ class PluginsGenerator {
 
       //Create function.yppager.php
       $filePath = "temp/function.yppager.php";
-      $newFilePath = $this->module."/pntemplates/plugins/".$filePath;
+      $fileName = "function.yppager.php";
+      $newFilePath = $this->module."/pntemplates/plugins/".$fileName;
 
       //Copy original file to new directory
       if (!copy($filePath, $newFilePath)) {
         echo "failed to copy $filePath...<br>";
       }else{
         echo "Success to copy $filePath...<br>";
-        fclose($isCreateFile);
-        unlink($filePath);
       }
   }
 
