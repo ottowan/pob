@@ -15,9 +15,6 @@
   include "classes/PNIncludeGenerator.class.php";
   include "classes/PNImagesGenerator.class.php";
 
-
-
-
   $url = "http://localhost/pob/zgen/upload/mindmap.mm";
 
   //Use curl for get data from link.
@@ -99,8 +96,8 @@
 
     echo "<BR>/////////////////////// Create the pnimages file ////////////////////////////<BR>";
     //Create Class file
-    $plugins = new PNImagesGenerator($module, $mindmap);
-    $plugins->createPNImagesFile();
+    $pnimages = new PNImagesGenerator($module, $mindmap);
+    $pnimages->createPNImagesFile();
 
 
     echo "<BR>/////////////////////// Create the PNInclude file ////////////////////////////<BR>";
