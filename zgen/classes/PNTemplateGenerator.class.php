@@ -55,20 +55,19 @@
               $isCreateUserViewFile = FileUtil::createFile($userViewPath);
               echo "Create user view : ".$userViewPath."<BR>";
 
-              //Get code data for method
-
+              //Get code data for method & Write the pntemplate admin code to file
               $className = ucfirst($table->attributes()->TEXT);
               $moduleName = $this->module;
               $adminForm = $this->createPNTemplateAdminForm($className, $moduleName, $table->node);
               $adminView = $this->createPNTemplateAdminView($className, $moduleName, $table->node);
               $adminList = $this->createPNTemplateAdminList($className, $moduleName, $table->node);
-
-              //Write the pntemplate admin code to file
               fwrite($isCreateFormFile, $adminForm);
               fwrite($isCreateViewFile, $adminView);
               fwrite($isCreateListFile, $adminList);
 
-              //Write the pntemplate user code to file
+              //Get code data for method & Write the pntemplate user code to file
+              $userView = $this->createPNTemplateUserView($className, $moduleName, $table->node);
+              $userList = $this->createPNTemplateUserList($className, $moduleName, $table->node);
               fwrite($isCreateUserViewFile, $userView);
               fwrite($isCreateUserListFile, $userList);
 
@@ -127,7 +126,7 @@
       }//End loop mvc
     }
 
-    function createPNTemplateAdminForm($className, $moduleName ,$fieldArray){
+    function createPNTemplateAdminForm($className, $moduleName , $fieldArray){
 
       $code .= "<fieldset>"."\r\n";
       $code .= "  <legend>".$className."</legend>"."\r\n";
@@ -249,8 +248,7 @@
       return $code;
     }
 
-
-    function createPNTemplateAdminList($className, $moduleName ,$fieldArray){
+    function createPNTemplateUserView($className, $moduleName ,$fieldArray){
 
       $code .= "<fieldset>"."\r\n";
       $code .= "  <legend>".$className."</legend>"."\r\n";
@@ -264,28 +262,167 @@
             $fieldnameValue = $value[0];
 
             //Check field is join
-            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend") && (strtolower($fieldnameValue)!="id") && (strpos($fieldnameValue, "id") <= 0)){
-              $code .= "              <TR>"."\r\n";
-              $code .= "                  <TD align=\"right\" width=\"20%\"><B>".$fieldnameValue." : </B></TD>"."\r\n";
-              $code .= "                  <TD align=\"left\" width=\"80%\">"."\r\n";
-              $code .= "                    <input id=\"name\" type=\"text\" name=\"form[".$fieldnameValue."]\" value=\"<!--[\$form.".$fieldnameValue."]-->\" title=\"".$fieldnameValue."\" class=\"required\"  />"."\r\n";
-              $code .= "                  </TD>"."\r\n";
-              $code .= "              </TR>"."\r\n";
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="id") && (strpos($fieldnameValue, "id") <= 0)){
+              if(strtolower($fieldnameValue)=="zkextend"){
+
+                //loop table
+                foreach($field->node as $table){
+                  $code .= "              <TR>"."\r\n";
+                  $code .= "                <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$table->attributes()->TEXT." : </B></TD>"."\r\n";
+                  $code .= "                    <TD align=\"left\" width=\"80%\">"."\r\n";
+                  $code .= "                  <!--[foreach from=\$extendResult.".$table->attributes()->TEXT." item=item]-->"."\r\n";
+
+                  //loop field
+                  foreach($table->node as $field){
+                    $code .= "                        <!--[\$item.".$field->attributes()->TEXT."]-->"."\r\n";
+                  }
+                  $code .= "                        <BR>"."\r\n";
+                  $code .= "                  <!--[/foreach]-->"."\r\n";
+                  $code .= "                    </TD>"."\r\n";
+                  $code .= "              </TR>"."\r\n";
+                }
+              }else{
+                $code .= "              <TR>"."\r\n";
+                $code .= "                  <TD align=\"right\" width=\"20%\" valign=\"top\" ><B>".$fieldnameValue." : </B></TD>"."\r\n";
+                $code .= "                  <TD align=\"left\" width=\"80%\">"."\r\n";
+                $code .= "                    <!--[\$view.".$fieldnameValue."]-->\r\n";
+                $code .= "                  </TD>"."\r\n";
+                $code .= "              </TR>"."\r\n";
+              }
             }
           }
-
-      $code .= "             <TR>"."\r\n";
-      $code .= "                <TD align=\"left\" width=\"100%\" colspan=\"2\">"."\r\n";
-      $code .= "                  <INPUT TYPE=\"submit\" value=\"submit\">"."\r\n";
-      $code .= "                  <input type=\"button\" name=\"Cancel\" value=\"Cancel\" onclick=\"window.location = '<!--[pnmodurl modname=".$moduleName." type=admin func=list ctrl=".$className."]-->'\" />"."\r\n";
-      $code .= "                </TD>"."\r\n";
-      $code .= "            </TR>"."\r\n";
       $code .= "        </TABLE>"."\r\n";
       $code .= "    </form><BR>"."\r\n";
       $code .= "</fieldset>"."\r\n";
 
       return $code;
     }
+
+    function createPNTemplateAdminList($className, $moduleName ,$fieldArray){
+
+          $code .= "<fieldset>"."\r\n";
+          $code .="  <legend>&nbsp;".$className."&nbsp;</legend>"."\r\n";
+          $code .="  <!--[yppager show=page "."\r\n";
+          $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
+          $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
+          $code .="                   rowcount=\$pager.numitems "."\r\n";
+          $code .="                   limit=\$pager.itemsperpage "."\r\n";
+          $code .="                   posvar=startnum "."\r\n";
+          $code .="                   shift=0 "."\r\n";
+          $code .="  ]-->"."\r\n";
+          $code .="  <TABLE width=\"100%\">"."\r\n";
+          $code .="    <TR bgcolor=\"#99CCCC\">"."\r\n";
+
+          foreach($fieldArray as $key=>$field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
+              $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+            }
+          }
+
+          $code .="      <TH>&nbsp;</TH>"."\r\n";
+          $code .= ""."\r\n";
+          $code .="  </TR>"."\r\n";
+          $code .="    <!--[foreach from=\$objectArray item=item]-->"."\r\n";
+          $code .="      <TR bgcolor=\"<!--[cycle values='#FFFFFF,#E8EFF7']-->\">"."\r\n";
+
+          foreach($fieldArray as $key=>$field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
+              $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+            }
+          }
+
+          $code .="        <TD>"."\r\n";
+          $code .="          <a target=\"_blank\" href=\"<!--[pnmodurl modname='".$moduleName."' type='admin' func='form' ctrl='".$className."' id=\$item.id]-->\">"."\r\n";
+          $code .="            <img src=\"modules/".$moduleName."/pnimages/pencil.png\" />"."\r\n";
+          $code .="          </a>"."\r\n";
+          $code .="          <a href=\"<!--[pnmodurl modname='".$moduleName."' type='admin' func='delete' ctrl='".$className."' id=\$item.id ]-->\" "."\r\n";
+          $code .="             onclick=\"return confirm('Are you sure you want to delete?')\""."\r\n";
+          $code .="          >"."\r\n";
+          $code .="            <img src=\"modules/".$moduleName."/pnimages/delete.png\" />"."\r\n";
+          $code .="          </a>"."\r\n";
+          $code .="        </TD>"."\r\n";
+          $code .= "      </TR>"."\r\n";
+          $code .="    <!--[/foreach]-->"."\r\n";
+          $code .="  </TABLE>"."\r\n";
+          $code .="  <!--[yppager show=page "."\r\n";
+          $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
+          $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
+          $code .="                   rowcount=\$pager.numitems "."\r\n";
+          $code .="                   limit\=$pager.itemsperpage "."\r\n";
+          $code .="                   posvar=startnum "."\r\n";
+          $code .="                   shift=0 "."\r\n";
+          $code .="  ]-->"."\r\n";
+          $code .="</fieldset>"."\r\n";
+
+      return $code;
+    }
+
+
+    function createPNTemplateUserList($className, $moduleName ,$fieldArray){
+
+          $code .= "<fieldset>"."\r\n";
+          $code .="  <legend>&nbsp;".$className."&nbsp;</legend>"."\r\n";
+          $code .="  <!--[yppager show=page "."\r\n";
+          $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
+          $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
+          $code .="                   rowcount=\$pager.numitems "."\r\n";
+          $code .="                   limit=\$pager.itemsperpage "."\r\n";
+          $code .="                   posvar=startnum "."\r\n";
+          $code .="                   shift=0 "."\r\n";
+          $code .="  ]-->"."\r\n";
+          $code .="  <TABLE width=\"100%\">"."\r\n";
+          $code .="    <TR bgcolor=\"#99CCCC\">"."\r\n";
+
+          foreach($fieldArray as $key=>$field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
+              $code .="      <TH>".$fieldnameValue."</TH>"."\r\n";
+            }
+          }
+
+          $code .= ""."\r\n";
+          $code .="  </TR>"."\r\n";
+          $code .="    <!--[foreach from=\$objectArray item=item]-->"."\r\n";
+          $code .="      <TR bgcolor=\"<!--[cycle values='#FFFFFF,#E8EFF7']-->\">"."\r\n";
+
+          foreach($fieldArray as $key=>$field){
+            $fieldName = $field->attributes()->TEXT;
+            $value = explode(":", $fieldName);
+            $fieldnameValue = $value[0];
+            if((strtolower($fieldnameValue)!="zkjoin") && (strtolower($fieldnameValue)!="zkextend")){
+              $code .="        <TD><!--[\$item.".$fieldnameValue."]--></TD>"."\r\n";
+            }
+          }
+
+          $code .="    <!--[/foreach]-->"."\r\n";
+          $code .="  </TABLE>"."\r\n";
+          $code .="  <!--[yppager show=page "."\r\n";
+          $code .="                   img_prev=\"modules/".$moduleName."/pnimages/back.png\""."\r\n";
+          $code .="                   img_next=\"modules/".$moduleName."/pnimages/next.png\""."\r\n";
+          $code .="                   rowcount=\$pager.numitems "."\r\n";
+          $code .="                   limit\=$pager.itemsperpage "."\r\n";
+          $code .="                   posvar=startnum "."\r\n";
+          $code .="                   shift=0 "."\r\n";
+          $code .="  ]-->"."\r\n";
+          $code .="</fieldset>"."\r\n";
+
+      return $code;
+    }
+
+
+
+
+
 
   }
 ?>

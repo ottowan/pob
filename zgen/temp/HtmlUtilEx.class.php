@@ -4,7 +4,7 @@ class HtmlUtilEx {
     function getSelector_ObjectArray ($modname, $objectType, $name, $field='id', $displayField='name',
                                       $where='', $sort='', $selectedValue='', $defaultValue=0, $defaultText='', $allValue=0, $allText='',
                                       $displayField2=null, $submit=true, $disabled=false, $fieldSeparator=', ', $multipleSize=1,
-                                      $onchange='', $onclick='', $style, $size)
+                                      $onchange='', $onclick='', $style, $size, $queryField, $queryValue)
     {
         if (!$modname) {
             return pn_exit ('Invalid modname passed to HtmlUtil::getSelector_ObjectArray ...');

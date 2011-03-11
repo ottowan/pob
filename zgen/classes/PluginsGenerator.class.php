@@ -15,6 +15,7 @@ class PluginsGenerator {
 
       DirectoryUtil::createDirectory($this->module."/pntemplates/plugins");
 
+      //Create function.selector_object_array_ex.php
       $filePath = "function.selector_object_array_ex.php";
       $newFilePath = $this->module."/pntemplates/plugins/".$filePath;
       $isCreateFile = FileUtil::createFile($filePath);
@@ -34,8 +35,23 @@ class PluginsGenerator {
           unlink($filePath);
         }
 
+
       }else{
         echo "File Not Create.<br>";
+      }
+
+
+      //Create function.yppager.php
+      $filePath = "temp/function.yppager.php";
+      $newFilePath = $this->module."/pntemplates/plugins/".$filePath;
+
+      //Copy original file to new directory
+      if (!copy($filePath, $newFilePath)) {
+        echo "failed to copy $filePath...<br>";
+      }else{
+        echo "Success to copy $filePath...<br>";
+        fclose($isCreateFile);
+        unlink($filePath);
       }
   }
 
