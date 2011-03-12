@@ -10,7 +10,7 @@ Releae the ZGen V1.0
 [ดาวน์โหลด]<br>
 http://code.google.com/p/pob/downloads<br>
 <br>
-[Feature]<br>
+[รายละเอียด]<br>
 - สร้าง module จาก mindmap<br>
 - module สามารถติดตั้งได้ทันที<br>
 - module ที่สร้างรองรับการสร้างฐานขัอมูลแบบธรรมดา,  แบบ join และ extend db<br>
