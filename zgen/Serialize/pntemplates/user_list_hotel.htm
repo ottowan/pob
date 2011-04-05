@@ -1,0 +1,35 @@
+<fieldset>
+  <legend>&nbsp;Hotel&nbsp;</legend>
+  <!--[yppager show=page 
+                   img_prev="modules/Serialize/pnimages/back.png"
+                   img_next="modules/Serialize/pnimages/next.png"
+                   rowcount=$pager.numitems 
+                   limit=$pager.itemsperpage 
+                   posvar=startnum 
+                   shift=0 
+  ]-->
+  <TABLE width="100%">
+    <TR bgcolor="#99CCCC">
+      <TH>id</TH>
+      <TH>name</TH>
+      <TH>code</TH>
+      <TH>information</TH>
+
+  </TR>
+    <!--[foreach from=$objectArray item=item]-->
+      <TR bgcolor="<!--[cycle values='#FFFFFF,#E8EFF7']-->">
+        <TD><!--[$item.id]--></TD>
+        <TD><!--[$item.name]--></TD>
+        <TD><!--[$item.code]--></TD>
+        <TD><!--[$item.information]--></TD>
+    <!--[/foreach]-->
+  </TABLE>
+  <!--[yppager show=page 
+                   img_prev="modules/Serialize/pnimages/back.png"
+                   img_next="modules/Serialize/pnimages/next.png"
+                   rowcount=$pager.numitems 
+                   limit=$pager.itemsperpage 
+                   posvar=startnum 
+                   shift=0 
+  ]-->
+</fieldset>

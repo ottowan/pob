@@ -1,0 +1,37 @@
+<fieldset>
+  <legend>&nbsp;Facility&nbsp;</legend>
+  <!--[yppager show=page 
+                   img_prev="modules/POBClient/pnimages/back.png"
+                   img_next="modules/POBClient/pnimages/next.png"
+                   rowcount=$pager.numitems 
+                   limit=$pager.itemsperpage 
+                   posvar=startnum 
+                   shift=0 
+  ]-->
+  <TABLE width="100%">
+    <TR bgcolor="#99CCCC">
+      <TH>id</TH>
+      <TH>name</TH>
+      <TH>order</TH>
+      <TH>hotel_code</TH>
+      <TH>hotel_name</TH>
+
+  </TR>
+    <!--[foreach from=$objectArray item=item]-->
+      <TR bgcolor="<!--[cycle values='#FFFFFF,#E8EFF7']-->">
+        <TD><!--[$item.id]--></TD>
+        <TD><!--[$item.name]--></TD>
+        <TD><!--[$item.order]--></TD>
+        <TD><!--[$item.hotel_code]--></TD>
+        <TD><!--[$item.hotel_name]--></TD>
+    <!--[/foreach]-->
+  </TABLE>
+  <!--[yppager show=page 
+                   img_prev="modules/POBClient/pnimages/back.png"
+                   img_next="modules/POBClient/pnimages/next.png"
+                   rowcount=$pager.numitems 
+                   limit=$pager.itemsperpage 
+                   posvar=startnum 
+                   shift=0 
+  ]-->
+</fieldset>
