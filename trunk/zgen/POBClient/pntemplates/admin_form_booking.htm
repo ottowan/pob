@@ -1,0 +1,59 @@
+<fieldset>
+  <legend>Booking</legend>
+    <form id="form" class="form" action="<!--[pnmodurl modname='POBClient' type='adminform' func='submit' ctrl='Booking']-->" method="post" >
+        <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
+        <TABLE width="100%" border="0">
+              <TR>
+                <TD align="right" width="20%" valign="top" ><B>customer : </B></TD>
+                    <TD align="left" width="80%">
+                    <!--[selector_object_array_ex modname='POBClient'
+                                                  class='Customer'
+                                                  field='id'
+                                                  displayField='name'
+                                                  name='form[customer_id]'
+                                                  selectedValue=$form.id
+                                                  sort='customer_name'
+                     ]-->
+                    </TD>
+              </TR>
+              <TR>
+                <TD align="right" width="20%" valign="top" ><B>hotel : </B></TD>
+                    <TD align="left" width="80%">
+                    <!--[selector_object_array_ex modname='POBClient'
+                                                  class='Hotel'
+                                                  field='id'
+                                                  displayField='name'
+                                                  name='form[hotel_id]'
+                                                  selectedValue=$form.id
+                                                  sort='hotel_name'
+                     ]-->
+                    </TD>
+              </TR>
+              <TR>
+                <TD align="right" width="20%" valign="top" ><B>room : </B></TD>
+                    <TD align="left" width="80%">
+                    <!--[selector_object_array_ex modname='POBClient'
+                                                  class='Room'
+                                                  field='id'
+                                                  displayField='name'
+                                                  name='form[room_id]'
+                                                  selectedValue=$form.id
+                                                  sort='room_name'
+                     ]-->
+                    </TD>
+              </TR>
+              <TR>
+                  <TD align="right" width="20%"><B>price : </B></TD>
+                  <TD align="left" width="80%">
+                    <input id="name" type="text" name="form[price]" value="<!--[$form.price]-->" title="price" class="required"  />
+                  </TD>
+              </TR>
+             <TR>
+                <TD align="left" width="100%" colspan="2">
+                  <INPUT TYPE="submit" value="submit">
+                  <input type="button" name="Cancel" value="Cancel" onclick="window.location = '<!--[pnmodurl modname=POBClient type=admin func=list ctrl=Booking]-->'" />
+                </TD>
+            </TR>
+        </TABLE>
+    </form><BR>
+</fieldset>

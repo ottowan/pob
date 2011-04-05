@@ -1,0 +1,46 @@
+<fieldset>
+  <legend>Hotel</legend>
+    <form id="form" class="form" action="<!--[pnmodurl modname='POBClient' type='adminform' func='submit' ctrl='Hotel']-->" method="post" >
+        <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
+        <TABLE width="100%" border="0">
+              <TR>
+                  <TD align="right" width="20%" valign="top" ><B>name : </B></TD>
+                  <TD align="left" width="80%">
+                    <!--[$view.name]-->
+                  </TD>
+              </TR>
+              <TR>
+                  <TD align="right" width="20%" valign="top" ><B>code : </B></TD>
+                  <TD align="left" width="80%">
+                    <!--[$view.code]-->
+                  </TD>
+              </TR>
+              <TR>
+                  <TD align="right" width="20%" valign="top" ><B>information : </B></TD>
+                  <TD align="left" width="80%">
+                    <!--[$view.information]-->
+                  </TD>
+              </TR>
+              <TR>
+                <TD align="right" width="20%" valign="top" ><B>room : </B></TD>
+                    <TD align="left" width="80%">
+                  <!--[foreach from=$extendResult.room item=item]-->
+                        <!--[$item.id]-->
+                        <!--[$item.name]-->
+                        <BR>
+                  <!--[/foreach]-->
+                    </TD>
+              </TR>
+              <TR>
+                <TD align="right" width="20%" valign="top" ><B>facility : </B></TD>
+                    <TD align="left" width="80%">
+                  <!--[foreach from=$extendResult.facility item=item]-->
+                        <!--[$item.id]-->
+                        <!--[$item.name]-->
+                        <BR>
+                  <!--[/foreach]-->
+                    </TD>
+              </TR>
+        </TABLE>
+    </form><BR>
+</fieldset>
