@@ -16,11 +16,11 @@
 	</POS>
 	<Criteria>
 		<Criterion>
-			<RefPoint>PATONG BEACH</RefPoint>
+			<RefPoint></RefPoint>
 			<CodeRef LocationCode="23" CodeContext="OTA-REF code list"/>
 				<!--23 means monument location code-->
 			<HotelRef HotelCityCode="PAR"/>
-			<Radius Distance="2" DistanceMeasure="MILES"/>
+			<Radius Distance="50" DistanceMeasure="MILES"/>
 			<RoomAmenity RoomAmenity="74"/>
 				<!-- 74 means non smoking-->
 			<RoomAmenity RoomAmenity="158"/>

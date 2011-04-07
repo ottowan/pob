@@ -11,17 +11,40 @@
                                           'name' => 'hotel_name',
                                           'code' => 'hotel_code',
                                           'information' => 'hotel_information',
+                                          'room' => 'hotel_room'
     );
     $pntable['pobclient_hotel_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'name' => 'TEXT  DEFAULT NULL',
                                           'code' => 'TEXT  DEFAULT NULL',
                                           'information' => 'TEXT  DEFAULT NULL',
+                                          'room' => 'INT(11)  DEFAULT NULL'
     );
     $pntable['pobclient_hotel_primary_key_column'] = 'id';
     //add standard data fields
     ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobclient_hotel_column'], 'hotel_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobclient_hotel_column_def']);
+
+    ////////////////////////////////////////////
+    //table definition hotelroom
+    ////////////////////////////////////////////
+    $pntable['pobclient_hotelroom'] = DBUtil::getLimitedTablename('pobclient_hotelroom');
+    $pntable['pobclient_hotelroom_column'] = array(
+                                          'room_id' => 'hotelroom_room_id',
+                                          'hotel_id' => 'hotelroom_hotel_id'
+    );
+    $pntable['pobclient_hotelroom_column_def'] = array(
+                                          'room_id' => 'INT(11)  DEFAULT NULL',
+                                          'hotel_id' => 'INT(11)  DEFAULT NULL'
+    );
+    $pntable['pobclient_hotelroom_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobclient_hotelroom_column'], 'hotelroom_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobclient_hotelroom_column_def']);
+    $pntable['pobclient_hotelroom_column_idx'] = array(
+                                          'idx_hotelroom_room_id' =>'room_id',
+                                          'idx_hotelroom_hotel_id' =>'hotel_id'
+    );
 
     ////////////////////////////////////////////
     //table definition room
