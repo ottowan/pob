@@ -3,6 +3,9 @@
     if (!DBUtil::createTable('pobclient_hotel')) {
       return false;
     }
+    if (!DBUtil::createTable('pobclient_hotelroom')) {
+      return false;
+    }
     if (!DBUtil::createTable('pobclient_room')) {
       return false;
     }
@@ -23,6 +26,7 @@
 
   function pobclient_delete(){
     DBUtil::dropTable('pobclient_hotel');
+    DBUtil::dropTable('pobclient_hotelroom');
     DBUtil::dropTable('pobclient_room');
     DBUtil::dropTable('pobclient_facility');
     DBUtil::dropTable('pobclient_season');

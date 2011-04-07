@@ -22,24 +22,10 @@
                   </TD>
               </TR>
               <TR>
-                <TD align="right" width="20%" valign="top" ><B>room : </B></TD>
-                    <TD align="left" width="80%">
-                  <!--[foreach from=$extendResult.room item=item]-->
-                        <!--[$item.id]-->
-                        <!--[$item.name]-->
-                        <BR>
-                  <!--[/foreach]-->
-                    </TD>
-              </TR>
-              <TR>
-                <TD align="right" width="20%" valign="top" ><B>facility : </B></TD>
-                    <TD align="left" width="80%">
-                  <!--[foreach from=$extendResult.facility item=item]-->
-                        <!--[$item.id]-->
-                        <!--[$item.name]-->
-                        <BR>
-                  <!--[/foreach]-->
-                    </TD>
+                  <TD align="right" width="20%" valign="top" ><B>Room : </B></TD>
+                  <TD align="left" width="80%">
+                    <!--[$view.Room]-->
+                  </TD>
               </TR>
         </TABLE>
     </form><BR>
