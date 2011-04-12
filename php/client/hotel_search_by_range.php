@@ -17,12 +17,9 @@
   <Criteria>
     <Criterion>
       <Position Latitude="7.88806" />
-    </Criterion>
-    <Criterion>
       <Position Longitude="98.3975" />
-    </Criterion>
-    <Criterion>
-      <Radius DistanceMeasure="MILES" Distance="1" />
+      <Radius DistanceMeasure="MILES" Distance="10000" />
+      <StayDateRange Start="2004-08-02" End="2004-08-03" />
     </Criterion>
   </Criteria>
 </OTA_HotelSearchRQ>';
@@ -38,7 +35,7 @@
 
     curl_close($ch);
 
-    //echo $response;
+    echo $response;
     //var_dump($response);
 
 ?>

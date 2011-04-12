@@ -4,10 +4,12 @@
 
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
 
+
+
     $data = '<?xml version="1.0" encoding="UTF-8"?>
 <OTA_HotelDescriptiveContentNotifRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd" Version="2.001">
 	<HotelDescriptiveContents>
-		<HotelDescriptiveContent BrandCode="MHRS" BrandName="Marriott Hotels &amp; Resorts" CurrencyCode="USD" HotelCode="BOSCO" HotelName="Boston Marriott Copley Place" LanguageCode="EN">
+		<HotelDescriptiveContent BrandCode="MHRS" BrandName="Postnukethai Resort" CurrencyCode="THB" HotelCode="PNTR" HotelName="Postnukethai Resort & spa" LanguageCode="TH">
 			<HotelInfo HotelStatus="Open" LastUpdated="2005-01-14T09:57:59" Start="1984-05-19" WhenBuilt="1984">
 				<CategoryCodes>
 					<LocationCategory Code="3" CodeDetail="Location Type: City"/>
@@ -71,8 +73,8 @@
 							</TextItems>
 						</MultimediaDescription>
 					</MultimediaDescriptions>
-				</Descriptions>
-				<Position Latitude="42.347996" Longitude="-71.07869"/>
+				</Descriptions>,
+				<Position Latitude="8.152768" Longitude="98.45581"/>
 				<Services>
 					<Service Code="103">
 						<!--Code 103 = Multilingual staff from OTA Code Table HAC-->
