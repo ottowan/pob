@@ -1,0 +1,18 @@
+<TABLE border="1">
+<TR>
+   <TH>status</TH>
+   <TH>name</TH>
+   <TH>descriptions</TH>
+   <TH>more</TH>
+   <TH>edit</TH>
+</TR>
+ <!--[foreach from=$objectArray item=item]-->
+<TR>
+   <TD><!--[$item.status_name]--></TD>
+   <TD><!--[$item.name]--></TD>
+   <TD><!--[$item.descriptions]--></TD>
+   <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD>
+   <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Hotel&id=<!--[$item.id]-->">แก้ไข</A></TH>
+</TR>
+  <!--[/foreach]-->
+</TABLE>

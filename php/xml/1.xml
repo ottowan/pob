@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTA_HotelDescriptiveContentNotifRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd" Version="2.001">
+  <HotelDescriptiveContents>
+    <HotelDescriptiveContent BrandCode="MHRS" BrandName="Marriott Hotels &amp;amp; Resorts" CurrencyCode="USD" HotelCode="BOSCO" HotelName="Boston Marriott Copley Place" LanguageCode="EN">
+      <HotelInfo HotelStatus="Open" LastUpdated="2005-01-14T09:57:59" Start="1984-05-19" WhenBuilt="1984"/>
+    </HotelDescriptiveContent>
+  </HotelDescriptiveContents>
+</OTA_HotelDescriptiveContentNotifRQ>
