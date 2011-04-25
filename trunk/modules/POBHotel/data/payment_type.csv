@@ -1,0 +1,40 @@
+1,Cash
+2,Direct bill
+3,Voucher
+4,Pre-pay
+5,Credit card
+6,Debit card
+7,Check
+8,Deposit
+9,Business account
+10,Central bill
+11,Coupon
+12,Business check
+13,Personal check
+14,Money order
+15,Redemption
+16,Barter
+17,Miscellaneous charge order
+18,Travel agency name/address
+19,Travel agency IATA number
+20,Certified check
+21,Club membership ID
+22,Frequent guest number
+23,Frequent traveler number
+24,Guest name/address
+25,Special industry program
+26,Tour order
+27,Traveler's check
+28,Wire payment
+29,Company name/address
+30,Corporate ID/CD number
+31,Guarantee
+32,Other information
+33,Override guarantee information
+34,Corporate
+35,Airline payment card
+36,Air travel card
+37,Miscellaneous
+38,None
+39,Ticket
+40,Payment manager
