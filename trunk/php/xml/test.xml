@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTA_HotelDescriptiveContentNotifRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd" Version="2.001">
+  <AreaInfo>
+    <RefPoints>
+      <RefPoint Distance="3" IndexPointCode="3" Name="Expway, Route 93, Mass. Turnpike">
+        <Transportations>
+          <Transportation>
+            <MultimediaDescriptions>
+              <MultimediaDescription>
+                <TextItems>
+                  <TextItem Title="Directions to Highway from Property">
+                    <Description>Please call the hotel for directions</Description>
+                  </TextItem>
+                </TextItems>
+              </MultimediaDescription>
+            </MultimediaDescriptions>
+          </Transportation>
+        </Transportations>
+      </RefPoint>
+    </RefPoints>
+  </AreaInfo>
+</OTA_HotelDescriptiveContentNotifRQ>

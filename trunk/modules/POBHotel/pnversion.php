@@ -1,6 +1,6 @@
 <?php
-$modversion['name'] = 'Hotel';
-$modversion['displayname'] = 'Hotel';
+$modversion['name'] = 'POBHotel';
+$modversion['displayname'] = 'POBHotel';
 $modversion['description'] = ' This module is generate from ZGen';
 $modversion['version'] = '1.0';
 $modversion['credits'] = 'pndocs/credits.txt';
