@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="C:\AppServ\www\oop\oop.clpprj">
+	<settings><PM_URL><![CDATA[http://localhost/oop/]]></PM_URL><PM_HOME_URL><![CDATA[http://localhost/oop/]]></PM_HOME_URL></settings><removed value=";"/><added value=""/><dplmenupath>
+	</dplmenupath><smartyassings>
+	</smartyassings><codestructure>
+		<csfile name="C:\AppServ\www\oop\oop.clpprj" crc="-1582728244">
+		</csfile><csfile name="C:\AppServ\www\oop\class\Booking.class.php" crc="1459723821">
+			<phptree>
+				<treenode node="Booking;Php:Class Name;2;2;3;11;34;;;v;;r;;d16,2;;b0,0;;m">
+					<treenode node="getConvert;Php:Function Name;11;8;36;8;34;;;v;;r;;d34,8;;b1,0;;mc;;p">
+					</treenode>
+					<treenode node="getDate;Php:Function Name;11;9;31;9;34;;;v;;r;;d29,9;;b1,0;;m">
+					</treenode>
+					<treenode node="setArrivalTime;Php:Function Name;11;10;40;10;34;;;v;;r;;d38,10;;b1,0;;mt;;p">
+					</treenode>
+					<treenode node="cover;Php:Var Name;12;4;18;4;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="date;Php:Var Name;12;5;17;5;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+				</treenode>
+			</phptree>
+		</csfile><csfile name="C:\AppServ\www\oop\association\index.php" crc="733912287">
+			<phptree>
+				<treenode node="BusBooking.class.php;Php:Php Include;11;3;31;3;34;;;v;;r;;d-1,-1;;b0,0;;m">
+				</treenode>
+				<treenode node="Customer.class.php;Php:Php Include;11;2;29;2;34;;;v;;r;;d-1,-1;;b0,0;;m">
+				</treenode>
+				<treenode node="customer;Php:Var Name;2;5;11;5;34;Customer;;v;;r;;d-1,-1;;b0,0;;m">
+				</treenode>
+			</phptree>
+		</csfile><csfile name="C:\AppServ\www\oop\association\Customer.class.php" crc="-1605243277">
+			<phptree>
+				<treenode node="Customer;Php:Class Name;2;1;3;29;34;;;v;;r;;d17,1;;b0,0;;m">
+					<treenode node="cancelBookingBus;Php:Function Name;11;25;5;28;34;;;v;;r;;d38,25;;b1,0;;m">
+					</treenode>
+					<treenode node="confirmBookingBus;Php:Function Name;11;20;5;23;34;;;v;;r;;d39,20;;b1,0;;m">
+					</treenode>
+					<treenode node="getName;Php:Function Name;11;16;5;18;34;;;v;;r;;d29,16;;b1,0;;m">
+					</treenode>
+					<treenode node="setName;Php:Function Name;11;12;5;14;34;;;v;;r;;d34,12;;b1,0;;mname;;p">
+					</treenode>
+					<treenode node="address;Php:Var Name;12;5;20;5;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="busBooking;Php:Var Name;12;9;23;9;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="id;Php:Var Name;12;3;15;3;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="name;Php:Var Name;12;4;17;4;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="phone;Php:Var Name;12;6;18;6;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+				</treenode>
+			</phptree>
+		</csfile><csfile name="C:\AppServ\www\oop\association\BusBooking.class.php" crc="831978193">
+			<phptree>
+				<treenode node="BusBooking;Php:Class Name;2;2;3;16;34;;;v;;r;;d19,2;;b0,0;;m">
+					<treenode node="cancel;Php:Function Name;11;12;5;14;34;;;v;;r;;d28,12;;b1,0;;m">
+					</treenode>
+					<treenode node="confirm;Php:Function Name;11;7;5;9;34;;;v;;r;;d29,7;;b1,0;;m">
+					</treenode>
+					<treenode node="date;Php:Var Name;12;4;17;4;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+					<treenode node="nperson;Php:Var Name;12;5;20;5;34;;;v;;r;;d-1,-1;;b3,0;;m">
+					</treenode>
+				</treenode>
+			</phptree>
+		</csfile></codestructure></project>
