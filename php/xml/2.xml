@@ -212,7 +212,82 @@
         </Services>
       </HotelInfo>
       <FacilityInfo LastUpdated="2004-12-04T16:00:12">
-        <MeetingRooms LargestRoomSpace="23431" LargestSeatingCapacity="3640" MeetingRoomCount="1" TotalRoomSpace="65000" UnitOfMeasure="Square Feet"/>
+        <MeetingRooms LargestRoomSpace="23431" LargestSeatingCapacity="3640" MeetingRoomCount="1" TotalRoomSpace="65000" UnitOfMeasure="Square Feet">
+          <MeetingRoom Irregular="false" RoomName="Grand Ballroom">
+            <Dimension Area="23431" Height="18.1" Length="108" Width="221"/>
+            <AvailableCapacities>
+              <MeetingRoomCapacity MeetingRoomFormatCode="1">
+                <Occupancy MaxOccupancy="1990"/>
+              </MeetingRoomCapacity>
+              <MeetingRoomCapacity MeetingRoomFormatCode="2">
+                <Occupancy MaxOccupancy="1866"/>
+              </MeetingRoomCapacity>
+              <MeetingRoomCapacity MeetingRoomFormatCode="5">
+                <Occupancy MaxOccupancy="3138"/>
+              </MeetingRoomCapacity>
+              <MeetingRoomCapacity MeetingRoomFormatCode="7">
+                <Occupancy MaxOccupancy="3640"/>
+              </MeetingRoomCapacity>
+            </AvailableCapacities>
+          </MeetingRoom>
+          <Codes>
+            <Code Code="92">
+              <MultimediaDescriptions>
+                <MultimediaDescription>
+                  <TextItems>
+                    <TextItem Title="Other Equipment &amp; Facilities Available in Meeting Room"/>
+                  </TextItems>
+                  <Description>Red Coat Program, Event Services Hotline</Description>
+                </MultimediaDescription>
+              </MultimediaDescriptions>
+            </Code>
+          </Codes>
+        </MeetingRooms>
+        <GuestRooms>
+          <GuestRoom>
+            <Amenities>
+              <Amenity RoomAmenityCode="11">
+                <MultimediaDescriptions>
+                  <MultimediaDescription>
+                    <TextItems/>
+                    <TextItem Title="Bathroom Amenities">
+                      <Description>Soap, shampoo, rinse, shower cap, lotions</Description>
+                    </TextItem>
+                  </MultimediaDescription>
+                </MultimediaDescriptions>
+              </Amenity>
+            </Amenities>
+          </GuestRoom>
+          <GuestRoom CodeContext="MARSHA Room Type" MaxOccupancy="5" NonsmokingQuantity="923" Quantity="1033" RoomTypeName="General Rooms">
+            <MultimediaDescriptions>
+              <MultimediaDescription>
+                <TextItems/>
+                <TextItem Title="Sort Order">
+                  <Description>1</Description>
+                </TextItem>
+                <TextItem Title="Features of Room Type">
+                  <Description>GENR Standard 1 King Bed/or 2 Dbl beds, Coffee Maker, Hair Dryer, Desk w/ chair</Description>
+                </TextItem>
+              </MultimediaDescription>
+            </MultimediaDescriptions>
+          </GuestRoom>
+          <GuestRoom CodeContext="MARSHA Room Type" MaxOccupancy="5" NonsmokingQuantity="58" Quantity="67" RoomTypeName="Concierge">
+            <MultimediaDescriptions>
+              <MultimediaDescription>
+                <TextItems/>
+                <TextItem Title="Sort Order">
+                  <Description>2</Description>
+                </TextItem>
+                <TextItem Title="Features of Room Type" OfferBreakfast="true" OfferDinner="true" OfferLunch="true" RestaurantName="Gourmeli&amp;s (Casual)">
+                  <Description>CONC Concierge Upgraded Amenities &amp; Private Lounge, 1 King bed or 2 Double beds</Description>
+                </TextItem>
+              </MultimediaDescription>
+            </MultimediaDescriptions>
+          </GuestRoom>
+        </GuestRooms>
+        <Restaurants>
+          <Restaurant/>
+        </Restaurants>
       </FacilityInfo>
       <Policies/>
       <AreaInfo/>
