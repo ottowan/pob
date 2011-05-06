@@ -184,9 +184,12 @@
       //Set directory to store image path by id
       $filepath = $imagespathbyid."hotel/";
       $thumbspath = $thumbspathbyid."hotel/";
+      $imagespath=$filepath;
+
       //Make topic image directory by id
       if (!is_dir($imagespath)) {
         mkdir($imagespath, 0755);
+
       }
       //Make topic thumb directory by id
       if (!is_dir($thumbspath)) {
@@ -222,7 +225,6 @@
             $thumbname_temp = "thumbs_".$id.$rootname;
             $imgpath        = $imagespath.$filename_temp;
             $tmbpath        = $thumbspath.$filename_temp;
-
             if($key==0){
               $firstimage_temp = $filename_temp;
             }
@@ -235,7 +237,7 @@
 
         //images
         $imagepath = $fliename;
-        $save = $imgpath;; //This is the new file you saving
+        $save = $imgpath; //This is the new file you saving
         $file = $imgpath; //This is the original file
         list($width, $height) = getimagesize($file) ; 
 

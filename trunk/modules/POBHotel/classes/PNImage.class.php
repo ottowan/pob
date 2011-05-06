@@ -9,5 +9,5 @@
     
       $this->_init($init, $where);
     }
-  }
+ }
 ?>
