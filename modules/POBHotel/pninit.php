@@ -64,6 +64,18 @@
     if (!DBUtil::createTable('pobhotel_transportation')) {
       return false;
     }
+    if (!DBUtil::createTable('pobhotel_room')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_room_image')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_season')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_rate')) {
+      return false;
+    }
 
     $flgCreate1 = mkdir("pnTemp/pobhotel_upload");
     $flgCreate2 = mkdir("pnTemp/pobhotel_upload/image");
@@ -390,6 +402,10 @@
         DROP TABLE `zk_pobhotel_status`;
         DROP TABLE `zk_pobhotel_transportation`;
         DROP TABLE `zk_pobhotel_payment_type`;
+        DROP TABLE `zk_pobhotel_room`;
+        DROP TABLE `zk_pobhotel_room_image`;
+        DROP TABLE `zk_pobhotel_season_image`;
+        DROP TABLE `zk_pobhotel_rate`;
  */
 
   function POBHotel_delete(){
@@ -414,6 +430,10 @@
     DBUtil::dropTable('pobhotel_room_amenity_type');
     DBUtil::dropTable('pobhotel_segment_category');
     DBUtil::dropTable('pobhotel_transportation');
+    DBUtil::dropTable('pobhotel_room');
+    DBUtil::dropTable('pobhotel_room_image');
+    DBUtil::dropTable('pobhotel_season');
+    DBUtil::dropTable('pobhotel_rate');
 
 return true;
   }
