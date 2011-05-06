@@ -1,0 +1,98 @@
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/jquery-1.5.1.js"></script>
+
+<FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Room']-->"enctype="multipart/form-data>
+<input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
+	<TABLE>
+<TR>
+	<TD>Room name:</TD>
+	<TD><INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->"></TD>
+</TR>
+<TR>
+<TR>
+	<TD>Sorting index:</TD>
+	<TD><INPUT TYPE="text" NAME="form[sorting_index]" value="<!--[$form.sorting_index]-->"></TD>
+</TR>
+<TR>
+	<TD>Capacity:</TD>
+	<TD><INPUT TYPE="text" NAME="form[capacity]" value="<!--[$form.capacity]-->"></TD>
+</TR>
+<TR>
+	<TD>Base arrangement:</TD>
+	<TD><INPUT TYPE="text" NAME="form[base_arrangement]" value="<!--[$form.base_arrangement]-->"></TD>
+</TR>
+<TR>
+  <TD>descriptions</TD>
+  <TD><TEXTAREA NAME="form[description]" ROWS="10" COLS="40"><!--[$form.description]--></TEXTAREA></TD>
+</TR>
+</TABLE>
+      <script type="text/javascript">
+
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah1').attr('src', e.target.result).width(150);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah2').attr('src', e.target.result).width(150);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah3').attr('src', e.target.result).width(150);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL4(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah4').attr('src', e.target.result).width(150);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL5(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah5').attr('src', e.target.result).width(150);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+<INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);" ><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+<INPUT TYPE="file" NAME="images[]" onChange="readURL2(this);" ><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+<INPUT TYPE="file" NAME="images[]" onChange="readURL3(this);" ><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+<INPUT TYPE="file" NAME="images[]" onChange="readURL4(this);" ><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+<INPUT TYPE="file" NAME="images[]" onChange="readURL5(this);" ><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+
+<table>
+  <TR>
+    <TD><INPUT TYPE="submit" value="submit"></TD>
+    <TD><input type="button" name="Cancel" value="Cancel" onclick="window.location = '<!--[pnmodurl modname=POBHotel type=admin func=list ctrl=room]-->'" />
+  </TD>
+  </TR>
+</table>
+</FORM>

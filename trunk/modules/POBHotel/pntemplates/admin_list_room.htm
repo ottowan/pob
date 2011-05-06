@@ -1,0 +1,21 @@
+<TABLE border="1">
+<TR>
+   <TH>Room name:</TH>
+   <TH>Sorting index:</TH>
+   <TH>Capacity:</TH>
+   <TH>Base arrangement:</TH>
+   <TH>descriptions</TH>
+   <TH>edit</TH>
+</TR>
+ <!--[foreach from=$objectArray item=item]-->
+<TR>
+   <TD><!--[$item.name]--></TD>
+   <TD><!--[$item.sorting_index]--></TD>
+   <TD><!--[$item.capacity]--></TD>
+   <TD><!--[$item.base_arrangement]--></TD>
+   <TD><!--[$item.description]--></TD>
+
+   <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Room&id=<!--[$item.id]-->">แก้ไข</A></TH>
+</TR>
+  <!--[/foreach]-->
+</TABLE>
