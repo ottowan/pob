@@ -458,12 +458,20 @@
     $pntable['pobhotel_rate_column'] = array(
                                           'id' => 'rate_id',
                                           'season_id' => 'rate_season_id',
-                                          'room_id' => 'rate_room_id'
+                                          'room_id' => 'rate_room_id',
+                                          'room_rate' => 'rate_room_rate',
+                                          'one_bed' => 'rate_one_bed',
+                                          'two_bed' => 'rate_two_bed',
+                                          'single_bed' => 'rate_single_bed'
     );
     $pntable['pobhotel_rate_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'season_id' =>'INT(11)',
-                                          'room_id' =>'INT(11)'
+                                          'room_id' =>'INT(11)',
+                                          'room_rate' =>'INT(11)',
+                                          'one_bed' =>'INT(11)',
+                                          'two_bed' =>'INT(11)',
+                                          'single_bed' =>'INT(11)'
     );
     $pntable['pobhotel_rate_primary_key_column'] = 'id';
     //add standard data fields

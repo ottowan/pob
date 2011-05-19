@@ -1,6 +1,6 @@
-<FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Rate']-->">
+<FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='admin' func='createRate' ctrl='Rate']-->">
 <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
-	<TABLE>
+<TABLE>
 <TR>
 	<TD>Display season:</TD>
 	<TD>
@@ -13,26 +13,41 @@
       ]-->
 
   </TD>
-	<TD>Display season:</TD>
-	<TD>
-    <!--[get_all_room]-->
-    <!--[foreach from=$roomArray item=itemAllRoom name=foo]-->
-      <!--[assign var='compare' value='false']-->
+</TR>
 
-      <!--[foreach from=$extendResult.room item=itemRoom]-->
-       <!--[if $itemAllRoom.room_id eq $itemRoom.room_id]-->
-          <!--[assign var='compare' value='true']-->
-        <!--[/if]-->
-      <!--[/foreach]-->
 
-      <!--[if $compare eq 'false']-->
-        <!--[if $smarty.foreach.foo.index%3 == 0]-->
-
-  </TD>
-
-<TR>
 </TABLE>
+  <!--[get_all_room]-->
+    <!--[foreach from=$roomArray item=item]-->
+<fieldset style="width:500px;">
+  <legend>Display <!--[$item.room_name]--></legend>
+    <TABLE>
+  <INPUT TYPE="hidden" NAME="form[room_id][]" VALUE="<!--[$item.room_id]-->" SIZE="4">
+      <TR>
+        <TD>Room rate:</TD>
+        <TD><INPUT TYPE="text" NAME="form[room_rate][]" SIZE="4"> baht</TD>
+      </TR>
 
+      <TR>
+        <TD>1st addit. bed</TD>
+        <TD><INPUT TYPE="text" NAME="form[one_bed][]"SIZE="4">  baht</TD>
+      </TR>
+
+      <TR>
+        <TD>2nd addit. bed</TD>
+        <TD><INPUT TYPE="text" NAME="form[two_bed][]"SIZE="4"> baht</TD>
+      </TR>
+
+      <TR>
+        <TD>Single bed</TD>
+        <TD><INPUT TYPE="text" NAME="form[single_bed][]"SIZE="4"> baht</TD>
+      </TR>
+
+
+    </TABLE>
+    </fieldset>
+    <!--[/foreach]-->
+<TABLE>
   <TR>
     <TD><INPUT TYPE="submit" value="submit"></TD>
     <TD><input type="button" name="Cancel" value="Cancel" onclick="window.location = '<!--[pnmodurl modname=POBHotel type=admin func=list ctrl=rate]-->'" />

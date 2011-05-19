@@ -232,4 +232,45 @@
     }
   }
 
+
+  /**
+  * Create the room rate
+  */
+  function POBHotel_admin_createRate() {
+    POBHotel_permission();      
+    $ctrl = FormUtil::getPassedValue ('ctrl', false);
+    $func = FormUtil::getPassedValue ('func', false);
+    $form = FormUtil::getPassedValue ('form', false);
+
+    $room_id    = FormUtil::getPassedValue ('room_id', false);
+    $season_id  = FormUtil::getPassedValue ('season_id', false);
+    $room_rate  = FormUtil::getPassedValue ('room_rate', false);
+    $one_bed    = FormUtil::getPassedValue ('one_bed', false);
+    $two_bed    = FormUtil::getPassedValue ('two_bed', false);
+    $single_bed = FormUtil::getPassedValue ('single_bed', false);
+
+
+    if($form){
+      for($i=0; $i < count($form['room_id'])  ; $i++){
+        //$valArray = explode("@", $key);
+        $obj = array(
+                        'season_id'=>$form['season_id'],
+                        'room_id'=>$form['room_id'][$i],
+                        'room_rate'=>$form['room_rate'][$i],
+                        'one_bed'=>$form['one_bed'][$i],
+                        'two_bed'=>$form['two_bed'][$i],
+                        'single_bed'=>$form['single_bed'][$i]
+                 );
+
+        //Do the insert
+        DBUtil::insertObject($obj, 'pobhotel_rate');
+        unset($obj);
+      }
+    }
+
+    $render = pnRender::getInstance('POBHotel');
+    _languageRender($render);
+    return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
+  }
+
 ?>
