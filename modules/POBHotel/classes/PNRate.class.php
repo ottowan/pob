@@ -16,7 +16,7 @@
         $fieldArray = array('room_id');
 
         $result['room'] = DBUtil::selectObjectArray( 'pobhotel_room',
-                                                                  "WHERE room_id = '$id'",
+                                                                  "WHERE room_id",
                                                                   '',
                                                                   -1,
                                                                   -1,
@@ -25,7 +25,9 @@
                                                                   null,
                                                                   $fieldArray
         );
+
       return $result;
+
     }
   }
 }

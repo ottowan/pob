@@ -41,21 +41,20 @@
                                                                   $fieldLocationArray
         );
 
-        /*$fieldLocationArray = array('hotel_image_id');
+        $imageArray = array('image_id');
 
-        $result['locationCategory'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
-                                                                  "WHERE hotel_hotel_image_id = '$id'",
-                                                                  '',
-                                                                  -1,
-                                                                  -1,
-                                                                  '',
-                                                                  null,
-                                                                  null,
-                                                                  $fieldLocationArray
-        );*/
+        $result['hotelImage'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
+                                                            "WHERE hotel_image_hotel_id = '$id'",
+                                                            '',
+                                                            -1,
+                                                            -1,
+                                                            '',
+                                                            null,
+                                                            null,
+                                                            $imageArray
+        );
 
         }
-
       return $result;
     }
 

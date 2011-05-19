@@ -17,6 +17,22 @@
 
     }
 
+    function genFilter(){
+
+      $wheres = array();
+
+      //Get filter by id
+      $id = FormUtil::getPassedValue ('id', false);
+      if($id){
+        $where[] = "hotel_id = ".$id;
+      }
+
+      $wheres = implode(" AND ", $where);
+
+
+      return $wheres;
+    }
+
     function genSort(){
       $order = ' ORDER BY hotel_id ASC';
      return $order;
