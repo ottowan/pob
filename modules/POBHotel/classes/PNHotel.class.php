@@ -40,20 +40,6 @@
                                                                   null,
                                                                   $fieldLocationArray
         );
-
-        $imageArray = array('image_id');
-
-        $result['hotelImage'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
-                                                            "WHERE hotel_image_hotel_id = '$id'",
-                                                            '',
-                                                            -1,
-                                                            -1,
-                                                            '',
-                                                            null,
-                                                            null,
-                                                            $imageArray
-        );
-
         }
       return $result;
     }
