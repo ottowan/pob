@@ -11,6 +11,20 @@
 
 <script type="text/javascript" src="modules/POBHotel/pnjavascript/form/sliding.form.js"></script>
 
+<!--[literal]--><!--[if IE]><!--[/literal]-->
+       <style>
+          .upload{
+            display:none;
+          }
+          .upload_ie{
+            display:block !important;
+          }
+          #navigation ul li{
+            width:50px;
+          }
+       </style>
+<!--[literal]--><![endif]--><!--[/literal]-->
+
 <script>
   $(function() {
       $( "#datepicker" ).datepicker({
@@ -503,11 +517,23 @@
                   }
               }
           </script>
-      <INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);" ><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-      <INPUT TYPE="file" NAME="images[]" onChange="readURL2(this);" ><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-      <INPUT TYPE="file" NAME="images[]" onChange="readURL3(this);" ><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-      <INPUT TYPE="file" NAME="images[]" onChange="readURL4(this);" ><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-      <INPUT TYPE="file" NAME="images[]" onChange="readURL5(this);" ><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+
+          <div class="upload">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL2(this);"><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL3(this);"><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL4(this);"><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL5(this);"><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+          </div><!-- end upload -->
+
+          <div class="upload_ie" style="display:none;">
+              <INPUT TYPE="file" NAME="images[]"></br>
+              <INPUT TYPE="file" NAME="images[]"></br>
+              <INPUT TYPE="file" NAME="images[]"></br>
+              <INPUT TYPE="file" NAME="images[]"></br>
+              <INPUT TYPE="file" NAME="images[]"></br>
+
+          </div><!-- end upload_ie -->
 
                         </fieldset>
 
