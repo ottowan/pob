@@ -193,7 +193,7 @@
     );
     $pntable['pobhotel_attraction_category_primary_key_column'] = 'id';
     //add standard data fields
-    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_attraction_category_column'], 'attraction_category_');
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobs_category_column'], 'attraction_category_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_attraction_category_column_def']);
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -439,14 +439,14 @@
                                           'id' => 'season_id',
                                           'name' => 'season_name',
                                           'date_start' => 'season_date_start',
-                                          'date_end' => 'season_date_end',
+                                          'date_end' => 'season_date_end'
 
     );
     $pntable['pobhotel_season_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'name' =>'TEXT  DEFAULT NULL',
                                           'date_start' =>'DATE',
-                                          'date_end' =>'DATE',
+                                          'date_end' =>'DATE'
     );
     $pntable['pobhotel_season_primary_key_column'] = 'id';
     //add standard data fields
@@ -479,8 +479,342 @@
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_rate_column_def']);
     $pntable['pobhotel_rate_column_idx'] = array(
                                           'idx_rate_season_id' => 'season_id',
-                                          'idx_rate_room_id' => 'room_id',
+                                          'idx_rate_room_id' => 'room_id'
     );
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_index_point'] = DBUtil::getLimitedTablename('pobhotel_hotel_index_point');
+    $pntable['pobhotel_hotel_index_point_column'] = array(
+                                          'id' => 'hotel_index_point_id',
+                                          'hotel_id' => 'hotel_index_point_hotel_id',
+                                          'index_point_id' => 'hotel_index_point_index_point_id'
+    );
+
+    $pntable['pobhotel_hotel_index_point_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'index_point_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_index_point_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_index_point_column'], 'hotel_index_point_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_index_point_column_def']);
+    $pntable['pobhotel_hotel_index_point_column_idx'] = array(
+                                          'idx_hotel_index_point_hotel_id' => 'hotel_id',
+                                          'idx_hotel_index_point_index_point_id' => 'index_point_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_attraction'] = DBUtil::getLimitedTablename('pobhotel_hotel_attraction');
+    $pntable['pobhotel_hotel_attraction_column'] = array(
+                                          'id' => 'hotel_attraction_id',
+                                          'hotel_id' => 'hotel_attraction_hotel_id',
+                                          'attraction_id' => 'hotel_attraction_attraction_id',
+    );
+
+    $pntable['pobhotel_hotel_attraction_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'attraction_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_attraction_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_attraction_column'], 'hotel_attraction_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_attraction_column_def']);
+    $pntable['pobhotel_hotel_attraction_column_idx'] = array(
+                                          'idx_hotel_attraction_hotel_id' => 'hotel_id',
+                                          'idx_hotel_attraction_attraction_id' => 'attraction_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_fee_tax'] = DBUtil::getLimitedTablename('pobhotel_hotel_fee_tax');
+    $pntable['pobhotel_hotel_fee_tax_column'] = array(
+                                          'id' => 'hotel_fee_tax_id',
+                                          'hotel_id' => 'hotel_fee_tax_hotel_id',
+                                          'fee_tax_id' => 'hotel_fee_tax_fee_tax_id'
+    );
+
+    $pntable['pobhotel_hotel_fee_tax_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'fee_tax_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_fee_tax_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_fee_tax_column'], 'hotel_fee_tax_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_fee_tax_column_def']);
+    $pntable['pobhotel_hotel_fee_tax_column_idx'] = array(
+                                          'idx_hotel_fee_tax_hotel_id' => 'hotel_id',
+                                          'idx_hotel_fee_tax_fee_tax_id' => 'fee_tax_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_main_cuisine'] = DBUtil::getLimitedTablename('pobhotel_hotel_main_cuisine');
+    $pntable['pobhotel_hotel_main_cuisine_column'] = array(
+                                          'id' => 'hotel_main_cuisine_id',
+                                          'hotel_id' => 'hotel_main_cuisine_hotel_id',
+                                          'main_cuisine_id' => 'hotel_main_cuisine_main_cuisine_id'
+    );
+
+    $pntable['pobhotel_hotel_main_cuisine_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'main_cuisine_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_main_cuisine_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_main_cuisine_column'], 'hotel_main_cuisine_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_main_cuisine_column_def']);
+    $pntable['pobhotel_hotel_main_cuisine_column_idx'] = array(
+                                          'idx_hotel_main_cuisine_hotel_id' => 'hotel_id',
+                                          'idx_hotel_main_cuisine_main_cuisine_id' => 'main_cuisine_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_meeting_room'] = DBUtil::getLimitedTablename('pobhotel_hotel_meeting_room');
+    $pntable['pobhotel_hotel_meeting_room_column'] = array(
+                                          'id' => 'hotel_meeting_room_id',
+                                          'hotel_id' => 'hotel_meeting_room_hotel_id',
+                                          'meeting_room_id' => 'hotel_meeting_room_meeting_room_id'
+    );
+
+    $pntable['pobhotel_hotel_meeting_room_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'meeting_room_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_meeting_room_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_meeting_room_column'], 'hotel_meeting_room_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_meeting_room_column_def']);
+    $pntable['pobhotel_hotel_meeting_room_column_idx'] = array(
+                                          'idx_hotel_meeting_room_hotel_id' => 'hotel_id',
+                                          'idx_hotel_meeting_room_meeting_room_id' => 'meeting_room_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_payment_type'] = DBUtil::getLimitedTablename('pobhotel_hotel_payment_type');
+    $pntable['pobhotel_hotel_payment_type_column'] = array(
+                                          'id' => 'hotel_payment_type_id',
+                                          'hotel_id' => 'hotel_payment_type_hotel_id',
+                                          'payment_type_id' => 'hotel_payment_type_payment_type_id'
+    );
+
+    $pntable['pobhotel_hotel_payment_type_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'payment_type_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_payment_type_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_payment_type_column'], 'hotel_payment_type_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_payment_type_column_def']);
+    $pntable['pobhotel_hotel_payment_type_column_idx'] = array(
+                                          'idx_hotel_payment_type_hotel_id' => 'hotel_id',
+                                          'idx_hotel_payment_type_payment_type_id' => 'payment_type_id'
+    );
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_recreation_srvc'] = DBUtil::getLimitedTablename('pobhotel_hotel_recreation_srvc');
+    $pntable['pobhotel_hotel_recreation_srvc_column'] = array(
+                                          'id' => 'hotel_recreation_srvc_id',
+                                          'hotel_id' => 'hotel_recreation_srvc_hotel_id',
+                                          'recreation_srvc_id' => 'hotel_recreation_srvc_recreation_srvc_id'
+    );
+
+    $pntable['pobhotel_hotel_recreation_srvc_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'recreation_srvc_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_recreation_srvc_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_recreation_srvc_column'], 'hotel_recreation_srvc_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_recreation_srvc_column_def']);
+    $pntable['pobhotel_hotel_recreation_srvc_column_idx'] = array(
+                                          'idx_hotel_recreation_srvc_hotel_id' => 'hotel_id',
+                                          'idx_hotel_recreation_srvc_recreation_srvc_id' => 'recreation_srvc_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_restaurant'] = DBUtil::getLimitedTablename('pobhotel_hotel_restaurant');
+    $pntable['pobhotel_hotel_restaurant_column'] = array(
+                                          'id' => 'hotel_restaurant_id',
+                                          'hotel_id' => 'hotel_restaurant_hotel_id',
+                                          'restaurant_id' => 'hotel_restaurant_restaurant_id'
+    );
+
+    $pntable['pobhotel_hotel_restaurant_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'restaurant_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_restaurant_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_restaurant_column'], 'hotel_restaurant_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_restaurant_column_def']);
+    $pntable['pobhotel_hotel_restaurant_column_idx'] = array(
+                                          'idx_hotel_restaurant_hotel_id' => 'hotel_id',
+                                          'idx_hotel_restaurant_restaurant_id' => 'restaurant_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_room'] = DBUtil::getLimitedTablename('pobhotel_hotel_room');
+    $pntable['pobhotel_hotel_room_column'] = array(
+                                          'id' => 'hotel_room_id',
+                                          'hotel_id' => 'hotel_room_hotel_id',
+                                          'room_id' => 'hotel_room_room_id'
+    );
+
+    $pntable['pobhotel_hotel_room_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'room_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_room_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_room_column'], 'hotel_room_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_room_column_def']);
+    $pntable['pobhotel_hotel_room_column_idx'] = array(
+                                          'idx_hotel_room_hotel_id' => 'hotel_id',
+                                          'idx_hotel_room_room_id' => 'room_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_segment'] = DBUtil::getLimitedTablename('pobhotel_hotel_segment');
+    $pntable['pobhotel_hotel_segment_column'] = array(
+                                          'id' => 'hotel_segment_id',
+                                          'hotel_id' => 'hotel_segment_hotel_id',
+                                          'segment_id' => 'hotel_segment_segment_id'
+    );
+
+    $pntable['pobhotel_hotel_segment_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'segment_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_segment_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_segment_column'], 'hotel_segment_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_segment_column_def']);
+    $pntable['pobhotel_hotel_segment_column_idx'] = array(
+                                          'idx_hotel_segment_hotel_id' => 'hotel_id',
+                                          'idx_hotel_segment_segment_id' => 'segment_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_transportation'] = DBUtil::getLimitedTablename('pobhotel_hotel_transportation');
+    $pntable['pobhotel_hotel_transportation_column'] = array(
+                                          'id' => 'hotel_transportation_id',
+                                          'hotel_id' => 'hotel_transportation_hotel_id',
+                                          'transportation_id' => 'hotel_transportation_transportation_id'
+    );
+
+    $pntable['pobhotel_hotel_transportation_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'transportation_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_transportation_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_transportation_column'], 'hotel_transportation_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_transportation_column_def']);
+    $pntable['pobhotel_hotel_transportation_column_idx'] = array(
+                                          'idx_hotel_transportation_hotel_id' => 'hotel_id',
+                                          'idx_hotel_transportation_transportation_id' => 'transportation_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_hotel_rate_season'] = DBUtil::getLimitedTablename('pobhotel_hotel_rate_season');
+    $pntable['pobhotel_hotel_rate_season_column'] = array(
+                                          'id' => 'hotel_rate_season_id',
+                                          'hotel_id' => 'hotel_rate_season_hotel_id',
+                                          'rate_id' => 'hotel_rate_season_rate_id',
+                                          'season_id' => 'hotel_rate_season_season_id'
+    );
+
+    $pntable['pobhotel_hotel_rate_season_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
+                                          'rate_id' =>'INT(11)',
+                                          'season_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_hotel_rate_season_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_hotel_rate_season_column'], 'hotel_rate_season_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_hotel_rate_season_column_def']);
+    $pntable['pobhotel_hotel_rate_season_column_idx'] = array(
+                                          'idx_hotel_rate_season_hotel_id' => 'hotel_id',
+                                          'idx_hotel_rate_season_rate_id' => 'rate_id',
+                                          'idx_hotel_rate_season_season_id' => 'season_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_m_room_m_room_format'] = DBUtil::getLimitedTablename('pobhotel_m_room_m_room_format');
+    $pntable['pobhotel_m_room_m_room_format_column'] = array(
+                                          'id' => 'm_room_m_room_format_id',
+                                          'meeting_room_id' => 'm_room_m_room_format_meeting_room_id',
+                                          'meeting_room_format_id' => 'm_room_m_room_format_meeting_room_format_id'
+    );
+
+    $pntable['pobhotel_m_room_m_room_format_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'meeting_room_id' =>'INT(11)',
+                                          'meeting_room_format_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_m_room_m_room_format_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_m_room_m_room_format_column'], 'm_room_m_room_format_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_m_room_m_room_format_column_def']);
+    $pntable['pobhotel_m_room_m_room_format_column_idx'] = array(
+                                          'idx_m_room_m_room_format_meeting_room_id' => 'meeting_room_id',
+                                          'idx_m_room_m_room_format_meeting_room_format_id' => 'meeting_room_format_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_room_room_amenity'] = DBUtil::getLimitedTablename('pobhotel_room_room_amenity');
+    $pntable['pobhotel_room_room_amenity_column'] = array(
+                                          'id' => 'room_room_amenity_id',
+                                          'room_id' => 'room_room_amenity_room_id',
+                                          'room_amenity_id' => 'room_room_amenity_room_amenity_id'
+    );
+
+    $pntable['pobhotel_room_room_amenity_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'room_id' =>'INT(11)',
+                                          'room_amenity_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_room_room_amenity_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_room_room_amenity_column'], 'room_room_amenity_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_room_room_amenity_column_def']);
+    $pntable['pobhotel_room_room_amenity_column_idx'] = array(
+                                          'idx_room_room_amenity_room_id' => 'room_id',
+                                          'idx_room_room_amenity_room_amenity_id' => 'room_amenity_id'
+    );
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_r_srvc_r_srvc_detail'] = DBUtil::getLimitedTablename('pobhotel_r_srvc_r_srvc_detail');
+    $pntable['pobhotel_r_srvc_r_srvc_detail_column'] = array(
+                                          'id' => 'pobhotel_r_srvc_r_srvc_detail_id',
+                                          'recreation_srvc_type_id' => 'r_srvc_r_srvc_detail_recreation_srvc_type_id',
+                                          'recreation_srvc_detail_id' => 'r_srvc_r_srvc_detail_recreation_srvc_detail_id'
+    );
+
+    $pntable['pobhotel_r_srvc_r_srvc_detail_column_def'] = array(
+                                          'id' => 'INT(11) INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'recreation_srvc_type_id' =>'INT(11)',
+                                          'recreation_srvc_detail_id' =>'INT(11)'
+    );
+    $pntable['pobhotel_r_srvc_r_srvc_detail_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_r_srvc_r_srvc_detail_column'], 'r_srvc_r_srvc_detail_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_r_srvc_r_srvc_detail_column_def']);
+    $pntable['pobhotel_r_srvc_r_srvc_detail_column_idx'] = array(
+                                          'idx_r_srvc_r_srvc_detail_recreation_srvc_type_id' => 'recreation_srvc_type_id',
+                                          'idx_r_srvc_r_srvc_detail_room_recreation_srvc_detail_id' => 'recreation_srvc_detail_id'
+    );
+
 
     return $pntable;
   }
