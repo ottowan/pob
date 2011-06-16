@@ -76,6 +76,151 @@
     if (!DBUtil::createTable('pobhotel_rate')) {
       return false;
     }
+    if (!DBUtil::createTable('pobhotel_hotel_index_point')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_attraction')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_fee_tax')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_main_cuisine')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_meeting_room')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_payment_type')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_recreation_srvc')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_restaurant')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_room')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_segment')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_transportation')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_m_room_m_room_format')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_room_room_amenity')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_r_srvc_r_srvc_detail')) {
+      return false;
+    }
+    if (!DBUtil::createTable('pobhotel_hotel_rate_season')) {
+      return false;
+    }
+
+  function POBHotel_delete(){
+    DBUtil::dropTable('pobhotel_hotel');
+    DBUtil::dropTable('pobhotel_hotel_amenity');
+    DBUtil::dropTable('pobhotel_amenity');
+    DBUtil::dropTable('pobhotel_status');
+    DBUtil::dropTable('pobhotel_location_category');
+    DBUtil::dropTable('pobhotel_hotel_location');
+    DBUtil::dropTable('pobhotel_hotel_image');
+    DBUtil::dropTable('pobhotel_address_use_type');
+    DBUtil::dropTable('pobhotel_attraction_category');
+    DBUtil::dropTable('pobhotel_fee_tax_type');
+    DBUtil::dropTable('pobhotel_index_point');
+    DBUtil::dropTable('pobhotel_main_cuisine');
+    DBUtil::dropTable('pobhotel_meeting_room');
+    DBUtil::dropTable('pobhotel_meeting_room_format');
+    DBUtil::dropTable('pobhotel_payment_type');
+    DBUtil::dropTable('pobhotel_recreation_srvc_detail');
+    DBUtil::dropTable('pobhotel_recreation_srvc_type');
+    DBUtil::dropTable('pobhotel_restaurant_category');
+    DBUtil::dropTable('pobhotel_room_amenity_type');
+    DBUtil::dropTable('pobhotel_segment_category');
+    DBUtil::dropTable('pobhotel_transportation');
+    DBUtil::dropTable('pobhotel_room');
+    DBUtil::dropTable('pobhotel_room_image');
+    DBUtil::dropTable('pobhotel_season');
+    DBUtil::dropTable('pobhotel_rate');
+    DBUtil::dropTable('pobhotel_hotel_index_point');
+    DBUtil::dropTable('pobhotel_hotel_attraction');
+    DBUtil::dropTable('pobhotel_hotel_fee_tax');
+    DBUtil::dropTable('pobhotel_hotel_main_cuisine');
+    DBUtil::dropTable('pobhotel_hotel_meeting_room');
+    DBUtil::dropTable('pobhotel_hotel_payment_type');
+    DBUtil::dropTable('pobhotel_hotel_recreation_srvc');
+    DBUtil::dropTable('pobhotel_hotel_restaurant');
+    DBUtil::dropTable('pobhotel_hotel_room');
+    DBUtil::dropTable('pobhotel_hotel_segment');
+    DBUtil::dropTable('pobhotel_hotel_transportation');
+    DBUtil::dropTable('pobhotel_m_room_m_room_format');
+    DBUtil::dropTable('pobhotel_room_room_amenity');
+    DBUtil::dropTable('pobhotel_r_srvc_r_srvc_detail');
+    DBUtil::dropTable('pobhotel_hotel_rate_season');
+
+return true;
+  }    /*  DROP TABLE `zk_pobhotel_address_use_type`;
+        DROP TABLE `zk_pobhotel_amenity`;
+        DROP TABLE `zk_pobhotel_attraction_category`;
+        DROP TABLE `zk_pobhotel_hotel_amenity`;
+        DROP TABLE `zk_pobhotel_fee_tax_type`;
+        DROP TABLE `zk_pobhotel_hotel`;
+        DROP TABLE `zk_pobhotel_hotel_image`;
+        DROP TABLE `zk_pobhotel_hotel_locations`;
+        DROP TABLE `zk_pobhotel_index_point`;
+        DROP TABLE `zk_pobhotel_location_category`;
+        DROP TABLE `zk_pobhotel_main_cuisine`;
+        DROP TABLE `zk_pobhotel_meeting_room`;
+        DROP TABLE `zk_pobhotel_meeting_room_format`;
+        DROP TABLE `zk_pobhotel_recreation_srvc_detail`;
+        DROP TABLE `zk_pobhotel_recreation_srvc_type`;
+        DROP TABLE `zk_pobhotel_restaurant_category`;
+        DROP TABLE `zk_pobhotel_room_amenity_type`;
+        DROP TABLE `zk_pobhotel_segment_category`;
+        DROP TABLE `zk_pobhotel_status`;
+        DROP TABLE `zk_pobhotel_transportation`;
+        DROP TABLE `zk_pobhotel_payment_type`;
+        DROP TABLE `zk_pobhotel_room`;
+        DROP TABLE `zk_pobhotel_room_image`;
+        DROP TABLE `zk_pobhotel_season_image`;
+        DROP TABLE `zk_pobhotel_rate`;
+        DROP TABLE `zk_pobhotel_hotel_index_point`;
+        DROP TABLE `zk_pobhotel_hotel_attraction`;
+        DROP TABLE `zk_pobhotel_hotel_fee_tax`;
+        DROP TABLE `zk_pobhotel_hotel_main_cuisine`;
+        DROP TABLE `zk_pobhotel_hotel_meeting_room`;
+        DROP TABLE `zk_pobhotel_hotel_payment_type`;
+        DROP TABLE `zk_pobhotel_hotel_recreation_srvc`;
+        DROP TABLE `zk_pobhotel_hotel_restaurant`;
+        DROP TABLE `zk_pobhotel_hotel_room`;
+        DROP TABLE `zk_pobhotel_hotel_segment`;
+        DROP TABLE `zk_pobhotel_hotel_transportation`;
+        DROP TABLE `zk_pobhotel_m_room_m_room_format`;
+        DROP TABLE `zk_pobhotel_room_room_amenity`;
+        DROP TABLE `zk_pobhotel_r_srvc_r_srvc_detail`;
+        DROP TABLE `zk_pobhotel_hotel_rate_season`;
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $flgCreate1 = mkdir("pnTemp/pobhotel_upload");
     $flgCreate2 = mkdir("pnTemp/pobhotel_upload/image");
@@ -381,60 +526,7 @@
 
   }
 
-    /*  DROP TABLE `zk_pobhotel_address_use_type`;
-        DROP TABLE `zk_pobhotel_amenity`;
-        DROP TABLE `zk_pobhotel_attraction_category`;
-        DROP TABLE `zk_pobhotel_hotel_amenity`;
-        DROP TABLE `zk_pobhotel_fee_tax_type`;
-        DROP TABLE `zk_pobhotel_hotel`;
-        DROP TABLE `zk_pobhotel_hotel_image`;
-        DROP TABLE `zk_pobhotel_hotel_location`;
-        DROP TABLE `zk_pobhotel_index_point`;
-        DROP TABLE `zk_pobhotel_location_category`;
-        DROP TABLE `zk_pobhotel_main_cuisine`;
-        DROP TABLE `zk_pobhotel_meeting_room`;
-        DROP TABLE `zk_pobhotel_meeting_room_format`;
-        DROP TABLE `zk_pobhotel_recreation_srvc_detail`;
-        DROP TABLE `zk_pobhotel_recreation_srvc_type`;
-        DROP TABLE `zk_pobhotel_restaurant_category`;
-        DROP TABLE `zk_pobhotel_room_amenity_type`;
-        DROP TABLE `zk_pobhotel_segment_category`;
-        DROP TABLE `zk_pobhotel_status`;
-        DROP TABLE `zk_pobhotel_transportation`;
-        DROP TABLE `zk_pobhotel_payment_type`;
-        DROP TABLE `zk_pobhotel_room`;
-        DROP TABLE `zk_pobhotel_room_image`;
-        DROP TABLE `zk_pobhotel_season_image`;
-        DROP TABLE `zk_pobhotel_rate`;
- */
 
-  function POBHotel_delete(){
-    DBUtil::dropTable('pobhotel_hotel');
-    DBUtil::dropTable('pobhotel_hotel_amenity');
-    DBUtil::dropTable('pobhotel_amenity');
-    DBUtil::dropTable('pobhotel_status');
-    DBUtil::dropTable('pobhotel_location_category');
-    DBUtil::dropTable('pobhotel_hotel_location');
-    DBUtil::dropTable('pobhotel_hotel_image');
-    DBUtil::dropTable('pobhotel_address_use_type');
-    DBUtil::dropTable('pobhotel_attraction_category');
-    DBUtil::dropTable('pobhotel_fee_tax_type');
-    DBUtil::dropTable('pobhotel_index_point');
-    DBUtil::dropTable('pobhotel_main_cuisine');
-    DBUtil::dropTable('pobhotel_meeting_room');
-    DBUtil::dropTable('pobhotel_meeting_room_format');
-    DBUtil::dropTable('pobhotel_payment_type');
-    DBUtil::dropTable('pobhotel_recreation_srvc_detail');
-    DBUtil::dropTable('pobhotel_recreation_srvc_type');
-    DBUtil::dropTable('pobhotel_restaurant_category');
-    DBUtil::dropTable('pobhotel_room_amenity_type');
-    DBUtil::dropTable('pobhotel_segment_category');
-    DBUtil::dropTable('pobhotel_transportation');
-    DBUtil::dropTable('pobhotel_room');
-    DBUtil::dropTable('pobhotel_room_image');
-    DBUtil::dropTable('pobhotel_season');
-    DBUtil::dropTable('pobhotel_rate');
 
-return true;
-  }
+
 ?>
