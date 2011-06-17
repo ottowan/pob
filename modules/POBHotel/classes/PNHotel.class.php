@@ -15,7 +15,7 @@
       $result = array();
       if ($id){
 
-        $fieldArray = array('amenity_id');
+/*        $fieldArray = array('amenity_id');
 
         $result['hotelAmenity'] = DBUtil::selectObjectArray( 'pobhotel_hotel_amenity',
                                                                   "WHERE hotel_amenity_hotel_id = '$id'",
@@ -27,6 +27,24 @@
                                                                   null,
                                                                   $fieldArray
         );
+
+
+        $fieldArray = array('attraction_id');
+        $result['hotelAttraction'] = DBUtil::selectObjectArray( 'pobhotel_hotel_attraction',
+                                                                  "WHERE hotel_attraction_hotel_id = '$id'",
+                                                                  '',
+                                                                  -1,
+                                                                  -1,
+                                                                  '',
+                                                                  null,
+                                                                  null,
+                                                                  $fieldArray
+        );
+
+*/
+
+
+
 
         $fieldImageArray = array('image_id');
 
@@ -77,6 +95,37 @@
         DBUtil::insertObjectArray($obj, 'pobhotel_hotel_amenity');
         unset($obj);
       }
+
+      $itemIndexPoint = FormUtil::getPassedValue ('itemIndexPoint', false);
+      $id = $this->_objData['id'];
+      if($itemIndexPoint && $id){
+        foreach($itemIndexPoint as $key=>$val ){
+          //$valArray = explode("@", $key);
+          $obj[] = array(
+                          'index_point_id' => $val,
+                          'hotel_id' => $id
+                   );
+        }
+        //Do the insert
+        DBUtil::insertObjectArray($obj, 'pobhotel_hotel_index_point');
+        unset($obj);
+      }
+
+      $itemAttraction = FormUtil::getPassedValue ('itemAttraction', false);
+      $id = $this->_objData['id'];
+      if($itemAttraction && $id){
+        foreach($itemAttraction as $key=>$val ){
+          //$valArray = explode("@", $key);
+          $obj[] = array(
+                          'attraction_id' => $val,
+                          'hotel_id' => $id
+                   );
+        }
+        //Do the insert
+        DBUtil::insertObjectArray($obj, 'pobhotel_hotel_attraction');
+        unset($obj);
+      }
+
 
       $itemLocationCategory = FormUtil::getPassedValue ('itemLocationCategory', false);
       if($itemLocationCategory && $id){
