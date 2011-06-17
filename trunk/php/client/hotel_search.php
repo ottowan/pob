@@ -1,6 +1,6 @@
 <?php
 //http://pob-ws.heroku.com/api/hotel_descriptive_content_notif
-
+header( "content-type: application/xml; charset=utf-8" );
 
     $url = 'http://pob-ws.heroku.com/api/hotel_search';
 
@@ -42,7 +42,6 @@
 
     curl_close($ch);
 
-    echo $response;
-    var_dump($response);
+    print $response;
 
 ?>
