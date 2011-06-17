@@ -182,19 +182,19 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
-    $pntable['pobhotel_attraction_category'] = DBUtil::getLimitedTablename('pobhotel_attraction_category');
-    $pntable['pobhotel_attraction_category_column'] = array(
-                                          'id' => 'attraction_category_id',
-                                          'name' => 'attraction_category_name'
+    $pntable['pobhotel_attraction'] = DBUtil::getLimitedTablename('pobhotel_attraction');
+    $pntable['pobhotel_attraction_column'] = array(
+                                          'id' => 'attraction_id',
+                                          'name' => 'attraction_name'
     );
-    $pntable['pobhotel_attraction_category_column_def'] = array(
+    $pntable['pobhotel_attraction_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'name' =>'TEXT  DEFAULT NULL'
     );
-    $pntable['pobhotel_attraction_category_primary_key_column'] = 'id';
+    $pntable['pobhotel_attraction_primary_key_column'] = 'id';
     //add standard data fields
-    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobs_category_column'], 'attraction_category_');
-    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_attraction_category_column_def']);
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobs_category_column'], 'attraction_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_attraction_column_def']);
 
 ////////////////////////////////////////////////////////////////////////////////////////
     $pntable['pobhotel_fee_tax_type'] = DBUtil::getLimitedTablename('pobhotel_fee_tax_type');
