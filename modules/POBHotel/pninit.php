@@ -25,7 +25,7 @@
     if (!DBUtil::createTable('pobhotel_address_use_type')) {
       return false;
     }
-    if (!DBUtil::createTable('pobhotel_attraction_category')) {
+    if (!DBUtil::createTable('pobhotel_attraction')) {
       return false;
     }
     if (!DBUtil::createTable('pobhotel_fee_tax_type')) {
@@ -131,7 +131,7 @@
     DBUtil::dropTable('pobhotel_hotel_location');
     DBUtil::dropTable('pobhotel_hotel_image');
     DBUtil::dropTable('pobhotel_address_use_type');
-    DBUtil::dropTable('pobhotel_attraction_category');
+    DBUtil::dropTable('pobhotel_attraction');
     DBUtil::dropTable('pobhotel_fee_tax_type');
     DBUtil::dropTable('pobhotel_index_point');
     DBUtil::dropTable('pobhotel_main_cuisine');
@@ -167,7 +167,7 @@
 return true;
   }    /*  DROP TABLE `zk_pobhotel_address_use_type`;
         DROP TABLE `zk_pobhotel_amenity`;
-        DROP TABLE `zk_pobhotel_attraction_category`;
+        DROP TABLE `zk_pobhotel_attraction`;
         DROP TABLE `zk_pobhotel_hotel_amenity`;
         DROP TABLE `zk_pobhotel_fee_tax_type`;
         DROP TABLE `zk_pobhotel_hotel`;
@@ -313,7 +313,7 @@ return true;
                                     'name' => $data[1]
                             );
         }
-        DBUtil::insertObjectArray($amenityArray, 'pobhotel_attraction_category', true);
+        DBUtil::insertObjectArray($amenityArray, 'pobhotel_attraction', true);
         unset($amenityArray);
         unset($data);
         unset($file);
