@@ -1,10 +1,11 @@
 <TABLE border="1">
 <TR>
-   <TH>status</TH>
-   <TH>name</TH>
-   <TH>descriptions</TH>
-   <TH>more</TH>
-   <TH>edit</TH>
+   <TH>Status</TH>
+   <TH>Name</TH>
+   <TH>Descriptions</TH>
+   <TH>More</TH>
+   <TH>Add Room</TH>
+   <TH>Edit</TH>
 </TR>
  <!--[foreach from=$objectArray item=item]-->
 <TR>
@@ -12,7 +13,10 @@
    <TD><!--[$item.name]--></TD>
    <TD><!--[$item.descriptions]--></TD>
    <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD>
+   <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Room&hotel_id=<!--[$item.id]-->">เพิ่มห้อง</A></TH>
    <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Hotel&id=<!--[$item.id]-->">แก้ไข</A></TH>
+
+   
 </TR>
   <!--[/foreach]-->
 </TABLE>

@@ -380,6 +380,7 @@
     $pntable['pobhotel_room'] = DBUtil::getLimitedTablename('pobhotel_room');
     $pntable['pobhotel_room_column'] = array(
                                           'id' => 'room_id',
+										  'hotel_id'=>'room_hotel_id',
                                           'name' => 'room_name',
                                           'sorting_index' => 'room_sorting_index',
                                           'capacity' => 'room_capacity',
@@ -388,6 +389,7 @@
     );
     $pntable['pobhotel_room_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'hotel_id' =>'INT(11)',
                                           'name' =>'TEXT  DEFAULT NULL',
                                           'sorting_index' =>'INT(11)',
                                           'capacity' =>'INT(11)',
