@@ -63,7 +63,7 @@
                     </ul>
                 </div>
                 <div id="steps">
-                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data>
+                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data>"
       <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
                         <fieldset class="step">
                             <legend>Intro</legend>
@@ -394,7 +394,7 @@
       </script>
       </head>
       <div style="clear:both"></div>
-      <TABLE width="900">
+      <TABLE width="900" style="float:left;">
       <TR>
         <TD valign="top" width="650">
 
@@ -414,7 +414,7 @@
         </TD>
         <TD valign="top" width="150">
   
-                    <TABLE width='200' border="0">
+                    <TABLE width='150' border="0" height="200">
                         <TR>
                             <TD class='td-label' align="left"><B>latitude&nbsp;:&nbsp;</B></TD>
                         </TR>
@@ -688,7 +688,13 @@
 
                         <fieldset class="step">
                                         <legend>Confirm</legend>
-
+<table>
+  <TR>
+    <TD><INPUT TYPE="submit" value="submit"></TD>
+    <TD><input type="button" name="Cancel" value="Cancel" onclick="window.location = '<!--[pnmodurl modname=POBHotel type=admin func=list ctrl=room]-->'" />
+  </TD>
+  </TR>
+</table>
                                         <p class="submit">
                                             <button id="registerButton" type="submit">เพิ่มโรงแรม</button>
                                         </p>
