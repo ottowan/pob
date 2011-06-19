@@ -7,7 +7,8 @@
 Class HotelDescContentGenerator {
   private $hotelObject = NULL;
   private $locationObject = NULL;
-  private $amenity = NULL;
+  private $hotelAmenity = NULL;
+  private $facilityInfoObject = NULL;
   
   function __construct($hotelId=''){
     $pntables = pnDBGetTables();
@@ -16,31 +17,37 @@ Class HotelDescContentGenerator {
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelArray] ...');
       
-    $hotelObjectArray = new $class;
-    $hotelObjectArray->get(' WHERE hotel_id = '.$hotelId);
-    $this->hotelObject = $hotelObjectArray->_objData[0];
+    $objectArray = new $class;
+    $objectArray->get(' WHERE hotel_id = '.$hotelId);
+    $this->hotelObject = $objectArray->_objData[0];
     
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelLocationArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelLocationArray] ...');
     
-    $locationObjectArray = new $class;
-    $locationObjectArray->get(' WHERE '.$pntables['pobhotel_hotel_location_column']["hotel_id"].' = '.$hotelId);
-    $this->locationObject = $locationObjectArray->_objData;
+    $objectArray = new $class;
+    $objectArray->get(' WHERE '.$pntables['pobhotel_hotel_location_column']["hotel_id"].' = '.$hotelId);
+    $this->locationObject = $objectArray->_objData;
     
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAmenityArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelAmenityArray] ...');
     
-    $amenityObjectArray = new $class;
-    $amenityObjectArray->get(' WHERE '.$pntables['pobhotel_hotel_amenity_column']["hotel_id"].' = '.$hotelId);
-    $this->amenity = $amenityObjectArray->_objData;
+    $objectArray = new $class;
+    $objectArray->get(' WHERE '.$pntables['pobhotel_hotel_amenity_column']["hotel_id"].' = '.$hotelId);
+    $this->hotelAmenity = $objectArray->_objData;
     
+    if (!($class = Loader::loadClassFromModule ('POBHotel', 'AmenityArray', false)))
+      return LogUtil::registerError ('Unable to load class [AmenityArray] ...');
+    
+    $objectArray = new $class;
+    $objectArray->get(' WHERE '.$pntables['pobhotel_room_column']["hotel_id"].' = '.$hotelId.' ORDER BY room_lu_date DESC');
+    $this->facilityInfoObject  = $objectArray->_objData;
     
     
     
     
     //var_dump($this->hotelObject);
     //var_dump($this->locationObject);
-    //var_dump($this->amenity);
+    //var_dump($this->hotelAmenity);
   }
   public function getContent(){
     return $this->genHotelDescriptive();
@@ -93,11 +100,47 @@ Class HotelDescContentGenerator {
     return $xml;
   }
   private function genFacilityInfo(){
-    $xml = new DOMDocument();
-    $xml->formatOutput = true;
-    $HotelInfo = $xml->createElement("FacilityInfo");
-    $xml->appendChild($HotelInfo);
-    return $xml->saveXML();
+  
+    if(!is_null($facilityInfoObject)){
+      $xml = new DOMDocument();
+      $xml->formatOutput = true;
+      $facilityInfo = $xml->createElement("FacilityInfo");
+      if(isset($this->facilityInfoObject[0]['lu_date'])){
+        $facilityInfo->setAttribute("LastUpdated",$this->facilityInfoObject[0]['lu_date']);
+      }
+      
+      $guestRooms = $xml->createElement("GuestRooms");
+      forech($this->facilityInfoObject AS $key=>$value){
+        $guestRoom = $xml->createElement("GuestRoom");
+        if($value["capacity"]>=1){
+          $guestRoom->setAttribute("MaxOccupancy",$value["capacity"]);
+        }
+        if(isset($value["name"])){
+          $guestRoom->setAttribute("RoomTypeName",$value["name"]);
+        }
+        $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
+        $MultimediaDescription = $xml->createElement("MultimediaDescription");
+        $TextItems = $xml->createElement("TextItems");
+        $TextItem = $xml->createElement("TextItem");
+        $TextItem->setAttribute("Title","Room Description");
+        $Description = $xml->createElement("Description",$value["description"]);
+        
+        $TextItem->appendChild($Description);
+        $TextItems->appendChild($TextItem);
+        $MultimediaDescription->appendChild($TextItems);
+        $MultimediaDescriptions->($MultimediaDescription);
+        $guestRoom->appendChild($MultimediaDescriptions);
+        $guestRooms->appendChild($guestRoom);
+      }
+      
+
+      
+      $xml->appendChild($HotelInfo);
+      return $xml->saveXML();
+    }else{
+      return FALSE;
+    }
+    
   }
   private function genHotelInfo(){
     $xml = new DOMDocument();
@@ -123,7 +166,7 @@ Class HotelDescContentGenerator {
     $Position->setAttribute("Longitude",$this->hotelObject["position_longitude"]);
     
     $Services = $xml->createElement("Services");
-    foreach($this->amenity AS $key=>$value){
+    foreach($this->hotelAmenity AS $key=>$value){
       $Service = $xml->createElement("Service");
       $Service->setAttribute("Code",$value['amenity_id']);
       $Services->appendChild($Service);
