@@ -380,7 +380,7 @@
     $pntable['pobhotel_room'] = DBUtil::getLimitedTablename('pobhotel_room');
     $pntable['pobhotel_room_column'] = array(
                                           'id' => 'room_id',
-										  'hotel_id'=>'room_hotel_id',
+										                      'hotel_id'=>'room_hotel_id',
                                           'name' => 'room_name',
                                           'sorting_index' => 'room_sorting_index',
                                           'capacity' => 'room_capacity',

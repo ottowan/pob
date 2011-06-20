@@ -35,8 +35,8 @@ Class HotelDescContentGenerator {
     $objectArray->get(' WHERE '.$pntables['pobhotel_hotel_amenity_column']["hotel_id"].' = '.$hotelId);
     $this->hotelAmenity = $objectArray->_objData;
     
-    if (!($class = Loader::loadClassFromModule ('POBHotel', 'AmenityArray', false)))
-      return LogUtil::registerError ('Unable to load class [AmenityArray] ...');
+    if (!($class = Loader::loadClassFromModule ('POBHotel', 'RoomArray', false)))
+      return LogUtil::registerError ('Unable to load class [RoomArray] ...');
     
     $objectArray = new $class;
     $objectArray->get(' WHERE '.$pntables['pobhotel_room_column']["hotel_id"].' = '.$hotelId.' ORDER BY room_lu_date DESC');
@@ -51,6 +51,21 @@ Class HotelDescContentGenerator {
   }
   public function getContent(){
     return $this->genHotelDescriptive();
+  }
+  public function sendContent(){
+    $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
+    $data = $this->genHotelDescriptive();
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    $response = curl_exec($ch);
+
+    curl_close($ch);
+    return $response;
   }
   private function genHotelDescriptive(){
     $xml = new DOMDocument('1.0','utf-8');
@@ -77,9 +92,11 @@ Class HotelDescContentGenerator {
     $HotelInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("HotelInfo")->item(0), true);
     $HotelDescriptiveContent->appendChild($HotelInfoNode);
     
-    $LoadedXML = DOMDocument::loadXML($this->genFacilityInfo());
-    $FacilityInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("FacilityInfo")->item(0), true);
-    $HotelDescriptiveContent->appendChild($FacilityInfoNode);
+    if(!is_null($this->facilityInfoObject)){
+      $LoadedXML = DOMDocument::loadXML($this->genFacilityInfo());
+      $FacilityInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("FacilityInfo")->item(0), true);
+      $HotelDescriptiveContent->appendChild($FacilityInfoNode);
+    }
     
     $LoadedXML = DOMDocument::loadXML($this->genPolicies());
     $PoliciesNode = $xml->importNode($LoadedXML->getElementsByTagName("Policies")->item(0), true);
@@ -101,17 +118,22 @@ Class HotelDescContentGenerator {
   }
   private function genFacilityInfo(){
   
-    if(!is_null($facilityInfoObject)){
+    if(!is_null($this->facilityInfoObject)){
       $xml = new DOMDocument();
       $xml->formatOutput = true;
       $facilityInfo = $xml->createElement("FacilityInfo");
       if(isset($this->facilityInfoObject[0]['lu_date'])){
-        $facilityInfo->setAttribute("LastUpdated",$this->facilityInfoObject[0]['lu_date']);
+        $facilityInfo->setAttribute("LastUpdated",str_replace(" ","T",$this->facilityInfoObject[0]['lu_date']));
       }
       
       $guestRooms = $xml->createElement("GuestRooms");
-      forech($this->facilityInfoObject AS $key=>$value){
+      foreach($this->facilityInfoObject AS $key=>$value){
         $guestRoom = $xml->createElement("GuestRoom");
+        
+        $guestRoom->setAttribute("CodeContext","MARSHA Room Type");
+        $guestRoom->setAttribute("Quantity","1033");
+        $guestRoom->setAttribute("NonsmokingQuantity","923");
+
         if($value["capacity"]>=1){
           $guestRoom->setAttribute("MaxOccupancy",$value["capacity"]);
         }
@@ -128,15 +150,16 @@ Class HotelDescContentGenerator {
         $TextItem->appendChild($Description);
         $TextItems->appendChild($TextItem);
         $MultimediaDescription->appendChild($TextItems);
-        $MultimediaDescriptions->($MultimediaDescription);
+        $MultimediaDescriptions->appendChild($MultimediaDescription);
         $guestRoom->appendChild($MultimediaDescriptions);
         $guestRooms->appendChild($guestRoom);
       }
-      
+      $facilityInfo->appendChild($guestRooms);
 
       
-      $xml->appendChild($HotelInfo);
+      $xml->appendChild($facilityInfo);
       return $xml->saveXML();
+      
     }else{
       return FALSE;
     }
