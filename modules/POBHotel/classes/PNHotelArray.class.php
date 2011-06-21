@@ -12,9 +12,10 @@
                                   'object_field_name' => array('status_name'),
                                   'compare_field_table' => 'status_id',
                                   'compare_field_join' => 'id');
-
+                                  
+                                  
       $this->_init($init, $where);
-
+        
     }
 
     function genFilter(){
@@ -24,9 +25,13 @@
       //Get filter by id
       $id = FormUtil::getPassedValue ('id', false);
       if($id){
-        $where[] = "hotel_id = ".$id;
+        $where[] = " hotel_id = ".$id;
       }
-
+      //Get filter by list
+      $list = FormUtil::getPassedValue ('list', false);
+      if($list){
+        $where[] = " hotel_id IN (".$list.")";
+      }
       $wheres = implode(" AND ", $where);
 
 
@@ -34,10 +39,23 @@
     }
 
     function genSort(){
-      $order = ' ORDER BY hotel_id ASC';
-     return $order;
+      $pntables = pnDBGetTables();
+      $column = $pntables[$this->_objType.'_column'];
+  
+      $desc  = FormUtil::getPassedValue ('desc', FALSE, 'REQUEST');
+      $asc  = FormUtil::getPassedValue ('asc', FALSE, 'REQUEST');
+      
+      if($desc){
+        //return " ORDER BY $column[$desc] desc";
+        return " ORDER BY $column[$desc] DESC";
+      }
+      if($asc){
+        //return " ORDER BY $column[$asc] asc";
+        return " ORDER BY $column[$asc] ASC";
+      }
+      
+      return ' ORDER BY hotel_id ASC';
     }
-
   }
 
 
