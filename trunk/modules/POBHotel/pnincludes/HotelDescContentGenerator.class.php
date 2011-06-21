@@ -55,7 +55,7 @@ Class HotelDescContentGenerator {
   public function sendContent(){
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
-    
+    $data = $data->saveXML();
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -107,7 +107,7 @@ Class HotelDescContentGenerator {
     $HotelDescriptiveContent->appendChild($AreaInfoNode);
     
     $LoadedXML = DOMDocument::loadXML($this->genContractInfo());
-    $ContractInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("ContractInfo")->item(0), true);
+    $ContractInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("ContactInfo")->item(0), true);
     $HotelDescriptiveContent->appendChild($ContractInfoNode);
     
     $HotelDescriptiveContents->appendChild($HotelDescriptiveContent);
@@ -166,8 +166,76 @@ Class HotelDescContentGenerator {
     
   }
   private function genHotelInfo(){
+  
+    $data = '<Descriptions>
+					<Renovation ImmediatePlans="false" PercentOfRenovationCompleted="100"/>
+					<Renovation>
+						<MultimediaDescriptions>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Renovation Area Completion Date 1">
+										<Description>2000-02-13</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Renovation Area Description 2">
+										<Description>Guest Rooms</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Renovation Area Completion Date 2">
+										<Description>2002-10-01</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+						</MultimediaDescriptions>
+					</Renovation>
+					<MultimediaDescriptions>
+						<MultimediaDescription>
+							<TextItems>
+								<TextItem Title="Description">
+									<Description>The Boston Marriott Copley Place Hotel is the perfect destination for business or pleasure.  We&apos;re located in Boston&apos;s Back Bay, off the Mass. Trnpk. at Exit 22, 4 mi from Logan Airport, &amp; in close proximity to subway.</Description>
+								</TextItem>
+								<TextItem Title="PropertyLongDescription">
+									<Description>Boston Marriott Copley Place hotel is ideally located in Boston&apos;s Back Bay. This Copley Square hotel is easily accessible for business convenience. Centrally located in Copley Place for leisure activities. And technology-driven for dynamic meetings. For your trip to Boston, Massachusetts, the Copley Marriott is the perfect choice.</Description>
+								</TextItem>
+								<TextItem Title="Top Selling Feature 1">
+									<Description>Boston&apos;s historic Back Bay, just off the Massachusetts Turnpike;  four miles from Logan Airport</Description>
+								</TextItem>
+								<TextItem Title="Top Selling Feature 2">
+									<Description>,147 rooms and suites, the largest hotel ballroom in the area, and 65,000 square feet of event room</Description>
+								</TextItem>
+								<TextItem Title="Property Service Level">
+									<Description>Service</Description>
+								</TextItem>
+								<TextItem Title="Guest Room Highlights">
+									<Description ListItem="1">internet access</Description>
+									<Description ListItem="2">&quot; color TV with cable movies, in-room pay movies, Web TV and Gameboy</Description>
+									<Description ListItem="3">and refrigerators</Description>
+								</TextItem>
+								<TextItem Title="Business/Group Highlights">
+									<Description ListItem="1">&amp; Service Team consistently awarded the highest Guest Satisfaction Scores</Description>
+									<Description ListItem="2">the Gold Key Award and the Corporate &amp; lncentive Travel Award of Excellence</Description>
+									<Description ListItem="3">Exhibit Hall 22,500 square feet</Description>
+								</TextItem>
+							</TextItems>
+						</MultimediaDescription>
+					</MultimediaDescriptions>
+				</Descriptions>';
+
+    
     $xml = new DOMDocument();
     //$xml->formatOutput = true;
+    
+            
+    $LoadedXML = DOMDocument::loadXML($data);
+    $Descriptions = $xml->importNode($LoadedXML->getElementsByTagName("Descriptions")->item(0), true);
+    
+    
     $HotelInfo = $xml->createElement("HotelInfo");
     $HotelInfo->setAttribute("HotelStatus",$this->hotelObject["status_name"]);
     $HotelInfo->setAttribute("LastUpdated",str_replace(" ","T",$this->hotelObject["lu_date"]));
@@ -177,11 +245,14 @@ Class HotelDescContentGenerator {
     $CategoryCodes = $xml->createElement("CategoryCodes");
 
     foreach($this->locationObject AS $key=>$value){
-      $LocationCategory = $xml->createElement("LocationCategory");
-      $LocationCategory->setAttribute("Code",$value["location_id"]);
-      $LocationCategory->setAttribute("CodeDetail","Location Type: ".$value["location_name"]);
-      
-      $CategoryCodes->appendChild($LocationCategory);
+      if(!is_null($value["location_id"])){
+        $LocationCategory = $xml->createElement("LocationCategory");
+        $LocationCategory->setAttribute("Code",$value["location_id"]);
+        $LocationCategory->setAttribute("CodeDetail","Location Type: ".$value["location_name"]);
+        
+        $CategoryCodes->appendChild($LocationCategory);
+      }
+
     }
     
     $Position = $xml->createElement("Position");
@@ -192,36 +263,340 @@ Class HotelDescContentGenerator {
     foreach($this->hotelAmenity AS $key=>$value){
       $Service = $xml->createElement("Service");
       $Service->setAttribute("Code",$value['amenity_id']);
+      $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
+      $MultimediaDescription = $xml->createElement("MultimediaDescription");
+      $TextItems = $xml->createElement("TextItems");
+      $TextItem = $xml->createElement("TextItem");
+      $TextItem->setAttribute("Title","Description");
+      $Description = $xml->createElement("Description",$value["amenity_name"]);
+      $TextItem->appendChild($Description);
+      $TextItems->appendChild($TextItem);
+      $MultimediaDescription->appendChild($TextItems);
+      $MultimediaDescriptions->appendChild($MultimediaDescription);
+      $Service->appendChild($MultimediaDescriptions);
       $Services->appendChild($Service);
     }
 
-
+    
     $HotelInfo->appendChild($CategoryCodes);
+    $HotelInfo->appendChild($Descriptions);
     $HotelInfo->appendChild($Position);
     $HotelInfo->appendChild($Services);
     $xml->appendChild($HotelInfo);
     return $xml->saveXML();
   }
   private function genPolicies(){
-    $xml = new DOMDocument();
-    $xml->formatOutput = true;
-    $HotelInfo = $xml->createElement("Policies");
-    $xml->appendChild($HotelInfo);
-    return $xml->saveXML();
+    //$xml = new DOMDocument();
+    //$xml->formatOutput = true;
+    //$Policies = $xml->createElement("Policies");
+    //$xml->appendChild($Policies);
+    //return $xml->saveXML();
+    $data = '<?xml version="1.0" encoding="UTF-8"?><Policies>
+				<Policy>
+					<CancelPolicy>
+						<CancelPenalty>
+							<PenaltyDescription Name="Cancellation Policy">
+								<Text>6:00 PM</Text>
+							</PenaltyDescription>
+						</CancelPenalty>
+					</CancelPolicy>
+					<GuaranteePaymentPolicy>
+						<GuaranteePayment PaymentCode="2"/>
+						<!--Payment Code 2 = Direct bill from OTA Code Table PMT-->
+					</GuaranteePaymentPolicy>
+					<PolicyInfoCodes>
+						<PolicyInfoCode>
+							<Description Name="Oversold - Phone Call Home/Business">
+								<Text>Y</Text>
+							</Description>
+						</PolicyInfoCode>
+						<PolicyInfoCode Name="OversoldArrangeAccommodations"/>
+						<PolicyInfoCode Name="OversoldPayOneNightRoom"/>
+						<PolicyInfoCode Name="OversoldArrangeTransportation"/>
+					</PolicyInfoCodes>
+					<CheckoutCharges>
+						<CheckoutCharge CodeDetail="Late Check-Out Available" Type="Late">
+							<Description Name="Late Check-Out Fees">
+								<Text>00</Text>
+							</Description>
+						</CheckoutCharge>
+					</CheckoutCharges>
+					<PolicyInfo CheckInTime="16:00:00" CheckOutTime="12:00:00" KidsStayFree="true" TotalGuestCount="5"/>
+					<TaxPolicies>
+						<TaxPolicy Amount="5" Code="7"/>
+						<!--Code 7 = Food & beverage tax from OTA Code Table FTT-->
+						<TaxPolicy Code="10" NightsForTaxExemptionQuantity="90" Percent="5.7"/>
+						<!--Code 10 = Occupancy tax from OTA Code Table FTT-->
+						<TaxPolicy Code="17" Percent="12.45"/>
+						<!--Code 17 = Total tax from OTA Code Table FTT-->
+						<TaxPolicy Amount="2.75" Code="27"/>
+						<!--Code 27 = Miscellaneous from OTA Code Table FTT-->
+					</TaxPolicies>
+				</Policy>
+			</Policies>';
+      
+      return $data;
   }
   private function genAreaInfo(){
-    $xml = new DOMDocument();
-    $xml->formatOutput = true;
-    $HotelInfo = $xml->createElement("AreaInfo");
-    $xml->appendChild($HotelInfo);
-    return $xml->saveXML();
+    //$xml = new DOMDocument();
+    //$xml->formatOutput = true;
+    //$AreaInfo = $xml->createElement("AreaInfo");
+    //$xml->appendChild($AreaInfo);
+    //return $xml->saveXML();
+    
+    $data = '<?xml version="1.0" encoding="UTF-8"?><AreaInfo>
+				<RefPoints>
+					<RefPoint Distance=".3" IndexPointCode="3" Name="Expway, Route 93, Mass. Turnpike">
+						<!--Index Point Code 3 = Highway from OTA Code Table IPC-->
+						<Transportations>
+							<Transportation>
+								<MultimediaDescriptions>
+									<MultimediaDescription>
+										<TextItems>
+											<TextItem Title="Directions to Highway from Property">
+												<Description>Please call the hotel for directions</Description>
+											</TextItem>
+										</TextItems>
+									</MultimediaDescription>
+								</MultimediaDescriptions>
+							</Transportation>
+						</Transportations>
+					</RefPoint>
+				</RefPoints>
+				<Attractions LastUpdated="2004-11-10T15:50:30">
+					<Attraction AttractionCategoryCode="1" AttractionName="Boston" Code="BOS" CourtesyPhone="true">
+						<!--Attraction Category Code 1 = Airport from OTA Code Table ACC-->
+						<Contact>
+							<Addresses>
+								<Address>
+									<CityName>BOSTON</CityName>
+									<StateProv>MA</StateProv>
+									<CountryName>US</CountryName>
+								</Address>
+							</Addresses>
+							<Phones>
+								<Phone PhoneLocationType="2" PhoneNumber="8002353426" PhoneTechType="1" PhoneUseType="5"/>
+								<!--Phone Location Type 2 = Central reservations office from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type 5 = Contact from OTA Code Table PUT-->
+							</Phones>
+						</Contact>
+						<MultimediaDescriptions>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Sort Order">
+										<Description>1</Description>
+									</TextItem>
+									<TextItem Title="AirportName/Code">
+										<Description>Boston (BOS)</Description>
+									</TextItem>
+									<TextItem Title="Driving Instructions from Airport">
+										<Description>East on Mass Turnpike (Route 90).  Take the Copley Square exit which exits onto Stuart Street.  At the first light turn left onto Dartmouth Street.  At the next light turn left onto Huntington Avenue and stay in the left lane.  At the light under the skybridge make a u-turn to the left.  The hotel is in the right.</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+						</MultimediaDescriptions>
+						<RefPoints>
+							<RefPoint Direction="W" Distance="4">
+								<Transportations>
+									<Transportation Description="Drive Time to Airport" TransportationCode="5" TypicalTravelTime="20"/>
+									<!--Transportation Code 5 = Car from OTA Code Table TRP-->
+									<Transportation Amount="10" CodeDetail="Fee" Description="Shuttle Service from Airport" NotificationRequired="On Request" TransportationCode="17"/>
+									<!--Transportation Code 17 = Shuttle from OTA Code Table TRP-->
+									<Transportation Amount="1" Description="Subway from Airport to Hotel Fee (one-way)" TransportationCode="18"/>
+									<!--Transportation Code 18 = Subway from OTA Code Table TRP-->
+									<Transportation Amount="30" Description="Estimated Taxi Fee (one-way)" TransportationCode="20"/>
+									<!--Transportation Code 20 = Taxi from OTA Code Table TRP-->
+									<Transportation Amount="10" CodeDetail="On Request" Description="Alternate Transportation Fee" TransportationCode="26">
+										<!--Transportation Code 26 = Other or alternate from OTA Code Table TRP-->
+										<MultimediaDescriptions>
+											<MultimediaDescription>
+												<TextItems>
+													<TextItem Title="Alternate Transportation Name">
+														<Description>Boston Hotels Shuttle</Description>
+													</TextItem>
+												</TextItems>
+											</MultimediaDescription>
+										</MultimediaDescriptions>
+									</Transportation>
+									<Transportation Description="Drive Time to Airport in Rush Hour" TransportationCode="27" TypicalTravelTime="30"/>
+									<!--Transportation Code 27 = Car/rush hour from OTA Code Table TRP-->
+									<Transportation Amount="35" Description="Estimated Taxi Fee (one-way) Rush Hour" TransportationCode="28"/>
+									<!--Transportation Code 28 = Taxi/rush hour from OTA Code Table TRP-->
+								</Transportations>
+							</RefPoint>
+						</RefPoints>
+					</Attraction>
+					<Attraction AttractionCategoryCode="62" AttractionName="Quincy Market/Faneuil Hall">
+						<!--Attraction Category Code 62 = Other from OTA Code Table ACC-->
+						<Contact>
+							<Addresses>
+								<Address>
+									<CityName>Boston</CityName>
+									<StateProv>MA</StateProv>
+									<CountryName>USA</CountryName>
+								</Address>
+							</Addresses>
+						</Contact>
+						<RefPoints>
+							<RefPoint Distance="1">
+								<Transportations>
+									<Transportation CodeDetail="N/A" TransportationCode="17"/>
+									<!--Transportation Code 17 = Shuttle from OTA Code Table TRP-->
+								</Transportations>
+							</RefPoint>
+						</RefPoints>
+					</Attraction>
+				</Attractions>
+				<Recreations>
+					<Recreation>
+						<MultimediaDescriptions>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Recreational Summary">
+										<Description>Full health club with indoor pool and workout facilities.  Nearby are many jogging areas and other health facilities with more complete information available through our concierge.  Golf and tennis nearby.</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+						</MultimediaDescriptions>
+					</Recreation>
+					<Recreation Code="36" CodeDetail="Onsite" Name="The Health Club">
+						<!--Code 36 = Health club from OTA Code Table RST-->
+						<OperationSchedules>
+							<OperationSchedule>
+								<OperationTimes>
+									<OperationTime End="23:00:00" Fri="true" Mon="true" Start="05:30:00" Thur="true" Tue="true" Weds="true"/>
+									<OperationTime End="23:00:00" Sat="true" Start="06:00:00" Sun="true"/>
+								</OperationTimes>
+							</OperationSchedule>
+							<OperationSchedule>
+								<Charge Amount="0"/>
+							</OperationSchedule>
+						</OperationSchedules>
+						<RefPoints>
+							<RefPoint Distance="0"/>
+						</RefPoints>
+						<MultimediaDescriptions>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Sort Order">
+										<Description>1</Description>
+									</TextItem>
+									<TextItem Title="Year fitness center equipment was most recently replaced">
+										<Description>2000</Description>
+									</TextItem>
+									<TextItem Title="Fitness Center Type">
+										<Description>EXTENSIVE</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+						</MultimediaDescriptions>
+						<RecreationDetails>
+							<RecreationDetail Code="35">
+								<!--Code 35 = Classes available from OTA Code Table REC-->
+								<Description Name="Fitness Classes">
+									<Text>N/A</Text>
+								</Description>
+							</RecreationDetail>
+							<RecreationDetail Code="41">
+								<!--Code 41 = Services available from OTA Code Table REC-->
+								<Description Name="Fitness Service">
+									<Text>Massages</Text>
+								</Description>
+							</RecreationDetail>
+						</RecreationDetails>
+					</Recreation>
+					<Recreation Code="122" Name="Indoor Pool">
+						<!--Code 122 = Indoor pool from OTA Code Table RST-->
+						<OperationSchedules>
+							<OperationSchedule>
+								<OperationTimes>
+									<OperationTime End="23:00:00" Fri="true" Mon="true" Start="05:30:00" Thur="true" Tue="true" Weds="true"/>
+									<OperationTime End="23:00:00" Sat="true" Start="06:00:00" Sun="true"/>
+								</OperationTimes>
+							</OperationSchedule>
+						</OperationSchedules>
+						<MultimediaDescriptions>
+							<MultimediaDescription>
+								<TextItems>
+									<TextItem Title="Sort Order">
+										<Description>1</Description>
+									</TextItem>
+								</TextItems>
+							</MultimediaDescription>
+						</MultimediaDescriptions>
+						<RecreationDetails>
+							<RecreationDetail Code="30" CodeDetail="Yes"/>
+							<!--Code 30 = Heated pool from OTA Code Table REC-->
+							<RecreationDetail Code="32">
+								<!--Code 32 = Pool depth from OTA Code Table REC-->
+								<Description Name="Swimming Pool Depth">
+									<Text>5&quot; 6&quot;</Text>
+								</Description>
+							</RecreationDetail>
+							<RecreationDetail Code="40">
+								<!--Code 40 = Restricted age for children without adult supervision from OTA Code Table REC-->
+								<Description Name="Restricted age for Children w/o Adult Supervision">
+									<Text>16</Text>
+								</Description>
+							</RecreationDetail>
+							<RecreationDetail Code="43">
+								<!--Code 43 = Towels available from OTA Code Table REC-->
+								<Description Name="Towels Provided for Guest at Indoor Swimming Pool">
+									<Text>Yes</Text>
+								</Description>
+							</RecreationDetail>
+							<RecreationDetail>
+								<Description Name="Swimming Pool Location Indoor">
+									<Text>5th Floor</Text>
+								</Description>
+							</RecreationDetail>
+						</RecreationDetails>
+					</Recreation>
+				</Recreations>
+			</AreaInfo>';
+      
+      return $data;
   }
   private function genContractInfo(){
-    $xml = new DOMDocument();
-    $xml->formatOutput = true;
-    $HotelInfo = $xml->createElement("ContractInfo");
-    $xml->appendChild($HotelInfo);
-    return $xml->saveXML();
+    //$xml = new DOMDocument();
+    //$xml->formatOutput = true;
+    //$ContractInfo = $xml->createElement("ContractInfo");
+    //$xml->appendChild($ContractInfo);
+    //return $xml->saveXML();
+    
+    
+    $data = '<?xml version="1.0" encoding="UTF-8"?><ContactInfos>
+				<ContactInfo ContactProfileType="Property Info">
+					<Addresses>
+						<Address UseType="7">
+							<!--Use Type 7 = Physical from OTA Code Table AUT-->
+							<AddressLine>110 Huntington Avenue</AddressLine>
+							<CityName>Boston</CityName>
+							<PostalCode>02116</PostalCode>
+							<StateProv StateCode="MA"/>
+							<CountryName>USA</CountryName>
+						</Address>
+					</Addresses>
+					<Phones>
+						<Phone PhoneLocationType="1" PhoneNumber="1-800-228-9290" PhoneTechType="1" PhoneUseType="6"/>
+						<!--Phone Location Type 1 = Brand reservations office from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type = 1 Emergency contact from OTA Code Table PUT-->
+						<Phone AreaCityCode="617" CountryAccessCode="1" PhoneLocationType="4" PhoneNumber="236-5800" PhoneTechType="1" PhoneUseType="5"/>
+						<!--Phone Location Type 4 = Property direct from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type 5 = Contact from OTA Code Table PUT-->
+					</Phones>
+				</ContactInfo>
+				<ContactInfo ContactProfileType="Property Personnel">
+					<Names>
+						<Name>
+							<GivenName>Richard</GivenName>
+							<Surname>Grand</Surname>
+							<JobTitle Type="Job Title">
+						
+							</JobTitle>
+						</Name>
+					</Names>
+				</ContactInfo>
+			</ContactInfos>';
+      
+      return $data;
   }
 
 }

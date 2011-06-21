@@ -16,7 +16,7 @@ header("content-type: application/xml; charset=UTF-8");
     $xml = $obj->getContent();
     print $xml->saveXML();
   }else if($f=="send"){
-    $res = $$obj->sendContent();
+    $res = $obj->sendContent();
     print $res;
   }
 
