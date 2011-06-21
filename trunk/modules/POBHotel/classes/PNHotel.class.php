@@ -11,73 +11,67 @@
     }
 
     function selectExtendResult(){
-      $id = FormUtil::getPassedValue ('id', false);
+      $id = $this->objData['id'];
+      var_dump($id);
       $result = array();
       if ($id){
 
-/*        $fieldArray = array('amenity_id');
+      $fieldArray = array('amenity_id');
 
-        $result['hotelAmenity'] = DBUtil::selectObjectArray( 'pobhotel_hotel_amenity',
-                                                                  "WHERE hotel_amenity_hotel_id = '$id'",
-                                                                  '',
-                                                                  -1,
-                                                                  -1,
-                                                                  '',
-                                                                  null,
-                                                                  null,
-                                                                  $fieldArray
-        );
-
-
-        $fieldArray = array('attraction_id');
-        $result['hotelAttraction'] = DBUtil::selectObjectArray( 'pobhotel_hotel_attraction',
-                                                                  "WHERE hotel_attraction_hotel_id = '$id'",
-                                                                  '',
-                                                                  -1,
-                                                                  -1,
-                                                                  '',
-                                                                  null,
-                                                                  null,
-                                                                  $fieldArray
-        );
+      $result['hotelAmenity'] = DBUtil::selectObjectArray( 'pobhotel_hotel_amenity',
+                                                                "WHERE hotel_amenity_hotel_id = '$id'",
+                                                                '',
+                                                                -1,
+                                                                -1,
+                                                                '',
+                                                                null,
+                                                                null,
+                                                                $fieldArray
+      );
 
 
+      $fieldArray = array('attraction_id');
+      $result['hotelAttraction'] = DBUtil::selectObjectArray( 'pobhotel_hotel_attraction',
+                                                                "WHERE hotel_attraction_hotel_id = '$id'",
+                                                                '',
+                                                                -1,
+                                                                -1,
+                                                                '',
+                                                                null,
+                                                                null,
+                                                                $fieldArray
+      );
+
+      $fieldImageArray = array('image_id');
+      /*
+      $result['imageHotel'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
+                                                                "WHERE image_hotel_id = '$id'",
+                                                                '',
+                                                                -1,
+                                                                -1,
+                                                                '',
+                                                                null,
+                                                                null,
+                                                                array('image_id')
+      );
+      */
+      $fieldLocationArray = array('location_category_id');
+
+      $result['locationCategory'] = DBUtil::selectObjectArray( 'pobhotel_hotel_location',
+                                                                "WHERE hotel_location_hotel_id = '$id'",
+                                                                '',
+                                                                -1,
+                                                                -1,
+                                                                '',
+                                                                null,
+                                                                null,
+                                                                $fieldLocationArray
+      );
 
 
-
-
-        $fieldImageArray = array('image_id');
-
-        $result['imageHotel'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
-                                                                  "WHERE hotel_image_id = '$id'",
-                                                                  '',
-                                                                  -1,
-                                                                  -1,
-                                                                  '',
-                                                                  null,
-                                                                  null,
-                                                                  $fieldImageArray
-        );
-
-        $fieldLocationArray = array('location_category_id');
-
-        $result['locationCategory'] = DBUtil::selectObjectArray( 'pobhotel_hotel_location',
-                                                                  "WHERE hotel_location_hotel_id = '$id'",
-                                                                  '',
-                                                                  -1,
-                                                                  -1,
-                                                                  '',
-                                                                  null,
-                                                                  null,
-                                                                  $fieldLocationArray
-        );
-
-*/
-        }
-
+      }
       return $result;
     }
-
 
     function insertPostProcess(){
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
@@ -142,9 +136,11 @@
       }
 
 
-          $this->uploadFiles($id);
-
-        //$this->checkHasImage($id);
+        $this->uploadFiles($id);
+        
+        
+        //Send notify to center service.
+        $this->sendNotify();
 
 
     }
@@ -364,5 +360,13 @@
     }
   }
 
+    private function sendNotify(){
+      if (!($class = Loader::loadClass('HotelDescContentGenerator', "modules/POBHotel/pnincludes")))
+        return LogUtil::registerError ('Unable to load class [HotelDescContentGenerator] ...');
+      $obj = new HotelDescContentGenerator($this->_objData['id']);
+      $res = $obj->sendContent();
+      print $res;
+      exit;
+    }
   }
 ?>

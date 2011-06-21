@@ -13,6 +13,18 @@
       $order = ' ORDER BY room_id ASC';
      return $order;
     }
+    function genFilterRoomListByHotelId(){
+      $pntables = pnDBGetTables();
+      $column  = $pntables[$this->_objType.'_column'];
+      
+      $id = FormUtil::getPassedValue ('id', FALSE, 'REQUEST');
+      if($id){
+        $wheres[] = " $column[hotel_id] = ".$id;
+      }
+      
+  
+      return implode(' AND ', $wheres) ;
+    }
   }
 
 
