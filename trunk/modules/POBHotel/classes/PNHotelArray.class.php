@@ -32,9 +32,37 @@
       if($list){
         $where[] = " hotel_id IN (".$list.")";
       }
+      
+      $pntables = pnDBGetTables();
+      $column = $pntables[$this->_objType.'_column'];
+      $columnHotelLocation = $pntables['pobhotel_hotel_location_column'];
+      $columnLocationCategory = $pntables['pobhotel_location_category_column'];
+
+      
+      $search = FormUtil::getPassedValue ('search', FALSE, 'REQUEST');
+      $searchArray = explode(" ",$search);
+      foreach($searchArray AS $value){
+        $searchArray2[] = str_replace("+"," ", $value);
+      }
+      $searchImploded = implode(",",$searchArray2);
+      if($search){
+        foreach($searchArray2 AS $value){
+          $whereSearch[] = " $column[name] LIKE '%".$value."%'";
+          $whereSearch[] = " $column[descriptions] LIKE '%".$value."%'";
+          $whereSearch[] = " $column[id] IN (SELECT $columnHotelLocation[hotel_id] FROM $pntables[pobhotel_hotel_location] WHERE $columnHotelLocation[location_category_id] = (SELECT $columnLocationCategory[id] FROM $pntables[pobhotel_location_category] WHERE $columnLocationCategory[name] LIKE '%".$value."%'))";
+        }
+
+        $wheres = implode(" OR ", $whereSearch);
+        //var_dump($wheres);
+        //exit;
+        return $wheres;
+      }
+      
+      
+      
+      
+      
       $wheres = implode(" AND ", $where);
-
-
       return $wheres;
     }
 
