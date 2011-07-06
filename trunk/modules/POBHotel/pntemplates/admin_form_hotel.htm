@@ -73,6 +73,22 @@
                                   <TD>name</TD>
                                   <TD><INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->"></TD>
                                 </TR>
+								<TR>
+                                  <TD>Subdomain name</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[database_name]" value="<!--[$form.database_name]-->">.phuketcity.com</TD>
+                                </TR>
+								<TR>
+                                  <TD>Username</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[username]" value="<!--[$form.username]-->"></TD>
+                                </TR>
+								<TR>
+                                  <TD>Password</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[password]" value="<!--[$form.password]-->"></TD>
+                                </TR>
+								<TR>
+                                  <TD>E-mail</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[email]" value="<!--[$form.email]-->"></TD>
+                                </TR>
                                 <TR>
                                   <TD>status</TD>
                                   <TD>
@@ -194,7 +210,7 @@
 
                         <fieldset class="step">
                             <legend>Facility</legend>
-                            <div class="long" style="overflow:scroll; height:590px;  float:left; width:935">
+                            <div class="long" style="overflow:scroll; height:600px; float:left; width:950">
                               <TABLE width="900" style="overflow:scroll; height:200">
                                 <!--[get_all_amenity]-->
                                 <!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
@@ -530,7 +546,7 @@
 
                         <fieldset class="step">
                             <legend>Index point</legend>
-                                <TABLE >
+                                <TABLE>
                                 <!--[get_all_index_point]-->
                                 <!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
 
@@ -693,9 +709,6 @@
                                         </p>
                         </fieldset>
                         <fieldset class="step"></fieldset>
-
-
-
                     </form>
                 </div>
             </div>

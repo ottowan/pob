@@ -1,3 +1,8 @@
+
+body{
+    font-family:"Century Gothic", Helvetica, sans-serif;
+}
+
 #wrapper{
 	margin:0 auto 20px auto;
     -moz-box-shadow:0px 0px 3px #aaa;
@@ -11,7 +16,6 @@
     width:950px;
     overflow:hidden;
 	position:relative;
-	font-size:14px;
 }
 #steps{
     width:950px;

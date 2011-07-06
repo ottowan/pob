@@ -12,7 +12,6 @@
 
     function selectExtendResult(){
       $id = $this->objData['id'];
-      var_dump($id);
       $result = array();
       if ($id){
 
@@ -140,8 +139,8 @@
         
         
         //Send notify to center service.
-        $this->sendNotify();
-
+        //$this->sendNotify();
+        //$this->createDatabase();
 
     }
 
@@ -366,6 +365,17 @@
       $obj = new HotelDescContentGenerator($this->_objData['id']);
       $res = $obj->sendContent();
       print $res;
+      
+    }
+
+    private function createDatabase(){
+      if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes")))
+        return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
+      //$form = FormUtil::getPassedValue ('form', false, 'REQUEST');
+      $table = FormUtil::getPassedValue ('table', false, 'REQUEST');
+      $obj = new SubdomainCreator();
+      $obj->makedb($table);
+      $obj->sqlDump();
       exit;
     }
   }

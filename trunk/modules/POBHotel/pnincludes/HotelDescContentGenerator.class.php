@@ -56,6 +56,9 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
+    //header("Content-type: text/xml");
+    //print $data;
+    //exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -65,6 +68,7 @@ Class HotelDescContentGenerator {
     $response = curl_exec($ch);
 
     curl_close($ch);
+
     return $response;
   }
   private function genHotelDescriptive(){
@@ -82,10 +86,10 @@ Class HotelDescContentGenerator {
     $HotelDescriptiveContent = $xml->createElement("HotelDescriptiveContent");
     
     $HotelDescriptiveContent->setAttribute("BrandCode","MHRS");
-    $HotelDescriptiveContent->setAttribute("BrandName",$this->hotelObject["name"]);
+    $HotelDescriptiveContent->setAttribute("BrandName",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("CurrencyCode","THB");
     $HotelDescriptiveContent->setAttribute("HotelCode","BOSCO");
-    $HotelDescriptiveContent->setAttribute("HotelName",$this->hotelObject["descriptions"]);
+    $HotelDescriptiveContent->setAttribute("HotelName",htmlentities($this->hotelObject["descriptions"]));
     $HotelDescriptiveContent->setAttribute("LanguageCode","TH");
     
     $LoadedXML = DOMDocument::loadXML($this->genHotelInfo());
@@ -135,17 +139,17 @@ Class HotelDescContentGenerator {
         $guestRoom->setAttribute("NonsmokingQuantity","923");
 
         if($value["capacity"]>=1){
-          $guestRoom->setAttribute("MaxOccupancy",$value["capacity"]);
+          $guestRoom->setAttribute("MaxOccupancy",htmlentities($value["capacity"]));
         }
         if(isset($value["name"])){
-          $guestRoom->setAttribute("RoomTypeName",$value["name"]);
+          $guestRoom->setAttribute("RoomTypeName",htmlentities($value["name"]));
         }
         $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
         $MultimediaDescription = $xml->createElement("MultimediaDescription");
         $TextItems = $xml->createElement("TextItems");
         $TextItem = $xml->createElement("TextItem");
         $TextItem->setAttribute("Title","Room Description");
-        $Description = $xml->createElement("Description",$value["description"]);
+        $Description = $xml->createElement("Description",htmlentities($value["description"]));
         
         $TextItem->appendChild($Description);
         $TextItems->appendChild($TextItem);
@@ -237,9 +241,9 @@ Class HotelDescContentGenerator {
     
     
     $HotelInfo = $xml->createElement("HotelInfo");
-    $HotelInfo->setAttribute("HotelStatus",$this->hotelObject["status_name"]);
+    $HotelInfo->setAttribute("HotelStatus",htmlentities($this->hotelObject["status_name"]));
     $HotelInfo->setAttribute("LastUpdated",str_replace(" ","T",$this->hotelObject["lu_date"]));
-    $HotelInfo->setAttribute("Start",$this->hotelObject["start"]);
+    $HotelInfo->setAttribute("Start",htmlentities($this->hotelObject["start"]));
     $HotelInfo->setAttribute("WhenBuilt",substr($this->hotelObject["when_built"],0,4));
     
     $CategoryCodes = $xml->createElement("CategoryCodes");
@@ -248,7 +252,7 @@ Class HotelDescContentGenerator {
       if(!is_null($value["location_id"])){
         $LocationCategory = $xml->createElement("LocationCategory");
         $LocationCategory->setAttribute("Code",$value["location_id"]);
-        $LocationCategory->setAttribute("CodeDetail","Location Type: ".$value["location_name"]);
+        $LocationCategory->setAttribute("CodeDetail","Location Type: ".htmlentities($value["location_name"]));
         
         $CategoryCodes->appendChild($LocationCategory);
       }
@@ -268,7 +272,7 @@ Class HotelDescContentGenerator {
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title","Description");
-      $Description = $xml->createElement("Description",$value["amenity_name"]);
+      $Description = $xml->createElement("Description",htmlentities($value["amenity_name"]));
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
       $MultimediaDescription->appendChild($TextItems);

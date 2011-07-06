@@ -15,7 +15,8 @@
                                           'when_built' => 'hotel_when_built',
                                           'descriptions'=> 'hotel_descriptions',
                                           'position_latitude'=> 'hotel_position_latitude',
-                                          'position_longitude'=> 'hotel_position_longitude'
+                                          'position_longitude'=> 'hotel_position_longitude',
+                                          'database_name' => 'hotel_database_name'
     );
     $pntable['pobhotel_hotel_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
@@ -26,7 +27,8 @@
                                           'when_built'=> 'DATE',
                                           'descriptions' => 'TEXT  DEFAULT NULL',
                                           'position_latitude' => 'DOUBLE',
-                                          'position_longitude' => 'DOUBLE'
+                                          'position_longitude' => 'DOUBLE',
+                                          'database_name' => 'varchar(255)'
     );
     $pntable['pobhotel_hotel_primary_key_column'] = 'id';
     //add standard data fields
@@ -164,6 +166,32 @@
     $pntable['pobhotel_hotel_image_column_idx'] = array(
                                           'idx_hotel_hotel_image_hotel_id' => 'hotel_id',
     );
+
+
+
+    $pntable['pobhotel_member'] = DBUtil::getLimitedTablename('pobhotel_member');
+    $pntable['pobhotel_member_column'] = array(
+                                          'id' => 'mem_id',
+                                          'name' => 'mem_name',
+                                          'username' => 'mem_username',
+                                          'password' => 'mem_password',
+                                          'database_name' => 'mem_database_name',
+                                          'email' => 'mem_email',
+                                          'status' => 'mem_status'
+    );
+    $pntable['pobhotel_member_column_def'] = array(
+                                          'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'name' => 'TEXT  DEFAULT NULL',
+                                          'username' => 'TEXT  DEFAULT NULL',
+                                          'password' => 'TEXT  DEFAULT NULL',
+                                          'database_name' => 'TEXT  DEFAULT NULL',
+                                          'email' => 'TEXT  DEFAULT NULL',
+                                          'status' => 'INT(11) DEFAULT 2'
+    );
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_member_column'], 'mem_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_member_column_def']);
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
     $pntable['pobhotel_address_use_type'] = DBUtil::getLimitedTablename('pobhotel_address_use_type');
