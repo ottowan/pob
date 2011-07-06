@@ -31,7 +31,7 @@ function selectExtendResult($id=NULL){
                                                                 $fieldArray
       );
 
-      $fieldImageArray = array('id','filepath','filename');
+      $fieldImageArray = array('id','filepath','filename','thumbname','thumbpath');
       $result['imageHotel'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
                                                                 "WHERE hotel_image_hotel_id = '$id'",
                                                                 '',
@@ -196,8 +196,10 @@ function POBHotel_ws_getHotelList(){
            $ExVal[$i++] = $ExVal2["location_category_id"].",".getLocationName($ExVal2["location_category_id"]);
          }
          if($ExKey=="imageHotel"){
-           $ExVal[$i++] = $ExVal2["id"].",".$ExVal2["filepath"].$ExVal2["filename"];
+           //$ExVal[$i++] = $ExVal2["id"].",".str_replace(basename($_SERVER['PHP_SELF']),"","http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']).$ExVal2["filepath"].$ExVal2["filename"];
+           $ExVal[$i++] = $ExVal2["id"].",".str_replace(basename($_SERVER['PHP_SELF']),"","http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']).$ExVal2["thumbpath"].$ExVal2["filename"];
          }
+         
         $val1[$ExKey] = $ExVal;	
        }
        
@@ -329,7 +331,8 @@ function POBHotel_ws_searchHotel(){
            $ExVal[$i++] = $ExVal2["location_category_id"].",".getLocationName($ExVal2["location_category_id"]);
          }
          if($ExKey=="imageHotel"){
-           $ExVal[$i++] = $ExVal2["id"].",".$ExVal2["filepath"].$ExVal2["filename"];
+           //$ExVal[$i++] = $ExVal2["id"].",".str_replace(basename($_SERVER['PHP_SELF']),"","http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']).$ExVal2["filepath"].$ExVal2["filename"];
+           $ExVal[$i++] = $ExVal2["id"].",".str_replace(basename($_SERVER['PHP_SELF']),"","http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']).$ExVal2["thumbpath"].$ExVal2["filename"];
          }
         $val1[$ExKey] = $ExVal;	
        }

@@ -1,0 +1,33 @@
+<FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='userform' func='submit' ctrl='Member']-->" enctype="multipart/form-data>">
+      <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
+                        <fieldset class="step">
+                            <legend>Intro</legend>
+
+                              <TABLE width="900" >
+                                <TR>
+                                  <TD>name</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->"></TD>
+                                </TR>
+								<TR>
+                                  <TD>Subdomain name</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[database_name]" value="<!--[$form.database_name]-->">.phuketcity.com</TD>
+                                </TR>
+								<TR>
+                                  <TD>Username</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[username]" value="<!--[$form.username]-->"></TD>
+                                </TR>
+								<TR>
+                                  <TD>Password</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[password]" value="<!--[$form.password]-->"></TD>
+                                </TR>
+								<TR>
+                                  <TD>E-mail</TD>
+                                  <TD><INPUT TYPE="text" NAME="form[email]" value="<!--[$form.email]-->"></TD>
+                                </TR>
+                                <TR>
+                                  <TD colspan="2">
+                                    <input type="submit" value="ลงทะเบียน">
+                                   </TD>
+                                </TR>
+                      </TABLE>
+</FORM>

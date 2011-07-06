@@ -120,6 +120,9 @@
     if (!DBUtil::createTable('pobhotel_hotel_rate_season')) {
       return false;
     }
+    if (!DBUtil::createTable('pobhotel_member')) {
+      return false;
+    }
     $flgCreate1 = mkdir("pnTemp/pobhotel_upload");
     $flgCreate2 = mkdir("pnTemp/pobhotel_upload/image");
     $flgCreate3 = mkdir("pnTemp/pobhotel_upload/image/large");
@@ -171,7 +174,7 @@
     DBUtil::dropTable('pobhotel_room_room_amenity');
     DBUtil::dropTable('pobhotel_r_srvc_r_srvc_detail');
     DBUtil::dropTable('pobhotel_hotel_rate_season');
-
+    DBUtil::dropTable('pobhotel_member');
 return true;
   }
 

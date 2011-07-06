@@ -1,0 +1,28 @@
+<TABLE border="1">
+  <TR align="center">
+     <TH>Status</TH>
+     <TH>Name</TH>
+     <TH>Domain</TH>
+     <TH>Username</TH>
+     <TH>Password</TH>
+     <TH>Email</TH>
+  </TR>
+  <!--[foreach from=$objectArray item=item]-->
+    <TR>
+      <TD>
+       <!--[if $item.status == 1 ]-->
+         <A HREF="index.php?module=POBHotel&type=admin&func=update&ctrl=Member&status=1&id=<!--[$item.id]-->&table=<!--[$item.database_name]-->"><input type="submit" value="อนุมัติ" disabled></A>
+         <A HREF="index.php?module=POBHotel&type=admin&func=update&ctrl=Member&status=2&id=<!--[$item.id]-->"><input type="submit" value="ไม่อนุมัติ"></A>
+       <!--[elseif $item.status == 2 ]-->
+         <A HREF="index.php?module=POBHotel&type=admin&func=update&ctrl=Member&status=1&id=<!--[$item.id]-->"><input type="submit" value="อนุมัติ" ></A>
+         <A HREF="index.php?module=POBHotel&type=admin&func=update&ctrl=Member&status=2&id=<!--[$item.id]-->"><input type="submit" value="ไม่อนุมัติ" disabled></A>
+       <!--[/if]-->
+        </TD>
+       <TD><!--[$item.name]--></TD>
+       <TD><!--[$item.database_name]-->.phuketcity.com</TD>
+       <TD><!--[$item.username]--></TD>
+       <TD><!--[$item.password]--></TD>
+       <TD><!--[$item.email]--></TD>
+    </TR>
+  <!--[/foreach]-->
+</TABLE>

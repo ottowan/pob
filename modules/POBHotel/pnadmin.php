@@ -7,9 +7,9 @@
   function POBHotel_permission() {
     // Security check
     //we are allow for admin access level , see in config.php variable name ACCESS_ADMIN
-    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_ADMIN)) {
-        LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
-    }
+//    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_ADMIN)) {
+//        LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
+//    }
   }
 
   /**
@@ -272,5 +272,48 @@
     _languageRender($render);
     return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
   }
+
+
+  function POBHotel_admin_update() {
+    POBHotel_permission();      
+    $ctrl = FormUtil::getPassedValue ('ctrl', false);
+    $func = FormUtil::getPassedValue ('func', false);
+    $status = FormUtil::getPassedValue ('status', false);
+    $id = FormUtil::getPassedValue ('id', false);
+
+
+    if($id){
+      $pntables = pnDBGetTables();
+      $column   = $pntables['pobhotel_member_column'];
+      $obj = array('status' => $status);
+      $where    = "WHERE $column[id]=".$id;
+
+      DBUTil::updateObject ($obj, 'pobhotel_member', $where);
+    }
+
+
+    if($id == 1){
+      POBHotel_admin_createDatabase();
+    }
+
+/*
+    pnRedirect('admin_list_'.strtolower($ctrl).'.htm');
+*/
+    $render = pnRender::getInstance('POBHotel');
+    _languageRender($render);
+    return $render->fetch('admin_list_'.strtolower($ctrl).'.htm');
+  }
+
+  function POBHotel_admin_createDatabase(){
+    if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes")))
+      return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
+    $table = FormUtil::getPassedValue ('table', false, 'REQUEST');
+    $obj = new SubdomainCreator();
+    $obj->makedb($table);
+    $obj->sqlDump();
+    exit;
+  }
+
+
 
 ?>
