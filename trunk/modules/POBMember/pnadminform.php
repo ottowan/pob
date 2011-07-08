@@ -1,20 +1,20 @@
 <?php
-  function POBHotel_adminform_main (){
-    POBHotel_permission();
-    POBHotel_adminform_submit ();
+  function POBMember_adminform_main (){
+    POBMember_permission();
+    POBMember_adminform_submit ();
   }
 
-  function POBHotel_permission() {
+  function POBMember_permission() {
     // Security check
     //we are allow for admin access level , see in config.php variable name ACCESS_COMMENT
-    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_COMMENT)) {
+    if (!SecurityUtil::checkPermission('POBMember::', '::', ACCESS_COMMENT)) {
         LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
     }
   }
 
-  function POBHotel_adminform_submit()
+  function POBMember_adminform_submit()
   {
-    POBHotel_permission();
+    POBMember_permission();
     $forward =  FormUtil::getPassedValue ('forward', null);
     $ctrl =  FormUtil::getPassedValue ('ctrl', null);
     $form = FormUtil::getPassedValue ('form', null);
@@ -30,19 +30,19 @@
       if ($form[ctrl]){
         $ctrl = $form[ctrl];      
       }else{
-        return 'ERROR POBHotel system can not find controller variable';
+        return 'ERROR POBMember system can not find controller variable';
       }
     }
 
     //Forward page and select value
-    $list_url = pnModURL('POBHotel', 'admin', 'list' , array('ctrl'   => $ctrl));
+    $list_url = pnModURL('POBMember', 'admin', 'list' , array('ctrl'   => $ctrl));
 
     if (isset($_POST['button_cancel']) || isset($_POST['button_cancel_x'])){
         pnRedirect($list_url);
         return true;
     }
 
-    if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl , $is_array))){
+    if (!($class = Loader::loadClassFromModule ('POBMember', $ctrl , $is_array))){
         return LogUtil::registerError ('Unable to load class [$ctrl] ...');
     }
     $object = new $class ();
@@ -70,7 +70,7 @@
 
   /**
   * @param $urlarray  the array to generate contain key and value
-  *                   ex.  array('modname'=>'POBHotel'
+  *                   ex.  array('modname'=>'POBMember'
                                  'func'   =>'save'
                                  'type'   =>'admin');
   */
@@ -79,7 +79,7 @@
 
     $forward =  FormUtil::getPassedValue ('forward', null);
 
-    $modname = 'POBHotel';
+    $modname = 'POBMember';
 
     if($forward['func']){
       $func = $forward['func'];

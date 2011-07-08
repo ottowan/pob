@@ -4,10 +4,10 @@
   * auto execute , for initialize config variable
   * this function auto call every page has been fetch
   */
-  function POBHotel_permission() {
+  function POBMember_permission() {
     // Security check
     //we are allow for admin access level , see in config.php variable name ACCESS_ADMIN
-    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_ADMIN)) {
+    if (!SecurityUtil::checkPermission('POBMember::', '::', ACCESS_ADMIN)) {
         LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
     }
   }
@@ -30,21 +30,21 @@
   * @author Parinya Bumrungchoo
   * @return string HTML string
   */
-  function POBHotel_admin_main() {
-    POBHotel_permission();
-    return POBHotel_admin_list();
+  function POBMember_admin_main() {
+    POBMember_permission();
+    return POBMember_admin_list();
   }
 
   /**
   * display page with out class loader
   */
-  function POBHotel_admin_page() {
-    POBHotel_permission();
+  function POBMember_admin_page() {
+    POBMember_permission();
     //$ctrl the class name
     $ctrl    = FormUtil::getPassedValue ('ctrl', 'home' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
-    $render = pnRender::getInstance('POBHotel');
+    $render = pnRender::getInstance('POBMember');
     _languageRender($render);
     return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
   }
@@ -52,8 +52,8 @@
   /**
   * display page with class that extend Object 
   */
-  function POBHotel_admin_view() {
-    POBHotel_permission();
+  function POBMember_admin_view() {
+    POBMember_permission();
     //$ctrl the class name
     $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
@@ -68,12 +68,12 @@
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
 
-    $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
-    $render = pnRender::getInstance('POBHotel');
+    $pagesize = pnModGetVar ('POBMember', 'pagesize') ? pnModGetVar ('POBMember', 'pagesize') : 100;
+    $render = pnRender::getInstance('POBMember');
 
     if ($id){
       //load class
-      if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
+      if (!($class = Loader::loadClassFromModule ('POBMember', $ctrl, false)))
         return LogUtil::registerError ('Unable to load class [$ctrl] ...');
 
       $object  = new $class ();
@@ -91,8 +91,8 @@
   /**
   * display page with class that extend Object Array
   */
-  function POBHotel_admin_form() {
-    POBHotel_permission();
+  function POBMember_admin_form() {
+    POBMember_permission();
     //$ctrl the class name
     $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
@@ -107,11 +107,11 @@
     $where   = '';
     $step    = FormUtil::getPassedValue ('step', null , 'GET');
 
-    $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
-    $render = pnRender::getInstance('POBHotel');
+    $pagesize = pnModGetVar ('POBMember', 'pagesize') ? pnModGetVar ('POBMember', 'pagesize') : 100;
+    $render = pnRender::getInstance('POBMember');
     $mode = null;
     //load class
-    if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
+    if (!($class = Loader::loadClassFromModule ('POBMember', $ctrl, false)))
       return LogUtil::registerError ('Unable to load class [$ctrl] ...');
 
     $object  = new $class ();
@@ -134,17 +134,17 @@
   /**
   * display page with class that extend Object Array
   */
-  function POBHotel_admin_list() {
-    POBHotel_permission();
+  function POBMember_admin_list() {
+    POBMember_permission();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Province' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Member' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
   
     $is_export = false;
   
-    $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
-    $render = pnRender::getInstance('POBHotel');
+    $pagesize = pnModGetVar ('POBMember', 'pagesize') ? pnModGetVar ('POBMember', 'pagesize') : 100;
+    $render = pnRender::getInstance('POBMember');
   
     //check is export
     $export = FormUtil::getPassedValue ('export', false);
@@ -154,7 +154,7 @@
       $is_export = true;
     }
   
-    $class = Loader::loadClassFromModule ('POBHotel', $ctrl, true);
+    $class = Loader::loadClassFromModule ('POBMember', $ctrl, true);
     if ($class){
       $objectArray = new $class ();
       $where   = null;
@@ -197,15 +197,15 @@
       /**
         * for delete object for database by specify id
         */
-  function POBHotel_admin_delete() {
-    POBHotel_permission();
+  function POBMember_admin_delete() {
+    POBMember_permission();
     $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
     $id      = FormUtil::getPassedValue ('id', null , 'GET');
     $forward = FormUtil::getPassedValue ('forward', null , 'GET');
   
     if ($id){
       //load class
-      if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
+      if (!($class = Loader::loadClassFromModule ('POBMember', $ctrl, false)))
         return LogUtil::registerError ('Unable to load class [$ctrl] ...');
   
       $object  = new $class ();
@@ -213,13 +213,13 @@
       $object->delete ();
   
       if($forward){
-        $list_url = pnModURL('POBHotel', 'admin', 'list' , array('ctrl'   => $ctrl
+        $list_url = pnModURL('POBMember', 'admin', 'list' , array('ctrl'   => $ctrl
                                                                 )
                             );
       }else{
-        $list_url = pnModURL('POBHotel', 'admin', 'list' , array('ctrl'=>$ctrl
+        $list_url = pnModURL('POBMember', 'admin', 'list' , array('ctrl'=>$ctrl
                                                                 )
-      );
+                            );
       }
   
       if (method_exists($object,'genForward')){
@@ -233,44 +233,55 @@
   }
 
 
-  /**
-  * Create the room rate
-  */
-  function POBHotel_admin_createRate() {
-    POBHotel_permission();      
-    $ctrl = FormUtil::getPassedValue ('ctrl', false);
-    $func = FormUtil::getPassedValue ('func', false);
-    $form = FormUtil::getPassedValue ('form', false);
+  function POBMember_admin_update() {
+    POBMember_permission();      
+    $ctrl = FormUtil::getPassedValue ('ctrl', false, 'REQUEST');
+    $func = FormUtil::getPassedValue ('func', false, 'REQUEST');
+    $status = FormUtil::getPassedValue ('status', false, 'REQUEST');
+    $uid = FormUtil::getPassedValue ('uid', false, 'REQUEST');
 
-    $room_id    = FormUtil::getPassedValue ('room_id', false);
-    $season_id  = FormUtil::getPassedValue ('season_id', false);
-    $room_rate  = FormUtil::getPassedValue ('room_rate', false);
-    $one_bed    = FormUtil::getPassedValue ('one_bed', false);
-    $two_bed    = FormUtil::getPassedValue ('two_bed', false);
-    $single_bed = FormUtil::getPassedValue ('single_bed', false);
+    if($uid){
+      $pntables = pnDBGetTables();
+      //var_dump($pntables); exit;
+      //Select member data 
+      $tableMember  = $pntables['pobmember_member'];
+      $columnMember = $pntables['pobmember_member_column'];
+      $sql = "SELECT
+                $tableMember.$columnMember[uid]
+              FROM
+                $tableMember
+              WHERE
+                $tableMember.$columnMember[uid] = $uid
+              ";
+      $column = array("uid");
+      $result = DBUtil::executeSQL($sql);
+      $objectUserArray = DBUtil::marshallObjects ($result, $column);
+      //var_dump($status); exit;
 
+      if($objectUserArray[0]["uid"]){
 
-    if($form){
-      for($i=0; $i < count($form['room_id'])  ; $i++){
-        //$valArray = explode("@", $key);
-        $obj = array(
-                        'season_id'=>$form['season_id'],
-                        'room_id'=>$form['room_id'][$i],
-                        'room_rate'=>$form['room_rate'][$i],
-                        'one_bed'=>$form['one_bed'][$i],
-                        'two_bed'=>$form['two_bed'][$i],
-                        'single_bed'=>$form['single_bed'][$i]
-                 );
+        //echo "status : ".$status;
+        //Update statement
+        $obj = array('status' => $status);
+        $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
 
-        //Do the insert
-        DBUtil::insertObject($obj, 'pobhotel_rate');
-        unset($obj);
+        DBUtil::updateObject ($obj, 'pobmember_member', $where);
+      }else{
+        //echo "status : ".$status;
+        //Insert statement
+        $obj = array('uid'    => $uid,
+                     'status' => $status);
+        // do the insert
+        DBUtil::insertObject($obj, 'pobmember_member');
       }
     }
+    //exit;
+    $list_url = pnModURL('POBMember', 'admin', 'list' , array('ctrl'=>$ctrl));
+    pnRedirect($list_url);
+    die;
 
-    $render = pnRender::getInstance('POBHotel');
-    _languageRender($render);
-    return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
+
   }
+
 
 ?>
