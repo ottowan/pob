@@ -1,22 +1,49 @@
 <TABLE border="1">
-<TR>
-   <TH>Status</TH>
-   <TH>Name</TH>
-   <TH>Descriptions</TH>
-   <TH>More</TH>
-   <TH>Add Room</TH>
-   <TH>Edit</TH>
-</TR>
- <!--[foreach from=$objectArray item=item]-->
-<TR>
-   <TD><!--[$item.name]--></TD>
-   <TD><!--[$item.domain]--></TD>
-   <TD><!--[$item.user]--></TD>
-   <TD><!--[$item.pass]--></TD>
-   <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Member&status=1"><input type="submit" value="อนุมัติ"></A></TH>
-   <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Hotel&id=<!--[$item.id]-->">แก้ไข</A></TH>
+  <TR align="center">
+     <TH>Hotel Name</TH>
+     <TH>Domain Name</TH>
+     <TH>Firstname</TH>
+     <TH>Lastname</TH>
+     <TH>Email</TH>
+     <TH>Telephone</TH>
+     <TH>Status</TH>
+  </TR>
+  <!--[get_userproperty]-->
+  <!--[foreach from=$userArray item=item]-->
+      <TR>
+         <TD width="10%"><!--[$item.hotelname]--></TD>
+         <TD width="20%"><!--[$item.domainname]-->.phuketcity.com</TD>
+         <TD width="20%"><!--[$item.firstname]--></TD>
+         <TD width="10%"><!--[$item.lastname]--></TD>
+         <TD width="10%"><!--[$item.telephone]--></TD>
+         <TD width="10%"><!--[$item.email]--></TD>
+<!--
+         <TD><!--[$item.uname]--></TD>
+         <TD><!--[$item.pass]--></TD>
+-->
+         <TD width="20%">
 
-   
-</TR>
+          <!--[get_member_status_by_uid uid=$item.uid]-->
+          <!--[if $status == 1]-->
+            <form method="post" action="index.php?module=POBMember&type=admin&func=update&ctrl=Member">
+              <input type="hidden" name="uid" value="<!--[$item.uid]-->">
+              <input type="hidden" name="status" value="2">
+              <input type="submit" value="อนุมัติ" disabled>
+              <input type="submit" value="ไม่อนุมัติ">
+            </form>
+          <!--[else if $status == 2]-->
+            <form method="post" action="index.php?module=POBMember&type=admin&func=update&ctrl=Member">
+              <input type="hidden" name="uid" value="<!--[$item.uid]-->">
+              <input type="hidden" name="status" value="1">
+              <input type="submit" value="อนุมัติ">
+              <input type="submit" value="ไม่อนุมัติ" disabled>
+            </form>
+          <!--[/if]-->
+          </TD>
+      </TR>
   <!--[/foreach]-->
 </TABLE>
+
+
+
+
