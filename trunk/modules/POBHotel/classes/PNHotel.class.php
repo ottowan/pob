@@ -140,7 +140,7 @@
         
         //Send notify to center service.
         //$this->sendNotify();
-        //$this->createDatabase();
+        $this->createDatabase();
 
     }
 
@@ -365,16 +365,16 @@
       $obj = new HotelDescContentGenerator($this->_objData['id']);
       $res = $obj->sendContent();
       print $res;
-      
-    }
 
+    }
     private function createDatabase(){
-      if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes")))
+      if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes"))){
         return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
-      //$form = FormUtil::getPassedValue ('form', false, 'REQUEST');
-      $table = FormUtil::getPassedValue ('table', false, 'REQUEST');
+      }
+        
+      $form = FormUtil::getPassedValue ('form', false, 'REQUEST');
       $obj = new SubdomainCreator();
-      $obj->makedb($table);
+      $obj->makedb($form['database_name']);
       $obj->sqlDump();
       exit;
     }
