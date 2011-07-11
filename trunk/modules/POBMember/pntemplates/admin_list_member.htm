@@ -24,14 +24,15 @@
          <TD width="20%">
 
           <!--[get_member_status_by_uid uid=$item.uid]-->
-          <!--[if $status == 1]-->
+          <!--[if $status == 1 ]-->
             <form method="post" action="index.php?module=POBMember&type=admin&func=update&ctrl=Member">
               <input type="hidden" name="uid" value="<!--[$item.uid]-->">
               <input type="hidden" name="status" value="2">
               <input type="submit" value="อนุมัติ" disabled>
               <input type="submit" value="ไม่อนุมัติ">
             </form>
-          <!--[else if $status == 2]-->
+          <!--[/if]-->
+          <!--[if $status == 2]-->
             <form method="post" action="index.php?module=POBMember&type=admin&func=update&ctrl=Member">
               <input type="hidden" name="uid" value="<!--[$item.uid]-->">
               <input type="hidden" name="status" value="1">

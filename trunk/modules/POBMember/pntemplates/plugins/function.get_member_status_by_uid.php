@@ -19,12 +19,14 @@ function smarty_function_get_member_status_by_uid($params, &$smarty) {
       $result = DBUtil::executeSQL($sql);
       $objectArray = DBUtil::marshallObjects ($result, $column);
       $status = $objectArray['0']['status'];
+       //echo "sql : ".$sql."<br>";
+       //echo "status : ".$status;
     }
     //echo $uid.":".$status;
     if ($status) {
         $smarty->assign('status', $status); 
     } else {
-        return "";
+        $smarty->assign('status', 2); 
     }
 
 }
