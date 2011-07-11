@@ -123,24 +123,24 @@ Class SubdomainCreator {
         if (!file_exists($fileurl)) {
             //do something
         } else {
-        	// execute the SQL dump
-            $installed = true;
-            $lines = file($fileurl);
-            $exec = '';
-            foreach ($lines as $line_num => $line) {
-                $line = trim($line);
-                if (empty($line) || strpos($line, '--') === 0)
-                    continue;
-                $exec .= $line;
-                if (strrpos($line, ';') === strlen($line) - 1) {
-                    if (!DBUtil::executeSQL(str_replace('z_', $this->prefix. '_', $exec))) {
-                        $installed = false;
-                        $action = 'dbinformation';
-                        $smarty->assign('dbdumpfailed', true);
-                        break;
-                    }
-                    $exec = '';
-                }
+          // execute the SQL dump
+          $installed = true;
+          $lines = file($fileurl);
+          $exec = '';
+          foreach ($lines as $line_num => $line) {
+              $line = trim($line);
+              if (empty($line) || strpos($line, '--') === 0)
+                  continue;
+              $exec .= $line;
+              if (strrpos($line, ';') === strlen($line) - 1) {
+                  if (!DBUtil::executeSQL(str_replace('z_', $this->prefix. '_', $exec))) {
+                      $installed = false;
+                      $action = 'dbinformation';
+                      $smarty->assign('dbdumpfailed', true);
+                      break;
+                  }
+                  $exec = '';
+              }
             }
         }
       }
