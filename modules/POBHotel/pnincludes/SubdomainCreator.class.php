@@ -49,7 +49,7 @@ Class SubdomainCreator {
    * @param string $dbconn Database connection
    * @param string $dbname Database name
    */
-  function makedb($dbname)
+  function makedb($dbname,$username,$password,$email)
   {
     
     echo "DB Name : ".$dbname;
@@ -59,7 +59,9 @@ Class SubdomainCreator {
     echo "<BR>DB Host : ".$this->dbhost;
     
     $this->dbname = $dbname;
-    
+    $this->username = $username;
+    $this->password = $password;
+    $this->email = $email;
     //function makedb($dbtype, $dbhost, $dbusername, $dbpassword, $dbname, $charset, $collation) {
     // make a new database - the adodb way
     $dbconn = ADONewConnection($this->dbtype);
@@ -158,7 +160,7 @@ Class SubdomainCreator {
       }
       
       
-      $this->createuser($this->form['username'],$this->form['password'],$this->form['email']);
+      $this->createuser($this->username,$this->password,$this->email);
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $backUpDB;
     }
     echo "<br>SQL Dump :".$this->_error;
@@ -174,7 +176,7 @@ Class SubdomainCreator {
       $pntable = pnDBGetTables();
   
       // create the password hash
-      $password = DataUtil::hash($password, pnModGetVar('Users', 'hash_method'));
+      //$password = DataUtil::hash($password, pnModGetVar('Users', 'hash_method'));
   
       // prepare the data
       $username = DataUtil::formatForStore($username);
