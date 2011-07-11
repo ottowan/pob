@@ -264,15 +264,20 @@
         //Update statement
         $obj = array('status' => $status);
         $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
-
         DBUtil::updateObject ($obj, 'pobmember_member', $where);
+
       }else{
-        //echo "status : ".$status;
         //Insert statement
         $obj = array('uid'    => $uid,
                      'status' => $status);
         // do the insert
         DBUtil::insertObject($obj, 'pobmember_member');
+
+        //Create sub domain
+        $subdomain = getSubDomainByUID($uid);
+        $user = getUserByUID($uid);
+        createSubDomain($subdomain, $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
+
       }
     }
     //exit;
@@ -280,8 +285,76 @@
     pnRedirect($list_url);
     die;
 
-
   }
 
+
+  function getUserByUID($uid){
+
+    $pntables = pnDBGetTables();
+
+    $tableUsers  = $pntables['users'];
+    $columnUsers = $pntables['users_column'];
+
+    $sql = "SELECT
+              $tableUsers.$columnUsers[uname],
+              $tableUsers.$columnUsers[pass],
+              $tableUsers.$columnUsers[email]
+            FROM
+              $tableUsers
+            WHERE
+              $tableUsers.$columnUsers[uid] = $uid
+            ";
+
+    //echo $sql; exit;
+    $column = array("uname", "pass","email");
+    $result = DBUtil::executeSQL($sql);
+    $objectUserArray = DBUtil::marshallObjects ($result, $column);
+
+    return $objectUserArray;
+  }
+
+  function getSubDomainByUID($uid){
+
+    $pntables = pnDBGetTables();
+
+    $tableUserProperty  = $pntables['user_property'];
+    $columnUserProperty = $pntables['user_property_column'];
+
+    $tableUserData  = $pntables['user_data'];
+    $columnUserData = $pntables['user_data_column'];
+
+    $sql = "SELECT
+              $tableUserData.$columnUserData[uda_value]
+            FROM
+              $tableUserData, $tableUserProperty
+            WHERE
+              $tableUserData.$columnUserData[uda_propid] = $tableUserProperty.$columnUserProperty[prop_id]
+            AND 
+              $tableUserProperty.$columnUserProperty[prop_label] = 'DomainName'
+            AND
+              $tableUserData.$columnUserData[uda_uid] = $uid
+            ";
+
+    //echo $sql; exit;
+    $column = array("subdomain");
+    $result = DBUtil::executeSQL($sql);
+    $subdomainArray = DBUtil::marshallObjects ($result, $column);
+
+    return $subdomainArray[0]['subdomain'];
+  }
+
+
+  function createSubDomain($subdomain, $username ,$password, $email){
+    if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBMember/pnincludes"))){
+      return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
+    }
+      
+    $form = FormUtil::getPassedValue ('form', false, 'REQUEST');
+    $obj = new SubdomainCreator();
+    //$obj->makedb($dbname,$username,$password,$email);
+    $obj->makedb($subdomain, $username, $password, $email);
+    $obj->sqlDump();
+    exit;
+  }
 
 ?>
