@@ -23,7 +23,7 @@ class POBReader {
     preg_match('@^(?:http://)?([^/].*)@i',$host,$matches);
     preg_match('@^(?:www.)?([^/].*)@i',$matches[1],$host);
     $host = rtrim($host[1],"/");
-    $host = "http://".$host.'/index.php';
+    $host = "http://www.".$host.'/index.php';
     
     $this->host = $host;
     $this->_MOD = $module;
@@ -49,7 +49,7 @@ class POBReader {
               $paramUri .= "&".$key."=".$val;
             }
             $url = $this->host."?module=".$this->_MOD."&type=ws&func=".$func.$paramUri;
-
+            
             $xml = @file_get_contents($url);
             $pxml = simplexml_load_string($xml);
             

@@ -14,7 +14,7 @@ Loader::loadClass('InnoUtil', "modules/POBPortal/pnincludes");
  * 
  * @author       The PostNuke Development Team
  */
-function POBPortal_RecommendHotelblock_init()
+function POBPortal_SearchHotelblock_init()
 {
 
 }
@@ -25,11 +25,11 @@ function POBPortal_RecommendHotelblock_init()
  * @author       The PostNuke Development Team
  * @return       array       The block information
  */
-function POBPortal_RecommendHotelblock_info()
+function POBPortal_SearchHotelblock_info()
 {
-    return array('text_type'      => 'Recommend Hotel',
+    return array('text_type'      => 'Search Hotel',
                  'module'         => 'POBPortal',
-                 'text_type_long' => 'Show recommend hotels',
+                 'text_type_long' => 'Search Hotel',
                  'allow_multiple' => true,
                  'form_content'   => false,
                  'form_refresh'   => false,
@@ -43,11 +43,11 @@ function POBPortal_RecommendHotelblock_info()
  * @param        array       $blockinfo     a blockinfo structure
  * @return       output      the rendered bock
  */
-function POBPortal_RecommendHotelblock_display($blockinfo)
+function POBPortal_SearchHotelblock_display($blockinfo)
 {
     $modname  = 'POBPortal';
-    $class    = 'RecommendHotel';
-    $itemLimit = 5;
+    $class    = 'SearchHotelblock';
+
 
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
@@ -59,15 +59,12 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     //load render
     $render = pnRender::getInstance($modname);
 
-	  Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    $getter = new POBReader();
-    for($i=0;$i<=$itemLimit;$i++){
-      $itemRandom[] = rand(1,10);
-    }
-    $search['list'] = (string)implode(",",$itemRandom);
-	  $search['desc'] = "id";
+	Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
+    $getter = new POBReader("http://localhost/");
+    $search['list'] = "1,2,3,4";
+	$search['desc'] = "id";
     $result = $getter->getHotelList($search);
-	  //var_dump($result);
+	//var_dump($result);
     if(count($result['data'])==19){
       $data['data'] = $result['data'];
     }else{
@@ -78,12 +75,11 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     $render->assign("nowPage",$result['nowPage']);
     $render->assign("next",$result['next']);
     $render->assign("previous",$result['previous']);
-    
 	
     $render->assign("objectArray",$data);
 
     // Populate block info and pass to theme
-    $blockinfo['content'] = $render->fetch('block_recommendhotel.htm');
+    $blockinfo['content'] = $render->fetch('block_searchhotel.htm');
     return themesideblock($blockinfo);
 }
 /**
@@ -93,14 +89,14 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
  * @param        array       $blockinfo     a blockinfo structure
  * @return       output      the bock form
  */
-function POBPortal_RecommendHotelblock_modify($blockinfo)
+function POBPortal_SearchHotelblock_modify($blockinfo)
 {
   $vars = pnBlockVarsFromContent($blockinfo['content']);
   //load render
   $render = pnRender::getInstance('POBPortal');
   $render->assign('form', $vars);
   
-	return $render->fetch('block_recommendhotel_modify.htm');
+	return $render->fetch('block_searchhotel_modify.htm');
 }
 
 
@@ -111,7 +107,7 @@ function POBPortal_RecommendHotelblock_modify($blockinfo)
  * @param        array       $blockinfo     a blockinfo structure
  * @return       $blockinfo  the modified blockinfo structure
  */
-function POBPortal_RecommendHotelblock_update($blockinfo)
+function POBPortal_SearchHotelblock_update($blockinfo)
 {
     
     // Get current content
@@ -126,7 +122,7 @@ function POBPortal_RecommendHotelblock_update($blockinfo)
 
     // clear the block cache
     $pnRender = pnRender::getInstance('POBPortal');
-    $pnRender->clear_cache('block_recommendhotel.htm');
+    $pnRender->clear_cache('block_searchhotel.htm');
     
     return $blockinfo;
 }
