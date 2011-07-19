@@ -3,14 +3,14 @@
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	width:470px;
-	height:220px;
+	width:160px;
+	height:300px;
 	background-color:#fbab34;
 	padding: 10px;
 	color:#FFF;
-	font-size:16px;
+	font-size:14px;
 	text-shadow: 0.05em 0.05em 0.05em #333;
-	margin:0 0 20px 0px;
+	margin:0 0 10px 0px;
 
 }
 .search{
@@ -18,8 +18,8 @@
 	-moz-border-radius: 05px;
 	border-radius: 05px;
 	border:none;
-	width:200px;
-	height:25px;
+	width:150px;
+	height:20px;
 	border: 1px solid #9B9B9B;
 border-bottom: 1px solid #D8D8D8;
 border-right: 1px solid #D8D8D8;
@@ -29,14 +29,14 @@ border-right: 1px solid #D8D8D8;
 	-moz-border-radius: 05px;
 	border-radius: 05px;
 	border:none;
-	width: auto;
-	height:25px;
+	width:70px;
+	height:20px;
 	border: 1px solid #9B9B9B;
 border-bottom: 1px solid #D8D8D8;
 border-right: 1px solid #D8D8D8;
 	}
 .box p{
-	font-size:30px;
+	font-size:18px;
 	color:#fff;
 	text-shadow: 0.05em 0.05em 0.05em #333
 	}
@@ -45,10 +45,10 @@ border-right: 1px solid #D8D8D8;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	border:none;
-	width:100px;
+	width:80px;
 	height:35px;
 	color:#fff;
-	font-size:20px;
+	font-size:16px;
 	border:#FFF 3px solid;
 	background-color:#0896ff;
 	text-shadow: 0.05em 0.05em 0.05em #333;
@@ -72,8 +72,7 @@ border-right: 1px solid #D8D8D8;
 </TR>
 <TR>
   <TD colspan="2">วันที่เช็คอิน</TD>
-  <td colspan="2">วันที่เช็คเอ้าท์
-  </TR>
+  <td colspan="2" rowspan="8"></TR>
 <TR>
   <TD><select name="select" id="select">
     <option>1</option>
@@ -123,7 +122,12 @@ border-right: 1px solid #D8D8D8;
     <option class="b_months" value="2012-4">เมษายน  '12</option>
     <option class="b_months" value="2012-5">พฤษภาคม  '12</option>
   </select></TD>
-  <td><select name="select2" id="select2">
+  </TR>
+<TR>
+  <TD colspan="2">วันที่เช็คเอ้าท์ </TD>
+  </TR>
+<TR>
+  <TD><select name="select2" id="select2">
     <option>1</option>
     <option>2</option>
     <option>3</option>
@@ -155,42 +159,37 @@ border-right: 1px solid #D8D8D8;
     <option>29</option>
     <option>30</option>
     <option>31</option>
-  </select>
-    <td><select id="checkin_year_month2" class="checkin_year_month" name="checkin_year_month2">
-      <option class="month prompt" selected="selected" value="0">เดือน</option>
-      <option class="b_months" value="2011-6">มิถุนายน  '11</option>
-      <option class="b_months" value="2011-7">กรกฎาคม '11</option>
-      <option class="b_months" value="2011-8">สิงหาคม '11</option>
-      <option class="b_months" value="2011-9">กันยายน '11</option>
-      <option class="b_months" value="2011-10">ตุลาคม '11</option>
-      <option class="b_months" value="2011-11">พฤศจิกายน '11</option>
-      <option class="b_months" value="2011-12">ธันวาคม '11</option>
-      <option class="b_months" value="2012-1">มกราคม '12</option>
-      <option class="b_months" value="2012-2">กุมภาพันธ์  '12</option>
-      <option class="b_months" value="2012-3">มีนาคม  '12</option>
-      <option class="b_months" value="2012-4">เมษายน  '12</option>
-      <option class="b_months" value="2012-5">พฤษภาคม  '12</option>
-    </select>      
+  </select></TD>
+  <TD><select id="checkin_year_month2" class="checkin_year_month" name="checkin_year_month2">
+    <option class="month prompt" selected="selected" value="0">เดือน</option>
+    <option class="b_months" value="2011-6">มิถุนายน  '11</option>
+    <option class="b_months" value="2011-7">กรกฎาคม '11</option>
+    <option class="b_months" value="2011-8">สิงหาคม '11</option>
+    <option class="b_months" value="2011-9">กันยายน '11</option>
+    <option class="b_months" value="2011-10">ตุลาคม '11</option>
+    <option class="b_months" value="2011-11">พฤศจิกายน '11</option>
+    <option class="b_months" value="2011-12">ธันวาคม '11</option>
+    <option class="b_months" value="2012-1">มกราคม '12</option>
+    <option class="b_months" value="2012-2">กุมภาพันธ์  '12</option>
+    <option class="b_months" value="2012-3">มีนาคม  '12</option>
+    <option class="b_months" value="2012-4">เมษายน  '12</option>
+    <option class="b_months" value="2012-5">พฤษภาคม  '12</option>
+  </select></TD>
 </TR>
 <TR>
-  <TD colspan="2">
-					<input type="checkbox" id="availcheck" >
-					<label id="labfor" for="availcheck">
-						ไ่ม่ระบุวันที่เ้ข้าพัก
-					</label>
-</TD>
-  <td colspan="2" rowspan="2">
+  <TD colspan="2"><input type="checkbox" id="availcheck2" />
+    <label id="labfor" for="availcheck2"> ไ่ม่ระบุวันที่เ้ข้าพัก </label></TD>
   </TR>
 <TR>
-  <TD colspan="2"><input id="availcheck" type="checkbox" >
-					<label id="labfor" for="availcheck">
-						ฉันเดินทางเป็นหมู่คณะหรือพร้อมเด็ก
-					</label></TD>
-</TR>
+  <TD colspan="2"><input id="availcheck" type="checkbox" />
+    <label id="labfor" for="availcheck"> ฉันเดินทางเป็นหมู่คณะหรือพร้อมเด็ก</label></TD>
+  </TR>
 <TR>
   <TD colspan="2">&nbsp;</TD>
-  <td colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  
-</TR>
+  </TR>
+<TR>
+  <TD colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
+  </TR>
 
 
     </TABLE>
