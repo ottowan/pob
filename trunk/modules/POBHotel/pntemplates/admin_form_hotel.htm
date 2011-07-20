@@ -66,228 +66,136 @@
                   <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data>">
       <input type="hidden" name="form[id]" value="<!--[$smarty.get.id]-->" />
                         <fieldset class="step">
-                            <legend>Intro</legend>
+                           	<legend>Intro</legend>
+							  <TABLE width="900" >
+								<TR>
+								  <TD>name</TD>
+								  <TD><!--[$form.name]--></TD>
+								</TR>
+								<TR>
+								  <TD>status</TD>
+								  <TD>
+								   <!--[selector_object_array modname="POBHotel"
+									  class="Status"
+									  field="id"
+									  displayField="name"
+									  name="form[status_id]"
+									  selectedValue=$form.status_id
+									  ]-->
+								   </TD>
+								</TR>
+								<TR>
+								  <TD>rating</TD>
+								  <TD>
 
-                              <TABLE width="900" >
-                                <TR>
-                                  <TD>name</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->"></TD>
-                                </TR>
+								<SELECT NAME="form[rating]">
+								  <OPTION VALUE="1" <!--[if $form.rating == 1]-->SELECTED<!--[/if]-->>*
+								  <OPTION VALUE="2" <!--[if $form.rating == 2]-->SELECTED<!--[/if]-->>**
+								  <OPTION VALUE="3" <!--[if $form.rating == 3]-->SELECTED<!--[/if]-->>***
+								  <OPTION VALUE="4" <!--[if $form.rating == 4]-->SELECTED<!--[/if]-->>****
+								  <OPTION VALUE="5" <!--[if $form.rating == 5]-->SELECTED<!--[/if]-->>*****
+								</SELECT>
+								   </TD>
+								</TR>
 
 								<TR>
-                                  <TD>Subdomain name</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[database_name]" value="<!--[$form.database_name]-->">.phuketcity.com</TD>
-                                </TR>
+								  <TD valign="top">Start</TD>
+								  <TD><INPUT TYPE="text" NAME="form[start]" ROWS="10" COLS="40" id="datepicker" value="<!--[$form.start]-->"></TD>
+								</TR>
 								<TR>
-                                  <TD>Username</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[username]" value="<!--[$form.username]-->"></TD>
-                                </TR>
 								<TR>
-                                  <TD>Password</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[password]" value="<!--[$form.password]-->"></TD>
-                                </TR>
+								  <TD valign="top">When built</TD>
+								  <TD><INPUT TYPE="text" NAME="form[when_built]" ROWS="10" COLS="40" id="datepicker2" value="<!--[$form.when_built]-->"></TD>
+								</TR>
 								<TR>
-                                  <TD>E-mail</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[email]" value="<!--[$form.email]-->"></TD>
-                                </TR>
+								  <TD valign="top">descriptions</TD>
+								  <TD><TEXTAREA NAME="form[descriptions]" ROWS="10" COLS="40"><!--[$form.descriptions]--></TEXTAREA></TD>
+								</TR>
 
-                                <TR>
-                                  <TD>status</TD>
-                                  <TD>
-                                   <!--[selector_object_array modname="POBHotel"
-                                      class="Status"
-                                      field="id"
-                                      displayField="name"
-                                      name="form[status_id]"
-                                      selectedValue=$form.status_id
-                                      ]-->
-
-                                   </TD>
-                                </TR>
-                                <TR>
-                                  <TD>rating</TD>
-                                  <TD>
-
-                                <SELECT NAME="form[rating]">
-                                  
-                                  <OPTION VALUE="1" <!--[if $form.rating == 1]-->SELECTED<!--[/if]-->>*
-                                  <OPTION VALUE="2" <!--[if $form.rating == 2]-->SELECTED<!--[/if]-->>**
-                                  <OPTION VALUE="3" <!--[if $form.rating == 3]-->SELECTED<!--[/if]-->>***
-                                  <OPTION VALUE="4" <!--[if $form.rating == 4]-->SELECTED<!--[/if]-->>****
-                                  <OPTION VALUE="5" <!--[if $form.rating == 5]-->SELECTED<!--[/if]-->>*****
-                                </SELECT>
-                                   </TD>
-                                </TR>
-
-                                <TR>
-                                  <TD valign="top">Start</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[start]" ROWS="10" COLS="40" id="datepicker" value="<!--[$form.start]-->"></TD>
-                                </TR>
-                                <TR>
-                                <TR>
-                                  <TD valign="top">When built</TD>
-                                  <TD><INPUT TYPE="text" NAME="form[when_built]" ROWS="10" COLS="40" id="datepicker2" value="<!--[$form.when_built]-->"></TD>
-                                </TR>
-                                <TR>
-                                  <TD valign="top">descriptions</TD>
-                                  <TD><TEXTAREA NAME="form[descriptions]" ROWS="10" COLS="40"><!--[$form.descriptions]--></TEXTAREA></TD>
-                                </TR>
-
-                                </TABLE>
-                                <TABLE width="900">
-                                 <!--[get_all_location_category]-->
-                                  <!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
-
-                                      <!--[assign var='compare' value='false']-->
-
-                                      <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
-                                       <!--[if $itemAllLocationCategory.location_category_id eq $itemLocationCategory.location_category_id]-->
-                                          <!--[assign var='compare' value='true']-->
-                                        <!--[/if]-->
-                                      <!--[/foreach]-->
-
-                                      <!--[if $compare eq 'false']-->
-                                        <!--[if $smarty.foreach.fooLocation.index%3 == 0]-->
-                                          <tr>
-                                            <td>
-                                              <INPUT TYPE="checkbox" 
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]"
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->"
-                                              >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                             </td>
-                                        <!--[elseif $smarty.foreach.fooLocation.index%3 == 1]-->
-                                            <td>
-                                              <INPUT TYPE="checkbox"
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]"
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->"
-                                              >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                            </td>
-                                        <!--[elseif $smarty.foreach.fooLocation.index%3 == 2]-->
-                                            <td>
-                                              <INPUT TYPE="checkbox" 
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]"
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->"
-                                              >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                             </td>
-                                          </tr>
-                                        <!--[/if]-->
-                                        <!--[elseif  $compare eq 'true']-->
-                                        <!--[if $smarty.foreach.fooLocation.index%3 == 0]-->
-                                          <tr>
-                                            <td>
-                                              <INPUT TYPE="checkbox" 
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]" 
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->"
-                                                     checked
-                                              >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                            </td>
-                                        <!--[elseif $smarty.foreach.fooLocation.index%3 == 1]-->
-                                            <td>
-                                              <INPUT TYPE="checkbox" 
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]" 
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->"
-                                                     checked
-                                               >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                            </td>
-                                        <!--[elseif $smarty.foreach.fooLocation.index%3 == 2]-->
-                                            <td>
-                                              <INPUT TYPE="checkbox" 
-                                                     NAME="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]" 
-                                                     value="<!--[$itemAllLocationCategory.location_category_id]-->" 
-                                                     checked
-                                              >&nbsp;
-                                                 <!--[$itemAllLocationCategory.location_category_name]-->
-                                            </td>
-                                          </tr>
-                                        <!--[/if]-->
-                                      <!--[/if]-->
-                                    <!--[/foreach]-->
-                                </TABLE>
+								</TABLE>
+								<legend>Location</legend>
+								<TABLE width="900">
+								<!--[get_all_location_category]-->
+								
+									<!--[if isset($extendResult.hotelLocation)]-->
+									
+									<!--[foreach from=$extendResult.hotelLocation item=item]-->
+									<tr>
+									<td width="18%">
+									<select>
+									<!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
+									  <!--[assign var='compare' value='false']-->
+									  <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
+										<!--[if $itemAllLocationCategory.location_category_id eq $itemLocationCategory.location_category_id]-->
+										  <!--[assign var='compare' value='true']-->
+										<!--[/if]-->
+									  <!--[/foreach]-->
+									  <!--[if $item.location_name eq $itemAllLocationCategory.location_category_name]-->
+										<option name="itemLocationCategory[location_category_id]" value="<!--[$itemAllLocationCategory.location_category_id]-->" SELECTED><!--[$itemAllLocationCategory.location_category_name]--></option>
+									  <!--[else]-->
+										<option name="itemLocationCategory[location_category_id]" value="<!--[$itemAllLocationCategory.location_category_id]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
+									  <!--[/if]-->
+									<!--[/foreach]-->
+									</select>
+									</td>
+									<td width="82%">
+										<INPUT TYPE="text" NAME="itemLocationCategory[location_description]" value="<!--[$item.description]-->" size="100"> <img src="modules/POBHotel/pnimages/delete_01.png">
+									</td>
+									</tr>
+									<!--[/foreach]-->
+									<!--[/if]-->
+									<tr>
+									<td width="18%">
+										<img src="modules/POBHotel/pnimages/add_48.png">
+									</td>
+									<td width="82%">
+									</td>
+									</tr>
+								</TABLE>
                         </fieldset>
 
                         <fieldset class="step">
-                            <legend>Facility</legend>
-                            <div class="long" style="overflow:scroll; height:600px; float:left; width:950">
-                              <TABLE width="900" style="overflow:scroll; height:200">
-                                <!--[get_all_amenity]-->
+						<legend>Facility</legend>
+							<TABLE width="900">
+							<!--[get_all_amenity]-->
+							
+								<!--[if isset($extendResult.hotelAmenity)]-->
+								
+								<!--[foreach from=$extendResult.hotelAmenity item=item]-->
+								<tr>
+								<td width="18%">
+								<select>
                                 <!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
-
                                     <!--[assign var='compare' value='false']-->
-
                                     <!--[foreach from=$extendResult.hotelAmenity item=itemAmenity]-->
                                      <!--[if $itemAllAmenity.amenity_id eq $itemAmenity.amenity_id]-->
                                         <!--[assign var='compare' value='true']-->
                                       <!--[/if]-->
                                     <!--[/foreach]-->
 
-                                    <!--[if $compare eq 'false']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]"
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                           </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox"
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]"
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]"
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                           </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                      <!--[elseif  $compare eq 'true']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]" 
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->"
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]" 
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->"
-                                                   checked
-                                             >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAmenity[<!--[$itemAllAmenity.amenity_id]-->]" 
-                                                   value="<!--[$itemAllAmenity.amenity_id]-->" 
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllAmenity.amenity_name]-->
-                                          </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                    <!--[/if]-->
-                                  <!--[/foreach]-->
-                              </TABLE>
-                            </div><!--end long-->
+								  <!--[if $item.amenity_name eq $itemAllAmenity.amenity_name]-->
+									<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
+								  <!--[else]-->
+									<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
+								  <!--[/if]-->
+								<!--[/foreach]-->
+								</select>
+								</td>
+								<td width="82%">
+									<INPUT TYPE="text" NAME="itemAmenityDescription[$itemAllAmenity.amenity_id]" value="<!--[$item.description]-->" size="80"> <img src="modules/POBHotel/pnimages/delete_01.png">
+								</td>
+								</tr>
+								<!--[/foreach]-->
+								<!--[/if]-->
+								<tr>
+								<td width="18%">
+									<img src="modules/POBHotel/pnimages/add_48.png">
+								</td>
+								<td width="82%">
+								</td>
+								</tr>
+							</TABLE>
+                          
                         </fieldset>
                         <fieldset class="step">
                             <legend>Map</legend>
@@ -547,11 +455,17 @@
                         </fieldset>
 
                         <fieldset class="step">
-                            <legend>Index point</legend>
-                                <TABLE>
-                                <!--[get_all_index_point]-->
-                                <!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
-
+						<legend>Index point</legend>
+							<TABLE width="900">
+							<!--[get_all_index_point]-->
+							
+								<!--[if isset($extendResult.hotelIndexPoint)]-->
+								
+								<!--[foreach from=$extendResult.hotelIndexPoint item=item]-->
+								<tr>
+								<td width="18%">
+								<select>
+								<!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
                                     <!--[assign var='compare' value='false']-->
 
                                     <!--[foreach from=$extendResult.hotelIndexPoint item=itemIndexPoint]-->
@@ -560,76 +474,42 @@
                                       <!--[/if]-->
                                     <!--[/foreach]-->
 
-                                    <!--[if $compare eq 'false']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]"
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                           </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox"
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]"
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]"
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                           </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                      <!--[elseif  $compare eq 'true']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]" 
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->"
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]" 
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->"
-                                                   checked
-                                             >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemIndexPoint[<!--[$itemAllIndexPoint.index_point_id]-->]" 
-                                                   value="<!--[$itemAllIndexPoint.index_point_id]-->" 
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllIndexPoint.index_point_name]-->
-                                          </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                    <!--[/if]-->
-                                  <!--[/foreach]-->
-                              </TABLE>
-
+								  <!--[if $item.index_point_name eq $itemAllIndexPoint.index_point_name]-->
+									<option name="itemAllIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
+								  <!--[else]-->
+									<option name="itemAllIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
+								  <!--[/if]-->
+								<!--[/foreach]-->
+								</select>
+								</td>
+								<td width="82%">
+									<INPUT TYPE="text" NAME="itemIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$item.description]-->" size="90"> <img src="modules/POBHotel/pnimages/delete_01.png">
+								</td>
+								</tr>
+								<!--[/foreach]-->
+								<!--[/if]-->
+								<tr>
+								<td width="18%">
+									<img src="modules/POBHotel/pnimages/add_48.png">
+								</td>
+								<td width="82%">
+								</td>
+								</tr>
+							</TABLE>
                         </fieldset>
 
                         <fieldset class="step">
-                                        <legend>Attraction</legend>
-                              <TABLE width="900" style="overflow:scroll; height:200">
-                                <!--[get_all_attraction]-->
-                                <!--[foreach from=$attractionArray item=itemAllAttraction name=foo]-->
+						<legend>Attraction</legend>
+							<TABLE width="900">
+							<!--[get_all_attraction]-->
+							
+								<!--[if isset($extendResult.hotelAttraction)]-->
+								
+								<!--[foreach from=$extendResult.hotelAttraction item=item]-->
+								<tr>
+								<td width="18%">
+								<select>
+								<!--[foreach from=$attractionArray item=itemAllAttraction name=foo]-->
 
                                     <!--[assign var='compare' value='false']-->
 
@@ -639,75 +519,34 @@
                                       <!--[/if]-->
                                     <!--[/foreach]-->
 
-                                    <!--[if $compare eq 'false']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]"
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                           </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox"
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]"
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]"
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->"
-                                            >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                           </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                      <!--[elseif  $compare eq 'true']-->
-                                      <!--[if $smarty.foreach.foo.index%3 == 0]-->
-                                        <tr>
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]" 
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->"
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 1]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]" 
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->"
-                                                   checked
-                                             >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                          </td>
-                                      <!--[elseif $smarty.foreach.foo.index%3 == 2]-->
-                                          <td>
-                                            <INPUT TYPE="checkbox" 
-                                                   NAME="itemAttraction[<!--[$itemAllAttraction.attraction_id]-->]" 
-                                                   value="<!--[$itemAllAttraction.attraction_id]-->" 
-                                                   checked
-                                            >&nbsp;
-                                               <!--[$itemAllAttraction.attraction_name]-->
-                                          </td>
-                                        </tr>
-                                      <!--[/if]-->
-                                    <!--[/if]-->
-                                  <!--[/foreach]-->
-                              </TABLE>
-
+								  <!--[if $item.attraction_name eq $itemAllAttraction.attraction_name]-->
+									<option name="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$itemAllAttraction.attraction_id]-->" SELECTED><!--[$itemAllAttraction.attraction_name]--></option>
+								  <!--[else]-->
+									<option name="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$itemAllAttraction.attraction_id]-->"><!--[$itemAllAttraction.attraction_name]--></option>
+								  <!--[/if]-->
+								<!--[/foreach]-->
+								</select>
+								</td>
+								<td width="82%">
+									<INPUT TYPE="text" NAME="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$item.description]-->" size="90"> <img src="modules/POBHotel/pnimages/delete_01.png">
+								</td>
+								</tr>
+								<!--[/foreach]-->
+								<!--[/if]-->
+								<tr>
+								<td width="18%">
+									<img src="modules/POBHotel/pnimages/add_48.png">
+								</td>
+								<td width="82%">
+								</td>
+								</tr>
+							</TABLE>
                         </fieldset>
 
                         <fieldset class="step">
                                         <legend>Confirm</legend>
                                         <p class="submit">
-                                            <button id="registerButton" type="submit">เพิ่มโรงแรม</button>
+                                            <button id="registerButton" type="submit">�׹�ѹ</button>
                                         </p>
                         </fieldset>
                         <fieldset class="step"></fieldset>
