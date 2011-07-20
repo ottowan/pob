@@ -32,7 +32,7 @@
   */
   function POBHotel_admin_main() {
     POBHotel_permission();
-    return POBHotel_admin_list();
+    return POBHotel_admin_page();
   }
 
   /**
@@ -99,7 +99,6 @@
     $func  = FormUtil::getPassedValue ('func', 'form' , 'GET');
     //$id the id no if edit form
     $id      = FormUtil::getPassedValue ('id', null , 'GET');
-
     //pagnigation variable
     $filter  = FormUtil::getPassedValue ('filter', 0);
     $offset  = FormUtil::getPassedValue ('startnum', 0);
@@ -113,7 +112,7 @@
     //load class
     if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
       return LogUtil::registerError ('Unable to load class [$ctrl] ...');
-
+    
     $object  = new $class ();
     if ($id && $object){
       $object->get($id);
@@ -126,6 +125,7 @@
     if (method_exists($object,'selectExtendResult')){
       $resultex = $object->selectExtendResult();
       $render->assign('extendResult', $resultex);
+      var_dump($resultex);
     }
     _languageRender($render);
       return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
@@ -137,7 +137,7 @@
   function POBHotel_admin_list() {
     POBHotel_permission();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Province' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'room' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
   

@@ -63,10 +63,10 @@
     if (!DBUtil::createTable('pobhotel_transportation')) {
       return false;
     }
-    if (!DBUtil::createTable('pobhotel_room')) {
+    if (!DBUtil::createTable('pobhotel_guest_room')) {
       return false;
     }
-    if (!DBUtil::createTable('pobhotel_room_image')) {
+    if (!DBUtil::createTable('pobhotel_guest_room_image')) {
       return false;
     }
     if (!DBUtil::createTable('pobhotel_season')) {
@@ -99,12 +99,6 @@
     if (!DBUtil::createTable('pobhotel_hotel_restaurant')) {
       return false;
     }
-    if (!DBUtil::createTable('pobhotel_hotel_room')) {
-      return false;
-    }
-    if (!DBUtil::createTable('pobhotel_hotel_segment')) {
-      return false;
-    }
     if (!DBUtil::createTable('pobhotel_hotel_transportation')) {
       return false;
     }
@@ -115,12 +109,6 @@
       return false;
     }
     if (!DBUtil::createTable('pobhotel_r_srvc_r_srvc_detail')) {
-      return false;
-    }
-    if (!DBUtil::createTable('pobhotel_hotel_rate_season')) {
-      return false;
-    }
-    if (!DBUtil::createTable('pobhotel_member')) {
       return false;
     }
     $flgCreate1 = mkdir("pnTemp/pobhotel_upload");
@@ -155,8 +143,8 @@
     DBUtil::dropTable('pobhotel_room_amenity_type');
     DBUtil::dropTable('pobhotel_segment_category');
     DBUtil::dropTable('pobhotel_transportation');
-    DBUtil::dropTable('pobhotel_room');
-    DBUtil::dropTable('pobhotel_room_image');
+    DBUtil::dropTable('pobhotel_guest_room');
+    DBUtil::dropTable('pobhotel_guest_room_image');
     DBUtil::dropTable('pobhotel_season');
     DBUtil::dropTable('pobhotel_rate');
     DBUtil::dropTable('pobhotel_hotel_index_point');
@@ -167,14 +155,10 @@
     DBUtil::dropTable('pobhotel_hotel_payment_type');
     DBUtil::dropTable('pobhotel_hotel_recreation_srvc');
     DBUtil::dropTable('pobhotel_hotel_restaurant');
-    DBUtil::dropTable('pobhotel_hotel_room');
-    DBUtil::dropTable('pobhotel_hotel_segment');
     DBUtil::dropTable('pobhotel_hotel_transportation');
     DBUtil::dropTable('pobhotel_m_room_m_room_format');
     DBUtil::dropTable('pobhotel_room_room_amenity');
     DBUtil::dropTable('pobhotel_r_srvc_r_srvc_detail');
-    DBUtil::dropTable('pobhotel_hotel_rate_season');
-    DBUtil::dropTable('pobhotel_member');
 return true;
   }
 

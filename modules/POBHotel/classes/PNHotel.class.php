@@ -11,63 +11,41 @@
     }
 
     function selectExtendResult(){
-      $id = $this->objData['id'];
+      $id = $this->_objData['id'];
       $result = array();
       if ($id){
-
-      $fieldArray = array('amenity_id');
-
-      $result['hotelAmenity'] = DBUtil::selectObjectArray( 'pobhotel_hotel_amenity',
-                                                                "WHERE hotel_amenity_hotel_id = '$id'",
-                                                                '',
-                                                                -1,
-                                                                -1,
-                                                                '',
-                                                                null,
-                                                                null,
-                                                                $fieldArray
-      );
-
-
-      $fieldArray = array('attraction_id');
-      $result['hotelAttraction'] = DBUtil::selectObjectArray( 'pobhotel_hotel_attraction',
-                                                                "WHERE hotel_attraction_hotel_id = '$id'",
-                                                                '',
-                                                                -1,
-                                                                -1,
-                                                                '',
-                                                                null,
-                                                                null,
-                                                                $fieldArray
-      );
-
-      $fieldImageArray = array('image_id');
-      /*
-      $result['imageHotel'] = DBUtil::selectObjectArray( 'pobhotel_hotel_image',
-                                                                "WHERE image_hotel_id = '$id'",
-                                                                '',
-                                                                -1,
-                                                                -1,
-                                                                '',
-                                                                null,
-                                                                null,
-                                                                array('image_id')
-      );
-      */
-      $fieldLocationArray = array('location_category_id');
-
-      $result['locationCategory'] = DBUtil::selectObjectArray( 'pobhotel_hotel_location',
-                                                                "WHERE hotel_location_hotel_id = '$id'",
-                                                                '',
-                                                                -1,
-                                                                -1,
-                                                                '',
-                                                                null,
-                                                                null,
-                                                                $fieldLocationArray
-      );
-
-
+        //load class HotelAmenityArray
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAmenityArray', false)))
+          return LogUtil::registerError ('Unable to load class [HotelAmenityArray] ...');
+          
+        $amenityObject = new $class;
+        $amenityObject->get();
+        $result['hotelAmenity'] = $amenityObject->_objData;
+        
+        //load class HotelLocationArray
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelLocationArray', false)))
+          return LogUtil::registerError ('Unable to load class [HotelLocationArray] ...');
+          
+        $locationObject = new $class;
+        $locationObject->get();
+        $result['hotelLocation'] = $locationObject->_objData;
+        
+        //load class HotelAttractionArray
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAttractionArray', false)))
+          return LogUtil::registerError ('Unable to load class [HotelAttractionArray] ...');
+          
+        $attractionObject = new $class;
+        $attractionObject->get();
+        $result['hotelAttraction'] = $attractionObject->_objData;
+        
+        //load class HotelIndexPointArray
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelIndexPointArray', false)))
+          return LogUtil::registerError ('Unable to load class [HotelIndexPointArray] ...');
+          
+        $indexPointObject = new $class;
+        $indexPointObject->get();
+        $result['hotelIndexPoint'] = $indexPointObject->_objData;
+        
       }
       return $result;
     }

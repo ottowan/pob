@@ -171,73 +171,9 @@ Class HotelDescContentGenerator {
   }
   private function genHotelInfo(){
   
-    $data = '<Descriptions>
-					<Renovation ImmediatePlans="false" PercentOfRenovationCompleted="100"/>
-					<Renovation>
-						<MultimediaDescriptions>
-							<MultimediaDescription>
-								<TextItems>
-									<TextItem Title="Renovation Area Completion Date 1">
-										<Description>2000-02-13</Description>
-									</TextItem>
-								</TextItems>
-							</MultimediaDescription>
-							<MultimediaDescription>
-								<TextItems>
-									<TextItem Title="Renovation Area Description 2">
-										<Description>Guest Rooms</Description>
-									</TextItem>
-								</TextItems>
-							</MultimediaDescription>
-							<MultimediaDescription>
-								<TextItems>
-									<TextItem Title="Renovation Area Completion Date 2">
-										<Description>2002-10-01</Description>
-									</TextItem>
-								</TextItems>
-							</MultimediaDescription>
-						</MultimediaDescriptions>
-					</Renovation>
-					<MultimediaDescriptions>
-						<MultimediaDescription>
-							<TextItems>
-								<TextItem Title="Description">
-									<Description>The Boston Marriott Copley Place Hotel is the perfect destination for business or pleasure.  We&apos;re located in Boston&apos;s Back Bay, off the Mass. Trnpk. at Exit 22, 4 mi from Logan Airport, &amp; in close proximity to subway.</Description>
-								</TextItem>
-								<TextItem Title="PropertyLongDescription">
-									<Description>Boston Marriott Copley Place hotel is ideally located in Boston&apos;s Back Bay. This Copley Square hotel is easily accessible for business convenience. Centrally located in Copley Place for leisure activities. And technology-driven for dynamic meetings. For your trip to Boston, Massachusetts, the Copley Marriott is the perfect choice.</Description>
-								</TextItem>
-								<TextItem Title="Top Selling Feature 1">
-									<Description>Boston&apos;s historic Back Bay, just off the Massachusetts Turnpike;  four miles from Logan Airport</Description>
-								</TextItem>
-								<TextItem Title="Top Selling Feature 2">
-									<Description>,147 rooms and suites, the largest hotel ballroom in the area, and 65,000 square feet of event room</Description>
-								</TextItem>
-								<TextItem Title="Property Service Level">
-									<Description>Service</Description>
-								</TextItem>
-								<TextItem Title="Guest Room Highlights">
-									<Description ListItem="1">internet access</Description>
-									<Description ListItem="2">&quot; color TV with cable movies, in-room pay movies, Web TV and Gameboy</Description>
-									<Description ListItem="3">and refrigerators</Description>
-								</TextItem>
-								<TextItem Title="Business/Group Highlights">
-									<Description ListItem="1">&amp; Service Team consistently awarded the highest Guest Satisfaction Scores</Description>
-									<Description ListItem="2">the Gold Key Award and the Corporate &amp; lncentive Travel Award of Excellence</Description>
-									<Description ListItem="3">Exhibit Hall 22,500 square feet</Description>
-								</TextItem>
-							</TextItems>
-						</MultimediaDescription>
-					</MultimediaDescriptions>
-				</Descriptions>';
-
     
     $xml = new DOMDocument();
     //$xml->formatOutput = true;
-    
-            
-    $LoadedXML = DOMDocument::loadXML($data);
-    $Descriptions = $xml->importNode($LoadedXML->getElementsByTagName("Descriptions")->item(0), true);
     
     
     $HotelInfo = $xml->createElement("HotelInfo");
@@ -283,7 +219,7 @@ Class HotelDescContentGenerator {
 
     
     $HotelInfo->appendChild($CategoryCodes);
-    $HotelInfo->appendChild($Descriptions);
+    //$HotelInfo->appendChild($Descriptions);
     $HotelInfo->appendChild($Position);
     $HotelInfo->appendChild($Services);
     $xml->appendChild($HotelInfo);
