@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/orman/orman.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/pascal/pascal.css" type="text/css" media="screen" />
+
+
+
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+	<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+</head>
+<body>
+<div id="theme_page_container">
+
+<div id="theme_header">
+
+</div>
+
+<div id="theme_navigation_bar">
+	<div class="navigation_bar_left"></div>
+    <div class="navigation_bar_center">
+        <ul>
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
+            <li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
+            <li<!--[if $module eq 'Profile']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Profile]-->"><!--[pnml name="_YOURACCOUNT"]--></a></li>
+        </ul>
+    </div><!--end navigation_bar_center-->
+    <div class="navigation_bar_right"></div>
+</div>
+<div id="content_top"></div>
+<div id="content_center">
+<div id="slidshow">
+    <div class="slider-wrapper theme-default">
+            <div class="ribbon"></div>
+            <div id="slider" class="nivoSlider">
+                <img src="themes/coconut_sea/js/nivo-slider/demo/images/slide1.jpg" alt="" />
+                <img src="themes/coconut_sea/js/nivo-slider/demo/images/slide2.jpg" alt="" />   
+            </div>
+        </div>
+</div><!--end slidshow-->
+<div id="theme_subcontent2">
+<!--[blockposition name=facility]-->
+
+</div>
+
+<div id="theme_content">
+<!--[blockposition name=center]-->
+<div id="theme_splitcontentleft">
+<!--[blockposition name=right]-->
+</div>
+
+<div id="theme_splitcontentright">
+<!--[$maincontent]-->
+
+</div>
+</div>
+
+<div id="theme_subcontent">
+<!--[blockposition name=left]-->
+</div>
+<div id="gallery">
+	<script>
+		$(document).ready(function() {
+		
+			$("ul.gallery li").hover(function() { //On hover...
+		
+				var lightboxOver = $(this).find("img").attr("src"); //Get image url and assign it to 'lightboxOver'
+		
+				//Set a background image(lightboxOver) on the <a> tag - Set position to bottom
+				$(this).find("a.lightbox").css({'background' : 'url(' + lightboxOver + ') no-repeat center bottom'});
+		
+				//Animate the image to 0 opacity (fade it out)
+				$(this).find("span").stop().fadeTo('normal', 0 , function() {
+					$(this).hide() //Hide the image after fade
+				});
+			} , function() { //on hover out...
+				//Fade the image to full opacity 
+				$(this).find("span").stop().fadeTo('normal', 1).show();
+			});
+		
+		});
+	</script>
+    <ul class="gallery">
+        <li><a href="#" class="lightbox"><span><img src="themes/coconut_sea/js/nivo-slider/demo/images/001.png" alt="" /></span></a></li>
+        <li><a href="#" class="lightbox"><span><img src="themes/coconut_sea/js/nivo-slider/demo/images/002.png" alt="" /></span></a></li>
+        <li><a href="#" class="lightbox"><span><img src="themes/coconut_sea/js/nivo-slider/demo/images/003.png" alt="" /></span></a></li>
+        <li><a href="#" class="lightbox"><span><img src="themes/coconut_sea/js/nivo-slider/demo/images/004.png" alt="" /></span></a></li>
+    </ul>
+
+
+
+</div><!--end gallery-->
+</div><!--end content_center-->
+
+<div id="theme_footer">
+    <div class="footer_left"></div>
+    <div class="footer_center">
+        <p>PhuketCity.com Phuket Online Booking</p>
+        <!--[nocache]--><!--[pagerendertime]--><!--[/nocache]-->
+        <!--[nocache]--><!--[sqldebug]--><!--[/nocache]-->
+    </div><!--end footer_center-->
+    <div class="footer_right"></div>
+</div><!--end theme_footer-->
+</div>
+</body>
+</html>
