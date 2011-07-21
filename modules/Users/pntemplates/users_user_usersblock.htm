@@ -1,0 +1,13 @@
+<!--[*  $Id: users_user_usersblock.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<h1><!--[pnml name=_USERS_USERSBLOCKCONFIG]--></h1>
+<form action="<!--[pnmodurl modname=Users func=updateusersblock]-->" method="post">
+<div>
+    <p><!--[pnml name=_USERS_USERBLOCKENABLEHELP]--></p>
+    <label for="usersblock_enable"><!--[pnml name=_USERS_USERBLOCKENABLE]--></label>
+    <input id="usersblock_enable" type="checkbox" name="ublockon" value="1"<!--[if $ublockon]--> checked="checked"<!--[/if]--> /> 
+    <textarea id="usersblock_ublock" cols="80" rows="10" name="ublock"><!--[$ublock|pnvarprepfordisplay]--></textarea>
+    <p><!--[pnml name=_USERS_USERBLOCKCONTENTTIP]--></p>
+    <p><!--[allowedhtml]--></p>
+    <input type="submit" value="<!--[pnml name=_SUBMIT]-->" />
+</div>
+</form>

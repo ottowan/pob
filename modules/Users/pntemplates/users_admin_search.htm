@@ -1,0 +1,49 @@
+<!--[*  $Id: users_admin_search.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<div class="pn-admincontainer">
+<h2><!--[pnml name="_SEARCHUSERS"]--></h2>
+<form class="pn-adminform" method="post" action="<!--[pnmodurl modname="Users" type="admin"  func="listusers"]-->">
+<div>
+    <fieldset>
+    <legend><!--[pnml name="_USERPROPERTIES"]--></legend>
+    <div class="pn-adminformrow">
+		<label for="users_uname"><!--[pnml name="_USERNAME_FLC"]--></label>
+		<input id="users_uname" type="text" name="uname" size="40" maxlength="40" />
+    </div>
+    <div class="pn-adminformrow">
+		<label for="users_email"><!--[pnml name="_EMAIL"]--></label>
+		<input id="users_email" type="text" name="email" size="40" maxlength="255" />
+    </div>
+    <div class="pn-adminformrow">
+		<label for="users_ugroup"><!--[pnml name="_USERS_USERGROUPIS"]--></label>
+		<select id="users_ugroup" name="ugroup">
+			<option value="0" selected="selected"><!--[pnml name="_USERS_ANYGROUP"]--></option>
+			<!--[section name=group loop=$groups]-->
+				<option value="<!--[$groups[group].gid]-->"><!--[$groups[group].name]--></option>
+			<!--[/section]-->
+		</select>
+    </div>
+    <div class="pn-adminformrow">
+		<label for="users_regdateafter"><!--[pnml name="_USERS_REGDATEAFTER"]--></label>
+		<input id="users_regdateafter" type="text" name="regdateafter" size="40" maxlength="10" />
+    </div>
+    <div class="pn-adminformrow">
+		<label for="users_regdatebefore"><!--[pnml name="_USERS_REGDATEBEFORE"]--></label>
+		<input id="users_regdatebefore" type="text" name="regdatebefore" size="40" maxlength="10" />
+    </div>
+
+    <!--[foreach from=$duditems item=item]-->
+     <!--[* Do not search on avatar and tzoffset since these are handled with dropdowns (which has no empty value) *]-->
+     <!--[if $item.prop_weight gt 0 && $item.prop_label != '_YOURAVATAR' && $item.prop_label != '_TIMEZONEOFFSET']-->
+      <!--[dudoptionalitemmodify item=$item tableless=0 uid=-1 mode=simple]-->
+     <!--[/if]-->
+    <!--[/foreach]-->
+
+    </fieldset>
+    <div class="pn-adminformrow pn-adminformbuttons">
+	    <!--[pnbutton src=button_ok.gif set=icons/small alt="_SEARCH" title="_SEARCH"]-->
+	</div>
+	<div style="clear:both"></div>
+</div>
+</form>
+</div>

@@ -1,0 +1,35 @@
+<!--[*  $Id: users_admin_mailusers.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<div class="pn-admincontainer">
+<div class="pn-adminpageicon"><!--[pnimg modname=core src=mail.gif set=icons/large alt=_USERS_MAILUSERS altml=true]--></div>
+<h2><!--[pnml name="_USERS_MAILUSERS"]--></h2>
+<form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin" func="processusers"]-->" method="post" name="mailform" id="mailform">
+<div>
+    <input type="hidden" name="op" value="mail" />
+    <input type="hidden" name="do" value="yes" />
+    <!--[ foreach from=$userid item=uid]-->
+    <input type="hidden" name="userid[]" value="<!--[ $uid ]-->" />
+    <!--[ /foreach ]-->
+    <div class="pn-adminformrow">
+        <label for="users_from"><!--[pnml name="_USERS_FROM"]--></label>
+		<input id="users_from" name="from" type="text" size="40" />
+    </div>
+    <div class="pn-adminformrow">
+		 <label for="users_rpemail"><!--[pnml name="_USERS_REPLYTOADDRESS"]--></label>
+		 <input id="users_rpemail" name="rpemail" type="text" size="40" />
+    </div>
+    <div class="pn-adminformrow">
+		 <label for="users_subject"><!--[pnml name="_USERS_SUBJECT"]--></label>
+		 <input id="users_subject" name="subject" type="text" size="40" />
+    </div>
+    <div class="pn-adminformrow">
+		 <label for="users_message"><!--[pnml name="_USERS_MESSAGE"]--></label>
+		 <textarea id="users_message" name="message" cols="50" rows="10"></textarea>
+    </div>
+    <div class="pn-adminformrow pn-adminformbuttons">
+    	<!--[pnbutton src=button_ok.gif set=icons/small alt="_USERS_SEND_MAIL" title="_USERS_SEND_MAIL"]-->
+        <a href="<!--[pnmodurl modname=Users type=admin func=view]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+    </div>
+</div>
+</form>
+</div>

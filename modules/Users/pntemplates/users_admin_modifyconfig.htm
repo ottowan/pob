@@ -1,0 +1,201 @@
+<!--[*  $config.Id: users_admin_modifyconfig.htm,v 1.10 2006/03/29 14:01:01 markwest Exp $config.  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<!--[pnajaxheader nobehaviour=true noscriptaculous=true modname=Users filename=users_admin_modifyconfig.js]-->
+<div class="pn-admincontainer">
+<div class="pn-adminpageicon"><!--[pnimg modname=core src=configure.gif set=icons/large alt='_MODIFYCONFIG' altml=true]--></div>
+<h2><!--[pnml name=_MODIFYUSERSCONFIG]--></h2>
+<form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin" func="updateconfig"]-->" method="post">
+<div>
+  <fieldset>
+  <legend><!--[pnml name=_USERS_GENERALSETTINGS]--></legend>
+  <div class="pn-adminformrow">
+    <label for="users_userimg"><!--[pnml name="_USERS_IMAGEPATH"]--></label>
+    <input id="users_userimg" type="text" name="config[userimg]" value="<!--[$config.userimg|pnvarprepfordisplay]-->" size="50" maxlength="255" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_itemsperpage"><!--[pnml name="_LINKSPERPAGE"]--></label>
+    <input id="users_itemsperpage" type="text" name="config[itemsperpage]" size="3" value="<!--[$config.itemsperpage|pnvarprepfordisplay]-->" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_minage"><!--[pnml name="_USERS_MINAGE"]--></label>
+    <input id="users_minage" type="text" name="config[minage]" value="<!--[$config.minage|pnvarprepfordisplay]-->" size="2" maxlength="2" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_minpass"><!--[pnml name="_USERS_PASSWDLEN"]--></label>
+    <input id="users_minpass" type="text" name="config[minpass]" value="<!--[$config.minpass|pnvarprephtmldisplay]-->" size="2" maxlength="2" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="anonymous"><!--[pnml name="_USERS_ANONYMOUSNAME]--></label>
+    <input id="anonymous" type="text" name="config[anonymous]" value="<!--[$config.anonymous|pnvarprephtmldisplay]-->" size="20" maxlength="20" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_savelastlogindate"><!--[pnml name="_USERS_SAVELASTLOGINDATE]--></label>
+    <div id="users_savelastlogindate">
+    <!--[if $config.savelastlogindate eq 1]-->
+      <input type="radio" name="config[savelastlogindate]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[savelastlogindate]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[else]-->
+      <input type="radio" name="config[savelastlogindate]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[savelastlogindate]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_loginviaoption"><!--[pnml name="_USERS_LOGINVIA]--></label>
+    <div id="users_loginviaoption">
+    <!--[if $config.loginviaoption eq 0]-->
+      <input id="users_loginviausername" type="radio" name="config[loginviaoption]" value="0" checked="checked" /> <!--[pnml name="_USERNAME_FLC"]-->
+      <input id="users_loginviaemail" type="radio" name="config[loginviaoption]" value="1" /> <!--[pnml name="_EMAIL"]-->
+    <!--[else]-->
+      <input id="users_loginviausername" type="radio" name="config[loginviaoption]" value="0" /> <!--[pnml name="_USERNAME"]-->
+      <input id="users_loginviaemail" type="radio" name="config[loginviaoption]" value="1" checked="checked" /> <!--[pnml name="_EMAIL"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div id="users_uniquemailaddresswarning_container">
+    <div class="pn-warningmsg"><!--[pnml name=_USERS_UNIQUEMAILADDRESSWARNING]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="hash_method"><!--[pnml name="_USERS_HASHMETHOD]--></label>
+    <select id="hash_method" name="config[hash_method]">
+      <option value="md5" <!--[if $config.hash_method eq 'md5']--> selected="selected"<!--[/if]-->>MD5</option>
+      <option value="sha1" <!--[if $config.hash_method eq 'sha1']--> selected="selected"<!--[/if]-->>SHA1</option>
+      <option value="sha256" <!--[if $config.hash_method eq 'sha256']--> selected="selected"<!--[/if]-->>SHA256</option>
+    </select>
+  </div>
+  </fieldset>
+  <fieldset>
+  <legend><!--[pnml name="_USERS_REGISTRATIONSETTINGS"]--></legend>
+  <div class="pn-adminformrow">
+    <label for="users_moderation"><!--[pnml name="_USERS_MODERATION"]--></label>
+    <div id="users_moderation">
+    <!--[if $config.moderation eq 1]-->
+      <input type="radio" name="config[moderation]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[moderation]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[else]-->
+      <input type="radio" name="config[moderation]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[moderation]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_uniemail"><!--[pnml name="_USERS_UNIQUEEMAIL"]--></label>
+    <div id="users_reg_uniemail">
+    <!--[if $config.reg_uniemail eq 1]-->
+      <input type="radio" name="config[reg_uniemail]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_uniemail]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[else]-->
+      <input type="radio" name="config[reg_uniemail]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_uniemail]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_optitems"><!--[pnml name="_USERS_OPTIONALITEMS"]--></label>
+    <div id="users_reg_optitems">
+    <!--[if $config.reg_optitems eq 1]-->
+      <input type="radio" name="config[reg_optitems]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_optitems]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[else]-->
+      <input type="radio" name="config[reg_optitems]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_optitems]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_allowreg"><!--[pnml name="_USERS_ALLOWREGISTRATIONS"]--></label>
+    <div id="users_reg_allowreg">
+    <!--[if $config.reg_allowreg eq 1]-->
+      <input type="radio" name="config[reg_allowreg]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_allowreg]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[else]-->
+      <input type="radio" name="config[reg_allowreg]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[reg_allowreg]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_noregreasons"><!--[pnml name="_USERS_ALLOWREGISTRATIONSDISABLED"]--></label>
+    <textarea id="users_noregreasons" name="config[reg_noregreasons]" cols="50" rows="10"><!--[$config.reg_noregreasons|pnvarprephtmldisplay]--></textarea>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_verifyemail"><!--[pnml name=_USERS_VERIFYEMAIL]--></label>
+    <ul id="users_reg_verifyemail">
+    <!--[if $config.reg_verifyemail eq 2]-->
+      <li><input type="radio" name="config[reg_verifyemail]" value="2" checked="checked" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_ACTIVEMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="1" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_PASSWORDMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="0" /> <!--[pnml name="_NO"]--></li>
+    <!--[elseif $config.reg_verifyemail eq 1]-->
+      <li><input type="radio" name="config[reg_verifyemail]" value="2" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_ACTIVEMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="1" checked="checked" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_PASSWORDMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="0" /> <!--[pnml name="_NO"]--></li>
+    <!--[else]-->
+      <li><input type="radio" name="config[reg_verifyemail]" value="2" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_ACTIVEMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="1" /> <!--[pnml name="_USERS_VERIFYEMAIL_YES_PASSWORDMAIL"]--></li>
+      <li><input type="radio" name="config[reg_verifyemail]" value="0" checked="checked" /> <!--[pnml name="_NO"]--></li>
+    <!--[/if]-->
+    </ul>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_Illegalusername"><!--[pnml name="_USERS_ILLEGALUNAME"]--></label>
+    <input id="users_reg_Illegalusername" type="text" name="config[reg_Illegalusername]" value="<!--[$config.reg_Illegalusername|pnvarprepfordisplay]-->" size="50" maxlength="255" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_notifyemail"><!--[pnml name="_USERS_NOTIFYEMAIL"]--></label>
+    <input id="users_reg_notifyemail" type="text" name="config[reg_notifyemail]" value="<!--[$config.reg_notifyemail|pnvarprepfordisplay]-->" size="50" maxlength="255" />
+  </div>
+  <br />
+  <div class="pn-adminformrow">
+    <label for="users_reg_Illegaluseragents"><!--[pnml name="_USERS_ILLEGALUSERAGENTS"]--></label>
+    <input id="users_reg_Illegaluseragents" type="text" name="config[reg_Illegaluseragents]" value="<!--[$config.reg_Illegaluseragents|pnvarprepfordisplay]-->" size="50" maxlength="255" />
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_Illegaldomains"><!--[pnml name="_USERS_ILLEGALDOMAINS"]--></label>
+    <textarea id="users_reg_Illegaldomains" name="config[reg_Illegaldomains]" cols="50" rows="10"><!--[$config.reg_Illegaldomains|pnvarprephtmldisplay]--></textarea>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_idnnames"><!--[pnml name="_USERS_IDNNAMES"]--></label>
+      <!--[ if $config.idnnames eq 1 ]-->
+        <input type="radio" name="config[idnnames]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+        <input type="radio" name="config[idnnames]" value="0" /> <!--[pnml name="_NO"]-->
+    <!--[ else ]-->
+        <input type="radio" name="config[idnnames]" value="1" /> <!--[pnml name="_YES"]-->
+        <input type="radio" name="config[idnnames]" value="0" checked="checked" /> <!--[pnml name="_NO"]-->
+    <!--[ /if ]-->
+    <!--[pnml name=_PUNC_PERIOD]--> <!--[ pnml name="_USERS_IDNNAMESDESC" ]-->
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_question"><!--[pnml name="_USERS_SPAMQUESTION"]--></label>
+    <input id="users_reg_question" name="config[reg_question]" value="<!--[$config.reg_question|pnvarprephtmldisplay]-->" size="50" maxlength="255" />
+	<p><!--[pnml name=_USERS_SPAMQUESTIONHINT]--></p>
+  </div>
+  <div class="pn-adminformrow">
+    <label for="users_reg_answer"><!--[pnml name="_USERS_SPAMANSWER"]--></label>
+    <input id="users_reg_answer" name="config[reg_answer]" value="<!--[$config.reg_answer|pnvarprephtmldisplay]-->" size="50" maxlength="255" />
+	<p><!--[pnml name=_USERS_SPAMANSWERHINT]--></p>
+  </div>
+  </fieldset>
+  <fieldset>
+  <legend><!--[pnml name="_USERS_LOGINSETTINGS"]--></legend>
+  <div class="pn-adminformrow">
+    <label for="users_login_redirect"><!--[pnml name="_USERS_LOGIN_REDIRECT_WCAG"]--></label>
+    <div id="users_login_redirect">
+    <!--[if $config.login_redirect eq 1]-->
+      <input type="radio" name="config[login_redirect]" value="1" checked="checked" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[login_redirect]" value="0" /> <!--[pnml name="_NO"]--><!--[pnml name=_PUNC_PERIOD]--> <!--[ pnml name='_USERS_LOGIN_REDIRECT_META' ]-->
+    <!--[else]-->
+      <input type="radio" name="config[login_redirect]" value="1" /> <!--[pnml name="_YES"]-->
+      <input type="radio" name="config[login_redirect]" value="0" checked="checked" /> <!--[pnml name="_NO"]--><!--[pnml name=_PUNC_PERIOD]--> <!--[ pnml name='_USERS_LOGIN_REDIRECT_META' ]-->
+    <!--[/if]-->
+    </div>
+  </div>
+  </fieldset>
+  <!--[pnmodcallhooks hookobject=module hookaction=modifyconfig module=Users]-->
+  <div class="pn-adminformrow pn-adminformbuttons">
+    <!--[pnbutton src=button_ok.gif set=icons/small alt="_OK" title="_OK"]-->
+    <a href="<!--[pnmodurl modname=Users type=admin func=view]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+  </div>
+</div>
+</form>
+</div>

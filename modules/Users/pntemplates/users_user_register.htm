@@ -1,0 +1,99 @@
+<!--[*  $Id: users_user_register.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $ $changed by Charlie 2007-10-07 $ *]-->
+<!--[pnajaxheader modname=Users filename=users.js]-->
+<!--[include file="users_user_menu.htm"]-->
+<!--[if !$reg_allowreg]-->
+	<h2><!--[pnml name="_USERS_NOTALLOWREG"]--></h2>
+	<div><!--[pnml name="_USERS_NOTALLOWREGREASONS"]--></div>
+	<div><!--[$reg_noregreasons|pnvarprepfordisplay]--></div>
+<!--[else]-->
+	<form action="<!--[pnmodurl modname="Users" type="user"  func="finishnewuser"]-->" method="post" id="newuser">
+	<div>
+	    <input type="hidden" id="newuserauthid" name="authid" value="<!--[ insert name="generateauthkey" module="Users" ]-->" />
+	    <h2><!--[pnml name="_USERS_REGISTRATION" s=$sitename]--></h2>
+	    <h3><!--[pnml name="_USERS_REGTEXT" s=$sitename]--></h3>
+	    <p><!--[pnml name="_USERS_REQUIREDTEXT"]--></p>
+		<table>
+			<tr>
+				<td><h4><!--[pnml name="_USERS_REG_STEP1"]--></h4></td>
+			</tr>
+			<tr>
+				<td><label for="users_uname"><!--[pnml name="_USERNAME"]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label></td>
+				<td><input id="users_uname" type="text" name="uname" size="25" maxlength="25" /></td>
+			</tr>
+			<tr>     
+				<td><h4><!--[if !$reg_verifyemail or ($reg_verifyemail eq 2)]--><!--[pnml name="_USERS_REG_STEP2_WITHPASSWORD"]--><!--[ else ]--><!--[pnml name="_USERS_REG_STEP2"]--><!--[ /if ]--></h4></td>  
+			</tr>
+			<!--[if !$reg_verifyemail or ($reg_verifyemail eq 2)]-->
+			<tr>
+				<td><label for="users_pass"><!--[pnml name="_PASSWORD"]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label></td>
+				<td><input id="users_pass" type="password" name="pass" size="25" maxlength="60" /></td>
+			</tr>
+			<tr>
+				<td><label for="users_vpass"><!--[pnml name="_USERS_PASSWDAGAIN"]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label></td>
+				<td><input id="users_vpass" type="password" name="vpass" size="25" maxlength="60" /></td>
+			</tr>
+			<!--[/if]-->
+			<tr>
+				<td><label for="users_email"><!--[pnml name="_EMAIL"]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label></td>
+				<td><input id="users_email" type="text" name="email" size="25" maxlength="60" /></td>
+			</tr>
+			<tr>
+				<td><label for="users_vemail"><!--[pnml name="_USERS_EMAILAGAIN"]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label></td>
+				<td><input id="users_vemail" type="text" name="vemail" size="25" maxlength="60" /></td>
+			</tr>
+		</table><br />
+		<p><!--[pnml name="_USERS_PASSWILLSEND"]--></p>  
+		<div>
+			<h4><!--[pnml name="_USERS_REG_STEP3"]--></h4>
+		    <input id="users_viewemail" type="checkbox" name="user_viewemail" value="1" />
+		    <label for="users_viewemail"><!--[pnml name="_USERS_ALLOWEMAILVIEW"]--></label>
+	    </div>
+	    <!--[if $legal]-->
+		    <div>
+				<input id="users_agreetoterms" type="checkbox" name="agreetoterms" value="1" />
+				<!--[pnmodurl modname="Legal" type="user" func="main" assign=touurl]-->
+				<!--[pnmodurl modname="Legal" type="user" func="privacy" assign=ppurl]-->
+				<label for="users_agreetoterms"><!--[pnml name="_USERS_REGISTRATIONAGREEMENT" html=true touurl=$touurl ppurl=$ppurl]--></label><!--[pnml name="_PROFILE_REQUIREDLABEL"]-->
+				<p><!--[pnml name="_USERS_COOKIEWARNING" html=true]--></p>
+			</div>
+		<!--[else]-->
+			<input type="Hidden" name="agreetoterms" value="1" /></td>
+		<!--[/if]-->
+		<!--[if $reg_optitems]-->
+			<h4><!--[pnml name="_USERS_REG_STEP4_ADDITIONALINFO"]--></h4>
+			<table>
+				<!--[foreach from=$optitems item=item]-->
+					<!--[* uid=1 pulls the default values from the guest user *]-->
+					<!--[dudoptionalitemmodify item=$item uid=1 tableless=false ]-->
+				<!--[/foreach]-->
+			</table>
+			<br />
+	    <!--[/if]-->
+		<!--[if $reg_question neq '' and $reg_answer neq '']-->
+			<!--[if $reg_optitems]-->
+				<h4><!--[pnml name="_USERS_REG_STEP5_SPAM"]--></h4>
+			<!--[else]-->
+				<h4><!--[pnml name="_USERS_REG_STEP4_SPAM"]--></h4>
+			<!--[/if]-->
+			<div>
+			    <label for="users_reg_answer"><!--[$reg_question|pnvarprephtmldisplay]--><!--[pnml name="_PROFILE_REQUIREDLABEL"]--></label>
+				<input id="users_reg_answer" type="text" name="reg_answer" size="25" maxlength="60" />
+			</div>
+			<br />
+		<!--[/if]-->
+		<h4><!--[pnml name="_USERS_REG_LASTSTEP"]--></h4>
+		<div>
+			<input type="button" id="checkuserajax" class="pn-hide"  value="<!--[ pnml name='_USERS_REGISTRATIONCHECK' ]-->" />
+			<input type="submit" value="<!--[pnml name="_USERS_SUBMITREGISTRATION"]-->" id="submitnewuser" />
+			<!--[ pnimg id="ajax_indicator" style="display: none;" modname=core set=icons/extrasmall src="indicator_circle.gif" alt="" ]-->
+		</div>
+		<div id="userinfo" class="newuserinfo pn-hide"></div>
+	</div>
+	</form>
+	<br style="clear:both;" />
+	<script type="text/javascript">
+		$('submitnewuser').disabled = true;
+		Element.removeClassName('checkuserajax', 'pn-hide');
+		Event.observe('checkuserajax', 'click', function(){callusercheck()}, false);
+	</script>
+<!--[/if]-->

@@ -1,0 +1,22 @@
+<!--[*  $Id: users_block_online.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[if $guestcount eq 0]--><!--[pnml name="_GUEST0" assign=gueststring]--><!--[elseif $guestcount eq 1]--><!--[pnml name="_GUEST" assign=gueststring]--><!--[else]--><!--[pnml name="_GUESTS" assign=gueststring]--><!--[/if]-->
+<!--[if $userscount eq 0]--><!--[pnml name="_MEMBER0" assign=memberstring]--><!--[elseif $userscount eq 1]--><!--[pnml name="_MEMBER" assign=memberstring]--><!--[else]--><!--[pnml name="_MEMBERS" assign=memberstring]--><!--[/if]-->
+<p><!--[pnml name="_USERS_ONLINEBLOCK_CURRENTLYONLINE" g=$guestcount gs=$gueststring m=$userscount ms=$memberstring]--></p>
+<!--[if $loggedin eq 1]-->
+	<!--[if $msgmodule eq 'pnMessages']-->
+	<!--[pnmodurl modname="pnMessages" func="inbox" assign="messageslink"]-->
+	<p><!--[if $messages.unread eq 0]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS0]--><!--[elseif $messages.unread eq 1]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS1 l=$messageslink html=1]--><!--[else]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS l=$messageslink m=$messages.unread html=1]--><!--[/if]--></p>
+	<!--[/if]-->
+	<!--[if $msgmodule eq 'InterCom']-->
+	<!--[pnmodurl modname="InterCom" func="inbox" assign="messageslink"]-->
+	<p><!--[if $messages.unread eq 0]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS0]--><!--[elseif $messages.unread eq 1]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS1 l=$messageslink html=1]--><!--[else]--><!--[pnml name=_USERS_ONLINEBLOCK_PRIVATEMSGS l=$messageslink m=$messages.unread html=1]--><!--[/if]--></p>
+	<!--[/if]-->
+	<p><!--[pnml name="_USERS_ONLINEBLOCK_YOUARELOGGED" html=true uname=$username|userprofilelink]--></p>
+<!--[else]-->
+	<!--[pnmodurl modname=Users func=register assign=url]-->
+	<p><!--[pnml name="_USERS_ONLINEBLOCK_YOUAREANON"]-->
+	<!--[if $registerallowed eq 1]-->
+	<!--[pnml name="_USERS_ONLINEBLOCK_YOUCANREGISTERHERE" u=$url html=1]-->
+	<!--[/if]-->
+	</p>
+<!--[/if]-->

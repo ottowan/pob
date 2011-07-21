@@ -1,0 +1,44 @@
+<!--[*  $Id: users_user_loginscreen.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_user_menu.htm"]-->
+<h2><!--[pnml name="_LOGIN_FLC"]--></h2>
+<form action="<!--[pnmodurl modname="Users" type="user" func="login"]-->" method="post">
+<div>
+<input type="hidden" name="url" value="<!--[$returnurl|pnvarprepfordisplay]-->" />
+<input type="hidden" name="authid" value="<!--[insert name="generateauthkey" module="Users" ]-->" />
+<table><!--[pnmodgetvar module='Users' name='loginviaoption' assign='loginviaoption']-->
+<!--[if $loginviaoption eq 1]-->
+  <tr>
+    <td><label for="users_email"><!--[pnml name="_EMAIL"]--></label></td>
+    <td><input id="users_email" type="text" name="email" size="20" maxlength="64" /></td>
+  </tr>
+<!--[else]-->
+  <tr>
+    <td><label for="users_uname"><!--[pnml name="_USERNAME"]--></label></td>
+    <td><input id="users_uname" type="text" name="uname" size="20" maxlength="25" /></td>
+  </tr>
+<!--[/if]-->
+  <tr>
+    <td><label for="users_pass"><!--[pnml name="_PASSWORD"]--></label></td>
+    <td><input id="users_pass" type="password" name="pass" size="20" maxlength="20" /></td>
+  </tr>
+  <!--[if $seclevel != "High"]-->
+  <tr>
+    <td><label for="users_rememberme"><!--[pnml name="_USERS_REMEMBERME"]--></label></td>
+    <td><input id="users_rememberme" type="checkbox" name="rememberme" /></td>
+  </tr>
+  <!--[/if]-->
+</table>
+<!--[if $confirmtou != 2]-->
+<div class="pn-errormsg">
+  <p><!--[pnml name="_USERS_CONFIRMTERMSOFUSEHINT"]--></p>
+  <input id="users_touaccepted" type="checkbox" name="touaccepted" value="1" /><label for="users_confirm">&nbsp;<!--[pnml name="_USERS_CONFIRMTERMSOFUSE" html=1]--></label>
+</div>
+<!--[/if]-->
+
+<input type="submit" value="<!--[pnml name="_LOGIN"]-->" />
+</div>
+</form>
+
+<p>
+    <a href="<!--[pnmodurl modname="Users" type="user" func="lostpassword"]-->"><!--[pnml name="_USERS_RETRIEVEPASS"]--></a>
+</p>
