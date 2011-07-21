@@ -10,6 +10,7 @@ Class SubdomainCreator {
   private $dbpassword = NULL;
   private $dbtype = NULL;
   private $prefix = NULL;
+  private $sitename = '';
   private $dbname = '';
   private $username;
   private $password;
@@ -17,7 +18,7 @@ Class SubdomainCreator {
   private $form;
   private $exist;
   private $_error;
-  
+
   function __construct($dbpassword=NULL, $dbusername=NULL, $dbtype=NULL, $dbhost=NULL){
     $this->dbusername = $dbusername;
     $this->dbpassword = $dbpassword;
@@ -49,15 +50,17 @@ Class SubdomainCreator {
    * @param string $dbconn Database connection
    * @param string $dbname Database name
    */
-  function makedb($dbname,$username,$password,$email)
+  function makedb($sitename, $dbname,$username,$password,$email)
   {
     
-    echo "DB Name : ".$dbname;
-    echo "<BR>DB Username : ".$this->dbusername;
-    echo "<BR>DB Password : ".$this->dbpassword;
-    echo "<BR>DB Type : ".$this->dbtype;
-    echo "<BR>DB Host : ".$this->dbhost;
-    
+    //echo "DB Name : ".$dbname;
+    //echo "<BR>DB Username : ".$this->dbusername;
+    //echo "<BR>DB Password : ".$this->dbpassword;
+    //echo "<BR>DB Type : ".$this->dbtype;
+    //echo "<BR>DB Host : ".$this->dbhost;
+
+
+    $this->sitename = $sitename;
     $this->dbname = $dbname;
     $this->username = $username;
     $this->password = $password;
@@ -133,7 +136,11 @@ Class SubdomainCreator {
                   continue;
               $exec .= $line;
               if (strrpos($line, ';') === strlen($line) - 1) {
-                  if (!DBUtil::executeSQL(str_replace('z_', $this->prefix. '_', $exec))) {
+
+                $strReplace1 = str_replace('z_', $this->prefix. '_', $exec);
+                $strReplace2 = str_replace('Site name', $this->sitename, $strReplace1);
+
+                  if (!DBUtil::executeSQL($strReplace2)) {
                       $installed = false;
                       $action = 'dbinformation';
                       $smarty->assign('dbdumpfailed', true);
