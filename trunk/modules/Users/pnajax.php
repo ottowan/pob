@@ -151,7 +151,7 @@ function Users_ajax_checkuser()
     if ($email !== $vemail) {
         return array('result' => _USERS_EMAILSDIFF, 'errorcode' => 10);
     }
-	
+
     if (!$modvars['reg_verifyemail'] || $modvars['reg_verifyemail'] == 2) {
         if ((isset($pass)) && ("$pass" != "$vpass")) {
             return array('result' => _USERS_PASSDIFFERENT, 'errorcode' => 16);
@@ -222,8 +222,7 @@ function Users_ajax_checkuser()
  * @param dynadata - array of user input
  * @return false or mixed array (errorno and fields)
  **/
-function Users_ajax_checkrequired($dynadata = array())
-{
+function Users_ajax_checkrequired($dynadata = array()) {
     if (empty($dynadata)) {
         return false;
     }
@@ -233,11 +232,55 @@ function Users_ajax_checkrequired($dynadata = array())
                            array('dynadata' => $dynadata,
                                  'listall' => true));
 
+    $domainName = $dynadata['DomainName'];
     // False: no errors
-    if ($result === false)
-      return $result;
+    if ($result === false){
 
-    return array('result' => _USERS_ERRORINREQUIREDFIELDS . ' ('.$result['translatedFieldsStr'].')',
-                 'errorcode' => 25,
-                 'fields' => $result['fields']);
+      //Validate register subdomain character
+      if(preg_match('/([^a-zA-Z0-9\-_])/',$domainName)){
+        return array('result' => 'Incorrect domain name, Plase enter the character a-z, A-Z, 0-9',
+                     'errorcode' => 25,
+                     'fields' => '');
+      }else{
+
+
+        //Validate register subdomain with database
+        $pntables = pnDBGetTables();
+
+        $tableUserProperty  = $pntables['user_property'];
+        $columnUserProperty = $pntables['user_property_column'];
+
+        $tableUserData  = $pntables['user_data'];
+        $columnUserData = $pntables['user_data_column'];
+
+        $sql = "SELECT
+                  $tableUserData.$columnUserData[uda_value] 
+                FROM
+                  $tableUserData
+                WHERE
+                  $tableUserData.$columnUserData[uda_propid] = 18
+                AND
+                  $tableUserData.$columnUserData[uda_value] = '".$domainName."'
+                ";
+
+        $column = array("subdomain");
+        $result = DBUtil::executeSQL($sql);
+        $userDataArray = DBUtil::marshallObjects ($result, $column);
+
+        //Vladate data on database
+        if($userDataArray[0]['subdomain']){
+          return array('result' => 'Domain name is exist. (Filed : DomainName )',
+                       'errorcode' => 25,
+                       'fields' => '');
+        }else{
+          return $result;
+        }
+      }
+
+
+    }else{
+        return array('result' => _USERS_ERRORINREQUIREDFIELDS . ' ('.$result['translatedFieldsStr'].')',
+                     'errorcode' => 25,
+                     'fields' => $result['fields']);
+    }
 }
