@@ -1,0 +1,56 @@
+<!--[*  $Id: users_admin_viewtempuserdetails.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<div class="pn-admincontainer">
+  <h2><!--[pnml name="_USERS_VIEWAPPLICATION"]--></h2>
+
+  <table class="pn-admintable" summary="<!--[$uname|pnvarprepfordisplay]-->">
+    <thead>
+      <tr>
+        <th colspan="2"><!--[$uname|pnvarprepfordisplay]--></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!--[foreach item='field' from=$fields]-->
+      <!--[* Settings *]-->
+      <!--[* Bold setting *]-->
+      <!--[if $field.prop_label eq '_UREALNAME']-->
+        <!--[assign var='bold' value=1]-->
+      <!--[else]-->
+        <!--[assign var='bold' value=0]-->
+      <!--[/if]-->
+      <!--[cycle values="pn-odd,pn-even" assign='class']-->
+      <!--[if $field.prop_label eq '_TIMEZONEOFFSET']-->
+      <tr class="<!--[$class]-->">
+        <td><!--[pnml name=$field.prop_label]--></td>
+        <td><!--[dudtimezoneoffset zone=$userinfo[$field.prop_label]|pnvarprepfordisplay]--></td>
+      </tr>
+      <!--[elseif $field.prop_label eq '_YOURHOMEPAGE' AND $userinfo[$field.prop_label] neq '']-->
+      <tr class="<!--[$class]-->">
+        <td><!--[pnml name=$field.prop_label]--></td>
+        <td>
+          <a href="<!--[$userinfo[$field.prop_label]|pnvarprepfordisplay]-->" title="<!--[$uname|pnvarprepfordisplay]--> <!--[pnml name="_YOURHOMEPAGE"]-->"><!--[$userinfo[$field.prop_label]|pnvarprepfordisplay]--></a>
+        </td>
+      </tr>
+      <!--[elseif $field.prop_label eq '_YOURAVATAR']-->
+      <tr class="<!--[$class]-->">
+        <td><!--[pnml name=$field.prop_label]--></td>
+        <td><img src="images/avatar/<!--[$avatar|pnvarprepfordisplay|default:'blank.gif']-->" alt="" /></td>
+      </tr>
+      <!--[else]-->
+      <tr class="<!--[$class]-->">
+        <td><!--[pnml name=$field.prop_label]--></td>
+        <td><!--[if $bold]--><strong><!--[/if]--><!--[$userinfo[$field.prop_label]]--><!--[if $bold]--></strong><!--[/if]--></td>
+      </tr>
+      <!--[/if]-->
+      <!--[/foreach]-->
+
+    </tbody>
+  </table>
+  <div class="pn-adminformrow pn-adminformbuttons pn-pager">
+    <a href="<!--[pnmodurl modname='Users' type='admin' func='processusers' op='approve' userid=$userid]-->"><!--[pnbutton src=button_ok.gif set=icons/small alt="_USERS_APPROVEUSERAPPLICATIONBUT" title="_USERS_APPROVEUSERAPPLICATIONBUT"]--></a>
+    <a href="<!--[pnmodurl modname='Users' type='admin' func='processusers' op='deny' userid=$userid]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+  </div>
+</div>
+
+

@@ -1,0 +1,27 @@
+<!--[* $Id: users_admin_pendingaction.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $ *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<div class="pn-admincontainer">
+<!--[if $action eq "approve"]-->
+  <h2><!--[pnml name="_USERS_APPROVEUSERAPPLICATION"]--> <!--[$item.uname]--></h2>
+<!--[else]-->
+  <h2><!--[pnml name="_USERS_DENYUSERAPPLICATION"]--> <!--[$item.uname]--></h2>
+<!--[/if]-->
+<!--[if $action != "approve" and $action != "deny" and $action != "cancel"]-->
+  <!--[pnml name="_GETFAILED"]-->
+<!--[else]-->
+    <form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin" func="processusers" op=$action]-->" method="post" enctype="application/x-www-form-urlencoded">
+    <div>
+      <input type="hidden" name="authid" value="<!--[insert name="generateauthkey" module="Users"]-->" />
+      <input type="hidden" name="userid" value="<!--[$userid|pnvarprepfordisplay]-->" />
+      <input type="hidden" name="action" value="<!--[$action|pnvarprepfordisplay]-->" />
+      <div class="pn-adminformrow">
+        <label for="users_tag"><!--[pnml name="_USERS_CONFIRMAPPLICATION"]--></label>
+        <input id="users_tag" name="tag" type="checkbox" />
+      </div>
+      <div class="pn-adminformrow pn-adminformbuttons">
+      <!--[pnbutton src=button_ok.gif set=icons/small alt="_SUBMIT" title="_SUBMIT"]-->
+      </div>
+    </div>
+    </form>
+<!--[/if]-->
+</div>

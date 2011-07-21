@@ -1,0 +1,10 @@
+<!--[*  $Id: users_userapi_activationemail.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<h2><!--[pnml name="_USERS_WELCOMETOSITE" sitename=$sitename siteurl=$siteurl]--></h2>
+
+<p><!--[pnml name="_USERS_USEDEMAILTOREGISTER" email=$email sitename=$sitename]-->
+<!--[pnml name="_USERS_FOLLOWINGMEM"]--></p>
+
+<p><!--[pnml name="_USERS_ACIVATEYOURACCOUNTLINK"]--> : <a href="<!--[pnmodurl modname="Users" func="activation" code=$code|urlencode fqurl=true]-->"><!--[pnmodurl modname="Users" func="activation" code=$code fqurl=true]--></a></p>
+<p><!--[pnml name="_USERS_ONCEACTIVATED"]--></p>
+<p><!--[pnml name="_USERNAME"]-->: <!--[$uname]--></p>
+<p><!--[pnml name="_PASSWORD"]-->: <!--[$makepass]--></p>

@@ -1,0 +1,77 @@
+<!--[*  $Id: users_admin_modify.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<!--[pnml name=_USERS_MODIFYUSER assign=templatetitle]-->
+<div class="pn-admincontainer">
+<div class="pn-adminpageicon"><!--[pnimg modname=core src=xedit.gif set=icons/large alt=$templatetitle]--></div>
+<h2><!--[$templatetitle]-->:&nbsp;<i><!--[pnusergetvar name="uname" uid=$userid]--></i></h2>
+<form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin" func="processusers" op=$op]-->" method="post">
+<div>
+    <input type="hidden" name="authid" value="<!--[insert name="generateauthkey" module="Users"]-->" />
+    <input type="hidden" name="userid" value="<!--[$userid]-->" />
+    <input type="hidden" name="do"     value="yes" />
+    <fieldset>
+	<legend><!--[pnml name='_USERS_GROUPMEMBERSHIP']--></legend>
+	<table class="pn-admintable">
+	<thead>
+	  <tr>
+		<th><!--[pnml name='_USERS_GROUP']--></th>
+		<th><!--[pnml name='_USERS_MEMBEROF']--></th>
+	  </tr>
+	</thead>
+	<tbody>
+	<!--[foreach key='groupid' item='group' from=$access_types_array]-->
+	  <tr class="<!--[cycle values="pn-odd,pn-even"]-->">
+		<td><!--[$group]--></td>
+		<!--[assign var='groupmember' value=false]-->
+		<!--[foreach item='member' from='$permissions_array]-->
+		  <!--[if $member eq $groupid]-->
+			<!--[assign var='groupmember' value=true]-->
+		  <!--[/if]-->
+		<!--[/foreach]-->
+		<td style="text-align:right;"><input type="checkbox"<!--[if $groupmember]--> checked="checked" <!--[/if]-->name="access_permissions[]" value="<!--[$groupid]-->" /></td>
+	  </tr>
+	<!--[/foreach]-->
+	</tbody>
+	</table>
+    </fieldset>
+    <fieldset>
+	<legend><!--[pnml name='_PROFILE']--></legend>
+    <div class="pn-adminformrow">
+        <label for="users_uname"><!--[pnml name="_USERNAME_FLC"]--></label>
+        <input id="users_uname" type="text" name="uname" value="<!--[$uname|pnvarprepfordisplay]-->" size="30" maxlength="60" />
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_email"><!--[pnml name="_EMAIL"]--></label>
+        <input id="users_email" type="text" name="email" value="<!--[$email|pnvarprepfordisplay]-->" size="30" maxlength="60" />
+    </div>
+    <div class="pn-adminformrow">
+        <label><!--[pnml name="_PASSWORDAGAIN"]--></label>
+        <input type="password" name="pass" size="15" /> <input type="password" name="vpass" size="15" />
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_activated"><!--[pnml name="_USERS_STATUS"]--></label>
+        <select id="users_activated" name="activated">
+            <option value="0" <!--[ if $activated eq 0 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name="_USERS_INACTIVE" ]--></option>
+            <option value="2" <!--[ if $activated eq 2 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name="_USERS_MUSTACCEPTTOU" ]--></option>
+            <option value="1" <!--[ if $activated eq 1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name="_USERS_ACTIVE" ]--></option>
+        </select>
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_theme"><!--[pnml name="_THEME"]--></label>
+        <select id="users_theme" name="theme">
+        <option value=""><!--[pnml name=_THEME_DEFAULT]--></option>
+        <!--[html_select_themes selected=$theme state=PNTHEME_STATE_ACTIVE filter=PNTHEME_FILTER_USER]-->
+        </select>
+    </div>
+    <!--[foreach from=$duditems item=item]-->
+      <!--[dudoptionalitemmodify item=$item uid=$userid tableless=true]-->
+    <!--[/foreach]-->
+</fieldset>
+    <!--[pnmodcallhooks hookobject=item hookaction=modify hookid=$userid module=Users]-->
+    <div class="pn-adminformrow pn-adminformbuttons">
+    <!--[pnbutton src=button_ok.gif set=icons/small alt="_OK" title="_OK"]-->
+    <a href="<!--[pnmodurl modname=Users type=admin func=view]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+    </div>
+</div>
+</form>
+</div>

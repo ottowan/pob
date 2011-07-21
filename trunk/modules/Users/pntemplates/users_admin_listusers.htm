@@ -1,0 +1,68 @@
+<!--[*  $Id: users_admin_listusers.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<div class="pn-admincontainer">
+<script language="JavaScript" type="text/JavaScript">
+/**
+* Checks/unchecks all tables
+* Auther PHPMyadmin
+*
+* @param   string   the form name
+* @param   boolean  whether to check or to uncheck the element
+*
+* @return  boolean  always true
+*/
+function setCheckboxes(the_form, do_check)
+{
+	var elts      = document.forms[the_form].elements['userid[]'];
+	var elts_cnt  = (typeof(elts.length) != 'undefined')
+					? elts.length
+					: 0;
+
+	if (elts_cnt) {
+		for (var i = 0; i < elts_cnt; i++) {
+			elts[i].checked = do_check;
+		} // end for
+	} else {
+		elts.checked        = do_check;
+	} // end if... else
+
+	return true;
+} // end of the 'setCheckboxes()' function
+</script>
+<h2><!--[pnml name="_USERS_SEARCHRESULTS"]--></h2>
+<form class="pn-adminform" method="post" action="<!--[pnmodurl modname="Users" type="admin" func="processusers"]-->" name="userlist">
+<div>
+	<table class="pn-admintable">
+		<thead>
+		<tr>
+			<th></th>
+			<th><!--[pnml name="_USERNAME"]--></th>
+			<th><!--[pnml name="_UREALNAME"]--></th>
+			<th><!--[pnml name="_EMAIL"]--></th>
+			<th><!--[pnml name="_ACTIONS"]--></th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--[section name=item loop=$items]-->
+		<tr class="<!--[cycle values="pn-odd,pn-even]-->">
+			<td><input type="checkbox" name="userid[]" value="<!--[$items[item].uid]-->" /></td>
+			<td><!--[$items[item].uname]--></td>
+			<td><!--[pnusergetvar name=_UREALNAME uid=$items[item].uid]--></td>
+			<td><!--[$items[item].email]--></td>
+			<td>
+				<a href="<!--[pnmodurl modname="Users" type="admin" func="modify" userid=$items[item].uid]-->"><!--[pnimg modname=core set=icons/extrasmall src=xedit.gif alt=_EDIT altml=true]--></a>
+				<a href="<!--[pnmodurl modname="Users" type="admin" func="deleteusers" userid=$items[item].uid]-->"><!--[pnimg modname=core set=icons/extrasmall src=14_layer_deletelayer.gif alt=_DELETE altml=true]--></a>
+			</td>
+		</tr>
+		<!--[/section]-->
+		</tbody>
+	</table>
+	<a href="#" onclick="setCheckboxes('userlist', true); return false;"><!--[pnml name=_USERS_SELECTALL]--></a> / <a href="#" onclick="setCheckboxes('userlist', false); return false;"><!--[pnml name=_USERS_DESELECTALL]--></a>
+	<select name="op" id="op">
+    	<option value="mail" selected="selected"><!--[pnml name=_USERS_MAIL]--></option>
+	    <option value="delete"><!--[pnml name=_DELETE]--></option>
+	</select>
+	<input type="submit" name="Submit" value="<!--[pnml name=_OK]-->" />
+</div>
+</form>
+</div>

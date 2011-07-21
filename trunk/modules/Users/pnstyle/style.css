@@ -1,0 +1,55 @@
+/* $Id: style.css,v 1.1 2009/06/26 05:17:22 chongasem Exp $ */
+
+div.autocomplete_user {
+    position: absolute;
+    width: 25em;
+    background-color: white;
+    border: 1px solid #888;
+    margin: 0;
+    padding: 0;
+}
+div.autocomplete_user ul {
+    list-style-image: url("../../../images/icons/extrasmall/edit_user.gif");
+    margin: 0;
+    padding: 0;
+}
+div.autocomplete_user ul li.selected { background-color: #ffb;}
+div.autocomplete_user ul li {
+    margin: 0;
+    padding: 0.1em 0 0.1em 0;
+    line-height: 1.4em;
+    cursor: pointer;
+}
+
+#liveusersearch {
+    margin: 1em 0 1em 0;
+}
+
+.newuserinfo {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: red;
+  font-weight: bold;
+}
+
+.newuserinfook {
+  color: green;
+}
+
+.errorrequired {
+  border: 2px red solid;
+}
+
+.pn-errormsg, #pn-expirewarning {
+    border: 1px solid red;
+    background: #ffffea url(../../../images/icons/large/error.gif) no-repeat 2em ;
+    color: inherit;
+}
+#pn-expirewarning {
+    margin: 0 auto;
+    font-weight: bold;
+    padding: 2em 1em 1em 8em; /* top, right, bottom, left */
+    width: 80%;
+    min-height: 40px;
+    margin-bottom: 1em;
+}

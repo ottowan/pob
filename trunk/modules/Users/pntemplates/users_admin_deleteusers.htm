@@ -1,0 +1,25 @@
+<!--[*  $Id: users_admin_deleteusers.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<!--[pnml name="_USERS_DELETEUSER" assign=templatetitle]-->
+<div class="pn-admincontainer">
+<div class="pn-adminpageicon"><!--[pnimg modname=core src=editdelete.gif set=icons/large alt=$templatetitle]--></div>
+<h2><!--[$templatetitle]--></h2>
+<form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin" func="processusers" op="delete"]-->" method="post" enctype="application/x-www-form-urlencoded">
+<div>
+    <input type="hidden" name="authid" value="<!--[insert name="generateauthkey" module=Users]-->" />
+    <input type="hidden" name="do" value="yes" />
+    <input type="hidden" name="userid" value="<!--[$userid|pnvarprepfordisplay]-->" />
+    <fieldset>
+    <legend><!--[pnml name="_CONFIRMATIONPROMPT"]--></legend>
+	<div class="pn-adminformrow">
+	    <strong><!--[$uname]--></strong>
+		<p><!--[pnml name="_USERS_CONFIRMDELETE"]--></p>
+	</div>
+	</fieldset>
+    <div class="pn-adminformrow pn-adminformbuttons">
+        <!--[pnbutton src=button_ok.gif set=icons/small alt="_DELETE" title="_DELETE"]-->
+        <a href="<!--[pnmodurl modname=Users type=admin func=view]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+    </div>
+</div>
+</form>
+</div>

@@ -1,0 +1,46 @@
+<!--[*  $Id: users_admin_new.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<!--[include file="users_admin_menu.htm"]-->
+<!--[pnml name=_USERS_CREATEUSER assign=templatetitle]-->
+<div class="pn-admincontainer">
+<div class="pn-adminpageicon"><!--[pnimg modname=core src=filenew.gif set=icons/large alt=$templatetitle]--></div>
+<h2><!--[$templatetitle]--></h2>
+<form class="pn-adminform" action="<!--[pnmodurl modname="Users" type="admin"  func="create"]-->" method="post">
+<div>
+  <fieldset>
+  <legend><!--[pnml name="_USERS_NEWUSER"]--></legend>
+    <div class="pn-informationmsg"><!--[pnml name=_WARNINGALLFIELDSREQUIRED]--></div>
+    <div class="pn-adminformrow">
+        <label for="users_add_uname"><!--[pnml name="_USERNAME_FLC"]--></label>
+        <input id="users_add_uname" type="text" name="add_uname" size="21" maxlength="25" />
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_add_email"><!--[pnml name="_EMAIL"]--></label>
+        <input id="users_add_email" type="text" name="add_email" size="21" maxlength="60" />
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_add_pass"><!--[pnml name="_PASSWORD"]--></label>
+        <input id="users_add_pass" type="password" name="add_pass" size="21" maxlength="20" />
+    </div>
+    <div class="pn-adminformrow">
+        <label for="users_add_vpass"><!--[pnml name="_USERS_PASSWDAGAIN"]--></label>
+        <input id="users_add_vpass" type="password" name="add_vpass" size="21" maxlength="20" />
+    </div>
+  </fieldset>
+  <!--[if $reg_optitems]-->
+  <fieldset>
+  <legend><!--[pnml name="_PROFILE]--></legend>
+  <!--[foreach from=$optitems item=item]-->
+	  <!--[* uid=1 pulls the default values from the guest user *]-->
+      <!--[dudoptionalitemmodify item=$item uid=1 tableless=true]-->
+  <!--[/foreach]-->
+  <div><!--[pnml name="_PROFILE_REQUIREDTEXT"]--></div>
+  </fieldset>
+  <!--[/if]-->
+  <!--[pnmodcallhooks hookobject=item hookaction=new module=Users]-->
+    <div class="pn-adminformrow pn-adminformbuttons">
+        <!--[pnbutton src=button_ok.gif set=icons/small alt="_CREATE" title="_CREATE"]-->
+        <a href="<!--[pnmodurl modname=Users type=admin func=view]-->"><!--[pnimg modname=core src=button_cancel.gif set=icons/small altml=true titleml=true alt="_CANCEL" title="_CANCEL"]--></a>
+    </div>
+</div>
+</form>
+</div>

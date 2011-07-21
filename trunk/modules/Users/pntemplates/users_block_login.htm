@@ -1,0 +1,27 @@
+<!--[*  $Id: users_block_login.htm,v 1.1 2009/06/26 05:17:22 chongasem Exp $  *]-->
+<form action="<!--[pnmodurl modname="Users" type="user" func="login"]-->" method="post">
+<div style="text-align:left"><!--[pnmodgetvar module='Users' name='loginviaoption' assign='loginviaoption']-->
+<!--[if $loginviaoption eq 0]-->
+  <div><label for="loginblock_username"><!--[pnml name="_BLOCKNICKNAME"]--></label></div>
+  <div><input id="loginblock_username" type="text" name="uname" size="14" maxlength="25" value="<!--[pnml name=_USERNAME]-->" onblur="if(this.value=='')this.value='<!--[pnml name=_USERNAME]-->';" onfocus="if(this.value=='<!--[pnml name=_USERNAME]-->')this.value='';" /></div>
+<!--[else]-->
+  <div><label for="loginblock_email"><!--[pnml name="_BLOCKEMAIL"]--></label></div>
+  <div><input id="loginblock_email" type="text" name="email" size="14" maxlength="64" /></div>
+<!--[/if]-->
+<div><label for="loginblock_password"><!--[pnml name="_BLOCKPASSWORD"]--></label></div>
+<div><input id="loginblock_password" type="password" name="pass" size="14" maxlength="20" /></div>
+<!--[if $seclevel neq 'High']-->
+  <input id="loginblock_rememberme" type="checkbox" value="1" name="rememberme" />
+  <label for="loginblock_rememberme"><!--[pnml name="_BLOCKREMEMBERME"]--></label>
+<!--[/if]-->
+<input type="hidden" name="url" value="<!--[$returnurl|pnvarprepfordisplay]-->" />
+<input type="hidden" name="authid" value="<!--[ insert name="generateauthkey" module="Users" ]-->" />
+<div><input type="submit" value="<!--[pnml name="_LOGIN"]-->" /></div>
+<!--[if $allowregistration]-->
+<ul>
+<li><a href="<!--[pnmodurl modname=Users func=register]-->"><!--[pnml name=_BLOCKNEWUSERREG]--></a></li>
+<li><a href="<!--[pnmodurl modname=Users func=lostpassword]-->"><!--[pnml name=_BLOCKLOSTPWD]--></a></li>
+</ul>
+<!--[/if]-->
+</div>
+</form>
