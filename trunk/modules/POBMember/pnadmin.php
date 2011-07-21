@@ -373,38 +373,56 @@
 
   function sendActivateAccountMail($sitename, $subdomain, $username ,$password, $email){
 
+    //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
     $subject = "Your account has been activated.";
-/*
-    $message = "Your account has been activated./n
-                You can go http:\/\/".$subdomain."phuketcity.com/n
-                - - - - - - - - - Account - - - - - - - -/n
-                username : ".$username."/n
-                password : ".$username."/n
-              ";
-*/
-
     $message = "Your account has been activated./n
                 You can go http:\/\/".$subdomain."phuketcity.com/n
               ";
-
     $fromname = "phuketcity";
     $fromaddress = "info@phuketcity.com";
 
     //var_dump($email); exit;
     if(isset($email)){
-      $result = pnModAPIFunc('Mailer', 'user', 'sendmessage', 
-                  array('fromname' => $fromname, 
-                        'fromaddress' => $fromaddress, 
-                        'toaddress' => $email, 
-                        'subject' => $subject, 
-                        'body' => $message, 
-                        'html' => true,
-                        'charset' => 'UTF-8'
-                  )
+      $result = pnModAPIFunc( 'Mailer', 
+                              'user', 
+                              'sendmessage', 
+                              array('fromname' => $fromname, 
+                                    'fromaddress' => $fromaddress, 
+                                    'toaddress' => $email, 
+                                    'subject' => $subject, 
+                                    'body' => $message, 
+                                    'html' => true,
+                                    'charset' => 'UTF-8'
+                              )
                 );
-      //var_dump($result);
-      //exit;
     }
+
+
+    //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
+    $adminSubject = "Admin has activated email.";
+    $adminMessage = "phuketcity has activated customer account./n
+                     Domain : http:\/\/".$subdomain."phuketcity.com/n
+                     Username : $username/n
+                     Password : $email/n
+                  ";
+    $fromAdminname = "Admin phuketcity";
+    $fromAdminAddress = "info@phuketcity.com";
+    $toAdminAddress = "ottowan@gmail.com";
+
+    //var_dump($email); exit;
+    $result = pnModAPIFunc( 'Mailer', 
+                            'user', 
+                            'sendmessage', 
+                            array('fromname' => $fromAdminname, 
+                                  'fromaddress' => $fromAdminAddress, 
+                                  'toaddress' => $toAdminAddress, 
+                                  'subject' => $adminSubject, 
+                                  'body' => $adminMessage, 
+                                  'html' => true,
+                                  'charset' => 'UTF-8'
+                            )
+              );
+
   }
 
 ?>
