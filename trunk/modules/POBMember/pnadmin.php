@@ -232,6 +232,64 @@
     }
   }
 
+  function getUserByUID($uid){
+
+    $pntables = pnDBGetTables();
+
+    $tableUsers  = $pntables['users'];
+    $columnUsers = $pntables['users_column'];
+
+    $sql = "SELECT
+              $tableUsers.$columnUsers[uname],
+              $tableUsers.$columnUsers[pass],
+              $tableUsers.$columnUsers[email]
+            FROM
+              $tableUsers
+            WHERE
+              $tableUsers.$columnUsers[uid] = $uid
+            ";
+
+    //echo $sql; exit;
+    $column = array("uname", "pass","email");
+    $result = DBUtil::executeSQL($sql);
+    $objectUserArray = DBUtil::marshallObjects ($result, $column);
+
+    return $objectUserArray;
+  }
+
+  function getUserPropertyByUID($uid){
+
+    $pntables = pnDBGetTables();
+
+    $tableUserProperty  = $pntables['user_property'];
+    $columnUserProperty = $pntables['user_property_column'];
+
+    $tableUserData  = $pntables['user_data'];
+    $columnUserData = $pntables['user_data_column'];
+
+    $sql = "SELECT
+              $tableUserProperty.$columnUserProperty[prop_label] ,
+              $tableUserData.$columnUserData[uda_value] 
+            FROM
+              $tableUserData, $tableUserProperty
+            WHERE
+              $tableUserData.$columnUserData[uda_propid] = $tableUserProperty.$columnUserProperty[prop_id]
+            AND
+              $tableUserData.$columnUserData[uda_uid] = $uid
+            ";
+
+    //echo $sql; exit;
+    $column = array("label","value");
+    $result = DBUtil::executeSQL($sql);
+    $propertyArray = DBUtil::marshallObjects ($result, $column);
+
+    $rePropertyArray = array();
+    foreach($propertyArray as $item){
+      $rePropertyArray[$item['label']] = $item['value'];
+    }
+    return $rePropertyArray;
+  }
+
 
   function POBMember_admin_update() {
     POBMember_permission();      
@@ -274,10 +332,20 @@
         DBUtil::insertObject($obj, 'pobmember_member');
 
         //Create sub domain
-        $subdomain = getSubDomainByUID($uid);
-        $user = getUserByUID($uid);
-        createSubDomain($subdomain, $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
+        $userProperty = getUserPropertyByUID($uid);
 
+        $user = getUserByUID($uid);
+
+
+        //var_dump($user); echo "<br>";
+
+        //var_dump($userProperty['DomainName']); exit;
+        createSubDomain($userProperty['HotelName'], $userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
+        //createSubDomain($userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
+        
+        //Send mail
+        //$email = 
+        sendActivateAccountMail($userProperty['HotelName'], $userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
       }
     }
     //exit;
@@ -288,73 +356,55 @@
   }
 
 
-  function getUserByUID($uid){
-
-    $pntables = pnDBGetTables();
-
-    $tableUsers  = $pntables['users'];
-    $columnUsers = $pntables['users_column'];
-
-    $sql = "SELECT
-              $tableUsers.$columnUsers[uname],
-              $tableUsers.$columnUsers[pass],
-              $tableUsers.$columnUsers[email]
-            FROM
-              $tableUsers
-            WHERE
-              $tableUsers.$columnUsers[uid] = $uid
-            ";
-
-    //echo $sql; exit;
-    $column = array("uname", "pass","email");
-    $result = DBUtil::executeSQL($sql);
-    $objectUserArray = DBUtil::marshallObjects ($result, $column);
-
-    return $objectUserArray;
-  }
-
-  function getSubDomainByUID($uid){
-
-    $pntables = pnDBGetTables();
-
-    $tableUserProperty  = $pntables['user_property'];
-    $columnUserProperty = $pntables['user_property_column'];
-
-    $tableUserData  = $pntables['user_data'];
-    $columnUserData = $pntables['user_data_column'];
-
-    $sql = "SELECT
-              $tableUserData.$columnUserData[uda_value]
-            FROM
-              $tableUserData, $tableUserProperty
-            WHERE
-              $tableUserData.$columnUserData[uda_propid] = $tableUserProperty.$columnUserProperty[prop_id]
-            AND 
-              $tableUserProperty.$columnUserProperty[prop_label] = 'DomainName'
-            AND
-              $tableUserData.$columnUserData[uda_uid] = $uid
-            ";
-
-    //echo $sql; exit;
-    $column = array("subdomain");
-    $result = DBUtil::executeSQL($sql);
-    $subdomainArray = DBUtil::marshallObjects ($result, $column);
-
-    return $subdomainArray[0]['subdomain'];
-  }
-
-
-  function createSubDomain($subdomain, $username ,$password, $email){
+  function createSubDomain($sitename, $subdomain, $username ,$password, $email){
     if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBMember/pnincludes"))){
       return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
     }
       
     $form = FormUtil::getPassedValue ('form', false, 'REQUEST');
     $obj = new SubdomainCreator();
+
+     // var_dump($obj); exit;
     //$obj->makedb($dbname,$username,$password,$email);
-    $obj->makedb($subdomain, $username, $password, $email);
+    $obj->makedb($sitename, $subdomain, $username, $password, $email);
     $obj->sqlDump();
-    exit;
+    //exit;
+  }
+
+  function sendActivateAccountMail($sitename, $subdomain, $username ,$password, $email){
+
+    $subject = "Your account has been activated.";
+/*
+    $message = "Your account has been activated./n
+                You can go http:\/\/".$subdomain."phuketcity.com/n
+                - - - - - - - - - Account - - - - - - - -/n
+                username : ".$username."/n
+                password : ".$username."/n
+              ";
+*/
+
+    $message = "Your account has been activated./n
+                You can go http:\/\/".$subdomain."phuketcity.com/n
+              ";
+
+    $fromname = "phuketcity";
+    $fromaddress = "info@phuketcity.com";
+
+    //var_dump($email); exit;
+    if(isset($email)){
+      $result = pnModAPIFunc('Mailer', 'user', 'sendmessage', 
+                  array('fromname' => $fromname, 
+                        'fromaddress' => $fromaddress, 
+                        'toaddress' => $email, 
+                        'subject' => $subject, 
+                        'body' => $message, 
+                        'html' => true,
+                        'charset' => 'UTF-8'
+                  )
+                );
+      //var_dump($result);
+      //exit;
+    }
   }
 
 ?>
