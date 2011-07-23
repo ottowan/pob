@@ -375,8 +375,8 @@
 
     //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
     $subject = "Your account has been activated.";
-    $message = "Your account has been activated./n
-                You can go http:\/\/".$subdomain."phuketcity.com/n
+    $message = "Your account has been activated.//n
+                You login at http:////".$subdomain.".phuketcity.com//n
               ";
     $fromname = "phuketcity";
     $fromaddress = "info@phuketcity.com";
