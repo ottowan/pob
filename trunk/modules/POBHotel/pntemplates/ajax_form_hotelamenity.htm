@@ -1,0 +1,48 @@
+<script type="text/javascript">
+$("#formHotelAmenity").bind("submit", function() {
+	$.ajax({
+		type	: "POST",
+		cache	: false,
+		url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=HotelAmenity",
+		data	: $(this).serializeArray(),
+		success	: function(data) {
+			$.facebox(data)
+			$.facebox.close()
+			callback_refresh()
+		}
+	});
+
+	return false;
+});
+$("#formHotelAmenity").bind("reset", function() {
+			$.facebox.close()
+			callback_refresh()
+	return false;
+});
+</script>
+<legend>Add Amenity</legend>
+<div id="mainFacebox">
+<FORM id="formHotelAmenity" name="formHotelAmenity" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='HotelAmenity']-->" enctype="multipart/form-data>">
+<!--[get_all_amenity]-->
+<select name="form[amenity_id]">
+<!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
+	<!--[assign var='compare' value='false']-->
+	<!--[foreach from=$extendResult.hotelAmenity item=itemAmenity]-->
+	 <!--[if $itemAllAmenity.amenity_id eq $itemAmenity.amenity_id]-->
+		<!--[assign var='compare' value='true']-->
+	  <!--[/if]-->
+	<!--[/foreach]-->
+
+  <!--[if $item.amenity_name eq $itemAllAmenity.amenity_name]-->
+	<option value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
+  <!--[else]-->
+	<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
+  <!--[/if]-->
+<!--[/foreach]-->
+</select>
+<BR>
+<textarea cols="25" rows="10" name="form[description]">
+</textarea>
+<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+</FORM>
+</div>

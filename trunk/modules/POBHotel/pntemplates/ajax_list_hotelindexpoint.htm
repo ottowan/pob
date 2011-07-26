@@ -1,0 +1,49 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('a[rel*=hotelindexpoint]').facebox({
+		loadingImage : '/modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : '/modules/POBHotel/pnjavascript/facebox/closelabel.png',
+
+	})
+})
+</script>
+								<TABLE width="900">
+								<!--[get_all_index_point]-->
+							
+								<!--[if isset($objectArray)]-->
+								
+								<!--[foreach from=$objectArray item=item]-->
+								<tr>
+								<td width="18%">
+								<select name="itemIndexPoint[<!--[$item.id]-->][index_point_id]">
+								<!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
+                                    <!--[assign var='compare' value='false']-->
+
+                                    <!--[foreach from=$extendResult.hotelIndexPoint item=itemIndexPoint]-->
+                                     <!--[if $itemAllIndexPoint.index_point_id eq $itemIndexPoint.index_point_id]-->
+                                        <!--[assign var='compare' value='true']-->
+                                      <!--[/if]-->
+                                    <!--[/foreach]-->
+
+								  <!--[if $item.index_point_name eq $itemAllIndexPoint.index_point_name]-->
+									<option value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
+								  <!--[else]-->
+									<option value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
+								  <!--[/if]-->
+								<!--[/foreach]-->
+								</select>
+								</td>
+								<td width="82%">
+									<INPUT TYPE="text" NAME="itemIndexPoint[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="90"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelIndexPoint&id=<!--[$item.id]-->" rel="hotelindexpoint"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								</td>
+								</tr>
+								<!--[/foreach]-->
+								<!--[/if]-->
+								<tr>
+								<td width="18%">
+										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelIndexPoint" rel="hotelindexpoint"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+								</td>
+								<td width="82%">
+								</td>
+								</tr>
+							</TABLE>

@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$("#formLocationCategory").bind("submit", function() {
+	$.ajax({
+		type	: "POST",
+		cache	: false,
+		url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=HotelLocation",
+		data	: $(this).serializeArray(),
+		success	: function(data) {
+			$.facebox(data)
+			$.facebox.close()
+			callback_refresh()
+		}
+	});
+
+	return false;
+});
+$("#formLocationCategory").bind("reset", function() {
+			$.facebox.close()
+			callback_refresh()
+	return false;
+});
+</script>
+<legend>Add Location</legend>
+<div id="mainFacebox">
+<FORM id="formLocationCategory" name="formLocationCategory" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='HotelLocation']-->" enctype="multipart/form-data>">
+<!--[get_all_location_category]-->
+<select name="form[location_category_id]">
+<!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
+  <!--[assign var='compare' value='false']-->
+  <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
+	<!--[if $itemAllLocationCategory.location_category_id eq $itemLocationCategory.location_category_id]-->
+	  <!--[assign var='compare' value='true']-->
+	<!--[/if]-->
+  <!--[/foreach]-->
+  <!--[if $item.location_name eq $itemAllLocationCategory.location_category_name]-->
+	<option value="<!--[$itemAllLocationCategory.location_category_id]-->" SELECTED><!--[$itemAllLocationCategory.location_category_name]--></option>
+  <!--[else]-->
+	<option value="<!--[$itemAllLocationCategory.location_category_id]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
+  <!--[/if]-->
+<!--[/foreach]-->
+</select>
+<BR>
+<textarea cols="25" rows="10" name="form[description]">
+</textarea>
+<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+</FORM>
+</div>
