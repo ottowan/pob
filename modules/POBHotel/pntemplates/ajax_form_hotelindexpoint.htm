@@ -1,0 +1,51 @@
+<script type="text/javascript">
+$("#formHotelIndexPoint").bind("submit", function() {
+	$.ajax({
+		type	: "POST",
+		cache	: false,
+		url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=HotelIndexPoint",
+		data	: $(this).serializeArray(),
+		success	: function(data) {
+			$.facebox(data)
+			$.facebox.close()
+			callback_refresh()
+		}
+	});
+
+	return false;
+});
+$("#formHotelIndexPoint").bind("reset", function() {
+			$.facebox.close()
+			callback_refresh()
+	return false;
+});
+</script>
+<legend>Add Index Point</legend>
+<div id="mainFacebox">
+<FORM id="formHotelIndexPoint" name="formHotelIndexPoint" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='HotelIndexPoint']-->" enctype="multipart/form-data>">
+<!--[get_all_index_point]-->
+
+<select name="form[index_point_id]">
+<!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
+	<!--[assign var='compare' value='false']-->
+
+	<!--[foreach from=$extendResult.hotelIndexPoint item=itemIndexPoint]-->
+	 <!--[if $itemAllIndexPoint.index_point_id eq $itemIndexPoint.index_point_id]-->
+		<!--[assign var='compare' value='true']-->
+	  <!--[/if]-->
+	<!--[/foreach]-->
+
+  <!--[if $item.index_point_name eq $itemAllIndexPoint.index_point_name]-->
+	<option value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
+  <!--[else]-->
+	<option value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
+  <!--[/if]-->
+<!--[/foreach]-->
+</select>
+</select>
+<BR>
+<textarea cols="25" rows="10" name="form[description]">
+</textarea>
+<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+</FORM>
+</div>

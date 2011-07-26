@@ -313,7 +313,4 @@
     $obj->sqlDump();
     exit;
   }
-
-
-
 ?>

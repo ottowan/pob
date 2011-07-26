@@ -5,12 +5,36 @@
 <script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.widget.js"></script>
 <script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.datepicker.js"></script>
 <script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.tabs.js"></script>
+<script src="modules/POBHotel/pnjavascript/facebox/facebox.js" type="text/javascript"></script>
+<link href="modules/POBHotel/pnjavascript/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/demos.css">
 
 <link rel="stylesheet" href="modules/POBHotel/pnjavascript/form/css/style.css" type="text/css" media="screen"/>
 
 <script type="text/javascript" src="modules/POBHotel/pnjavascript/form/sliding.form.js"></script>
-
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('a[rel*=facebox]').facebox({
+		loadingImage : '/modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : '/modules/POBHotel/pnjavascript/facebox/closelabel.png',
+		
+	})
+})
+function callback_refresh(){
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelLocation', function(data) {
+	  $('#LocationCategory').html(data);
+	});	
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelAmenity', function(data) {
+	  $('#HotelAmenity').html(data);
+	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelIndexPoint', function(data) {
+	  $('#HotelIndexPoint').html(data);
+	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelAttraction', function(data) {
+	  $('#HotelAttraction').html(data);
+	});
+}
+</script>
 <!--[literal]--><!--[if IE]><!--[/literal]-->
        <style>
           .upload{
@@ -114,6 +138,9 @@
 
 								</TABLE>
 								<legend>Location</legend>
+
+
+								<div id="LocationCategory">
 								<TABLE width="900">
 								<!--[get_all_location_category]-->
 								
@@ -122,7 +149,7 @@
 									<!--[foreach from=$extendResult.hotelLocation item=item]-->
 									<tr>
 									<td width="18%">
-									<select>
+									<select name="itemLocationCategory[<!--[$item.id]-->][location_category_id]">
 									<!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
 									  <!--[assign var='compare' value='false']-->
 									  <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
@@ -131,31 +158,36 @@
 										<!--[/if]-->
 									  <!--[/foreach]-->
 									  <!--[if $item.location_name eq $itemAllLocationCategory.location_category_name]-->
-										<option name="itemLocationCategory[location_category_id]" value="<!--[$itemAllLocationCategory.location_category_id]-->" SELECTED><!--[$itemAllLocationCategory.location_category_name]--></option>
+										<option value="<!--[$itemAllLocationCategory.location_category_id]-->" SELECTED><!--[$itemAllLocationCategory.location_category_name]--></option>
 									  <!--[else]-->
-										<option name="itemLocationCategory[location_category_id]" value="<!--[$itemAllLocationCategory.location_category_id]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
+										<option value="<!--[$itemAllLocationCategory.location_category_id]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
 									  <!--[/if]-->
 									<!--[/foreach]-->
 									</select>
 									</td>
 									<td width="82%">
-										<INPUT TYPE="text" NAME="itemLocationCategory[location_description]" value="<!--[$item.description]-->" size="100"> <img src="modules/POBHotel/pnimages/delete_01.png">
+										<INPUT TYPE="text" NAME="itemLocationCategory[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="100"><a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelLocation&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 									</td>
 									</tr>
 									<!--[/foreach]-->
 									<!--[/if]-->
 									<tr>
 									<td width="18%">
-										<img src="modules/POBHotel/pnimages/add_48.png">
+										
+										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelLocation" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 									</td>
 									<td width="82%">
 									</td>
 									</tr>
 								</TABLE>
+								</div>
                         </fieldset>
 
                         <fieldset class="step">
+
 						<legend>Facility</legend>
+
+						<div id="HotelAmenity">
 							<TABLE width="900">
 							<!--[get_all_amenity]-->
 							
@@ -164,7 +196,7 @@
 								<!--[foreach from=$extendResult.hotelAmenity item=item]-->
 								<tr>
 								<td width="18%">
-								<select>
+								<select name="itemAmenity[<!--[$item.id]-->][amenity_id]">
                                 <!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
                                     <!--[assign var='compare' value='false']-->
                                     <!--[foreach from=$extendResult.hotelAmenity item=itemAmenity]-->
@@ -174,7 +206,7 @@
                                     <!--[/foreach]-->
 
 								  <!--[if $item.amenity_name eq $itemAllAmenity.amenity_name]-->
-									<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
+									<option value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
 								  <!--[else]-->
 									<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
 								  <!--[/if]-->
@@ -182,21 +214,25 @@
 								</select>
 								</td>
 								<td width="82%">
-									<INPUT TYPE="text" NAME="itemAmenityDescription[$itemAllAmenity.amenity_id]" value="<!--[$item.description]-->" size="80"> <img src="modules/POBHotel/pnimages/delete_01.png">
+									<INPUT TYPE="text" NAME="itemAmenity[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="80"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAmenity&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								<!--[/foreach]-->
 								<!--[/if]-->
 								<tr>
 								<td width="18%">
-									<img src="modules/POBHotel/pnimages/add_48.png">
+										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAmenity" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 								</td>
 								<td width="82%">
 								</td>
 								</tr>
 							</TABLE>
-                          
+                          </div>
+
                         </fieldset>
+
+
+
                         <fieldset class="step">
                             <legend>Map</legend>
 
@@ -453,9 +489,10 @@
           </div><!-- end upload_ie -->
 
                         </fieldset>
-
+						
                         <fieldset class="step">
 						<legend>Index point</legend>
+							<div id="HotelIndexPoint">
 							<TABLE width="900">
 							<!--[get_all_index_point]-->
 							
@@ -464,7 +501,7 @@
 								<!--[foreach from=$extendResult.hotelIndexPoint item=item]-->
 								<tr>
 								<td width="18%">
-								<select>
+								<select name="itemIndexPoint[<!--[$item.id]-->][index_point_id]">
 								<!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
                                     <!--[assign var='compare' value='false']-->
 
@@ -475,31 +512,33 @@
                                     <!--[/foreach]-->
 
 								  <!--[if $item.index_point_name eq $itemAllIndexPoint.index_point_name]-->
-									<option name="itemAllIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
+									<option value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
 								  <!--[else]-->
-									<option name="itemAllIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
+									<option value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
 								  <!--[/if]-->
 								<!--[/foreach]-->
 								</select>
 								</td>
 								<td width="82%">
-									<INPUT TYPE="text" NAME="itemIndexPoint[$itemAllIndexPoint.index_point_id]" value="<!--[$item.description]-->" size="90"> <img src="modules/POBHotel/pnimages/delete_01.png">
+									<INPUT TYPE="text" NAME="itemIndexPoint[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="90"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelIndexPoint&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								<!--[/foreach]-->
 								<!--[/if]-->
 								<tr>
 								<td width="18%">
-									<img src="modules/POBHotel/pnimages/add_48.png">
+									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelIndexPoint" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 								</td>
 								<td width="82%">
 								</td>
 								</tr>
 							</TABLE>
+							</div>
                         </fieldset>
 
                         <fieldset class="step">
 						<legend>Attraction</legend>
+						<div id="HotelAttraction">
 							<TABLE width="900">
 							<!--[get_all_attraction]-->
 							
@@ -508,7 +547,7 @@
 								<!--[foreach from=$extendResult.hotelAttraction item=item]-->
 								<tr>
 								<td width="18%">
-								<select>
+								<select name="itemAttraction[<!--[$item.id]-->][attraction_id]">
 								<!--[foreach from=$attractionArray item=itemAllAttraction name=foo]-->
 
                                     <!--[assign var='compare' value='false']-->
@@ -520,33 +559,34 @@
                                     <!--[/foreach]-->
 
 								  <!--[if $item.attraction_name eq $itemAllAttraction.attraction_name]-->
-									<option name="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$itemAllAttraction.attraction_id]-->" SELECTED><!--[$itemAllAttraction.attraction_name]--></option>
+									<option value="<!--[$itemAllAttraction.attraction_id]-->" SELECTED><!--[$itemAllAttraction.attraction_name]--></option>
 								  <!--[else]-->
-									<option name="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$itemAllAttraction.attraction_id]-->"><!--[$itemAllAttraction.attraction_name]--></option>
+									<option value="<!--[$itemAllAttraction.attraction_id]-->"><!--[$itemAllAttraction.attraction_name]--></option>
 								  <!--[/if]-->
 								<!--[/foreach]-->
 								</select>
 								</td>
 								<td width="82%">
-									<INPUT TYPE="text" NAME="itemAllAttraction[$itemAllAttraction.attraction_id]" value="<!--[$item.description]-->" size="90"> <img src="modules/POBHotel/pnimages/delete_01.png">
+									<INPUT TYPE="text" NAME="itemAttraction[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="90"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAttraction&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								<!--[/foreach]-->
 								<!--[/if]-->
 								<tr>
 								<td width="18%">
-									<img src="modules/POBHotel/pnimages/add_48.png">
+									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAttraction" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 								</td>
 								<td width="82%">
 								</td>
 								</tr>
 							</TABLE>
+						</div>
                         </fieldset>
 
                         <fieldset class="step">
                                         <legend>Confirm</legend>
                                         <p class="submit">
-                                            <button id="registerButton" type="submit">Â×¹ÂÑ¹</button>
+                                            <button id="registerButton" type="submit">Submit</button>
                                         </p>
                         </fieldset>
                         <fieldset class="step"></fieldset>

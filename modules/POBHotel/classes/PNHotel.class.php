@@ -41,7 +41,7 @@
         //load class HotelIndexPointArray
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelIndexPointArray', false)))
           return LogUtil::registerError ('Unable to load class [HotelIndexPointArray] ...');
-          
+            
         $indexPointObject = new $class;
         $indexPointObject->get();
         $result['hotelIndexPoint'] = $indexPointObject->_objData;
@@ -114,21 +114,66 @@
 
 
         $this->uploadFiles($id);
-        
-        
-        //Send notify to center service.
-        //$this->sendNotify();
-        $this->createDatabase();
 
     }
 
     function updatePostProcess(){
 
       $id = $this->_objData['id'];
+      $itemLocationCategory = FormUtil::getPassedValue ('itemLocationCategory', false);
+      if($itemLocationCategory && $id){
+        foreach($itemLocationCategory as $key1=>$vals ){
+          foreach($vals AS $key2=>$val){
+            $obj[$key1][$key2] = $val;
+            $obj[$key1]["id"] = $key1;
+          }
+        }
+        DBUtil::updateObjectArray($obj, 'pobhotel_hotel_location');
+        unset($obj);
+      }
+      
+      $itemIndexPoint = FormUtil::getPassedValue ('itemIndexPoint', false);
+      if($itemIndexPoint && $id){
+        foreach($itemIndexPoint as $key1=>$vals ){
+          foreach($vals AS $key2=>$val){
+            $obj[$key1][$key2] = $val;
+            $obj[$key1]["id"] = $key1;
+          }
+        }
+        DBUtil::updateObjectArray($obj, 'pobhotel_hotel_index_point');
+        unset($obj);
+      }
+      
+      $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
+      if($itemAmenity && $id){
+        foreach($itemAmenity as $key1=>$vals ){
+          foreach($vals AS $key2=>$val){
+            $obj[$key1][$key2] = $val;
+            $obj[$key1]["id"] = $key1;
+          }
+        }
+        DBUtil::updateObjectArray($obj, 'pobhotel_hotel_amenity');
+        unset($obj);
+      }
+      
+      
+      $itemAttraction = FormUtil::getPassedValue ('itemAttraction', false);
+      if($itemAttraction && $id){
+        foreach($itemAttraction as $key1=>$vals ){
+          foreach($vals AS $key2=>$val){
+            $obj[$key1][$key2] = $val;
+            $obj[$key1]["id"] = $key1;
+          }
+        }
+        DBUtil::updateObjectArray($obj, 'pobhotel_hotel_attraction');
+        unset($obj);
+      }
+      /*
+      
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
       //Delete old data
       DBUtil::deleteObjectByID( 'pobhotel_hotel_amenity', $id, 'hotel_id');
-
+      
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
       $id = $this->_objData['id'];
       if($itemAmenity && $id){
@@ -142,23 +187,7 @@
         //Do the insert
         DBUtil::insertObjectArray($obj, 'pobhotel_hotel_amenity');
       }
-
-      $itemLocationCategory = FormUtil::getPassedValue ('itemLocationCategory', false);
-      DBUtil::deleteObjectByID( 'pobhotel_hotel_location', $id, 'hotel_id');
-
-      $itemLocationCategory = FormUtil::getPassedValue ('itemLocationCategory', false);
-      if($itemLocationCategory && $id){
-        foreach($itemLocationCategory as $key=>$val ){
-          //$valArray = explode("@", $key);
-          $obj[] = array(
-                          'location_category_id' => $val,
-                          'hotel_id' => $id
-                   );
-        }
-        //Do the insert
-        DBUtil::insertObjectArray($obj, 'pobhotel_hotel_location');
-        unset($obj);
-      }
+      */
 
     }
 
