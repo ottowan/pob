@@ -28,6 +28,7 @@ class POBReader {
     $this->host = $host;
     $this->_MOD = $module;
   }
+
   public function getHotelList($params=NULL){
     return $this->_call('getHotelList',$params);
   }
@@ -42,6 +43,7 @@ class POBReader {
 
   
   private function _call($func='',$params=''){
+    $pxml = array();
     switch ($func) {
       case  'getHotelList':
             $paramUri = '';
@@ -53,7 +55,7 @@ class POBReader {
             $xml = @file_get_contents($url);
             $pxml = simplexml_load_string($xml);
             
-            $pxml = $this->_toArray($pxml);
+            $pxml = $this->xmlToArray($pxml);
 
             if($pxml['data']['title']=='ไม่มีข้อมูล'){
               $this->ERROR = "NO RECORD";
@@ -75,7 +77,7 @@ class POBReader {
             $xml = @file_get_contents($url);
             $pxml = simplexml_load_string($xml);
             
-            $pxml = $this->_toArray($pxml);
+            $pxml = $this->xmlToArray($pxml);
             if(is_null($pxml['datas'])){
               return $pxml;
             }else{
@@ -92,7 +94,7 @@ class POBReader {
             $xml = @file_get_contents($url);
             $pxml = simplexml_load_string($xml);
             
-            $pxml = $this->_toArray($pxml);
+            $pxml = $this->xmlToArray($pxml);
             if(is_null($pxml['datas'])){
               return $pxml;
             }else{
@@ -104,11 +106,23 @@ class POBReader {
     }
   }
   
-  private function _toArray($obj, $level=0) {
-      
+
+  ////////////////////////////////
+  //xmlToArray
+  ///////////////////////////////
+
+  public function xmlToArray($obj, $level=0) {
+     
       $items = array();
+
+      //var_dump($obj); exit;
       
-      if(!is_object($obj)) return $items;
+      if(!is_object($obj)){
+        $obj = simplexml_load_string($obj);
+        if(!is_object($obj)){
+           return "Send wrong type parameter to function xmlToArray()";
+        }
+      }
           
       $child = (array)$obj;
 
@@ -120,7 +134,7 @@ class POBReader {
                           $items[$aa][$ee] = $ff;
                       } else
                       if(get_class($ff)=='SimpleXMLElement') {
-                          $items[$aa][$ee] = $this->_toArray($ff,$level+1);
+                          $items[$aa][$ee] = $this->xmlToArray($ff,$level+1);
                       }
                   }
               } else
@@ -128,7 +142,7 @@ class POBReader {
                   $items[$aa] = $bb;
               } else
               if(get_class($bb)=='SimpleXMLElement') {
-                  $items[$aa] = $this->_toArray($bb,$level+1);
+                  $items[$aa] = $this->xmlToArray($bb,$level+1);
               }
           }
       } else
@@ -138,14 +152,14 @@ class POBReader {
                   $items[$aa] = $bb;
               } else
               if(is_object($bb)) {
-                  $items[$aa] = $this->_toArray($bb,$level+1);
+                  $items[$aa] = $this->xmlToArray($bb,$level+1);
               } else {
                   foreach($bb as $cc=>$dd) {
                       if(!is_object($dd)) {
                           $items[$obj->getName()][$cc] = $dd;
                       } else
                       if(get_class($dd)=='SimpleXMLElement') {
-                          $items[$obj->getName()][$cc] = $this->_toArray($dd,$level+1);
+                          $items[$obj->getName()][$cc] = $this->xmlToArray($dd,$level+1);
                       }
                   }
               }
