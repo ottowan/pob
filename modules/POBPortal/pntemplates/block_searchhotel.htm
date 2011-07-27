@@ -1,5 +1,5 @@
 <style type="text/css">
-.box{
+.box_search{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -18,13 +18,13 @@
 	-moz-border-radius: 05px;
 	border-radius: 05px;
 	border:none;
-	width:200px;
+	width:400px;
 	height:25px;
 	border: 1px solid #9B9B9B;
 border-bottom: 1px solid #D8D8D8;
 border-right: 1px solid #D8D8D8;
 	}
-.box select{
+.box_search select{
 	-webkit-border-radius: 05px;
 	-moz-border-radius: 05px;
 	border-radius: 05px;
@@ -35,11 +35,17 @@ border-right: 1px solid #D8D8D8;
 border-bottom: 1px solid #D8D8D8;
 border-right: 1px solid #D8D8D8;
 	}
-.box p{
+.box_search p{
 	font-size:30px;
 	color:#fff;
 	text-shadow: 0.05em 0.05em 0.05em #333
 	}
+.box_search h3{
+	font-size:20px;
+	color:#003580;
+	text-shadow: 0.05em 0.05em 0.05em #fff
+	}
+
 #submitButton{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -58,119 +64,23 @@ border-right: 1px solid #D8D8D8;
 	background-color:#3CF;
 	}
 </style>
-<div class="box">
-<p>ค้นหาโรงแรมในภูเก็ต</p>
+<div class="box_search">
+<h3>ค้นหาโรงแรมในภูเก็ต</h3>
 <FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBPortal' type='search' func='searchResult']-->">
-
 	<TABLE width="100%">
 <TR>
-	<TD colspan="2"><INPUT TYPE="text" class="search" NAME="form[search]" value="<!--[$form.search]-->" ></TD>
-</TR>
-<TR>
-	<TD colspan="2"></TD>
-<td colspan="2"></TD>
+	<TD colspan="4">
+      ชื่อสถานที่<br>
+      <INPUT TYPE="text" class="search" NAME="form[search]" value="<!--[$form.search]-->" placeholder="เช่น ชื่อโรงแรมหรือเมือง" >
+  </TD>
 </TR>
 <TR>
   <TD colspan="2">วันที่เช็คอิน</TD>
-  <td colspan="2">วันที่เช็คเอ้าท์
+  <td colspan="2">วันที่เช็คเอ้าท์</TD>
   </TR>
 <TR>
-  <TD><select name="select" id="select">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-    <option>13</option>
-    <option>14</option>
-    <option>15</option>
-    <option>16</option>
-    <option>17</option>
-    <option>18</option>
-    <option>19</option>
-    <option>20</option>
-    <option>21</option>
-    <option>22</option>
-    <option>23</option>
-    <option>24</option>
-    <option>25</option>
-    <option>26</option>
-    <option>27</option>
-    <option>28</option>
-    <option>29</option>
-    <option>30</option>
-    <option>31</option>
-  </select></TD>
-  <TD><select id="checkin_year_month" class="checkin_year_month" name="checkin_year_month">
-    <option class="month prompt" selected="selected" value="0">เดือน</option>
-    <option class="b_months" value="2011-6">มิถุนายน  '11</option>
-    <option class="b_months" value="2011-7">กรกฎาคม '11</option>
-    <option class="b_months" value="2011-8">สิงหาคม '11</option>
-    <option class="b_months" value="2011-9">กันยายน '11</option>
-    <option class="b_months" value="2011-10">ตุลาคม '11</option>
-    <option class="b_months" value="2011-11">พฤศจิกายน '11</option>
-    <option class="b_months" value="2011-12">ธันวาคม '11</option>
-    <option class="b_months" value="2012-1">มกราคม '12</option>
-    <option class="b_months" value="2012-2">กุมภาพันธ์  '12</option>
-    <option class="b_months" value="2012-3">มีนาคม  '12</option>
-    <option class="b_months" value="2012-4">เมษายน  '12</option>
-    <option class="b_months" value="2012-5">พฤษภาคม  '12</option>
-  </select></TD>
-  <td><select name="select2" id="select2">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-    <option>13</option>
-    <option>14</option>
-    <option>15</option>
-    <option>16</option>
-    <option>17</option>
-    <option>18</option>
-    <option>19</option>
-    <option>20</option>
-    <option>21</option>
-    <option>22</option>
-    <option>23</option>
-    <option>24</option>
-    <option>25</option>
-    <option>26</option>
-    <option>27</option>
-    <option>28</option>
-    <option>29</option>
-    <option>30</option>
-    <option>31</option>
-  </select>
-    <td><select id="checkin_year_month2" class="checkin_year_month" name="checkin_year_month2">
-      <option class="month prompt" selected="selected" value="0">เดือน</option>
-      <option class="b_months" value="2011-6">มิถุนายน  '11</option>
-      <option class="b_months" value="2011-7">กรกฎาคม '11</option>
-      <option class="b_months" value="2011-8">สิงหาคม '11</option>
-      <option class="b_months" value="2011-9">กันยายน '11</option>
-      <option class="b_months" value="2011-10">ตุลาคม '11</option>
-      <option class="b_months" value="2011-11">พฤศจิกายน '11</option>
-      <option class="b_months" value="2011-12">ธันวาคม '11</option>
-      <option class="b_months" value="2012-1">มกราคม '12</option>
-      <option class="b_months" value="2012-2">กุมภาพันธ์  '12</option>
-      <option class="b_months" value="2012-3">มีนาคม  '12</option>
-      <option class="b_months" value="2012-4">เมษายน  '12</option>
-      <option class="b_months" value="2012-5">พฤษภาคม  '12</option>
-    </select>      
+  <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></TD>
+  <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="end"]--></TD>
 </TR>
 <TR>
   <TD colspan="2">
@@ -179,8 +89,8 @@ border-right: 1px solid #D8D8D8;
 						ไ่ม่ระบุวันที่เ้ข้าพัก
 					</label>
 </TD>
-  <td colspan="2" rowspan="2">
-  </TR>
+  <td colspan="2" rowspan="2"></TD>
+</TR>
 <TR>
   <TD colspan="2"><input id="availcheck" type="checkbox" >
 					<label id="labfor" for="availcheck">
@@ -189,7 +99,7 @@ border-right: 1px solid #D8D8D8;
 </TR>
 <TR>
   <TD colspan="2">&nbsp;</TD>
-  <td colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  
+  <td colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
 </TR>
 
 

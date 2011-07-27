@@ -59,14 +59,14 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     //load render
     $render = pnRender::getInstance($modname);
 
-	  Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    $getter = new POBReader();
+    //Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
+    //$getter = new POBReader();
     for($i=0;$i<=$itemLimit;$i++){
       $itemRandom[] = rand(1,10);
     }
-    $search['list'] = (string)implode(",",$itemRandom);
-	  $search['desc'] = "id";
-    $result = $getter->getHotelList($search);
+    //$search['list'] = (string)implode(",",$itemRandom);
+	  //$search['desc'] = "id";
+    //$result = $getter->getHotelList($search);
 	  //var_dump($result);
     if(count($result['data'])==19){
       $data['data'] = $result['data'];

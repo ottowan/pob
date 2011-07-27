@@ -1,43 +1,45 @@
-<!--[if isset($totalItems)]-->
-<style>
-img.recthumb{
-			float:left;
-			padding:15px 10px 0px 0px;
-}
-div.recommend {
-			min-height:110px;
-			width:100%;
-			border-width:1px;	
-			border-top-style:dotted;
-			clear:both;
-			float:left;
-			margin-top:5px;
-}
-div.recommend h1 {
-			font-size:16px;
-}
-</style>
-<em>ผลลัพท์ทั้งหมด <!--[$totalItems]--></em>
-<!--[foreach from=$data item=itemData]-->
-<div class="recommend">
-<!--[if isset($itemData.imageHotel.item)]-->
-			<img width="100" height="100" src="<!--[$itemData.imageHotel.item]-->" alt="<!--[$itemData.name]-->" class="recthumb">
-<!--[else if isset($itemData.imageHotel.imageHotel.0)]-->
-			<img width="100" height="100" src="<!--[$itemData.imageHotel.imageHotel.0]-->" alt="<!--[$itemData.name]-->" class="recthumb">
+<!--[if isset($objectArray)]-->
+  <style>
+  img.recthumb{
+        float:left;
+        padding:15px 10px 0px 0px;
+  }
+  div.recommend {
+        min-height:110px;
+        width:100%;
+        border-width:1px;	
+        border-top-style:dotted;
+        clear:both;
+        float:left;
+        margin-top:5px;
+  }
+  div.recommend h1 {
+        font-size:16px;
+  }
+  </style>
+  <em>ผลลัพท์ทั้งหมด <!--[$totalItems]--></em>
+  <!--[foreach from=$objectArray item=item]-->
+  <div class="recommend">
+  <!--[if isset($item.image)]-->
+        <img width="100" height="100" src="<!--[$item.image]-->" alt="<!--[$item.HotelName]-->" class="recthumb">
+  <!--[else]-->
+        <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
+  <!--[/if]-->
+      <p>
+        <h1><!--[$item.HotelName]--> 
+        <!--[if $item.rating]-->
+        <img src="/modules/POBPortal/pnimages/<!--[$item.rating]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+        <!--[/if]-->
+        </h1>
+        <span class="description"><!--[$item.Description]--></span>
+      </p>
+  </div>
+  <!--[/foreach]--> 
 <!--[else]-->
-			<img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$itemData.name]-->" class="recthumb">
-<!--[/if]-->
-		<p>
-			<h1><!--[$itemData.name]--> <img src="/modules/POBportal/pnimages/<!--[$itemData.rating]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="ดูประกาศทั้งหมด"/></h1></h1>
-			<span class="description"><!--[$itemData.descriptions]--></span>
-		</p>
-</div>
-<!--[/foreach]--> 
-<!--[else]-->
 <div class="recommend">
-		<p>
-			<h1>ไม่มีข้อมูล</h1>
+    <p>
+      <h1>ไม่มีข้อมูล</h1>
 
-		</p>
+    </p>
 </div>
 <!--[/if]-->

@@ -59,11 +59,11 @@ function POBPortal_SearchHotelLeftblock_display($blockinfo)
     //load render
     $render = pnRender::getInstance($modname);
 
-	Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    $getter = new POBReader("http://localhost/");
+	//Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
+    //$getter = new POBReader("http://localhost/");
     $search['list'] = "1,2,3,4";
 	$search['desc'] = "id";
-    $result = $getter->getHotelList($search);
+    //$result = $getter->getHotelList($search);
 	//var_dump($result);
     if(count($result['data'])==19){
       $data['data'] = $result['data'];
