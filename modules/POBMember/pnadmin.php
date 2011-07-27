@@ -291,7 +291,7 @@
   }
 
 
-  function POBMember_admin_update() {
+  function POBMember_admin_activate() {
     POBMember_permission();      
     $ctrl = FormUtil::getPassedValue ('ctrl', false, 'REQUEST');
     $func = FormUtil::getPassedValue ('func', false, 'REQUEST');
@@ -326,8 +326,11 @@
 
       }else{
         //Insert statement
+        $hotelcode = "POBHT".sprintf("%06d",$uid);
         $obj = array('uid'    => $uid,
-                     'status' => $status);
+                     'status' => $status,
+                     'hotelcode' => $hotelcode
+               );
         // do the insert
         DBUtil::insertObject($obj, 'pobmember_member');
 
@@ -340,11 +343,9 @@
         //var_dump($user); echo "<br>";
 
         //var_dump($userProperty['DomainName']); exit;
-        createSubDomain($userProperty['HotelName'], $userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
-        //createSubDomain($userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
+        createSubDomain($hotelcode, $userProperty['HotelName'], $userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
         
         //Send mail
-        //$email = 
         sendActivateAccountMail($userProperty['HotelName'], $userProperty['DomainName'], $user[0]['uname'], $user[0]['pass'], $user[0]['email']);
       }
     }
@@ -356,7 +357,7 @@
   }
 
 
-  function createSubDomain($sitename, $subdomain, $username ,$password, $email){
+  function createSubDomain($hotelcode, $sitename, $subdomain, $username ,$password, $email){
     if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBMember/pnincludes"))){
       return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
     }
@@ -366,7 +367,7 @@
 
      // var_dump($obj); exit;
     //$obj->makedb($dbname,$username,$password,$email);
-    $obj->makedb($sitename, $subdomain, $username, $password, $email);
+    $obj->makedb($hotelcode, $sitename, $subdomain, $username, $password, $email);
     $obj->sqlDump();
     //exit;
   }

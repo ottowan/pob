@@ -31,7 +31,7 @@
         $ctrl = $form[ctrl];      
       }else{
         return 'ERROR POBMember system can not find controller variable';
-      }
+      }9
     }
 
     //Forward page and select value
@@ -64,7 +64,6 @@
     }else{
       pnRedirect($list_url);
     }
-    
     return true;
   }
 
