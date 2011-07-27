@@ -50,7 +50,7 @@ Class SubdomainCreator {
    * @param string $dbconn Database connection
    * @param string $dbname Database name
    */
-  function makedb($sitename, $dbname,$username,$password,$email)
+  function makedb($hotelcode, $sitename, $dbname, $username, $password, $email)
   {
     
     //echo "DB Name : ".$dbname;
