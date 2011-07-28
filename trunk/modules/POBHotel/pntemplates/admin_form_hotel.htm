@@ -83,6 +83,7 @@ function callback_refresh(){
                         <li><a href="#">Photo</a></li>
                         <li><a href="#">Index point</a></li>
                         <li><a href="#">Attraction</a></li>
+						<li><a href="#">Room & Season</a></li>
                         <li><a href="#">Confirm</a></li>
                     </ul>
                 </div>
@@ -93,8 +94,8 @@ function callback_refresh(){
                            	<legend>Intro</legend>
 							  <TABLE width="900" >
 								<TR>
-								  <TD>name</TD>
-								  <TD><!--[$form.name]--></TD>
+								  <TD><h2>name<h2></TD>
+								  <TD><h2><!--[$form.name]--><h2></TD>
 								</TR>
 								<TR>
 								  <TD>status</TD>
@@ -312,8 +313,9 @@ function callback_refresh(){
       }
 
       function initialize() {
-        <!--[if $form.latitude && $form.longitude]-->
-         var latLng = new google.maps.LatLng(<!--[$form.latitude]-->, <!--[$form.longitude]-->);
+
+        <!--[if $form.position_latitude && $form.position_longitude]-->
+         var latLng = new google.maps.LatLng(<!--[$form.position_latitude]-->, <!--[$form.position_longitude]-->);
         <!--[else]-->
          var latLng = new google.maps.LatLng(7.968967853297759,98.32956784667977);
         <!--[/if]-->
@@ -357,6 +359,7 @@ function callback_refresh(){
       </head>
       <div style="clear:both"></div>
       <TABLE width="900" style="float:left;">
+	  
       <TR>
         <TD valign="top" width="650">
 
@@ -582,14 +585,52 @@ function callback_refresh(){
 							</TABLE>
 						</div>
                         </fieldset>
+						<fieldset class="step">
+						<legend>Season</legend>
+						<div id="HotelSeason">
+							<TABLE width="900">
+							
+							<tr>
+								<td>
+								Name
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[name]" value="" size="40">
+								</td>
+							</tr>
+							<tr>
+								<td>
+								Start
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[start]" ROWS="10" COLS="40" size="30" id="datepicker" value="">
+								</td>
+							</tr>
+							<tr>
+								<td>
+								End
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker" value="">
+								</td>
+							</tr>
 
+							</TABLE>
+							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Season" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+						</div>
+						
+
+						<legend>Room</legend>
+						
+
+						</fieldset>
                         <fieldset class="step">
                                         <legend>Confirm</legend>
                                         <p class="submit">
                                             <button id="registerButton" type="submit">Submit</button>
                                         </p>
                         </fieldset>
-                        <fieldset class="step"></fieldset>
+                        
                     </form>
                 </div>
             </div>

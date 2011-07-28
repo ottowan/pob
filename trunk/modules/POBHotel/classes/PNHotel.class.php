@@ -114,7 +114,7 @@
 
 
         $this->uploadFiles($id);
-
+        //$this->sendNotify();
     }
 
     function updatePostProcess(){
@@ -168,6 +168,9 @@
         DBUtil::updateObjectArray($obj, 'pobhotel_hotel_attraction');
         unset($obj);
       }
+      
+      $this->uploadFiles($id);
+      //$this->sendNotify();
       /*
       
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
@@ -349,7 +352,6 @@
 
             $objects = array(
                             'id'         => $next_id,
-                            'hotel_id' => $id,
                             'filename'   => $filename_temp,
                             'filesize'   => $filesize,
                             'filetype'   => $filetype,
