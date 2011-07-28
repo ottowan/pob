@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	$("#formGuestRoom").bind("submit", function() {
+		$.ajax({
+			type	: "POST",
+			cache	: false,
+			url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=GuestRoom",
+			data	: $(this).serializeArray(),
+			success	: function(data) {
+				$.facebox(data)
+				$.facebox.close()
+				callback_refresh()
+			}
+		});
+
+		return false;
+	});
+	$("#formGuestRoom").bind("reset", function() {
+				$.facebox.close()
+				callback_refresh()
+		return false;
+	});
+</script>
+
+<legend>Add Guest Room Type</legend>
+<FORM id="formGuestRoom" name="formGuestRoom" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='GuestRoom']-->" enctype="multipart/form-data>">
+						<!--[get_all_guest_room_type]-->
+						<!--[get_all_season]-->
+
+							<TABLE width="900">
+								<tr>
+								<td>
+									Name
+									<INPUT TYPE="text" NAME="form[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
+								</td>
+								</tr>
+								<tr>
+								<td>
+									Description
+									<INPUT TYPE="text" NAME="form[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
+								</td>
+								</tr>
+								<tr>
+								<td>
+									Type
+									<select name="form[type_id]">
+										<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
+										  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+											<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+										  <!--[else]-->
+											<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+										  <!--[/if]-->
+										<!--[/foreach]-->
+									</select>
+								</td>
+								</tr>
+								<tr>
+								<td>
+									Season
+									<select name="form[season_id]">
+										<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
+										  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
+											<option value="<!--[$itemAllSeason.season_id]-->" SELECTED><!--[$itemAllSeason.season_name]--></option>
+										  <!--[else]-->
+											<option value="<!--[$itemAllSeason.season_id]-->"><!--[$itemAllSeason.season_name]--></option>
+										  <!--[/if]-->
+										<!--[/foreach]-->
+									</select>
+								</td>
+								</tr>
+								<tr>
+								<td>
+									Price
+									<INPUT TYPE="text" NAME="form[price]" ROWS="10" COLS="40" size="30" value="<!--[$item.price]-->">
+								</td>
+								</tr>
+								<tr>
+								<td>
+									Capacity
+									<INPUT TYPE="text" NAME="form[capacity]" ROWS="10" COLS="40" size="30" value="<!--[$item.capacity]-->">
+								</td>
+								</tr>
+							</TABLE>
+							<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+</FORM>

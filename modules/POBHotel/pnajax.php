@@ -42,7 +42,7 @@ function POBHotel_ajax_submit(){
     $ctrl =  FormUtil::getPassedValue ('ctrl', null);
     $form = FormUtil::getPassedValue ('form', null);
     $id = FormUtil::getPassedValue ('id', null);
-    //var_dump($form);
+    
     $is_array = FormUtil::getPassedValue ('array', false);
     if ($is_array){
       $is_array = true;

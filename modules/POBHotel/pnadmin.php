@@ -125,7 +125,6 @@
     if (method_exists($object,'selectExtendResult')){
       $resultex = $object->selectExtendResult();
       $render->assign('extendResult', $resultex);
-      var_dump($resultex);
     }
     _languageRender($render);
       return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');

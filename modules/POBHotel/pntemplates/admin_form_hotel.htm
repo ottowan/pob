@@ -17,7 +17,6 @@ jQuery(document).ready(function($) {
 	$('a[rel*=facebox]').facebox({
 		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
 		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png',
-		
 	})
 })
 function callback_refresh(){
@@ -38,6 +37,9 @@ function callback_refresh(){
 	});
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoomType', function(data) {
 	  $('#HotelGuestRoomType').html(data);
+	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoom', function(data) {
+	  $('#HotelGuestRoom').html(data);
 	});
 }
 </script>
@@ -656,6 +658,81 @@ function callback_refresh(){
 							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 						</div>
 
+						<legend>Guest Room</legend>
+						<div id="HotelGuestRoom">
+						<!--[get_all_guest_room_type]-->
+						<!--[get_all_season]-->
+
+						<!--[if isset($extendResult.hotelGuestRoom)]-->
+							<TABLE width="900">
+								<tr>
+								<td>
+									Name
+								</td>
+								<td>
+									Description
+								</td>
+								<td>
+									Type
+								</td>
+								<td>
+									Season
+								</td>
+								<td>
+									Price
+								</td>
+								<td>
+									Capacity
+								</td>
+								<td>
+								</td>
+								</tr>
+								<!--[foreach from=$extendResult.hotelGuestRoom item=item]-->
+								<tr>
+								<td>
+									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
+								</td>
+								<td>
+									<INPUT TYPE="text" NAME="itemGuestRoom[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
+								</td>
+								<td>
+								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
+									<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
+									  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+									  <!--[else]-->
+										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+									  <!--[/if]-->
+									<!--[/foreach]-->
+								</select>
+								</td>
+								<td>
+								<select name="itemGuestRoom[<!--[$item.id]-->][season_id]">
+									<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
+									  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
+										<option value="<!--[$itemAllSeason.season_id]-->" SELECTED><!--[$itemAllSeason.season_name]--></option>
+									  <!--[else]-->
+										<option value="<!--[$itemAllSeason.season_id]-->"><!--[$itemAllSeason.season_name]--></option>
+									  <!--[/if]-->
+									<!--[/foreach]-->
+								</select>
+								</td>
+								<td>
+									<!--[$item.price]-->
+								</td>
+								<td>
+									<!--[$item.capacity]-->
+								</td>
+								<td>
+									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								</td>
+							</tr>
+								 
+							<!--[/foreach]-->
+							</TABLE>
+							<!--[/if]-->
+							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+						</div>
 						</fieldset>
                         <fieldset class="step">
                                         <legend>Confirm</legend>

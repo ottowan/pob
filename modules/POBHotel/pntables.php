@@ -375,17 +375,19 @@
     $pntable['pobhotel_guest_room_column'] = array(
                                           'id' => 'guest_room_id',
                                           'name' => 'guest_room_name',
+                                          'type_id' => 'guest_room_type_id',
                                           'season_id' => 'guest_room_season_id',
+                                          'price' => 'guest_room_price',
                                           'capacity' => 'guest_room_capacity',
-                                          'base_arrangement' => 'guest_room_base_arrangement',
                                           'description' => 'guest_room_description'
     );
     $pntable['pobhotel_guest_room_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'name' =>'TEXT  DEFAULT NULL',
-                                          'sorting_index' =>'INT(11)',
+                                          'type_id' =>'INT(11)',
+                                          'season_id' =>'INT(11)',
+                                          'price' => 'VARCHAR(255)',
                                           'capacity' =>'INT(11)',
-                                          'base_arrangement' =>'INT(11)',
                                           'description' =>'TEXT  DEFAULT NULL'
     );
     $pntable['pobhotel_guest_room_primary_key_column'] = 'id';
