@@ -1,0 +1,39 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('a[rel*=hotelseason]').facebox({
+		loadingImage : '/modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : '/modules/POBHotel/pnjavascript/facebox/closelabel.png',
+
+	})
+})
+</script>
+						<!--[if isset($objectArray)]-->
+							<TABLE width="900">
+								
+								<!--[foreach from=$objectArray item=item]-->
+								<tr>
+								<td>
+								Name
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[name]" value="<!--[$item.name]-->" size="40">
+								</td>
+								<td>
+								Start
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[start]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_start]-->">
+								</td>
+								<td>
+								End
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_end]-->">
+								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								</td>
+							</tr>
+								 
+							<!--[/foreach]-->
+							</TABLE>
+							<!--[/if]-->
+							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Season" rel="hotelseason"><img src="modules/POBHotel/pnimages/add_48.png"></a>
