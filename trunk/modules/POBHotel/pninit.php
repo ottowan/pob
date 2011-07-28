@@ -66,6 +66,9 @@
     if (!DBUtil::createTable('pobhotel_guest_room')) {
       return false;
     }
+    if (!DBUtil::createTable('pobhotel_guest_room_type')) {
+      return false;
+    }
     if (!DBUtil::createTable('pobhotel_guest_room_image')) {
       return false;
     }
@@ -144,6 +147,7 @@
     DBUtil::dropTable('pobhotel_segment_category');
     DBUtil::dropTable('pobhotel_transportation');
     DBUtil::dropTable('pobhotel_guest_room');
+    DBUtil::dropTable('pobhotel_guest_room_type');
     DBUtil::dropTable('pobhotel_guest_room_image');
     DBUtil::dropTable('pobhotel_season');
     DBUtil::dropTable('pobhotel_rate');
@@ -159,11 +163,11 @@
     DBUtil::dropTable('pobhotel_m_room_m_room_format');
     DBUtil::dropTable('pobhotel_room_room_amenity');
     DBUtil::dropTable('pobhotel_r_srvc_r_srvc_detail');
-return true;
+    return true;
   }
 
   function POBHotel_init_data(){
-       //Init amenity data
+      //Init amenity data
       $file = "modules/POBHotel/data/amenity_code.csv";
       $handle = fopen($file, "r");
       if($handle!==false){

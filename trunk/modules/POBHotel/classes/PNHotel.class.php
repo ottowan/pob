@@ -46,6 +46,22 @@
         $indexPointObject->get();
         $result['hotelIndexPoint'] = $indexPointObject->_objData;
         
+        //load class HotelSeason
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'SeasonArray', false)))
+          return LogUtil::registerError ('Unable to load class [SeasonArray] ...');
+            
+        $seasonObject = new $class;
+        $seasonObject->get();
+        $result['hotelSeason'] = $seasonObject->_objData;
+        
+        //load class GuestRoomType
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'GuestRoomTypeArray', false)))
+          return LogUtil::registerError ('Unable to load class [GuestRoomTypeArray] ...');
+            
+        $guestRoomTypeObject = new $class;
+        $guestRoomTypeObject->get();
+        $result['hotelGuestRoomType'] = $guestRoomTypeObject->_objData;
+        
       }
       return $result;
     }

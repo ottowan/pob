@@ -375,7 +375,7 @@
     $pntable['pobhotel_guest_room_column'] = array(
                                           'id' => 'guest_room_id',
                                           'name' => 'guest_room_name',
-                                          'sorting_index' => 'guest_room_sorting_index',
+                                          'season_id' => 'guest_room_season_id',
                                           'capacity' => 'guest_room_capacity',
                                           'base_arrangement' => 'guest_room_base_arrangement',
                                           'description' => 'guest_room_description'
@@ -392,7 +392,24 @@
     //add standard data fields
     ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_guest_room_column'], 'guest_room_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_guest_room_column_def']);
-
+    
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_guest_room_type'] = DBUtil::getLimitedTablename('pobhotel_guest_room_type');
+    $pntable['pobhotel_guest_room_type_column'] = array(
+                                          'id' => 'guest_room_type_id',
+                                          'name' => 'guest_room_type_name',
+                                          'description' => 'guest_room_description'
+    );
+    $pntable['pobhotel_guest_room_type_column_def'] = array(
+                                          'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'name' =>'TEXT  DEFAULT NULL',
+                                          'description' =>'TEXT  DEFAULT NULL'
+    );
+    $pntable['pobhotel_guest_room_type_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_guest_room_type_column'], 'guest_room_type_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_guest_room_type_column_def']);
+    
 ////////////////////////////////////////////
     $pntable['pobhotel_guest_room_image'] = DBUtil::getLimitedTablename('pobhotel_guest_room_image');
     $pntable['pobhotel_guest_room_image_column'] = array(
