@@ -2,11 +2,11 @@
   class PNHotel extends PNObject {
     function PNHotel($init=null, $where='') {
       $this->PNObject();
-    
+
       $this->_objType       = 'pobhotel_hotel';
       $this->_objField      = 'id';
       $this->_objPath       = 'form';
-    
+
       $this->_init($init, $where);
     }
 
@@ -17,51 +17,60 @@
         //load class HotelAmenityArray
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAmenityArray', false)))
           return LogUtil::registerError ('Unable to load class [HotelAmenityArray] ...');
-          
+
         $amenityObject = new $class;
         $amenityObject->get();
         $result['hotelAmenity'] = $amenityObject->_objData;
-        
+
         //load class HotelLocationArray
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelLocationArray', false)))
           return LogUtil::registerError ('Unable to load class [HotelLocationArray] ...');
-          
+
         $locationObject = new $class;
         $locationObject->get();
         $result['hotelLocation'] = $locationObject->_objData;
-        
+
         //load class HotelAttractionArray
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAttractionArray', false)))
           return LogUtil::registerError ('Unable to load class [HotelAttractionArray] ...');
-          
+
         $attractionObject = new $class;
         $attractionObject->get();
         $result['hotelAttraction'] = $attractionObject->_objData;
-        
+
         //load class HotelIndexPointArray
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelIndexPointArray', false)))
           return LogUtil::registerError ('Unable to load class [HotelIndexPointArray] ...');
-            
+
         $indexPointObject = new $class;
         $indexPointObject->get();
         $result['hotelIndexPoint'] = $indexPointObject->_objData;
-        
+
         //load class HotelSeason
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'SeasonArray', false)))
           return LogUtil::registerError ('Unable to load class [SeasonArray] ...');
-            
+
         $seasonObject = new $class;
         $seasonObject->get();
         $result['hotelSeason'] = $seasonObject->_objData;
-        
+
         //load class GuestRoomType
         if (!($class = Loader::loadClassFromModule ('POBHotel', 'GuestRoomTypeArray', false)))
           return LogUtil::registerError ('Unable to load class [GuestRoomTypeArray] ...');
-            
+
         $guestRoomTypeObject = new $class;
         $guestRoomTypeObject->get();
         $result['hotelGuestRoomType'] = $guestRoomTypeObject->_objData;
-        
+
+        //load class GuestRoom
+        if (!($class = Loader::loadClassFromModule ('POBHotel', 'GuestRoomArray', false)))
+          return LogUtil::registerError ('Unable to load class [GuestRoomArray] ...');
+
+        $guestRoomObject = new $class;
+        $guestRoomObject->get();
+        $result['hotelGuestRoom'] = $guestRoomObject->_objData;
+
+
       }
       return $result;
     }
@@ -147,7 +156,7 @@
         DBUtil::updateObjectArray($obj, 'pobhotel_hotel_location');
         unset($obj);
       }
-      
+
       $itemIndexPoint = FormUtil::getPassedValue ('itemIndexPoint', false);
       if($itemIndexPoint && $id){
         foreach($itemIndexPoint as $key1=>$vals ){
@@ -159,7 +168,7 @@
         DBUtil::updateObjectArray($obj, 'pobhotel_hotel_index_point');
         unset($obj);
       }
-      
+
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
       if($itemAmenity && $id){
         foreach($itemAmenity as $key1=>$vals ){
@@ -171,8 +180,8 @@
         DBUtil::updateObjectArray($obj, 'pobhotel_hotel_amenity');
         unset($obj);
       }
-      
-      
+
+
       $itemAttraction = FormUtil::getPassedValue ('itemAttraction', false);
       if($itemAttraction && $id){
         foreach($itemAttraction as $key1=>$vals ){
@@ -184,15 +193,15 @@
         DBUtil::updateObjectArray($obj, 'pobhotel_hotel_attraction');
         unset($obj);
       }
-      
+
       $this->uploadFiles($id);
       //$this->sendNotify();
       /*
-      
+
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
       //Delete old data
       DBUtil::deleteObjectByID( 'pobhotel_hotel_amenity', $id, 'hotel_id');
-      
+
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
       $id = $this->_objData['id'];
       if($itemAmenity && $id){
@@ -230,7 +239,7 @@
         $rootThumbPath = "pnTemp/pobhotel_upload/image/thumb".floor($id/10000);
       }
 
-      //Make root topic image directory 
+      //Make root topic image directory
       if (!is_dir($rootImagePath)) {
         mkdir($rootImagePath, 0755);
       }
@@ -310,31 +319,31 @@
         $imagepath = $fliename;
         $save = $imgpath; //This is the new file you saving
         $file = $imgpath; //This is the original file
-        list($width, $height) = getimagesize($file) ; 
+        list($width, $height) = getimagesize($file) ;
 
 //////////////////resize image orginal////////////////////
-        $modwidth = 600; 
+        $modwidth = 600;
         $diff = $width / $modwidth;
-        if (($width > 600) || ($height > 200)) 
+        if (($width > 600) || ($height > 200))
         {
-          $modheight = $height / $diff; 
-          $tn = imagecreatetruecolor($modwidth, $modheight); 
+          $modheight = $height / $diff;
+          $tn = imagecreatetruecolor($modwidth, $modheight);
           if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-            $image = imagecreatefromjpeg($file) ; 
+            $image = imagecreatefromjpeg($file) ;
           }elseif($filetype == "image/x-png" || $filetype == "image/png"){
             $image = imagecreatefrompng($file) ;
           }elseif($filetype == "image/gif"){
             $image = imagecreatefromgif($file) ;
           }
-            imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ; 
+            imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
         }
 
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          imagejpeg($tn, $save, 100) ; 
+          imagejpeg($tn, $save, 100) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
-          imagepng($tn, $save) ; 
+          imagepng($tn, $save) ;
         }elseif($filetype == "image/gif"){
-          copy($file, $save) ; 
+          copy($file, $save) ;
         }
 
 //////////////////resize image thumb////////////////////
@@ -342,27 +351,27 @@
         $save = $tmbpath; //This is the new file you saving
         $file = $imgpath; //This is the original file
 
-        list($width, $height) = getimagesize($file) ; 
+        list($width, $height) = getimagesize($file) ;
 
-        $modwidth = 100; 
+        $modwidth = 100;
         $diff = $width / $modwidth;
-        $modheight = $height / $diff; 
-        $tn = imagecreatetruecolor($modwidth, $modheight); 
+        $modheight = $height / $diff;
+        $tn = imagecreatetruecolor($modwidth, $modheight);
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          $image = imagecreatefromjpeg($file) ; 
+          $image = imagecreatefromjpeg($file) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
           $image = imagecreatefrompng($file) ;
         }elseif($filetype == "image/gif"){
           $image = imagecreatefromgif($file) ;
         }
-        imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ; 
+        imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
 
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          imagejpeg($tn, $save, 100) ; 
+          imagejpeg($tn, $save, 100) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
-          imagepng($tn, $save) ; 
+          imagepng($tn, $save) ;
         }elseif($filetype == "image/gif"){
-          copy($file, $save) ; 
+          copy($file, $save) ;
         }
 
 
@@ -396,7 +405,7 @@
       if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes"))){
         return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
       }
-        
+
       $form = FormUtil::getPassedValue ('form', false, 'REQUEST');
       $obj = new SubdomainCreator();
       $obj->makedb($form['database_name']);

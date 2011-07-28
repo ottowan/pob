@@ -1,9 +1,8 @@
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-	$('a[rel*=hotelguestroomtype]').facebox({
-		loadingImage : '/modules/POBHotel/pnjavascript/facebox/loading.gif',
-		closeImage   : '/modules/POBHotel/pnjavascript/facebox/closelabel.png',
-
+	$('a[rel*=guestroomtype]').facebox({
+		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png',
 	})
 })
 </script>
@@ -24,11 +23,11 @@ jQuery(document).ready(function($) {
 								</td>
 								<td>
 								<INPUT TYPE="text" NAME="itemGuestRoomType[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
-								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="hotelguestroomtype"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="guestroomtype"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->
-							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType" rel="hotelguestroomtype"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType" rel="guestroomtype"><img src="modules/POBHotel/pnimages/add_48.png"></a>

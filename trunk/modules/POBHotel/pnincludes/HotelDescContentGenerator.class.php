@@ -35,24 +35,14 @@ Class HotelDescContentGenerator {
     $objectArray = new $class;
     $objectArray->get();
     $this->hotelAmenity = $objectArray->_objData;
-    /*
-    if (!($class = Loader::loadClassFromModule ('POBHotel', 'RoomArray', false)))
-      return LogUtil::registerError ('Unable to load class [RoomArray] ...');
     
-    $objectArray = new $class;
-    $objectArray->get();
-    $this->facilityInfoObject  = $objectArray->_objData;
-*/
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelImageArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelImageArray] ...');
     
     $objectArray = new $class;
     $objectArray->get();
     $this->imageObject  = $objectArray->_objData;
-    
-    //var_dump($this->hotelObject);
-    //var_dump($this->locationObject);
-    //var_dump($this->hotelAmenity);
+
   }
   public function getContent(){
     return $this->genHotelDescriptive();

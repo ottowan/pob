@@ -1,15 +1,15 @@
 <?php
-  class PNRoom extends PNObject {
-    function PNRoom($init=null, $where='') {
+  class PNGuestRoom extends PNObject {
+    function PNGuestRoom($init=null, $where='') {
       $this->PNObject();
-    
-      $this->_objType       = 'pobhotel_room';
+
+      $this->_objType       = 'pobhotel_guest_room';
       $this->_objField      = 'id';
       $this->_objPath       = 'form';
-    
+
       $this->_init($init, $where);
     }
-
+/*
     function insertPostProcess(){
           $id = $this->_objData['id'];
           $this->uploadFiles($id);
@@ -34,7 +34,7 @@
         $rootThumbPath = "pnTemp/pobhotel_upload/image/thumb".floor($id/10000);
       }
 
-      //Make root topic image directory 
+      //Make root topic image directory
       if (!is_dir($rootImagePath)) {
         mkdir($rootImagePath, 0755);
       }
@@ -115,31 +115,31 @@
         $imagepath = $fliename;
         $save = $imgpath; //This is the new file you saving
         $file = $imgpath; //This is the original file
-        list($width, $height) = getimagesize($file) ; 
+        list($width, $height) = getimagesize($file) ;
 
 //////////////////resize image orginal////////////////////
-        $modwidth = 600; 
+        $modwidth = 600;
         $diff = $width / $modwidth;
-        if (($width > 600) || ($height > 200)) 
+        if (($width > 600) || ($height > 200))
         {
-          $modheight = $height / $diff; 
-          $tn = imagecreatetruecolor($modwidth, $modheight); 
+          $modheight = $height / $diff;
+          $tn = imagecreatetruecolor($modwidth, $modheight);
           if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-            $image = imagecreatefromjpeg($file) ; 
+            $image = imagecreatefromjpeg($file) ;
           }elseif($filetype == "image/x-png" || $filetype == "image/png"){
             $image = imagecreatefrompng($file) ;
           }elseif($filetype == "image/gif"){
             $image = imagecreatefromgif($file) ;
           }
-            imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ; 
+            imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
         }
 
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          imagejpeg($tn, $save, 100) ; 
+          imagejpeg($tn, $save, 100) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
-          imagepng($tn, $save) ; 
+          imagepng($tn, $save) ;
         }elseif($filetype == "image/gif"){
-          copy($file, $save) ; 
+          copy($file, $save) ;
         }
 
 //////////////////resize image thumb////////////////////
@@ -147,27 +147,27 @@
         $save = $tmbpath; //This is the new file you saving
         $file = $imgpath; //This is the original file
 
-        list($width, $height) = getimagesize($file) ; 
+        list($width, $height) = getimagesize($file) ;
 
-        $modwidth = 100; 
+        $modwidth = 100;
         $diff = $width / $modwidth;
-        $modheight = $height / $diff; 
-        $tn = imagecreatetruecolor($modwidth, $modheight); 
+        $modheight = $height / $diff;
+        $tn = imagecreatetruecolor($modwidth, $modheight);
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          $image = imagecreatefromjpeg($file) ; 
+          $image = imagecreatefromjpeg($file) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
           $image = imagecreatefrompng($file) ;
         }elseif($filetype == "image/gif"){
           $image = imagecreatefromgif($file) ;
         }
-        imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ; 
+        imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
 
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){
-          imagejpeg($tn, $save, 100) ; 
+          imagejpeg($tn, $save, 100) ;
         }elseif($filetype == "image/x-png" || $filetype == "image/png"){
-          imagepng($tn, $save) ; 
+          imagepng($tn, $save) ;
         }elseif($filetype == "image/gif"){
-          copy($file, $save) ; 
+          copy($file, $save) ;
         }
 
 
@@ -188,7 +188,10 @@
         }
       }
     }
-  }
+      }
+      }
+*/
+
 
   }
 ?>
