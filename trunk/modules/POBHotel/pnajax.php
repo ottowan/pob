@@ -1,7 +1,7 @@
 <?php
-function POBHotel_adminform_main (){
+function POBHotel_ajax_main (){
   POBHotel_permission();
-  POBHotel_adminform_submit ();
+  POBHotel_ajax_submit ();
 }
 
 function POBHotel_permission() {
@@ -11,12 +11,13 @@ function POBHotel_permission() {
       LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
   }
 }
+
 function POBHotel_ajax_form(){
     $ctrl = FormUtil::getPassedValue ('ctrl', false);
     $func  = FormUtil::getPassedValue ('func', 'form' , 'GET');
-    
+
     if($ctrl){
-      $render = pnRender::getInstance('VoteDataCenter');
+      $render = pnRender::getInstance('POBHotel');
       $render->assign ('_GET', $_GET);
       $render->assign ('_POST', $_POST);
       $render->assign ('_REQUEST', $_REQUEST);
@@ -34,6 +35,7 @@ function POBHotel_ajax_form(){
     echo "Load form failed!";
     return false;
 }
+
 function POBHotel_ajax_submit(){
     //POBHotel_permission();
     $forward =  FormUtil::getPassedValue ('forward', null);
