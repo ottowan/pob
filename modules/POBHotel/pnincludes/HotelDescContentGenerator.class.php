@@ -11,6 +11,7 @@ Class HotelDescContentGenerator {
   private $facilityInfoObject = NULL;
   
   function __construct($hotelId=''){
+  
     $pntables = pnDBGetTables();
 
 
@@ -25,25 +26,29 @@ Class HotelDescContentGenerator {
       return LogUtil::registerError ('Unable to load class [HotelLocationArray] ...');
     
     $objectArray = new $class;
-    $objectArray->get(' WHERE '.$pntables['pobhotel_hotel_location_column']["hotel_id"].' = '.$hotelId);
+    $objectArray->get();
     $this->locationObject = $objectArray->_objData;
     
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAmenityArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelAmenityArray] ...');
     
     $objectArray = new $class;
-    $objectArray->get(' WHERE '.$pntables['pobhotel_hotel_amenity_column']["hotel_id"].' = '.$hotelId);
+    $objectArray->get();
     $this->hotelAmenity = $objectArray->_objData;
-    
+    /*
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'RoomArray', false)))
       return LogUtil::registerError ('Unable to load class [RoomArray] ...');
     
     $objectArray = new $class;
-    $objectArray->get(' WHERE '.$pntables['pobhotel_room_column']["hotel_id"].' = '.$hotelId.' ORDER BY room_lu_date DESC');
+    $objectArray->get();
     $this->facilityInfoObject  = $objectArray->_objData;
+*/
+    if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelImageArray', false)))
+      return LogUtil::registerError ('Unable to load class [HotelImageArray] ...');
     
-    
-    
+    $objectArray = new $class;
+    $objectArray->get();
+    $this->imageObject  = $objectArray->_objData;
     
     //var_dump($this->hotelObject);
     //var_dump($this->locationObject);
@@ -56,9 +61,9 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
-    //header("Content-type: text/xml");
-    //print $data;
-    //exit;
+    header("Content-type: text/xml");
+    print $data;
+    exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -89,7 +94,7 @@ Class HotelDescContentGenerator {
     $HotelDescriptiveContent->setAttribute("BrandName",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("CurrencyCode","THB");
     $HotelDescriptiveContent->setAttribute("HotelCode","BOSCO");
-    $HotelDescriptiveContent->setAttribute("HotelName",htmlentities($this->hotelObject["descriptions"]));
+    $HotelDescriptiveContent->setAttribute("HotelName",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("LanguageCode","TH");
     
     $LoadedXML = DOMDocument::loadXML($this->genHotelInfo());
@@ -200,6 +205,7 @@ Class HotelDescContentGenerator {
     $Position->setAttribute("Longitude",$this->hotelObject["position_longitude"]);
     
     $Services = $xml->createElement("Services");
+    
     foreach($this->hotelAmenity AS $key=>$value){
       $Service = $xml->createElement("Service");
       $Service->setAttribute("Code",$value['amenity_id']);
@@ -207,8 +213,8 @@ Class HotelDescContentGenerator {
       $MultimediaDescription = $xml->createElement("MultimediaDescription");
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
-      $TextItem->setAttribute("Title","Description");
-      $Description = $xml->createElement("Description",htmlentities($value["amenity_name"]));
+      $TextItem->setAttribute("Title",htmlentities($value["amenity_name"]));
+      $Description = $xml->createElement("Description",htmlentities($value["description"]));
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
       $MultimediaDescription->appendChild($TextItems);
@@ -216,10 +222,45 @@ Class HotelDescContentGenerator {
       $Service->appendChild($MultimediaDescriptions);
       $Services->appendChild($Service);
     }
-
     
+    $Descriptions = $xml->createElement("Descriptions");
+    $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
+    $MultimediaDescription = $xml->createElement("MultimediaDescription");
+    $TextItems = $xml->createElement("TextItems");
+    $TextItem = $xml->createElement("TextItem");
+    $TextItem->setAttribute("Title","Description");
+    $Description = $xml->createElement("Description",htmlentities($this->hotelObject["descriptions"]));
+    $TextItem->appendChild($Description);
+    $TextItems->appendChild($TextItem);
+    $TextItem = $xml->createElement("TextItem");
+    $TextItem->setAttribute("Title","image");
+    $i=0;
+    foreach($this->imageObject AS $key=>$value){
+      $Description = $xml->createElement("Description",htmlentities($_SERVER["HOST_NAME"].$value["filepath"].$value["filename"]));
+      $Description->setAttribute("ListItem",$i);
+      $TextItem->appendChild($Description);
+      $i++;
+    }
+    $TextItems->appendChild($TextItem);
+    $TextItem = $xml->createElement("TextItem");
+    $TextItem->setAttribute("Title","thumb");
+    $i=0;
+    foreach($this->imageObject AS $key=>$value){
+      $Description = $xml->createElement("Description",htmlentities($_SERVER["HOST_NAME"].$value["thumbpath"].$value["filename"]));
+      $Description->setAttribute("ListItem",$i);
+      $TextItem->appendChild($Description);
+      $i++;
+    }
+    
+    $TextItems->appendChild($TextItem);
+    $MultimediaDescription->appendChild($TextItems);
+    $MultimediaDescriptions->appendChild($MultimediaDescription);
+    $Descriptions->appendChild($MultimediaDescriptions);
+      
+      
+      
     $HotelInfo->appendChild($CategoryCodes);
-    //$HotelInfo->appendChild($Descriptions);
+    $HotelInfo->appendChild($Descriptions);
     $HotelInfo->appendChild($Position);
     $HotelInfo->appendChild($Services);
     $xml->appendChild($HotelInfo);

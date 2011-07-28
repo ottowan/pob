@@ -1,0 +1,79 @@
+<script type="text/javascript">
+	$("#formSeason").bind("submit", function() {
+		$.ajax({
+			type	: "POST",
+			cache	: false,
+			url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=Season",
+			data	: $(this).serializeArray(),
+			success	: function(data) {
+				$.facebox(data)
+				$.facebox.close()
+				callback_refresh()
+			}
+		});
+
+		return false;
+	});
+	$("#formSeason").bind("reset", function() {
+				$.facebox.close()
+				callback_refresh()
+		return false;
+	});
+
+  $(function() {
+      $( "INPUT#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "button",
+        dateFormat: 'yy-mm-dd',
+        buttonImage: "modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/datepicker/images/calendar.gif",
+        buttonImageOnly: true
+    });
+  });
+
+  $(function() {
+      $( "INPUT#datepicker2" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "button",
+        dateFormat: 'yy-mm-dd',
+        buttonImage: "modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/datepicker/images/calendar.gif",
+        buttonImageOnly: true
+    });
+  });
+
+</script>
+
+<legend>Add Season</legend>
+<FORM id="formSeason" name="formSeason" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='Season']-->" enctype="multipart/form-data>">
+							<TABLE width="400">
+							
+							<tr>
+								<td>
+								Name
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[name]" value="" size="40">
+								</td>
+							</tr>
+							<tr>
+								<td>
+								Start
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[start]" ROWS="10" COLS="40" size="30" id="datepicker" >
+								</td>
+							</tr>
+							<tr>
+								<td>
+								End
+								</td>
+								<td>
+								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker2" >
+								</td>
+							</tr>
+
+							</TABLE>
+<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+</FORM>
+</div>
