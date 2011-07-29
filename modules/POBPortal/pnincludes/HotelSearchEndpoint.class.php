@@ -6,7 +6,7 @@
   */
 Class HotelSearchEndpoint {
   private $location  = NULL;
-  private $distance  = NULL;
+  private $distance  = 0;
   private $latitude  = NULL;
   private $longitude = NULL;
   private $startDate = NULL;
@@ -16,7 +16,7 @@ Class HotelSearchEndpoint {
   function __construct(){
   }
 
-  public function setHotelSearchXML( $location  = NULL,  $distance  = NULL, $latitude  = NULL, $longitude = NULL, $startDate = NULL, $endDate   = NULL){
+  public function setHotelSearchXML( $location  = NULL,  $distance  = 0, $latitude  = NULL, $longitude = NULL, $startDate = NULL, $endDate   = NULL){
     $this->location  = $location;
     $this->distance  = $distance;
     $this->latitude  = $latitude;
@@ -66,7 +66,7 @@ Class HotelSearchEndpoint {
 
     $Radius = $xml->createElement("Radius");
     $Radius->setAttribute("DistanceMeasure", "MILES");
-    $Radius->setAttribute("Distance", "10");
+    $Radius->setAttribute("Distance", $this->distance);
     $Criterion->appendChild($Radius);
 
     if($this->startDate && $this->endDate){
