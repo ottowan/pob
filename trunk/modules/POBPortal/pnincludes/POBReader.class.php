@@ -125,7 +125,6 @@ class POBReader {
       }
           
       $child = (array)$obj;
-
       if(sizeof($child)>1) {
           foreach($child as $aa=>$bb) {
               if(is_array($bb)) {
@@ -164,7 +163,10 @@ class POBReader {
                   }
               }
           }
+      //var_dump($items);
       }
+
+
       return $items;
   }
   public function getErrorMessage(){

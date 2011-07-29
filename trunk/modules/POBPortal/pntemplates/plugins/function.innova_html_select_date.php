@@ -81,6 +81,10 @@ function smarty_function_innova_html_select_date($params, &$smarty)
     /* String printed between the different fields. */
     $field_separator = "\n";
     $time = time();
+
+
+
+
     $all_empty       = null;
     $day_empty       = null;
     $month_empty     = null;
@@ -126,6 +130,10 @@ function smarty_function_innova_html_select_date($params, &$smarty)
                 $$_key = (bool)$_value;
                 break;
 
+            case 'next_day':
+                $$_key = (int)$_value;
+                break;
+
             default:
                 if(!is_array($_value)) {
                     $extra_attrs .= ' '.$_key.'="'.smarty_function_escape_special_chars($_value).'"';
@@ -136,6 +144,10 @@ function smarty_function_innova_html_select_date($params, &$smarty)
         }
     }
 
+
+    if($next_day){
+     $time = $time + ($next_day * 24 * 60 * 60);
+    }
     if (preg_match('!^-\d+$!', $time)) {
         // negative timestamp, use date()
         $time = date('Y-m-d', $time);
@@ -276,12 +288,16 @@ function smarty_function_innova_html_select_date($params, &$smarty)
 
             $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
             //var_dump($lang); exit;
+
+            /*
             if($lang == "th"){
               $years = range((int)$start_year+543, (int)$end_year+543);
             }else{
               $years = range((int)$start_year, (int)$end_year);
             }
+            */
 
+            $years = range((int)$start_year, (int)$end_year);
 
             if ($reverse_years) {
                 rsort($years, SORT_NUMERIC);
@@ -304,11 +320,18 @@ function smarty_function_innova_html_select_date($params, &$smarty)
                 $year_result .= ' ' . $year_extra;
             }
             $year_result .= $extra_attrs . '>'."\n";
-
+/*
             if(isset($params['selected']) && $params['selected'] != 0){
               $selected = $params['selected'];
             }else{
               $selected = $time[0]+543;
+            }
+*/
+
+            if(isset($params['selected']) && $params['selected'] != 0){
+              $selected = $params['selected'];
+            }else{
+              $selected = $time[0];
             }
             $year_result .= smarty_function_innova_html_options(array('output' => $years,
                                                                'values' => $yearvals,
