@@ -1,0 +1,46 @@
+<!--[include file='admin_menu_header.htm']-->
+    <div id="main-content">
+      <div class="content">
+        <h2>Order report</h2>
+        <!--[if $objectArray]-->
+          <TABLE width="100%" border="0" >
+            <TR  bgcolor="#f9fbf1">
+              <TH>Referecne ID.</TH>
+              <TH>Price</TH>
+              <TH>&nbsp;</TH>
+            </TR>
+            <!--[foreach from=$objectArray item=item]-->
+              <TR>
+                <TD>  <!--[$item.refid]--></TD>
+                <TD>  <!--[$item.price]--></TD>
+                <TD> 
+                  <A HREF="<!--[pnmodurl  modname='POBBooking' 
+                                                type='admin' 
+                                                func='view' 
+                                                ctrl='Customer'
+                                                id=$item.cus_id
+                                     ]-->"
+                        >[view]
+                  </A>
+                 </TD>
+              </TR>
+            <!--[/foreach]-->
+            <TR>
+              <TD></TD>
+            </TR>
+          </TABLE>
+          <!--[else]-->
+              <TABLE>
+              <TR align="center">
+                <TD><B><FONT COLOR="#FF0000">Not data in this list.</FONT></B></TD>
+              </TR>
+              </TABLE>
+          <!--[/if]-->
+      </div>
+<!--[include file='admin_menu_footer.htm']-->
+
+
+
+
+
+

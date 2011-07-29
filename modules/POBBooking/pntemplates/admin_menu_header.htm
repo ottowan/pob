@@ -1,0 +1,64 @@
+  <link type='text/css' href='modules/POBBooking/pnstyle/tabmenu/tabmenu-admin.css' rel='stylesheet'>
+  <link type='text/css' href='modules/POBBooking/pnstyle/leftmenu/leftmenu-admin.css' rel='stylesheet'>
+  <link type='text/css' href='modules/POBBooking/pnstyle/content/content-admin.css' rel='stylesheet'>
+
+  <body>
+  <div id="wrapper">
+    <div id="tab">
+      <div class="tab"><h3 class="tabtxt" title="first"><a href="<!--[pnmodurl modname='POBBooking' type='admin']-->" class="link">Home</a></h3></div>
+      <div class="tab"><h3 class="tabtxt" title="third"><a href="<!--[pnmodurl modname='iHotel' type='admin']-->" class="link">Hotel</a></h3></div>
+      <div class="tab"><h3 class="tabtxt" title="third"><a href="<!--[pnmodurl modname='iHotel' type='user']-->" class="link">User page</a></h3></div>
+    </div>
+  </div>
+  <table width="100%" border="0" cellpadding="5" cellspacing="5">
+    <tr>
+      <td valign="top" width="15%">
+      <div class="left_nav">
+        <h2>Hotel Management</h2>
+        <h3>Hotel </h3>
+        <ul>
+          <li>
+          <a href="<!--[pnmodurl modname='iHotel' type='admin' func='list' ctrl='Season']-->" style="font-size:12px">Season</a> 
+          </li>
+           <li>
+          <a href="<!--[pnmodurl modname='iHotel' type='admin' func='list' ctrl='RoomType']-->" style="font-size:12px">Room Type</a> 
+          </li>
+          <li>
+          <a href="<!--[pnmodurl modname='iHotel' type='admin' func='list' ctrl='BedType']-->" style="font-size:12px">Bed Type</a> 
+          </li>
+          <li>
+          <a href="<!--[pnmodurl modname='iHotel' type='admin' func='form' ctrl='Price']-->" style="font-size:12px">Price</a> 
+          </li>
+        </ul>
+      </div>
+
+
+
+
+      <div class="left_nav">
+        <h2>Order Hotel</h2>
+        <h3>Order</h3>
+        <ul>
+          <li>
+            <a href="<!--[pnmodurl modname='POBBooking' type='admin']-->" style="font-size:12px">Order List</a>
+          </li>
+          <li>
+            <a href="<!--[pnmodurl modname='POBBooking' type='admin' func='list' ctrl='Customer' status_id='4']-->" style="font-size:12px">Rofund Order Disible</a>
+          </li>
+          <li>
+            <a href="<!--[pnmodurl modname='POBBooking' type='admin' func='list' ctrl='Customer' status_id='1']-->" style="font-size:12px">Finished Order</a>
+          </li>
+          <li>
+            <a href="<!--[pnmodurl modname='POBBooking' type='admin' func='list' ctrl='Customer' status_id='3']-->" style="font-size:12px">Unpiad Order</a>
+          </li>
+          <li>
+            <a href="<!--[pnmodurl modname='POBBooking' type='admin' func='list' ctrl='Customer' status_id='2']-->" style="font-size:12px">New Order</a>
+          </li>
+        </ul>
+      </div>
+
+
+  </TD>
+  <TD width="85%" valign="top">
+    <div id="main-content">
+    <div class="content">

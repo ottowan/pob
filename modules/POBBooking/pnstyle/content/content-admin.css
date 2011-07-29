@@ -1,0 +1,62 @@
+.content{
+  width:100%;
+  padding: 0 px;
+  margin:  0 0 10px 0;
+  border: solid 1px #EAF3FE; 
+}
+/*
+.right_nav{
+  width:100%;
+  padding: 0 px;
+  margin:  0 0 10px 0;
+  border: solid 1px #EAF3FE; 
+}
+*/
+#theme_content .content h2, .content h2{
+  background-color:#EAF3FE;
+  font-size: 12px;
+  padding: 3px 6px;
+  margin:0;
+  font-weight:bold;
+}
+
+#theme_content .content h3, .content h3 {
+  color:#E47911;
+  font-family:verdana,arial,helvetica,sans-serif;
+  font-size:100%;
+  font-weight:bold;
+  font-size: 12px;
+  padding: 3px 6px;
+  margin:0;
+}
+#theme_content .content ul, content_ul{
+  margin:0px 0px 5px 10px ;
+  padding:0px;
+}
+#theme_content .content ul li , content_ul li {
+  list-style-type:none;
+  margin:0px;
+  padding:0px;
+}
+#theme_content .content ul li a , content_ul li a {
+  color:#003399;
+  font-family:Arial,sans-serif;
+  font-weight: normal;
+  text-decoration:none;
+}
+#theme_content .content ul li a:hover , content_ul li a:hover {
+  text-decoration:underline;
+}
+
+
+table.content_admin td{
+  border-right: solid 1px #EAF3FE;
+  border-top: solid 1px #EAF3FE;
+/*border-style: dashed;
+border-width: 1px; */
+}
+
+table.content_admin td.td_last{
+  border-top: solid 1px #EAF3FE;
+  border-right: none;
+}
