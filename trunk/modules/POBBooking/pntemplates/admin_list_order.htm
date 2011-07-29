@@ -1,0 +1,66 @@
+<!--[include file='admin_menu_header.htm']-->
+    <div id="main-content">
+      <div class="content">
+        <h2>Order report</h2>
+        <TABLE class="content_admin" width="100%" cellspacing="1" cellpadding="3">
+          <TR>
+            <TD width="20%">Finished Order</TD>
+            <TD width="30%">
+              <A HREF="<!--[pnmodurl  modname='POBBooking' 
+                                      type='admin' 
+                                      func='list' 
+                                      ctrl='POBBooking'
+                                      status_id=1
+                           ]-->"
+              >
+                <!--[count_order_finish]-->
+              </A>
+            </TD>
+            <TD width="20%">Refund Order</TD>
+            <TD width="30%">
+              <A HREF="<!--[pnmodurl  modname='POBBooking' 
+                                      type='admin' 
+                                      func='list' 
+                                      ctrl='POBBooking'
+                                      status_id=4
+                           ]-->"
+              >
+              <!--[count_order_refund]-->
+              </A>
+            </TD>
+          </TR>
+
+          <TR>
+            <TD width="20%">Unpaid Order</TD>
+            <TD width="30%">
+              <A HREF="<!--[pnmodurl  modname='POBBooking' 
+                                      type='admin' 
+                                      func='list' 
+                                      ctrl='POBBooking'
+                                      status_id=3
+                           ]-->"
+              >
+              <!--[count_order_unpaid]-->
+              </A>
+            </TD>
+            <TD width="20%">New Order</TD>
+            <TD width="30%">
+              <A HREF="<!--[pnmodurl  modname='POBBooking' 
+                                      type='admin' 
+                                      func='list' 
+                                      ctrl='Customer'
+                                      status_id=2
+                           ]-->"
+              >
+              <!--[count_order_new]-->
+              </A>
+            </TD>
+          </TR>
+        </TABLE>
+      </div>
+
+<!--[include file='admin_menu_footer.htm']-->
+
+
+
+
