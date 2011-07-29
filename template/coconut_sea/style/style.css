@@ -9,10 +9,9 @@ font:76% Verdana,Tahoma,Arial,sans-serif;
 line-height:1.4em;
 text-align:center;
 color:#303030;
-background:#e8eaec;
 margin: 0 0 0 0;
 padding: 0 0 0 0;
-background:#f6eceb url(../images/bg.jpg)top center no-repeat;
+background:#e4bc8b url(../images/bg.jpg)top center no-repeat;
 }
 
 a{
@@ -122,7 +121,7 @@ text-decoration:none;
 	}
 #content_center{
 	float:left;
-	height:auto;
+	min-height:760px;;
 	width:100%;
 	background:url(../images/bg_repeat.png) repeat-y;
 	}
@@ -181,7 +180,31 @@ background-color:inherit;
 	height:500px;
 	padding:0px 0px 0px 30px;
 	}
+#theme_subcontent .box{
+	color:#000;
+	height:auto;
+	width:250px;
+	background-color:transparent;
 
+	
+	
+	}
+#theme_subcontent .search{
+	display:none;
+	}
+#theme_subcontent #submitButton{
+	background: url(../images/button.jpg) no-repeat ;
+	width:77px;
+	height:38px;
+	border:none;
+	}	
+#theme_subcontent #submitButton:hover{
+	opacity:0.8;
+	cursor:pointer;
+	} 
+#theme_subcontent table{
+	margin:0 0 0 5px;
+	} 
 #theme_subcontent{
 	text-align:left;
 	float:left;
