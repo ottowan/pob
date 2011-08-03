@@ -43,6 +43,9 @@ function POBPortal_search_searchResult(){
   $repackArray = array();
   $repackArray = repackArrayForDisplay($arrayResponse);
   //echo count($repackArray); exit;
+  //var_dump($repackArray[3]["ThumbItem"]["URL"]); exit;
+
+
   if($repackArray){
     $render->assign("objectArray", $repackArray );
     return $render->fetch('user_list_hotel.htm');
@@ -66,6 +69,7 @@ function POBPortal_search_view(){
 
   if($latitude && $longitude){
     $distance  = "0.001";
+    //$distance  = "0";
     //Send param to HotelSearch service 
     Loader::loadClass('HotelSearchEndpoint',"modules/POBPortal/pnincludes");
     $hotelSearch = new HotelSearchEndpoint();
@@ -95,22 +99,24 @@ function POBPortal_search_view(){
     $issetArray = false;
   }
 
-    if($issetArray == true){
-      $render->assign("view", $repackArray );
-      return $render->fetch('user_view_hotel.htm');
-    }else{
-      $render->assign("view", null );
-      return $render->fetch('user_view_hotel.htm');
-    }
+
+    
+  if($issetArray == true){
+    $render->assign("view", $repackArray );
+    return $render->fetch('user_view_hotel.htm');
+  }else{
+    $render->assign("view", null );
+    return $render->fetch('user_view_hotel.htm');
+  }
 }
 
 function repackArrayForDisplay($originalArray){
 
   $repackArray = array();
   if($originalArray["Properties"]["Properties"]){
-    /////////////////////////
-    //Display multi item
-    /////////////////////////
+    //////////////////////////////////////////
+    //Display multi item (page list)
+    //////////////////////////////////////////
     //echo count($arrayResponse["Properties"]["Properties"]);
     for($i=0; $i<count($originalArray["Properties"]["Properties"]); $i++){
 
@@ -161,7 +167,6 @@ function repackArrayForDisplay($originalArray){
             $repackArray[$i]["Availabilities"][0]["Limit"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["Limit"];
             $repackArray[$i]["Availabilities"][0]["Rate"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["Rate"];
             $repackArray[$i]["Availabilities"][0]["RatePlanCode"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["RatePlanCode"];
-
      }//End if : check Availability array
 
 
@@ -171,17 +176,49 @@ function repackArrayForDisplay($originalArray){
     // Array 3 : ImageFormat
     ///////////////////////////////////
 
-      if($originalArray["Properties"]["Properties"][$i]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"]){
-        $repackArray[$i]["ImageItems"][0]["url"] = $originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"];
+      //if($originalArray["Properties"]["Properties"][$i]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"]){
+      //  $repackArray[$i]["ImageItems"][0]["url"] = $originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"];
+      //} //End check image
+
+
+    ///////////////////////////////////
+    // Array 1 : MultimediaDescriptions
+    // Array 2 : ImageItems
+    // Array 3 : ImageFormat
+    ///////////////////////////////////
+      ///////////////////////////////
+      //Get image
+      //////////////////////////////
+      $MultimediaDescriptions = $originalArray["Properties"]["Properties"][$i]["MultimediaDescriptions"]["MultimediaDescriptions"];
+      if($MultimediaDescriptions){
+          foreach($MultimediaDescriptions as $item){
+            if (array_key_exists('ImageItems', $item)) {
+
+              $ImageItems = $item["ImageItems"]["ImageItems"];
+              //var_dump($ImageItems[0]); exit;
+              $repackArray[$i]["ImageItems"]["category"] = $ImageItems[0]["@attributes"]["Category"];
+              $ImageItem = $ImageItems[0]["ImageFormat"];
+              if($repackArray[$i]["ImageItems"]["category"] == 6){
+                $repackArray[$i]["ImageItem"]["URL"] = $ImageItem[0]["URL"];
+              }
+
+              if($repackArray[$i]["ImageItems"]["category"] == 1){
+                $repackArray[$i]["ThumbItem"]["URL"] = $ImageItem[0]["URL"];
+              }
+              //var_dump($repackArray["ImageItems"]); exit;
+            }
+        }
+
       } //End check image
+
     }//End loop  : loop Properties array
 
 
 //End if : check Properties array
   }else if($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"] == 0 && $originalArray["Properties"]["Property"]){
-      /////////////////////////
-      //Display one item
-      /////////////////////////
+      //////////////////////////////////////////
+      //Display one item (page view)
+      //////////////////////////////////////////
       //Repack Hotel information
       $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
       $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
@@ -245,7 +282,7 @@ function repackArrayForDisplay($originalArray){
 
     }
       //var_dump($repackArray["ImageItems"][0]["category"]); exit;
-      return $repackArray;
+      //return $repackArray;
   }
 
   //var_dump($originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"]); exit;

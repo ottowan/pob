@@ -61,10 +61,8 @@
 
       <td valign="top">
 
-        <!--[if isset($item.ImageItems)]-->
-          <!--[foreach from=$item.ImageItems item=itemImage]-->
-              <img width="100" height="100" src="<!--[$itemImage.url]-->" alt="<!--[$item.HotelName]-->" class="recthumb">
-          <!--[/foreach]-->
+        <!--[if isset($item.ThumbItem.URL)]-->
+            <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" alt="<!--[$item.HotelName]-->" class="recthumb">
         <!--[else]-->
               <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
         <!--[/if]-->
@@ -103,7 +101,9 @@
                     <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
                     <th width="30%" align="right">ราคา</th>
                   </tr>
-                  <!--[foreach from=$item.Availabilities item=itemAvailabilities]-->
+
+                  <!--[group_availabilities_array avail=$item.Availabilities]-->
+                  <!--[foreach from=$groupAvailabilities item=itemAvailabilities]-->
                   <tr>
                     <td align="left">
                       <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">

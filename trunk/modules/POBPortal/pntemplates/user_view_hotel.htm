@@ -33,6 +33,14 @@
     float:right;
   }
 
+  #bookingButton a{
+    color:#fff;
+  }
+
+  #bookingButton a:hover{
+    text-decoration:none;
+  }
+
   #distance{
     color:#cccccc;
   }
@@ -55,101 +63,107 @@
 
 </style>
 
-
-<table width="100%">
-    <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
-      <td valign="top">
-        <p>
-          <span id="hotelname"><a href="#"><!--[$view.HotelName]--></a></span> 
-          <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
-          <em id="address"><!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]--></em><br>
-        </p>
-      </td>
-    </tr>
-    <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
-      <td valign="top">
-
-        <!--[if isset($view.ImageItems)]-->
-          <table width="100%">
-            <tr>
-              <td>
-                <table>
-                <!--[foreach from=$view.ImageItems item=imageItems]-->
-                  <!--[foreach from=$imageItems.ImageItem item=imageItem]-->
-                    <tr>
-                      <td><img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb"></td>
-                    </tr>
+<form method="post" action="index.php?module=POBBooking">
+  <table width="100%">
+      <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
+        <td valign="top">
+          <p>
+            <span id="hotelname"><a href="#"><!--[$view.HotelName]--></a></span> 
+            <img src="modules/POBPortal/pnimages/stars<!--[math equation=rand(2,5)]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+            <em id="address"><!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]--></em><br>
+          </p>
+        </td>
+      </tr>
+      <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
+        <td valign="top">
+          <!--[if isset($view.ImageItems)]-->
+            <table width="100%">
+              <tr>
+                <td>
+                  <table>
+                  <!--[foreach from=$view.ImageItems item=imageItems]-->
+                    <!--[foreach from=$imageItems.ImageItem item=imageItem]-->
+                      <tr>
+                        <td><img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb"></td>
+                      </tr>
+                    <!--[/foreach]-->
                   <!--[/foreach]-->
-                <!--[/foreach]-->
-                </table>
-              </td>
-              <td>
-                <!--[foreach from=$view.ImageItems item=imageItems]-->
-                  <!--[foreach from=$imageItems.ThumbItem item=imageItem]-->
-                    <img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb">
+                  </table>
+                </td>
+                <td>
+                  <!--[foreach from=$view.ImageItems item=imageItems]-->
+                    <!--[foreach from=$imageItems.ThumbItem item=imageItem]-->
+                      <img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb">
+                    <!--[/foreach]-->
                   <!--[/foreach]-->
-                <!--[/foreach]-->
-              </td>
-            </tr>
+                </td>
+              </tr>
+            </table>
+          <!--[else]-->
+                <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$view.HotelName]-->" class="recthumb">
+          <!--[/if]-->
+        </td>
+      </tr>
+      <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
+        <td>
+          <p>
+            <span class="description"><!--[$view.Description]-->&nbsp;&nbsp;</span>
+          </p>
+        </td>
+      </tr>
+      <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
+      <!--[/foreach]-->
 
-          </table>
-        <!--[else]-->
-              <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$view.HotelName]-->" class="recthumb">
-        <!--[/if]-->
-      </td>
-    </tr>
-    <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
-      <td>
-        <p>
-          <span class="description"><!--[$view.Description]-->&nbsp;&nbsp;</span>
-        </p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <!--[if $view.Availabilities]-->
-          <table width="100%">
-            <tr>
-              <th width="40%" align="left">ประเภทห้องที่ว่าง</th>
-              <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
-              <th width="15%" align="center">จำนวนห้องพัก</th>
-              <th width="30%" align="right">ราคา</th>
-            </tr>
-            <!--[foreach from=$view.Availabilities item=itemAvailabilities]-->
-            <tr>
-              <td align="left">
-                <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                  <!--[$itemAvailabilities.InvCode]-->
-                </a>
-              </td>
-              <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-              <td align="center">
-                <select name="amount">
-                  <!--[section name=limit loop=$itemAvailabilities.Limit  start=1 step=1]-->
-                    <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
-                  <!--[/section]-->
-                </select>
-              </td>
-              <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-            </tr>
-            <!--[/foreach]-->
-          </table>
-        <!--[else]-->
-        <tr align="left">
-          <td><font color="#cc0066"><b>ไม่มีห้องว่างเหลือ</b></font></td>
-        </tr>
-        <!--[/if]-->
-      </td>
-    </tr>
-    <tr>
-      <td>&nbsp;
-      </td>
-    </tr>
-    <tr align="right">
-      <td><button id="bookingButton" type="submit">ทำการจอง</button></td>
-    </tr>
-</table>
+      <!--[if $tempAvailabilities.Limit]-->
+      <tr>
+        <td>
+            <table width="100%">
+              <tr>
+                <th width="40%" align="left">ประเภทห้องที่ว่าง</th>
+                <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
+                <th width="15%" align="center">จำนวนห้องพัก</th>
+                <th width="30%" align="right">ราคา</th>
+              </tr>
 
+              <!--[group_availabilities_array avail=$view.Availabilities]-->
+              <!--[foreach from=$groupAvailabilities item=itemAvailabilities]-->
+              
+              <tr>
+                <td align="left">
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                    <!--[$itemAvailabilities.InvCode]-->
+                  </a>
+                </td>
+                <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                <td align="center">
+                  <select name="amount">
+                      <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                    <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
+
+                      <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                    <!--[/section]-->
+                  </select>
+                </td>
+                <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+              </tr>
+              <!--[/foreach]-->
+            </table>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;
+        </td>
+      </tr>
+      <tr align="right">
+        <td><button id="bookingButton" type="submit">ทำการจอง</button></td>
+      </tr>
+      <!--[else]-->
+      <tr align="center">
+        <td><font color="#cc0066"><b>ไม่มีห้องว่างเหลือ</b></font></td>
+      </tr>
+      <!--[/if]-->
+  </table>
+</form>
 <!--[else]-->
   <div class="recommend">
       <p>
