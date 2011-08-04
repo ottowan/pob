@@ -706,7 +706,7 @@ function callback_refresh(){
 									Name
 								</td>
 								<td>
-									Description
+									Quantity
 								</td>
 								<td>
 									Type
@@ -729,7 +729,7 @@ function callback_refresh(){
 									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
 								</td>
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
+									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" ROWS="10" COLS="40" size="70" value="<!--[$item.limit]-->">
 								</td>
 								<td>
 								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
@@ -763,7 +763,11 @@ function callback_refresh(){
 									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 							</tr>
-								 
+							<tr>
+								<td>
+									<textarea name="itemGuestRoom[description]"><!--[$item.description]--></textarea>
+								</td>
+							</tr> 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->

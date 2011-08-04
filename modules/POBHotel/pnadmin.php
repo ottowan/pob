@@ -7,9 +7,9 @@
   function POBHotel_permission() {
     // Security check
     //we are allow for admin access level , see in config.php variable name ACCESS_ADMIN
-//    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_ADMIN)) {
-//        LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
-//    }
+    if (!SecurityUtil::checkPermission('POBHotel::', '::', ACCESS_ADMIN)) {
+        LogUtil::registerPermissionError(pnModUrl('Users','user','loginscreen'));
+    }
   }
 
   /**
@@ -22,7 +22,7 @@
     $currentLanguage = pnUserGetLang();
     $render->assign('languages', $languages);
     $render->assign('currentLanguage', $currentLanguage);
-    
+
   }
 
   /**
@@ -44,7 +44,7 @@
   }
 
   /**
-  * display page with class that extend Object 
+  * display page with class that extend Object
   */
   function POBHotel_admin_view() {
     POBHotel_permission();
@@ -99,14 +99,14 @@
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
     $step    = FormUtil::getPassedValue ('step', null , 'GET');
-  
+
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
     $mode = null;
     //load class
     if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
       return LogUtil::registerError ('Unable to load class [$ctrl] ...');
-    
+
     $object  = new $class ();
     if ($id && $object){
       $object->get($id);
@@ -133,12 +133,12 @@
     $ctrl    = FormUtil::getPassedValue ('ctrl', 'room' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
-  
+
     $is_export = false;
-  
+
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
-  
+
     //check is export
     $export = FormUtil::getPassedValue ('export', false);
     $button_export = FormUtil::getPassedValue ('button_export', false);
@@ -146,7 +146,7 @@
       if ($export || $button_export || $button_export_x){
       $is_export = true;
     }
-  
+
     $class = Loader::loadClassFromModule ('POBHotel', $ctrl, true);
     if ($class){
       $objectArray = new $class ();
@@ -195,16 +195,16 @@
     $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
     $id      = FormUtil::getPassedValue ('id', null , 'GET');
     $forward = FormUtil::getPassedValue ('forward', null , 'GET');
-  
+
     if ($id){
       //load class
       if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
         return LogUtil::registerError ('Unable to load class [$ctrl] ...');
-  
+
       $object  = new $class ();
       $object->_objData[$object->_objField] = $id;
       $object->delete ();
-  
+
       if($forward){
         $list_url = pnModURL('POBHotel', 'admin', 'list' , array('ctrl'   => $ctrl
                                                                 )
@@ -214,7 +214,7 @@
                                                                 )
       );
       }
-  
+
       if (method_exists($object,'genForward')){
         $forwar_url = $object->genForward();
         pnRedirect($forwar_url);
@@ -230,7 +230,7 @@
   * Create the room rate
   */
   function POBHotel_admin_createRate() {
-    POBHotel_permission();      
+    POBHotel_permission();
     $ctrl = FormUtil::getPassedValue ('ctrl', false);
     $func = FormUtil::getPassedValue ('func', false);
     $form = FormUtil::getPassedValue ('form', false);
@@ -268,7 +268,7 @@
 
 
   function POBHotel_admin_update() {
-    POBHotel_permission();      
+    POBHotel_permission();
     $ctrl = FormUtil::getPassedValue ('ctrl', false);
     $func = FormUtil::getPassedValue ('func', false);
     $status = FormUtil::getPassedValue ('status', false);

@@ -7,8 +7,8 @@ function POBHotel_userapi_getLatLon($args) {
     $objectArray->get();
     $hotelObject = $objectArray->_objData[0];
     
-    $result["latitude"] = $hotelObject["position_latitude"]
-    $result["longitude"] = $hotelObject["position_longitude"]
+    $result["latitude"] = $hotelObject["position_latitude"];
+    $result["longitude"] = $hotelObject["position_longitude"];
     
     return $result;
 }
