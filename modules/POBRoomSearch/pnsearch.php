@@ -1,4 +1,5 @@
 <?php
+/*
 function POBRoomSearch_search_searchResult(){
 
   $render = pnRender::getInstance('POBRoomSearch');
@@ -46,27 +47,47 @@ function POBRoomSearch_search_searchResult(){
 
   if($repackArray){
     $render->assign("objectArray", $repackArray );
-    return $render->fetch('user_list_hotel.htm');
+    return $render->fetch('user_list_room.htm');
   }else{
     $render->assign("objectArray", null );
-    return $render->fetch('user_list_hotel.htm');
+    return $render->fetch('user_list_room.htm');
   }
 
 }
-
+*/
 
 
 function POBRoomSearch_search_view(){
 
   $render = pnRender::getInstance('POBRoomSearch');
 
-  $startDate = FormUtil::getPassedValue ('startDate', FALSE, 'REQUEST');
-  $endDate = FormUtil::getPassedValue ('endDate', FALSE, 'REQUEST');
-  $latitude = FormUtil::getPassedValue ('lat', FALSE, 'REQUEST');
-  $longitude = FormUtil::getPassedValue ('lon', FALSE, 'REQUEST');
+  
+  $startDay = FormUtil::getPassedValue ('startDay', FALSE, 'POST');
+  $startMonth = FormUtil::getPassedValue ('startMonth', FALSE, 'POST');
+  $startYear = FormUtil::getPassedValue ('startYear', FALSE, 'POST');
+
+  $endDay = FormUtil::getPassedValue ('endDay', FALSE, 'POST');
+  $endMonth = FormUtil::getPassedValue ('endMonth', FALSE, 'POST');
+  $endYear = FormUtil::getPassedValue ('endYear', FALSE, 'POST');
+
+
+  $startDate = $startYear."-".$startMonth."-".$startDay;
+  $endDate   = $endYear."-".$endMonth."-".$endDay;
+
+  $latlonArray = pnModAPIFunc('POBHotel', 'user', 'getLatLon');
+  //var_dump($latlonArray); exit;
+  $latitude  = $latlonArray["latitude"];
+  $longitude = $latlonArray["longitude"];
+
+  //$latitude  = "7.771828058680014";
+  //$longitude = "98.3205502599717";
+
+  //var_dump($longitude); exit;
 
   if($latitude && $longitude){
     $distance  = "0.001";
+
+
     //$distance  = "0";
     //Send param to HotelSearch service 
     Loader::loadClass('HotelSearchEndpoint',"modules/POBRoomSearch/pnincludes");
@@ -75,18 +96,21 @@ function POBRoomSearch_search_view(){
 
     //XML Response
     $response = $hotelSearch->getHotelSearchXML();
-    //print($response); exit;
+    //var_dump($response); exit;
 
     //Convert xml response to array
     Loader::loadClass('POBReader',"modules/POBRoomSearch/pnincludes");
     $reader = new POBReader();
     $arrayResponse = $reader->xmlToArray($response);
-    //var_dump($arrayResponse["Properties"]["Property"]["RelativePosition"]); exit;
+
     $arrayResponse["startDate"] = $startDate;
     $arrayResponse["endDate"] = $endDate;
-
+    //var_dump($arrayResponse); exit;
     $repackArray = array();
     $repackArray = repackArrayForDisplay($arrayResponse);
+
+    //echo ((int)$repackArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
+    
     if($repackArray){
       $issetArray  = true;
     }else{
@@ -99,119 +123,19 @@ function POBRoomSearch_search_view(){
     
   if($issetArray == true){
     $render->assign("view", $repackArray );
-    return $render->fetch('user_view_hotel.htm');
+    return $render->fetch('user_view_room.htm');
   }else{
     $render->assign("view", null );
-    return $render->fetch('user_view_hotel.htm');
+    return $render->fetch('user_view_room.htm');
   }
 }
 
 function repackArrayForDisplay($originalArray){
-
+  $distanceValidate = floor($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]);
   $repackArray = array();
-  if($originalArray["Properties"]["Properties"]){
-    //////////////////////////////////////////
-    //Display multi item (page list)
-    //////////////////////////////////////////
-    //echo count($arrayResponse["Properties"]["Properties"]);
-    for($i=0; $i<count($originalArray["Properties"]["Properties"]); $i++){
+  if($distanceValidate == 0 && $originalArray["Properties"]["Property"]){
 
-      $repackArray[$i]["startDate"] = $originalArray["startDate"];
-      $repackArray[$i]["endDate"]   = $originalArray["endDate"];
-
-      //Repack Hotel information
-      $repackArray[$i]["HotelCode"] = $originalArray["Properties"]["Properties"][$i]["@attributes"]["HotelCode"];
-      $repackArray[$i]["HotelName"] = $originalArray["Properties"]["Properties"][$i]["@attributes"]["HotelName"];
-      $repackArray[$i]["Description"] = $originalArray["Properties"]["Properties"][$i]["@attributes"]["Description"];
-
-      //Repack Relative position
-      $repackArray[$i]["Direction"] = $originalArray["Properties"]["Properties"][$i]["RelativePosition"]["RelativePosition"]["Direction"];
-      $repackArray[$i]["DistanceUnitName"] = $originalArray["Properties"]["Properties"][$i]["RelativePosition"]["RelativePosition"]["DistanceUnitName"];
-      $repackArray[$i]["Distance"] = number_format(mileToKilometre($originalArray["Properties"]["Properties"][$i]["RelativePosition"]["RelativePosition"]["Distance"]), 2);
-      $repackArray[$i]["Latitude"] = $originalArray["Properties"]["Properties"][$i]["RelativePosition"]["RelativePosition"]["Latitude"];
-      $repackArray[$i]["Longitude"] = $originalArray["Properties"]["Properties"][$i]["RelativePosition"]["RelativePosition"]["Longitude"];
-
-      //Repack ContactInfo
-      $repackArray[$i]["AddressLine"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["AddressLine"];
-      $repackArray[$i]["CityName"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["CityName"];
-      $repackArray[$i]["CountryName"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["CountryName"];
-      $repackArray[$i]["PhoneNumber"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["PhoneNumber"];
-      $repackArray[$i]["PostalCode"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["PostalCode"];
-      $repackArray[$i]["StateProv"] = $originalArray["Properties"]["Properties"][$i]["ContactInfo"]["ContactInfo"]["StateProv"];
-
-      $repackArray[$i]["startDate"] = $originalArray["startDate"];
-      $repackArray[$i]["endDate"]   = $originalArray["endDate"];
-
-      //$repackArray[$i]["Availabilities"] =  $originalArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"];
-
-      //var_dump($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"]); exit;
-      if($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"]){
-          for($j=0; $j<count($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"]); $j++){
-            $repackArray[$i]["Availabilities"][$j]["Date"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][$j]["Availability"]["Date"];
-            $repackArray[$i]["Availabilities"][$j]["InvCode"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][$j]["Availability"]["InvCode"];
-            $repackArray[$i]["Availabilities"][$j]["Limit"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][$j]["Availability"]["Limit"];
-            $repackArray[$i]["Availabilities"][$j]["Rate"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][$j]["Availability"]["Rate"];
-            $repackArray[$i]["Availabilities"][$j]["RatePlanCode"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][$j]["Availability"]["RatePlanCode"];
-
-          }//End loop  : loop Availabilities array
-
-      //End if : check Availabilities array
-      }else if($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]){
-            //echo "unknown";
-            $repackArray[$i]["Availabilities"][0]["Date"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["Date"];
-            $repackArray[$i]["Availabilities"][0]["InvCode"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["InvCode"];
-            $repackArray[$i]["Availabilities"][0]["Limit"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["Limit"];
-            $repackArray[$i]["Availabilities"][0]["Rate"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["Rate"];
-            $repackArray[$i]["Availabilities"][0]["RatePlanCode"] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]["Availability"]["RatePlanCode"];
-     }//End if : check Availability array
-
-
-    ///////////////////////////////////
-    // Array 1 : MultimediaDescriptions
-    // Array 2 : ImageItems
-    // Array 3 : ImageFormat
-    ///////////////////////////////////
-
-      //if($originalArray["Properties"]["Properties"][$i]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"]){
-      //  $repackArray[$i]["ImageItems"][0]["url"] = $originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"];
-      //} //End check image
-
-
-    ///////////////////////////////////
-    // Array 1 : MultimediaDescriptions
-    // Array 2 : ImageItems
-    // Array 3 : ImageFormat
-    ///////////////////////////////////
-      ///////////////////////////////
-      //Get image
-      //////////////////////////////
-      $MultimediaDescriptions = $originalArray["Properties"]["Properties"][$i]["MultimediaDescriptions"]["MultimediaDescriptions"];
-      if($MultimediaDescriptions){
-          foreach($MultimediaDescriptions as $item){
-            if (array_key_exists('ImageItems', $item)) {
-
-              $ImageItems = $item["ImageItems"]["ImageItems"];
-              //var_dump($ImageItems[0]); exit;
-              $repackArray[$i]["ImageItems"]["category"] = $ImageItems[0]["@attributes"]["Category"];
-              $ImageItem = $ImageItems[0]["ImageFormat"];
-              if($repackArray[$i]["ImageItems"]["category"] == 6){
-                $repackArray[$i]["ImageItem"]["URL"] = $ImageItem[0]["URL"];
-              }
-
-              if($repackArray[$i]["ImageItems"]["category"] == 1){
-                $repackArray[$i]["ThumbItem"]["URL"] = $ImageItem[0]["URL"];
-              }
-              //var_dump($repackArray["ImageItems"]); exit;
-            }
-        }
-
-      } //End check image
-
-    }//End loop  : loop Properties array
-
-
-//End if : check Properties array
-  }else if($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"] == 0 && $originalArray["Properties"]["Property"]){
+      //var_dump($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
       //////////////////////////////////////////
       //Display one item (page view)
       //////////////////////////////////////////
