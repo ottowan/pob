@@ -1,0 +1,22 @@
+<form action="#" method="post">
+  <input type="hidden" name="forward[modname]" value="InnoGallery" />
+  <input type="hidden" name="forward[func]" value="view" />
+  <input type="hidden" name="forward[ctrl]" value="albums" />
+  <input type="hidden" name="forward[id]" value="<!--[$_GET.id]-->" />
+
+  <input type="hidden" name="form[albums_id]" value="<!--[$_GET.id]-->" />
+  <table width="70%" border="1">
+    <tr>
+      <td><!--[pnml name="_INNOGALLERY_USER_FORM_PICTURES_PHOTONAME"]--></td>
+      <td><input type="text" name="form[caption]" /></td>
+    </tr>
+    <tr>
+      <td><!--[pnml name="_INNOGALLERY_USER_FORM_PICTURES_PHOTODESCRIPTION"]--></td>
+      <td><textarea name="form[detail]" id="form[detail]"></textarea></td>
+    </tr>
+    <tr>
+      <td><!--[pnml name="_INNOGALLERY_USER_FORM_PICTURES_PHOTO"]--></td>
+      <td><input type="file" name="form[file]" /></td>
+    </tr>
+  </table>
+</form>

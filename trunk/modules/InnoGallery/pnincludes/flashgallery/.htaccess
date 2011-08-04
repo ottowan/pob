@@ -1,0 +1,6 @@
+# File: $Id: .htaccess,v 1.1 2008/12/16 08:51:01 cvsuser Exp $
+# ----------------------------------------------------------------------
+# Purpose of file: block any web access to files stored under
+#                  the modules/ directory
+# ----------------------------------------------------------------------
+Allow from all

@@ -1,0 +1,14 @@
+<script type="text/javascript" src="<!--[modulepath]-->/pnincludes/imagerotator/swfobject.js"></script>
+<fieldset>
+<div id="container">
+  <a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this rotator.
+</div>
+<script type="text/javascript">
+  var s1 = new SWFObject("<!--[modulepath]-->/pnincludes/imagerotator/imagerotator.swf","rotator","400","200","7");
+  s1.addParam("allowfullscreen","true");
+  s1.addVariable("file","http://localhost/madrid.xml.php");
+  
+  s1.addVariable("width","400");
+  s1.addVariable("height","200");
+  s1.write("container");
+</script>

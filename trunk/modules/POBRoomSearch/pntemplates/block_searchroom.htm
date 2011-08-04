@@ -1,0 +1,88 @@
+<style type="text/css">
+  .box_search{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    width:470px;
+    height:220px;
+    background-color:#fbab34;
+    padding: 10px;
+    color:#FFF;
+    font-size:16px;
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    margin:0 0 20px 0px;
+  }
+
+  .search{
+    -webkit-border-radius: 05px;
+    -moz-border-radius: 05px;
+    border-radius: 05px;
+    border:none;
+    width:400px;
+    height:25px;
+    border: 1px solid #9B9B9B;
+    border-bottom: 1px solid #D8D8D8;
+    border-right: 1px solid #D8D8D8;
+  }
+
+  .box_search select{
+    -webkit-border-radius: 05px;
+    -moz-border-radius: 05px;
+    border-radius: 05px;
+    border:none;
+    width: auto;
+    height:25px;
+    border: 1px solid #9B9B9B;
+    border-bottom: 1px solid #D8D8D8;
+    border-right: 1px solid #D8D8D8;
+    float: left;
+    }
+  .box_search p{
+    font-size:30px;
+    color:#fff;
+    text-shadow: 0.05em 0.05em 0.05em #333
+    }
+  .box_search h3{
+    font-size:20px;
+    color:#003580;
+    text-shadow: 0.05em 0.05em 0.05em #fff
+  }
+
+  #submitButton{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border:none;
+    width:100px;
+    height:35px;
+    color:#fff;
+    font-size:20px;
+    border:#FFF 3px solid;
+    background-color:#0896ff;
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    float:right;
+  }
+
+  #submitButton:hover{
+    background-color:#cccccc;
+  }
+</style>
+<div class="box_search">
+<h3>ค้นหาห้องพัก</h3>
+<FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBRoomSearch' type='search' func='searchResult']-->">
+  <TABLE width="100%">
+    <TR>
+      <TD colspan="2">วันที่เช็คอิน</TD>
+      <td colspan="2">วันที่เช็คเอ้าท์</TD>
+    </TR>
+    <TR>
+      <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></TD>
+      <TD colspan="2"><!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--></TD>
+    </TR>
+    <TR>
+      <TD colspan="2">&nbsp;</TD>
+      <td colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
+    </TR>
+  </TABLE>
+</FORM>
+</div>
