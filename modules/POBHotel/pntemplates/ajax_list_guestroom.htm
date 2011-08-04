@@ -12,36 +12,36 @@ jQuery(document).ready(function($) {
 
 						<!--[if isset($objectArray)]-->
 							<TABLE width="900">
+							<!--[foreach from=$objectArray item=item]-->
 								<tr>
-								<td>
+								<td width="186">
 									Name
 								</td>
-								<td>
-									Description
+								<td width="95">
+									Quantity
 								</td>
-								<td>
+								<td width="125">
 									Type
 								</td>
-								<td>
+								<td width="124">
 									Season
 								</td>
-								<td>
+								<td width="129">
 									Price
 								</td>
-								<td>
+								<td width="111">
 									Capacity
 								</td>
-								<td>
-									
-								</td>
+								<td width="98">
+								  </td>
 								</tr>
-								<!--[foreach from=$objectArray item=item]-->
+								
 								<tr>
 								<td>
 									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
 								</td>
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
+									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
 								</td>
 								<td>
 								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
@@ -74,9 +74,29 @@ jQuery(document).ready(function($) {
 								<td>
 									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
-								
 							</tr>
-								 
+							<tr>
+								<td>
+										Description
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="7">
+									<textarea name="itemGuestRoom[description]" ROWS="3" COLS="50"><!--[$item.description]--></textarea>
+                                </td>
+                            </tr> 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->
