@@ -62,6 +62,29 @@
   }
 
 </style>
+<!--[group_availabilities_array avail=$view.Availabilities]-->
+
+<script type="text/javascript">
+  function validateNumberOfRoom(){
+
+    var rows = <!--[$groupAvailabilities|@count]-->;
+    
+    var number = 0;
+    var validate = false;
+    for (i=0;i<rows;i++){
+      number = document.getElementById("number_"+i).value;
+      //alert(number+"<br>");
+      if(number > 0){
+        validate = true;
+      }
+    }
+
+    if(!validate) {
+      alert("โปรดเลือกจำนวนห้องพักที่ต้องการ");
+      return false;
+    }
+  }
+</script>
 
 <form method="post" action="index.php?module=POBBooking">
 
@@ -149,7 +172,8 @@
                 </td>
                 <td align="center"><!--[$itemAvailabilities.Limit]--></td>
                 <td align="left">
-                  <select name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
+                  <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                          name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
                     <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
                     <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
 
@@ -168,7 +192,7 @@
         </td>
       </tr>
       <tr align="right">
-        <td><button id="bookingButton" type="submit">ทำการจอง</button></td>
+        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();">ทำการจอง</button></td>
       </tr>
       <!--[else]-->
       <tr align="center">
