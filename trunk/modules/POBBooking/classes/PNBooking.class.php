@@ -11,7 +11,7 @@ class PNBooking extends PNObject {
     $this->_init($init, $where);
   }
 
-  function insertPostProcess(){
+  function insertPreProcess(){
 
     $form = FormUtil::getPassedValue ('form', false );
     $chaincode = "";
@@ -19,7 +19,7 @@ class PNBooking extends PNObject {
     $card_exp_year = substr($this->_objData['card_exp_year'], -2);
     $cardexpiredate = $card_exp_month.$card_exp_year;
     $roomstays = $this->_objData['roomstays'];
-
+/*
 form[isocurrency]
 form[identificational]
 form[nameprefix]
@@ -44,7 +44,7 @@ form[cardbankname]
 form[cardissuingcountry]
                      
 form[hotelcode]
-
+*/
 
     /////////////////////////////////////////////////////
     //////// GEN XML ////////
@@ -170,12 +170,13 @@ form[hotelcode]
                             $CountryName = $xml->createElement("CountryName", $this->_objData['countryname']);
                             $Address->appendChild($CountryName);
 
-     //$xml->saveXML();
-    //print $xml->saveXML();
-    //$xml->save("OTA_HotelResRQ1.xml");
+    $xml->saveXML();
+    print $xml->saveXML();
+	echo $xml->asXML();
+    $xml->save("OTA_HotelResRQ1.xml");
 
 ////send xml
-    $url = 'http://pob-ws.heroku.com/api/hotel_res';
+/*    $url = 'http://pob-ws.heroku.com/api/hotel_res';
     $data = $xml->saveXML();
     //$data = $data->saveXML();
     print $data;
@@ -189,7 +190,7 @@ form[hotelcode]
     $response = curl_exec($ch);
 
     curl_close($ch);
-
+*/
     //print $response;
     //exit;
 
@@ -197,12 +198,3 @@ form[hotelcode]
 
     }
   }
-
-
-
-
-
-
-
-
-}
