@@ -30,19 +30,20 @@
                                                   'refid'               => 'cus_refid',
                                                   'status_id'           => 'cus_status_id',
                                                   'identificational'    => 'cus_identificational',
-                                                  'titlename'           => 'cus_titlename',
-                                                  'firstname'           => 'cus_firstname',
-                                                  'lastname'            => 'cus_lastname',
-                                                  'address'             => 'cus_address',
-                                                  'city'                => 'cus_city',
-                                                  'country'             => 'cus_country',
-                                                  'zipcode'             => 'cus_zipcode',
+                                                  'nameprefix'           => 'cus_nameprefix',
+                                                  'givenname'           => 'cus_givenname',
+                                                  'surname'            => 'cus_surname',
+                                                  'addressline'             => 'cus_addressline',
+                                                  'cityname'                => 'cus_cityname',
+                                                  'stateprov'             => 'cus_stateprov',
+                                                  'countryname'             => 'cus_countryname',
+                                                  'postalcode'             => 'cus_postalcode',
                                                   'mobile'              => 'cus_mobile',
                                                   'phone'               => 'cus_phone',
                                                   'email'               => 'cus_email',
                                                   'addition_request'    => 'cus_addition_request',
-                                                  'card_type'           => 'cus_card_type',
-                                                  'card_number'         => 'cus_card_number'
+                                                  'cardcode'           => 'cus_cardcode',
+                                                  'cardnumber'         => 'cus_cardnumber'
                                              );
 
       $pntable['pobbooking_customer_column_def'] = array(
@@ -50,19 +51,20 @@
                                                       'refid'               => 'TEXT',
                                                       'status_id'           => 'INT(1)',
                                                       'identificational'    => 'VARCHAR(50) DEFUALT NULL',
-                                                      'titlename'           => 'VARCHAR(50) DEFUALT NULL',
-                                                      'firstname'           => 'TEXT',
-                                                      'lastname'            => 'TEXT',
+                                                      'nameprefix'           => 'VARCHAR(50) DEFUALT NULL',
+                                                      'givenname'           => 'TEXT',
+                                                      'surname'            => 'TEXT',
                                                       'address'             => 'TEXT',
-                                                      'city'                => 'VARCHAR(255) DEFUALT NULL',
-                                                      'country'             => 'VARCHAR(255) DEFUALT NULL',
-                                                      'zipcode'             => 'VARCHAR(50)  DEFUALT NULL',
+                                                      'stateprov'                => 'VARCHAR(255) DEFUALT NULL',
+                                                      'cityname'                => 'VARCHAR(255) DEFUALT NULL',
+                                                      'countryname'             => 'VARCHAR(255) DEFUALT NULL',
+                                                      'postalcode'             => 'VARCHAR(50)  DEFUALT NULL',
                                                       'mobile'              => 'VARCHAR(255) DEFUALT NULL',
                                                       'phone'               => 'VARCHAR(255) DEFUALT NULL',
                                                       'email'               => 'TEXT',
                                                       'addition_request'    => 'TEXT',
-                                                      'card_type'           => 'VARCHAR(255)',
-                                                      'card_number'         => 'TEXT'
+                                                      'cardcode'           => 'VARCHAR(255)',
+                                                      'cardnumber'         => 'TEXT'
 
                                                   );
       $pntable['pobbooking_customer_primary_key_column'] = 'id';
@@ -95,7 +97,21 @@
                                                   'adult'               => 'boo_adult',
                                                   'child_age'           => 'boo_child_age',
                                                   'price'               => 'boo_price',
-                                                  'total_price'         => 'boo_total_price'
+                                                  'total_price'         => 'boo_total_price',
+                                                  'nameprefix'           => 'cus_nameprefix',
+                                                  'givenname'           => 'cus_givenname',
+                                                  'surname'            => 'cus_surname',
+                                                  'addressline'             => 'cus_addressline',
+                                                  'cityname'                => 'cus_cityname',
+                                                  'stateprov'             => 'cus_stateprov',
+                                                  'countryname'             => 'cus_countryname',
+                                                  'postalcode'             => 'cus_postalcode',
+                                                  'mobile'              => 'cus_mobile',
+                                                  'phone'               => 'cus_phone',
+                                                  'email'               => 'cus_email',
+                                                  'addition_request'    => 'cus_addition_request',
+                                                  'cardcode'           => 'cus_cardcode',
+                                                  'cardnumber'         => 'cus_cardnumber'
                                           ); 
 
       $pntable['pobbooking_booking_column_def'] = array(
@@ -113,7 +129,21 @@
                                                   'adult'            => 'int(2)',
                                                   'child_age'        => 'int(2)',
                                                   'price'            => 'double',
-                                                  'total_price'      => 'double'
+                                                  'total_price'      => 'double',
+												  'nameprefix'           => 'VARCHAR(50) DEFUALT NULL',
+												  'givenname'           => 'TEXT',
+												  'surname'            => 'TEXT',
+												  'address'             => 'TEXT',
+												  'stateprov'                => 'VARCHAR(255) DEFUALT NULL',
+												  'cityname'                => 'VARCHAR(255) DEFUALT NULL',
+												  'countryname'             => 'VARCHAR(255) DEFUALT NULL',
+												  'postalcode'             => 'VARCHAR(50)  DEFUALT NULL',
+												  'mobile'              => 'VARCHAR(255) DEFUALT NULL',
+												  'phone'               => 'VARCHAR(255) DEFUALT NULL',
+												  'email'               => 'TEXT',
+												  'addition_request'    => 'TEXT',
+												  'cardcode'           => 'VARCHAR(255)',
+												  'cardnumber'         => 'TEXT'
                                               );
       $pntable['pobbooking_booking_primary_key_column'] = 'id';
       // add standard data fields
