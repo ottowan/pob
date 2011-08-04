@@ -389,6 +389,8 @@
                                           'name' => 'guest_room_name',
                                           'type_id' => 'guest_room_type_id',
                                           'season_id' => 'guest_room_season_id',
+                                          'limit' => 'guest_room_limit',
+                                          'available' => 'guest_room_available',
                                           'price' => 'guest_room_price',
                                           'capacity' => 'guest_room_capacity',
                                           'description' => 'guest_room_description'
@@ -398,6 +400,8 @@
                                           'name' =>'TEXT  DEFAULT NULL',
                                           'type_id' =>'INT(11)',
                                           'season_id' =>'INT(11)',
+                                          'limit' => 'INT(11)',
+                                          'available' => 'INT(11)'
                                           'price' => 'VARCHAR(255)',
                                           'capacity' =>'INT(11)',
                                           'description' =>'TEXT  DEFAULT NULL'
