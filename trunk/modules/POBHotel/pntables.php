@@ -9,6 +9,7 @@
     $pntable['pobhotel_hotel'] = DBUtil::getLimitedTablename('pobhotel_hotel');
     $pntable['pobhotel_hotel_column'] = array(
                                           'id' => 'hotel_id',
+                                          'code' => 'hotel_code',
                                           'name' => 'hotel_name',
                                           'status_id' => 'hotel_status_id',
                                           'rating' =>'hotel_rating',
@@ -16,10 +17,16 @@
                                           'when_built' => 'hotel_when_built',
                                           'descriptions'=> 'hotel_descriptions',
                                           'position_latitude'=> 'hotel_position_latitude',
-                                          'position_longitude'=> 'hotel_position_longitude'
+                                          'position_longitude'=> 'hotel_position_longitude',
+                                          'address_line' => 'hotel_address_line',
+                                          'city_name' => 'hotel_city_name',
+                                          'state_province' => 'hotel_state_province',
+                                          'postal_code' => 'hotel_postal_code',
+                                          'country' => 'hotel_country'
     );
     $pntable['pobhotel_hotel_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'code' => 'VARCHAR(255)',
                                           'name' => 'TEXT  DEFAULT NULL',
                                           'status_id' => 'INT(11)',
                                           'rating' => 'INT(11)',
@@ -27,7 +34,12 @@
                                           'when_built'=> 'DATE',
                                           'descriptions' => 'TEXT  DEFAULT NULL',
                                           'position_latitude' => 'DOUBLE',
-                                          'position_longitude' => 'DOUBLE'
+                                          'position_longitude' => 'DOUBLE',
+                                          'address_line' => 'VARCHAR(255)',
+                                          'city_name' => 'VARCHAR(255)',
+                                          'state_province' => 'VARCHAR(255)',
+                                          'postal_code' => 'INT(5)',
+                                          'country' => 'VARCHAR(255)'
     );
     $pntable['pobhotel_hotel_primary_key_column'] = 'id';
     //add standard data fields

@@ -21,14 +21,14 @@ function POBHotel_ajax_form(){
       $render->assign ('_GET', $_GET);
       $render->assign ('_POST', $_POST);
       $render->assign ('_REQUEST', $_REQUEST);
-      
+
       $render->assign('ctrl', $ctrl);
       if ($lang){
         $render->assign('lang', $lang);
       }else{
         $render->assign('lang', pnUserGetLang());
       }
-      
+
       echo $render->fetch('ajax_'.$func.'_'.strtolower($ctrl).'.htm');
       return true;
     }
@@ -42,7 +42,7 @@ function POBHotel_ajax_submit(){
     $ctrl =  FormUtil::getPassedValue ('ctrl', null);
     $form = FormUtil::getPassedValue ('form', null);
     $id = FormUtil::getPassedValue ('id', null);
-    
+
     $is_array = FormUtil::getPassedValue ('array', false);
     if ($is_array){
       $is_array = true;
@@ -51,7 +51,7 @@ function POBHotel_ajax_submit(){
     }
     if (empty($ctrl)){
       if ($form[ctrl]){
-        $ctrl = $form[ctrl];      
+        $ctrl = $form[ctrl];
       }else{
         return 'ERROR POBHotel system can not find controller variable';
       }
@@ -84,16 +84,16 @@ function POBHotel_ajax_delete(){
     $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
     $id      = FormUtil::getPassedValue ('id', null , 'GET');
     $forward = FormUtil::getPassedValue ('forward', null , 'GET');
-  
+
     if ($id){
       //load class
       if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
         return LogUtil::registerError ('Unable to load class [$ctrl] ...');
-  
+
       $object  = new $class ();
       $object->_objData[$object->_objField] = $id;
       $object->delete ();
-      
+
       echo "<script type=\"text/javascript\">
             $.facebox.close()
             callback_refresh()
@@ -109,12 +109,12 @@ function POBHotel_ajax_list(){
     $ctrl    = FormUtil::getPassedValue ('ctrl', 'room' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
-  
+
     $is_export = false;
-  
+
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
-  
+
     //check is export
     $export = FormUtil::getPassedValue ('export', false);
     $button_export = FormUtil::getPassedValue ('button_export', false);
@@ -122,7 +122,7 @@ function POBHotel_ajax_list(){
       if ($export || $button_export || $button_export_x){
       $is_export = true;
     }
-  
+
     $class = Loader::loadClassFromModule ('POBHotel', $ctrl, true);
     if ($class){
       $objectArray = new $class ();
