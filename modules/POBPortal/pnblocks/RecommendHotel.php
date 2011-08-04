@@ -59,28 +59,36 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     //load render
     $render = pnRender::getInstance($modname);
 
-    //Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    //$getter = new POBReader();
-    for($i=0;$i<=$itemLimit;$i++){
-      $itemRandom[] = rand(1,10);
-    }
-    //$search['list'] = (string)implode(",",$itemRandom);
-	  //$search['desc'] = "id";
-    //$result = $getter->getHotelList($search);
-	  //var_dump($result);
-    if(count($result['data'])==19){
-      $data['data'] = $result['data'];
-    }else{
-      $data = $result['data'];
-    }
-    $render->assign("totalItems",$result['totalItems']);
-    $render->assign("totalPages",$result['totalPages']);
-    $render->assign("nowPage",$result['nowPage']);
-    $render->assign("next",$result['next']);
-    $render->assign("previous",$result['previous']);
-    
-	
-    $render->assign("objectArray",$data);
+    ///////////////////////////////////////////////
+    //
+    // Search recommend hotel
+    //
+    ///////////////////////////////////////////////
+    $location  = "phuket";
+    $distance  = "10";
+    $latitude  = "7.88806";
+    $longitude = "98.3975";
+
+    //Send param to HotelSearch service 
+    Loader::loadClass('HotelSearchEndpoint',"modules/POBPortal/pnincludes");
+    $hotelSearch = new HotelSearchEndpoint();
+    $hotelSearch->setHotelSearchXML( $location, $distance, $latitude, $longitude, $startDate, $endDate);
+
+    //XML Response
+    $response = $hotelSearch->getHotelSearchXML();
+    //print($response); exit;
+
+    //Convert xml response to array
+    Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
+    $reader = new POBReader();
+    $arrayResponse = $reader->xmlToArray($response);
+    $arrayResponse["startDate"] = $startDate;
+    $arrayResponse["endDate"] = $endDate;
+
+    $repackArray = array();
+    $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
+
+    $render->assign("objectArray",$repackArray);
 
     // Populate block info and pass to theme
     $blockinfo['content'] = $render->fetch('block_recommendhotel.htm');

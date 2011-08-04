@@ -1,27 +1,105 @@
-<style>
-img.recthumb{
-			float:left;
-			padding:15px 10px 0px 0px;
-}
-div.recommend {
-			border-width:1px;	
-			border-top-style:dotted;
-}
-div.recommend h1 {
-			font-size:16px;
-}
-</style>
+<!--[if isset($objectArray)]-->
+  <style>
+  img.recthumb{
+        float:left;
+        padding:15px 10px 0px 0px;
+  }
+  tr.result {
+        min-height:110px;
+        width:100%;
+        border-width:1px;
+        border-top-style:dotted;
+        clear:both;
+        float:left;
+        margin-top:5px;
+  }
+  div.result h1 {
+        font-size:16px;
+  }
 
-<!--[foreach from=$objectArray item=itemData]-->
-<div class="recommend">
-<!--[if isset($itemData.imageHotel.imageHotel.0)]-->
-			<img width="100" height="100" src="<!--[$itemData.imageHotel.imageHotel.0]-->" alt="<!--[$itemData.name]-->" class="recthumb">
+  #showPriceButton{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border:none;
+    width:150px;
+    height:35px;
+    color:#fff;
+    font-size:20px;
+    border:#FFF 3px solid;
+    background-color:#0896ff;
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    float:right;
+  }
+
+  #distance{
+    color:#cccccc;
+  }
+
+  #address{
+    color:#ff9900;
+  }
+
+  #link{
+    color:#3366ff;
+    font-weight:bolder;
+  }
+
+  #hotelname{
+    color:#6AA118;
+    font-size:16px;
+    font-weight:bolder;
+    
+  }
+
+</style>
+<script type="text/javascript" src="modules/POBPortal/pnjavascript/wz_tooltip.js"></script> 
+<table width="100%">
+  <!--[foreach from=$objectArray item=item]-->
+    <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
+
+      <td valign="top">
+        <!--[if isset($item.ThumbItem.URL)]-->
+          <a class="image_border" target="_blank" href="#" 
+              onmouseover="Tip('&lt;img src=\'<!--[$item.ThumbItem.URL]-->\' width=\'450\'/&gt;')" 
+              onmouseout="UnTip()
+          ">
+              <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+          </a>
+        <!--[else]-->
+              <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
+        <!--[/if]-->
+      </td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>
+              <p>
+                <span id="hotelname">
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">
+                    <!--[$item.HotelName]-->
+                  </a>
+                </span> 
+                <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+                <em id="address">
+                  <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
+                </em>
+                <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
+                <em>
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">more>></a>
+                </em>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  <!--[/foreach]--> 
+</table>
 <!--[else]-->
-			<img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$itemData.name]-->" class="recthumb">
-<!--[/if]-->
-		<p>
-			<h1><!--[$itemData.name]--> <img src="/modules/POBportal/pnimages/<!--[$itemData.rating]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="ดูประกาศทั้งหมด"/></h1></h1>
-			<span class="description"><!--[$itemData.descriptions]--></span>
-		</p>
+<div class="recommend">
+    <p>
+      <h1>ไม่มีข้อมูล</h1>
+    </p>
 </div>
-<!--[/foreach]--> 
+<!--[/if]-->
