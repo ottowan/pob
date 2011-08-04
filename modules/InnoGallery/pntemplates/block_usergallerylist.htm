@@ -1,0 +1,57 @@
+<style>
+.block-albums{
+  width:205px;
+  height:auto;
+  background-color:#e1f6fe;
+  border:#baeafd 1px solid;
+  margin-left:0px;
+  margin-bottom:10px;
+
+  padding-top:5px;
+  padding-bottom:0px;
+  float:left;
+}
+.item-status{
+  text-align:right;
+  padding-top:0px;
+  padding-right:0px;
+  padding-bottom:0px;
+}
+.item-image{
+  text-align:center;
+}
+.item-title{
+  text-align:center;
+  font-size:12px;
+}
+.item-title b{
+  color:#0099FF;
+}
+.clear{
+  clear:both;
+}
+</style>
+</br>
+<!--[foreach from=$objectArray item=item]-->
+<div class="block-albums">
+  <div class="item-image">
+    <!--[if $item.count_pictures gt 0]-->
+    <a target="_blank" href="<!--[pnmodurl modname='InnoGallery' func='view' ctrl='albums' id=$item.id]-->">
+    <img src="<!--[const name='IMAGE_SMALL_PATH']-->/<!--[$item.id]-->/thumb.jpg" width="200">
+    </a>
+    <!--[else]-->
+    <a target="_blank" href="<!--[pnmodurl modname='InnoGallery' func='view' ctrl='albums' id=$item.id]-->">
+    <img src="<!--[modulepath]-->/pnimages/no_image.jpg" width="200">
+    </a>
+    <!--[/if]-->
+  </div>
+  <div class="item-title">
+    <a target="_blank" href="<!--[pnmodurl modname='InnoGallery' func='view' ctrl='albums' id=$item.id]-->"><!--[$item.title|mb_truncate:80:"..."]--></a>
+  </div>
+</div>
+<!--[/foreach]-->
+<div align="right">
+<a href="<!--[pnmodurl modname='InnoGallery' func='list' ctrl='albums']-->">
+<img src="<!--[$modulepath]-->/pnimages/color_swatch.png" align='absmiddle'/>View all</a>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,94 @@
+<div style="padding-left:5px;>" align="center">
+<!--[pager rowcount=$pager.numitems 
+           limit=$pager.itemsperpage 
+           posvar=startnum
+           shift=1 
+           maxpages="10"
+]-->
+</div>
+<!--[pager show="page" rowcount=$numitems limit=$itemsperpage posvar=startnum shift=0]-->
+<!--[const name='USER_EDIT_LEVEL' assign='USER_EDIT_LEVEL']-->
+<!--[if intval($user.level) gte intval($USER_EDIT_LEVEL)]-->
+
+<div align="right">
+  <img src="<!--[modulepath]-->/pnimages/95.png" align='absmiddle'>
+  <a href="<!--[pnmodurl modname='InnoGallery' func='form' ctrl='albums']-->">
+    <b><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_CREATEALBUM"]--></b>
+  </a>
+</div>
+
+<!--[/if]-->
+
+<h2><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_ALBUMLIST"]--></h2><BR>
+<!--[foreach from=$objectArray item=item]-->
+<div class="block-albums">
+  <div class="item-status">
+    <img src="<!--[modulepath]-->/pnimages/color_swatch.png" align="absmiddle"> <!--[$item.count_pictures]--> <!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_PHOTO"]--> 
+    <!--[const name='ADMIN_EDIT_LEVEL' assign='ADMIN_EDIT_LEVEL']-->
+    <!--[if (intval($user.level) eq intval($ADMIN_EDIT_LEVEL)) OR ($user.uid eq $item.cr_uid)]-->
+    <img src="<!--[modulepath]-->/pnimages/add.png" align='absmiddle' /> 
+    <a href="<!--[pnmodurl modname='InnoGallery' func='form' ctrl='albums' id=$item.id]-->"><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_ADDPHOTO"]--></a>
+    <!--[/if]-->
+    <!--[if (intval($user.level) eq intval($ADMIN_EDIT_LEVEL)) OR ($user.uid eq $item.cr_uid)]-->
+    <img src="<!--[modulepath]-->/pnimages/delete.png" align='absmiddle' />
+    <a href="<!--[pnmodurl modname='InnoGallery'
+                                    func='delete'
+                                    ctrl='albums'
+                                    id=$item.id
+                                    forward='currentpage'
+                                    ctrl_current='albums'
+                                    albums_id=$view.id
+                          ]-->"
+              onclick="return confirm('<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_DELETE_WARN']-->')">
+              <!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_DELETEPHOTO"]-->
+    </a>
+
+   <!--[/if]-->
+  </div>
+  <div class="item-image">
+    <!--[if $item.count_pictures gt 0]-->
+    <a target="_blank" href="<!--[pnmodurl modname='InnoGallery' func='view' ctrl='albums' id=$item.id]-->">
+        <img src="<!--[const name='IMAGE_SMALL_PATH']-->/<!--[$item.id]-->/thumb.jpg" width="200" height="150">
+    </a>
+    <!--[else]-->
+    <a target="_blank" href="<!--[pnmodurl modname='InnoGallery' func='view' ctrl='albums' id=$item.id]-->">
+        <img src="<!--[modulepath]-->/pnimages/no_image.jpg" width="200" height="150">
+    </a>
+    <!--[/if]-->
+  </div>
+  <div style="overflow-y:auto; height:110px; width:auto;">
+  <div class="item-title">
+    <!--[$item.title|mb_truncate:80:"..."]--><br/>
+    <b><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_BY"]--></b> <!--[$item.author]--> <br/>
+    <b><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_DATEUPLOAD"]--></b> <!--[$item.cr_date]--> <br/>
+    <b><!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_VIEW"]--></b>  <!--[$item.count_view]--><br/>
+  </div>
+  <!--[if (intval($user.level) eq intval($ADMIN_EDIT_LEVEL)) OR ($user.uid eq $item.cr_uid)]-->
+  <div align="right">
+    <!--[if $item.is_show eq '1']-->
+    <img src="<!--[modulepath]-->/pnimages/flag_green.png" align="absmiddle">
+    <a href="<!--[pnmodurl modname='InnoGallery' func='status' id=$item.id status=0 field='is_show' table='innogallery_albums']-->&forward[module]=InnoGallery&forward[func]=list&forward[ctrl]=albums">
+    <!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_SHOW"]-->
+    </a>
+    <!--[else]-->
+    <img src="<!--[modulepath]-->/pnimages/flag_red.png" align="absmiddle">
+    <a href="<!--[pnmodurl modname='InnoGallery' func='status' id=$item.id status=1 field='is_show' table='innogallery_albums']-->&forward[module]=InnoGallery&forward[func]=list&forward[ctrl]=albums">
+     <!--[pnml name="_INNOGALLERY_USER_LIST_ALBUMS_HIDE"]-->
+    </a>
+    <!--[/if]-->
+  </div>
+  <!--[/if]-->
+</div>
+</div>
+<!--[/foreach]-->
+<br/><br/>&nbsp;
+
+
+<div style="padding-left:5px;>" align="center">
+<!--[pager rowcount=$pager.numitems 
+           limit=$pager.itemsperpage 
+           posvar=startnum
+           shift=1 
+           maxpages="10"
+]-->
+</div>

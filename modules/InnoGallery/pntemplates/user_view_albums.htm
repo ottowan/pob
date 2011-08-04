@@ -1,0 +1,151 @@
+<script type="text/javascript" src="<!--[modulepath]-->/pnjavascript/webtoolkit.url.js"></script>
+<script type="text/javascript" src="<!--[modulepath]-->/pnincludes/flashgallery/swfobject.js"></script>
+<script language="javascript" type="text/javascript">
+  window.onload = function(){
+    var so = new SWFObject("<!--[modulepath]-->/pnincludes/flashgallery/flashgallery.swf", "gallery", "<!--[const name='VIEWER_SIZE_WIDTH']-->", "<!--[const name='VIEWER_SIZE_HEIGHT']-->", "8"); // You can change gallery width and height here or by styling div that contains gallery (use pixels or percents).
+    so.addParam("quality", "high");
+    so.addParam("allowFullScreen", "true");
+    so.addVariable("content_path", "large/<!--[$_GET.id]-->"); // Location of a folder with JPG and PNG files (relative to php script) or a link to Flickr photostream (for example "http://www.flickr.com/photos/username/" or "http://www.flickr.com/photos/username/sets/setid/").
+    so.addVariable("color_path","<!--[modulepath]-->/pnincludes/flashgallery/default.xml"); // Location of xml file with settings.
+    so.addVariable("script_path","<!--[const name='FILE_SCANER_PATH']-->"); // Location of php script (not requred if you work with Flickr).
+    so.write("flashgallery");
+  }
+</script>
+
+
+<div id="flashgallery"></div>
+<div id="gallery">
+<h3><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_ALBUMDETAIL']--></h3>
+<table align="center" width="98%"  border="0px">
+  <tr valign="top">
+    <td width="15%" class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_ALBUMNAME']--></td>
+    <td width="85%"><!--[$view.title]--></td>
+  </tr>
+  <tr valign="top">
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_DECRIBE']--></td>
+    <td><!--[$view.detail]--></td>
+  </tr>
+  <tr valign="top">
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_BY']--></td>
+    <td><!--[$view.author]--></td>
+  </tr>
+</table>
+</div><!-- gellery -->
+<br/>
+
+<!--[if count($extendResult.comments) gt 0]-->
+<!--[counter start=0 print=false name='post']-->
+<!--[foreach from=$extendResult.comments item=item]-->
+<fieldset>
+<div id="gallery"> <!--############################## comment ############################-->
+<table width="98%" border="0px">
+  <tr>
+    <td width="15%" height="30px" class="head">
+      <div><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_NO']--> : </div>
+    </td>
+    <td width="85%"  class="post-header">
+      <TABLE width="100%">
+      <TR>
+        <TD width="60%">
+          <!--[counter name='post']-->
+        </TD>
+        <TD width="30%">
+          <!--[const name='ADMIN_EDIT_LEVEL' assign='ADMIN_EDIT_LEVEL']-->
+          <!--[if (intval($user.level) eq intval($ADMIN_EDIT_LEVEL)) OR ($user.uid eq $item.cr_uid)]-->
+
+              <img src="<!--[modulepath]-->/pnimages/delete.png" align='absmiddle' />
+              <a href="<!--[pnmodurl modname='InnoGallery'
+                                      func='delete'
+                                      ctrl='comments'
+                                      id=$item.id
+                                      forward='currentpage'
+                                      ctrl_current='albums'
+                                      albums_id=$view.id
+                            ]-->"
+                onclick="return confirm('<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_DELETE_WARN']-->')">
+              <!--[pnml name="_INNOGALLERY_USER_VIEW_ALBUMS_DELETE_COMMENT"]-->
+            </a>
+          <!--[/if]-->
+        </TD>
+      </TR>
+      </TABLE>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_POSTER']--></td>
+    <td><!--[$item.name]--></td>
+  </tr>
+  <tr>
+    <td class="head" valign ="top"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_DETAIL']--></td>
+    <td>
+    <!--[$item.comment]-->
+    </td>
+  </tr>
+  <tr>
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_EMAIL']--></td>
+    <td><!--[$item.email]--></td>
+  </tr>
+  <tr>
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_PHONE']--></td>
+    <td><!--[$item.telephone]--></td>
+  </tr>
+  <tr>
+    <td class="head"><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_POSTDATE']--></td>
+    <td><!--[$item.lu_date|date_format:"%e %B %Y"]--></td>
+  </tr>
+  <tr>
+    <td class="head">IP Address</td>
+    <td><!--[$item.ipaddress]--></td>
+  </tr>
+</table>
+</div>
+</fieldset>
+<br />
+<!--[/foreach]-->
+<!--[/if]-->
+
+<!-- <fieldset> -->
+<div id="gallery">
+<h3><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_COMMENT']--></h3>
+<form action="<!--[pnmodurl modname='InnoGallery' type='userform' func='submit' ctrl='comments']-->" method="post" >
+<input type="hidden" name="forward[modname]" value="InnoGallery" />
+<input type="hidden" name="forward[type]" value="user" />
+<input type="hidden" name="forward[func]" value="view" />
+<input type="hidden" name="forward[ctrl]" value="albums" />
+<input type="hidden" name="forward[id]" value="<!--[$view.id]-->" />
+<input type="hidden" name="form[albums_id]" value="<!--[$view.id]-->">
+<table width="100%" border="0px" align="center">
+  <tr>
+    <td width="20%"><div align="right"><strong><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_COMMENTERNAME']--></strong></div></td>
+    <td><input type="text" name="form[name]" size="40" value="<!--[$user._UREALNAME|strip_tags]-->"></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="right"><strong><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_MESSAGE']--></strong></div></td>
+    <td><!--[spaw_editor name='form[comment]' toolbarset='mini' height='200px' width='100%']--></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_PHONE']--></strong></div></td>
+    <td><input type="text" name="form[telephone]" value="<!--[$user._TELEPHONE|strip_tags]-->"></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_EMAIL']--></strong></div></td>
+    <td><input type="text" name="form[email]" size="30" value="<!--[$user._UFAKEMAIL|strip_tags]-->"></td>
+  </tr>
+  <tr>
+    <td rowspan="2"><div align="right"><strong><!--[pnml name='_INNOGALLERY_USER_VIEW_ALBUMS_CAPTCHA']--></strong></div></td>
+    <td><!--[gencaptcha]--></td>
+  </tr>
+  <tr>
+    <td><input type="text" size="18" name="form[captcha]" id="captcha-form" /><!--[if not empty($_ERROR)]-->&nbsp;<FONT  COLOR="#F00"><!--[$_ERROR]--></FONT><!--[/if]--></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="button_submit" value="<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_SUBMIT']-->" />
+    <input type="reset" name="button_reset" value="<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_CLEAR']-->"/></td>
+  </tr>
+</table>
+</form>
+<!-- </fieldset> -->
+</div>
+

@@ -1,0 +1,85 @@
+<script type="text/javascript">
+  var item_count = 1;
+  var max_item = 15;
+  function addFileItem(){
+    if (item_count < max_item){
+      var div = document.getElementById('fileitemcontainer');
+      var file = document.createElement('input');
+      var br   = document.createElement('br');
+      file.setAttribute('name' , 'images[]');
+      file.setAttribute('type' , 'file');
+      file.setAttribute('size' , '51');
+      div.appendChild(file);
+      div.appendChild(br);
+      item_count++;
+    }else{
+      var addMore = document.getElementById('addFileMore');
+      addMore.innerHTML = "";
+    }
+    return false;
+  }
+</script>
+<h3><img src="<!--[modulepath]-->/pnimages/8.png" align="absmiddle" /><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_CREATEEDIT"]--></h3>
+<form action="<!--[pnmodurl modname='InnoGallery' type='userform' func='submit' ctrl='albums']-->" method="post" enctype="multipart/form-data">
+  <input type='hidden' name='form[id]' value='<!--[$form.id]-->' />
+  <table width="100%" border="0">
+    <tr>
+      <td width="22%"><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_ALBUMNAME"]--></strong></td>
+      <td width="78%"><input name="form[title]" type="text" size="60" value="<!--[$form.title]-->" /></td>
+    </tr>
+    <tr>
+      <td><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_DESCRIBE"]--></strong></td>
+      <td><textarea name="form[detail]" cols="40" rows="5"><!--[$form.detail]--></textarea></td>
+    </tr>
+    <tr>
+      <td><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_BY"]--></strong></td>
+      <td><input name="form[author]" type="text" size="30" value="<!--[$form.author]-->"/></td>
+    </tr>
+    <tr>
+      <td class='td-label'><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_PHOTOALBUM"]--></strong></td>
+      <td><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_FIRSTPHOTO"]--></strong> <br />
+        <img width="120px" src="<!--[const name='IMAGE_SMALL_PATH']-->/<!--[$form.id]-->/thumb.jpg" />
+        <table width="50%" border="0">
+          <tr>
+            <td width="66%"><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_LIST"]--></strong> </td>
+            <td width="19%"><strong><!--[pnml name="_INNOGALLERY_USER_FORM_PICTURES_PHOTONAME"]--></strong></td>
+            <td width="19%"><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_SETFIRSTPHOTO"]--></strong></td>
+            <td width="15%"><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_DELETE"]--></strong></td>
+          </tr>
+          <!--[foreach from=$form.images item=image]-->
+          <tr>
+            <td><img width="40" height="30" src="<!--[const name='IMAGE_SMALL_PATH']-->/<!--[$form.id]-->/<!--[$image]-->"></td>
+            <td><!--[$image]--></td>
+            <td><input type="radio" name="form[image_thumb]" value="<!--[$image]-->"/></td>
+            <td><input type="checkbox" name="form[image_delete][]" value="<!--[$image]-->" /></td>
+          </tr>
+          <!--[/foreach]-->
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_UPLOAD"]--></strong></td>
+      <td>
+          <form action="" method="post" enctype="multipart/form-data"  >
+            <input type="file" name="images[]" size="51" /></br/>
+            <input type="file" name="images[]" size="51" /></br/>
+            <input type="file" name="images[]" size="51" /></br/>
+            <input type="file" name="images[]" size="51" /></br/>
+            <input type="file" name="images[]" size="51" /></br/>
+            <div id="fileitemcontainer"></div>
+            <div id="addFileMore">
+              <a href="#" onclick="addFileItem();return false;">[<img src="<!--[modulepath]-->/pnimages/add.png" align="absmiddle"> <!--[pnml name="_INNOGALLERY_USER_FORM_ALBUMS_ADD"]-->]</a>
+            </div>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+      <div id="button">
+      <input type="submit" name="button_submit" value="<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_SUBMIT']-->" />
+      <input type="reset" name="button_clear" value="<!--[pnml name='_INNOGALLERY_GLOBAL_BUTTON_CLEAR']-->" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</form>

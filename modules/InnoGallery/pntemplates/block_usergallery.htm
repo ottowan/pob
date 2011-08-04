@@ -1,0 +1,18 @@
+<script type="text/javascript" src="<!--[$modulepath]-->/pnjavascript/webtoolkit.url.js"></script>
+<script type="text/javascript" src="<!--[$modulepath]-->/pnincludes/imagerotator/swfobject.js"></script>
+<div id="container">
+  <a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this rotator.
+</div>
+<script type="text/javascript">
+  var s1 = new SWFObject("<!--[$modulepath]-->/pnincludes/imagerotator/imagerotator.swf","rotator","<!--[$vars.width]-->","<!--[$vars.height]-->","7");
+  s1.addParam("allowfullscreen","true");
+  s1.addVariable("file",Url.encode("index.php?module=InnoGallery&type=ajax&func=getXmlRotateImage"));
+  s1.addVariable("shuffle","true");
+  s1.addVariable("linkfromdisplay","true");
+  
+  s1.addVariable("width" ,"<!--[$vars.width]-->");
+  s1.addVariable("height","<!--[$vars.height]-->");
+  s1.write("container");
+</script>
+<div align="right">
+</div>
