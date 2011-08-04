@@ -64,6 +64,13 @@
 </style>
 
 <form method="post" action="index.php?module=POBBooking">
+
+<input type="hidden" name="transaction[hotelname]" value="<!--[$view.HotelName]-->">
+<input type="hidden" name="transaction[hotelcode]" value="<!--[$view.HotelCode]-->">
+<input type="hidden" name="transaction[description]" value="<!--[$view.Description]-->">
+<input type="hidden" name="transaction[caontactinfo]" value="<!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]-->">
+
+
   <table width="100%">
       <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
         <td valign="top">
@@ -92,13 +99,15 @@
                 </td>
                 <td>
                   <!--[foreach from=$view.ImageItems item=imageItems]-->
-                    <!--[foreach from=$imageItems.ThumbItem item=imageItem]-->
-                      <img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb">
+                    <!--[foreach from=$imageItems.ThumbItem item=thumbItem]-->
+                      <img  src="<!--[$thumbItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb">
                     <!--[/foreach]-->
                   <!--[/foreach]-->
                 </td>
               </tr>
             </table>
+            <input type="hidden" name="transaction[image]" value="<!--[$imageItem.URL]-->">
+            <input type="hidden" name="transaction[thumb]" value="<!--[$thumbItem.URL]-->">
           <!--[else]-->
                 <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$view.HotelName]-->" class="recthumb">
           <!--[/if]-->
@@ -107,7 +116,7 @@
       <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
         <td>
           <p>
-            <span class="description"><!--[$view.Description]-->&nbsp;&nbsp;</span>
+            <span class="description">&nbsp;&nbsp;<!--[$view.Description]-->&nbsp;&nbsp;</span>
           </p>
         </td>
       </tr>
@@ -126,8 +135,12 @@
               </tr>
 
               <!--[group_availabilities_array avail=$view.Availabilities]-->
-              <!--[foreach from=$groupAvailabilities item=itemAvailabilities]-->
-              
+              <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
+
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$smarty.get.startDate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$smarty.get.endDate]-->">
               <tr>
                 <td align="left">
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
@@ -135,9 +148,9 @@
                   </a>
                 </td>
                 <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                <td align="center">
-                  <select name="amount">
-                      <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                <td align="left">
+                  <select name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
+                    <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
                     <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
 
                       <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
