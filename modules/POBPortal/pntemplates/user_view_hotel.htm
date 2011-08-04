@@ -63,6 +63,30 @@
 
 </style>
 
+<!--[group_availabilities_array avail=$view.Availabilities]-->
+
+<script type="text/javascript">
+  function validateNumberOfRoom(){
+
+    var rows = <!--[$groupAvailabilities|@count]-->;
+    
+    var number = 0;
+    var validate = false;
+    for (i=0;i<rows;i++){
+      number = document.getElementById("number_"+i).value;
+      //alert(number+"<br>");
+      if(number > 0){
+        validate = true;
+      }
+    }
+
+    if(!validate) {
+      alert("โปรดเลือกจำนวนห้องพักที่ต้องการ");
+      return false;
+    }
+  }
+</script>
+
 <form method="post" action="index.php?module=POBBooking">
 
 <input type="hidden" name="transaction[hotelname]" value="<!--[$view.HotelName]-->">
@@ -134,31 +158,44 @@
                 <th width="30%" align="right">ราคา</th>
               </tr>
 
-              <!--[group_availabilities_array avail=$view.Availabilities]-->
+
               <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
 
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$smarty.get.startDate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$smarty.get.endDate]-->">
-              <tr>
-                <td align="left">
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                    <!--[$itemAvailabilities.InvCode]-->
-                  </a>
-                </td>
-                <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                <td align="left">
-                  <select name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
-                    <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
-                    <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
-
-                      <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
-                    <!--[/section]-->
-                  </select>
-                </td>
-                <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-              </tr>
+                <input type="hidden" 
+                       name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" 
+                       value="<!--[$itemAvailabilities.InvCode]-->"
+                  >
+                <input type="hidden" 
+                       name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" 
+                       value="<!--[$itemAvailabilities.Rate]-->"
+                >
+                <input type="hidden" 
+                       name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" 
+                       value="<!--[$smarty.get.startDate]-->"
+                >
+                <input type="hidden" 
+                       name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" 
+                       value="<!--[$smarty.get.endDate]-->"
+                >
+                <tr>
+                  <td align="left">
+                    <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                      <!--[$itemAvailabilities.InvCode]-->
+                    </a>
+                  </td>
+                  <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                  <td align="center">
+                    <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                            name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]"
+                    >
+                      <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                      <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
+                        <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                      <!--[/section]-->
+                    </select>
+                  </td>
+                  <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                </tr>
               <!--[/foreach]-->
             </table>
         </td>
@@ -168,7 +205,7 @@
         </td>
       </tr>
       <tr align="right">
-        <td><button id="bookingButton" type="submit">ทำการจอง</button></td>
+        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();">ทำการจอง</button></td>
       </tr>
       <!--[else]-->
       <tr align="center">
