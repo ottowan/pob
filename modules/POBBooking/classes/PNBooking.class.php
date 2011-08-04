@@ -50,6 +50,7 @@ class PNBooking extends PNObject {
                 $HotelReservation->appendChild($RoomStays);
                   $RoomStay = $xml->createElement("RoomStay");
                   $RoomStays->appendChild($RoomStay);
+                  for(){
                     $RoomTypes = $xml->createElement("RoomTypes");
                     $RoomStay->appendChild($RoomTypes);
                       $RoomType= $xml->createElement("RoomType");
@@ -91,7 +92,7 @@ class PNBooking extends PNObject {
                         $Comments->appendChild($Comment);
                           $Text = $xml->createElement("Text", "non-smoking room requested;king bed");
                           $Comment->appendChild($Text);
-
+                  }
                 $ResGuests = $xml->createElement("ResGuests");
                 $HotelReservation->appendChild($ResGuests);
                   $ResGuest = $xml->createElement("ResGuest");
