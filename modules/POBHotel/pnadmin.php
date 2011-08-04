@@ -40,13 +40,7 @@
   */
   function POBHotel_admin_page() {
     POBHotel_permission();
-    //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'home' , 'GET');
-    //$method the method of request for edit or view enum[ view | form | delete | list | page]
-    $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
-    $render = pnRender::getInstance('POBHotel');
-    _languageRender($render);
-    return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
+    return POBHotel_admin_form();
   }
 
   /**
@@ -94,18 +88,18 @@
   function POBHotel_admin_form() {
     POBHotel_permission();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Hotel' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'form' , 'GET');
     //$id the id no if edit form
-    $id      = FormUtil::getPassedValue ('id', null , 'GET');
+    $id      = FormUtil::getPassedValue ('id', 1 , 'GET');
     //pagnigation variable
     $filter  = FormUtil::getPassedValue ('filter', 0);
     $offset  = FormUtil::getPassedValue ('startnum', 0);
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
     $step    = FormUtil::getPassedValue ('step', null , 'GET');
-
+  
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
     $mode = null;

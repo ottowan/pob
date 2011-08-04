@@ -14,14 +14,13 @@ Class HotelDescContentGenerator {
   
     $pntables = pnDBGetTables();
 
-
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelArray] ...');
       
     $objectArray = new $class;
     $objectArray->get(' WHERE hotel_id = '.$hotelId);
     $this->hotelObject = $objectArray->_objData[0];
-    
+
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelLocationArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelLocationArray] ...');
     
@@ -42,6 +41,13 @@ Class HotelDescContentGenerator {
     $objectArray = new $class;
     $objectArray->get();
     $this->imageObject  = $objectArray->_objData;
+        
+    if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelAttractionArray', false)))
+      return LogUtil::registerError ('Unable to load class [HotelAttractionArray] ...');
+    
+    $objectArray = new $class;
+    $objectArray->get();
+    $this->facilityInfoObject  = $objectArray->_objData;
 
   }
   public function getContent(){
@@ -80,30 +86,18 @@ Class HotelDescContentGenerator {
     $HotelDescriptiveContents = $xml->createElement("HotelDescriptiveContents");
     $HotelDescriptiveContent = $xml->createElement("HotelDescriptiveContent");
     
-    $HotelDescriptiveContent->setAttribute("BrandCode","MHRS");
+    $HotelDescriptiveContent->setAttribute("BrandCode",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("BrandName",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("CurrencyCode","THB");
-    $HotelDescriptiveContent->setAttribute("HotelCode","BOSCO");
+    $HotelDescriptiveContent->setAttribute("HotelCode",htmlentities($this->hotelObject["code"]));
     $HotelDescriptiveContent->setAttribute("HotelName",htmlentities($this->hotelObject["name"]));
     $HotelDescriptiveContent->setAttribute("LanguageCode","TH");
     
-    $LoadedXML = DOMDocument::loadXML($this->genHotelInfo());
-    $HotelInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("HotelInfo")->item(0), true);
-    $HotelDescriptiveContent->appendChild($HotelInfoNode);
-    
-    if(!is_null($this->facilityInfoObject)){
-      $LoadedXML = DOMDocument::loadXML($this->genFacilityInfo());
-      $FacilityInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("FacilityInfo")->item(0), true);
-      $HotelDescriptiveContent->appendChild($FacilityInfoNode);
+    if(!is_null($this->hotelObject)){
+      $LoadedXML = DOMDocument::loadXML($this->genHotelInfo());
+      $HotelInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("HotelInfo")->item(0), true);
+      $HotelDescriptiveContent->appendChild($HotelInfoNode);
     }
-    
-    $LoadedXML = DOMDocument::loadXML($this->genPolicies());
-    $PoliciesNode = $xml->importNode($LoadedXML->getElementsByTagName("Policies")->item(0), true);
-    $HotelDescriptiveContent->appendChild($PoliciesNode);
-    
-    $LoadedXML = DOMDocument::loadXML($this->genAreaInfo());
-    $AreaInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("AreaInfo")->item(0), true);
-    $HotelDescriptiveContent->appendChild($AreaInfoNode);
     
     $LoadedXML = DOMDocument::loadXML($this->genContractInfo());
     $ContractInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("ContactInfo")->item(0), true);
@@ -114,55 +108,6 @@ Class HotelDescContentGenerator {
     $xml->appendChild($OTA_HotelDescriptiveContentNotifRQ);
     
     return $xml;
-  }
-  private function genFacilityInfo(){
-  
-    if(!is_null($this->facilityInfoObject)){
-      $xml = new DOMDocument();
-      $xml->formatOutput = true;
-      $facilityInfo = $xml->createElement("FacilityInfo");
-      if(isset($this->facilityInfoObject[0]['lu_date'])){
-        $facilityInfo->setAttribute("LastUpdated",str_replace(" ","T",$this->facilityInfoObject[0]['lu_date']));
-      }
-      
-      $guestRooms = $xml->createElement("GuestRooms");
-      foreach($this->facilityInfoObject AS $key=>$value){
-        $guestRoom = $xml->createElement("GuestRoom");
-        
-        $guestRoom->setAttribute("CodeContext","MARSHA Room Type");
-        $guestRoom->setAttribute("Quantity","1033");
-        $guestRoom->setAttribute("NonsmokingQuantity","923");
-
-        if($value["capacity"]>=1){
-          $guestRoom->setAttribute("MaxOccupancy",htmlentities($value["capacity"]));
-        }
-        if(isset($value["name"])){
-          $guestRoom->setAttribute("RoomTypeName",htmlentities($value["name"]));
-        }
-        $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
-        $MultimediaDescription = $xml->createElement("MultimediaDescription");
-        $TextItems = $xml->createElement("TextItems");
-        $TextItem = $xml->createElement("TextItem");
-        $TextItem->setAttribute("Title","Room Description");
-        $Description = $xml->createElement("Description",htmlentities($value["description"]));
-        
-        $TextItem->appendChild($Description);
-        $TextItems->appendChild($TextItem);
-        $MultimediaDescription->appendChild($TextItems);
-        $MultimediaDescriptions->appendChild($MultimediaDescription);
-        $guestRoom->appendChild($MultimediaDescriptions);
-        $guestRooms->appendChild($guestRoom);
-      }
-      $facilityInfo->appendChild($guestRooms);
-
-      
-      $xml->appendChild($facilityInfo);
-      return $xml->saveXML();
-      
-    }else{
-      return FALSE;
-    }
-    
   }
   private function genHotelInfo(){
   
@@ -187,7 +132,6 @@ Class HotelDescContentGenerator {
         
         $CategoryCodes->appendChild($LocationCategory);
       }
-
     }
     
     $Position = $xml->createElement("Position");
@@ -222,6 +166,9 @@ Class HotelDescContentGenerator {
     $Description = $xml->createElement("Description",htmlentities($this->hotelObject["descriptions"]));
     $TextItem->appendChild($Description);
     $TextItems->appendChild($TextItem);
+    $MultimediaDescription->appendChild($TextItems);
+    
+    /* Image
     $TextItem = $xml->createElement("TextItem");
     $TextItem->setAttribute("Title","image");
     $i=0;
@@ -241,14 +188,26 @@ Class HotelDescContentGenerator {
       $TextItem->appendChild($Description);
       $i++;
     }
+    $TextItems->appendChild($TextItem);
+    */
     
+    
+    $i=0;
+    foreach($this->facilityInfoObject AS $key=>$value){
+      $TextItem = $xml->createElement("TextItem");
+      $TextItem->setAttribute("Title","FacilityInfo");
+      $TextItem->setAttribute("Name",$value["attraction_name"]);
+      $Description = $xml->createElement("Description",htmlentities($value["description"]));
+      $TextItem->appendChild($Description);
+      $i++;
+    }
     $TextItems->appendChild($TextItem);
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
+    
+    
     $Descriptions->appendChild($MultimediaDescriptions);
-      
-      
-      
+
     $HotelInfo->appendChild($CategoryCodes);
     $HotelInfo->appendChild($Descriptions);
     $HotelInfo->appendChild($Position);
@@ -309,12 +268,7 @@ Class HotelDescContentGenerator {
       return $data;
   }
   private function genAreaInfo(){
-    //$xml = new DOMDocument();
-    //$xml->formatOutput = true;
-    //$AreaInfo = $xml->createElement("AreaInfo");
-    //$xml->appendChild($AreaInfo);
-    //return $xml->saveXML();
-    
+
     $data = '<?xml version="1.0" encoding="UTF-8"?><AreaInfo>
 				<RefPoints>
 					<RefPoint Distance=".3" IndexPointCode="3" Name="Expway, Route 93, Mass. Turnpike">
@@ -524,50 +478,37 @@ Class HotelDescContentGenerator {
 					</Recreation>
 				</Recreations>
 			</AreaInfo>';
-      
       return $data;
   }
   private function genContractInfo(){
-    //$xml = new DOMDocument();
-    //$xml->formatOutput = true;
-    //$ContractInfo = $xml->createElement("ContractInfo");
-    //$xml->appendChild($ContractInfo);
-    //return $xml->saveXML();
-    
-    
-    $data = '<?xml version="1.0" encoding="UTF-8"?><ContactInfos>
-				<ContactInfo ContactProfileType="Property Info">
-					<Addresses>
-						<Address UseType="7">
-							<!--Use Type 7 = Physical from OTA Code Table AUT-->
-							<AddressLine>110 Huntington Avenue</AddressLine>
-							<CityName>Boston</CityName>
-							<PostalCode>02116</PostalCode>
-							<StateProv StateCode="MA"/>
-							<CountryName>USA</CountryName>
-						</Address>
-					</Addresses>
-					<Phones>
-						<Phone PhoneLocationType="1" PhoneNumber="1-800-228-9290" PhoneTechType="1" PhoneUseType="6"/>
-						<!--Phone Location Type 1 = Brand reservations office from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type = 1 Emergency contact from OTA Code Table PUT-->
-						<Phone AreaCityCode="617" CountryAccessCode="1" PhoneLocationType="4" PhoneNumber="236-5800" PhoneTechType="1" PhoneUseType="5"/>
-						<!--Phone Location Type 4 = Property direct from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type 5 = Contact from OTA Code Table PUT-->
-					</Phones>
-				</ContactInfo>
-				<ContactInfo ContactProfileType="Property Personnel">
-					<Names>
-						<Name>
-							<GivenName>Richard</GivenName>
-							<Surname>Grand</Surname>
-							<JobTitle Type="Job Title">
-						
-							</JobTitle>
-						</Name>
-					</Names>
-				</ContactInfo>
-			</ContactInfos>';
+  
+      $xml = new DOMDocument();
+            
+      $ContractInfo = $xml->createElement("ContactInfo");
+      $ContractInfo->setAttribute("ContactProfileType","Property Info");
       
-      return $data;
+      $Addresses = $xml->createElement("Addresses");
+      
+      $Address = $xml->createElement("Address");
+      $Address->setAttribute("UseType",7);
+      $AddressLine = $xml->createElement("AddressLine",$this->hotelObject["address_line"]);
+      $CityName = $xml->createElement("CityName",$this->hotelObject["city_name"]);
+      $PostalCode = $xml->createElement("PostalCode",$this->hotelObject["postal_code"]);
+      $StateProv = $xml->createElement("StateProv");
+      $StateProv->setAttribute("StateCode",$this->hotelObject["state_province"]);
+      $CountryName = $xml->createElement("CountryName",$this->hotelObject["country"]);
+      
+      $Address->appendChild($AddressLine);
+      $Address->appendChild($CityName);
+      $Address->appendChild($PostalCode);
+      $Address->appendChild($StateProv);
+      $Address->appendChild($CountryName);
+      $Addresses->appendChild($Address);
+      $ContractInfo->appendChild($Addresses);
+      $xml->appendChild($ContractInfo);
+      
+
+      return $xml->saveXML();
   }
 
 }

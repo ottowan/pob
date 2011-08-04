@@ -69,7 +69,7 @@
         $guestRoomObject = new $class;
         $guestRoomObject->get();
         $result['hotelGuestRoom'] = $guestRoomObject->_objData;
-
+        
 
       }
       return $result;
@@ -195,7 +195,7 @@
       }
 
       $this->uploadFiles($id);
-      //$this->sendNotify();
+      $this->sendNotify();
       /*
 
       $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
