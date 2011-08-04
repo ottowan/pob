@@ -108,7 +108,7 @@
                   </tr>
 
                   <!--[group_availabilities_array avail=$item.Availabilities]-->
-                  <!--[foreach from=$groupAvailabilities item=itemAvailabilities]-->
+                  <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
                   <tr>
                     <td align="left">
                       <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
@@ -118,6 +118,11 @@
                     <td align="center"><!--[$itemAvailabilities.Limit]--></td>
                     <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
                   </tr>
+                  <!--[if ($groupAvailabilities|@count) > 1]-->
+                  <tr>
+                    <td colspan="3"><hr style="border: 0; color: #9E9E9E; background-color: #9E9E9E; height: 1px;"></td>
+                  </tr>
+                  <!--[/if]-->
                   <!--[/foreach]-->
                 </table>
               <!--[else]-->
