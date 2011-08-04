@@ -18,7 +18,7 @@ function smarty_function_captcha ($params, &$smarty)
 
   $code = base64_encode($code);
 
-  $img = "<img src='modules/Booking/pnincludes/captcha/CaptchaSecurityImages.php?width=100&height=40&code=$code' />";
+  $img = "<img src='modules/POBBooking/pnincludes/captcha/CaptchaSecurityImages.php?width=100&height=40&code=$code' />";
 
   SessionUtil::setVar('SECURITY_CAPTCHA', md5($code));
   return $img;

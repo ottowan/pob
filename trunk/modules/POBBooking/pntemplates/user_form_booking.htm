@@ -14,6 +14,10 @@
       <input type="hidden" name="forward[func]" value="page" />
       <input type="hidden" name="forward[ctrl]" value="redirect" />
 
+      <input type="hidden" name="booking[hotelname]" value="<!--[$smarty.post.transaction.hotelname]-->" />
+      <input type="hidden" name="booking[hotelcontact]" value="<!--[$smarty.post.transaction.caontactinfo]-->" />
+      <input type="hidden" name="booking[roomstays]" value="<!--[$smarty.post.transaction.roomstays]-->" />
+
 
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
@@ -38,7 +42,7 @@
                   </tr>
 
                   <tr>
-                    <td colspan="2">ความต้องการเพิ่มเติม&nbsp;: - </td>
+                    <td colspan="2"></td>
                   </tr>
           	</table>
           </td>
@@ -94,6 +98,7 @@
                       $totalAll += $total;
                       $this->assign("totalAll", $totalAll);
                   <!--[/php]-->
+
                 </TD>
               </TR>
             <!--[/if]-->
@@ -103,6 +108,7 @@
               <div align="center" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#FDF5E6; padding:3px; width:80%; border: #99bf00 1px  dotted;">
                 <b>Total Price :</b>&nbsp;<b style="color:#dc0e01;">
                   <!--[$totalAll|number_format:2:".":","]-->
+                  <input type="hidden" name="booking[totalall]" value="<!--[$totalAll]-->" />
                   &nbsp;THB</b>
               </div>
             </TD>
@@ -124,12 +130,12 @@
 
     <TR>
       <TD align="right">Identificational/Passport no. <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input id="identificational" type="text" name="form[identificational]"><span id="error-identificational"></span></TD>
+      <TD align="left" ><input id="identificational" type="text" name="guset[identificational]"><span id="error-identificational"></span></TD>
     </TR>
     <TR>
       <TD align="right">Title <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <select class="text" name="form[titlename]" id="titlename" size="1">
+        <select class="text" name="guset[titlename]" id="titlename" size="1">
           <option selected="selected" value=""></option>
           <option value="Mr.">Mr.</option>
           <option value="Mrs.">Mrs.</option>
@@ -147,24 +153,24 @@
     </TR>
     <TR>
       <TD align="right">First Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[firstname]" id="firstname" size="20" type="text"><span id="error-firstname"></span></TD>
+      <TD align="left" ><input class="text" name="guset[firstname]" id="firstname" size="20" type="text"><span id="error-firstname"></span></TD>
     </TR>
     <TR>
       <TD align="right">Last Name/Surname <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[lastname]"  id="lastname" size="20" type="text"><span id="error-lastname"></span></TD>
+      <TD align="left" ><input class="text" name="guset[lastname]"  id="lastname" size="20" type="text"><span id="error-lastname"></span></TD>
     </TR>
     <TR>
       <TD align="right">Address <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><TEXTAREA name="form[address]" id="address" ROWS="4" COLS="30"></TEXTAREA><span id="error-address"></span></TD>
+      <TD align="left" ><TEXTAREA name="guset[address]" id="address" ROWS="4" COLS="30"></TEXTAREA><span id="error-address"></span></TD>
     </TR>
     <TR>
       <TD align="right">Town/City <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
-      <TD align="left" ><input class="text" name="form[city]"  id="city" size="20" type="text"><span id="error-city"></span></TD>
+      <TD align="left" ><input class="text" name="guset[city]"  id="city" size="20" type="text"><span id="error-city"></span></TD>
     </TR>
     <TR>
       <TD align="right">Country <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <select name="form[country]"  id="country" class="whuge" tabindex="112">
+        <select name="guset[country]"  id="country" class="whuge" tabindex="112">
           <option value=""  selected="selected"> </option>
           <option value="Afghanistan">Afghanistan
           </option>
@@ -656,23 +662,23 @@
     </TR>
     <TR>
       <TD align="right">Zipcode <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[zipcode]"  id="zipcode" size="20" type="text"><span id="error-zipcode"></span></TD>
+      <TD align="left" ><input class="text" name="guset[zipcode]"  id="zipcode" size="20" type="text"><span id="error-zipcode"></span></TD>
     </TR>
     <TR>
       <TD align="right">Mobile Phone <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[mobile]"  id="mobile" size="20" type="text"><span id="error-mobile"></span></TD>
+      <TD align="left" ><input class="text" name="guset[mobile]"  id="mobile" size="20" type="text"><span id="error-mobile"></span></TD>
     </TR>
     <TR>
       <TD align="right">Home Phone <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[phone]"  id="phone" size="20" type="text"><span id="error-phone"></span></TD>
+      <TD align="left" ><input class="text" name="guset[phone]"  id="phone" size="20" type="text"><span id="error-phone"></span></TD>
     </TR>
     <TR>
       <TD align="right">Email <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[email]" id="email" size="60" type="text"><span id="error-email"></span></TD>
+      <TD align="left" ><input class="text" name="guset[email]" id="email" size="60" type="text"><span id="error-email"></span></TD>
     </TR>
       <td class="text" align="right" valign="top">Additional Request </td>
       <td align="left" > 
-        <textarea name="form[addition_request]" id="addition_request" value="addition_request" rows="4" cols="40" wrap="soft" class="text"></textarea>
+        <textarea name="guset[addition_request]" id="addition_request" value="addition_request" rows="4" cols="40" wrap="soft" class="text"></textarea>
       </td>
     </tr>
     <tr>
@@ -684,7 +690,7 @@
             <td>Verification text. <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
           </tr>
           <tr>
-            <td><input name="form[captcha]" id="captcha" type="text"></td>
+            <td><input name="guset[captcha]" id="captcha" type="text"></td>
           </tr>
         </table>
       </td>
@@ -711,7 +717,7 @@
       <TD align="right">Card Type<FONT SIZE="" COLOR="#FF0000">*</FONT> 
       </TD>
       <TD align="left" >
-        <select id="cardType" name="form[cardType]" onchange="" id="" class="whuge" tabindex="112">
+        <select id="cardType" name="guset[cardtype]" onchange="" id="" class="whuge" tabindex="112">
           <option value="">[Card Type]</option>
           <option value="MC">Master Card</option>
           <option value="VC">Visa Card</option>
@@ -722,15 +728,15 @@
     <TR>
       <TD align="right">Card Number<FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <input name="form[card1]" id="card1" size="4" maxlength="4" type="text"
+        <input name="guset[card1]" id="card1" size="4" maxlength="4" type="text"
               onkeyup="if(this.value.length==4) document.formBook.elements['card2'].focus();" >-
-        <input name="form[card2]" id="card2" size="4" maxlength="4" 
+        <input name="guset[card2]" id="card2" size="4" maxlength="4" 
               onkeyup="if(this.value.length==4) 
               document.formBook.elements['card3'].focus();" type="text">-
-        <input name="form[card3]" id="card3" size="4" maxlength="4" 
+        <input name="guset[card3]" id="card3" size="4" maxlength="4" 
               onkeyup="if(this.value.length==4) 
               document.formBook.elements['card4'].focus();" type="text">-
-        <input name="form[card4]" id="card4" size="4" maxlength="5" type="text">
+        <input name="guset[card4]" id="card4" size="4" maxlength="5" type="text">
       </TD>
     </TR>
     <tr>
@@ -738,7 +744,7 @@
       <td align="left" >
         <input type="text" 
                maxlength="4" size="4" id="cardid"
-               name="form[cardid]"> 
+               name="guset[cardid]"> 
           <a style="font-size: 10px;" 
              onmouseout="document.getElementById('digit').style.display='none'" 
              onmouseover="document.getElementById('digit').style.display='block'"
@@ -752,14 +758,14 @@
       </td>
     </tr>
     <TR>
-      <TD align="right">Card Holder Number <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[card_holder_number]" id="card_holder_number" size="20" type="text"></TD>
+      <TD align="right">Card Holder Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="left" ><input class="text" name="guset[card_holder_number]" id="card_holder_number" size="20" type="text"></TD>
     </TR>
     
     <TR>
       <TD align="right">Expire Date <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <select name="Month" id="form[card_expire_month]" tabindex="112">
+        <select name="Month" id="guset[card_expire_month]" tabindex="112">
           <option value="">Month</option>
             <option value="01">01</option>
             <option value="02">02</option>
@@ -775,7 +781,7 @@
             <option value="12">12</option>
         </select>
         
-        <select name="Year" id="form[card_expire_year]" tabindex="112">
+        <select name="Year" id="guset[card_expire_year]" tabindex="112">
           </option>
           <option value="">Year</option>
           <option value="2010">2010</option>
@@ -794,12 +800,12 @@
     </TR>
     <TR>
       <TD align="right">Card Bank Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
-      <TD align="left" ><input class="text" name="form[card_bank_name]" id="card_bank_name" size="20" type="text"></TD>
+      <TD align="left" ><input class="text" name="guset[card_bank_name]" id="card_bank_name" size="20" type="text"></TD>
     </TR>
     <TR>
       <TD align="right">Card Issuing Country <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <select name="form[card_issuing_country]"  id="card_issuing_country">
+        <select name="guset[card_issuing_country]"  id="card_issuing_country">
           <option value=""  selected="selected"> </option>
           <option value="Afghanistan">Afghanistan
           </option>
@@ -1341,9 +1347,8 @@ payment through your credit card. You will be notified by email.</li>
  style="text-decoration: underline; font-size: 12px; color: rgb(5, 94, 
 185);"><b><i>Terms & Conditions</i></b></font></a>   </div>
 
-    
     <div style="padding-top: 15px; padding-bottom: 2px;" align="center">
-        
+
       <input name="bbSubmit" id="bbSubmit" class="searchButton" 
 style="font-weight: bold; font-size: 11pt; width: 210px; cursor: 
 pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" 
@@ -1363,8 +1368,7 @@ once and wait until the page is completely loaded.
           Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
       </p>
 
-    </div>  
-
+    </div>
 
       </TD>
     </TR>

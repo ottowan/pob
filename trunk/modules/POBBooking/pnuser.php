@@ -7,7 +7,7 @@
 function POBBooking_user_main() {
 /*
   if (!empty($_SERVER['HTTPS'])){
-      return pobbooking_user_form();
+      return POBBooking_user_form();
   }else {
     //Redirect page
     //$urls = "https" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];

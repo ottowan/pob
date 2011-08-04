@@ -7,16 +7,14 @@
 <FORM id='form' 
             class='form' 
             name="formBook"
-            
             method="post"
             onsubmit="return validateForm(this)"
-  >
+>
 
       <input type="hidden" name="forward[modname]" value="POBBooking" />
       <input type="hidden" name="forward[type]" value="user" />
       <input type="hidden" name="forward[func]" value="page" />
       <input type="hidden" name="forward[ctrl]" value="redirect" />
-
 
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
@@ -29,23 +27,25 @@
       <TD width="50%" valign="top" align="right">
         <table width="80%" style="border: 1px dashed rgb(0, 245, 255);">
           <tr>
-            <td colspan="2" bgcolor="#DCF5FA"><h6>โรงแรม&nbsp;Bypass Hotel and SPA<!-- [] -->      &nbsp;</h6></td>
+            <td colspan="2" bgcolor="#DCF5FA"><h6>โรงแรม&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
           </tr>
-            <tr>
+          <!--[foreach from=$smarty.post.booking.roomstays item=item name="foo"]-->
+          <tr>
             <td width="80">ห้อง</td>
-            <td>Supreme&nbsp;</td>
+            <td><!--[$item.invcode]--> : <!--[$item.Price]--></td>
           </tr>
           <tr>
             <td width="80">จำนวนห้อง</td>
-            <td>1&nbsp;</td>
+            <td><!--[$item.numberofunit]-->&nbsp;</td>
           </tr>
+          <!--[/foreach]-->
           <tr>
             <td width="80">เช็คอิน</td>
-            <td>29 กรกฎาคม 2554&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td width="80">เช็คเอ้าท์&nbsp;</td>
-            <td>30 กรกฎาคม 2554&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td width="80">&nbsp;</td>
@@ -68,23 +68,23 @@
             </tr>
           <tr>
             <td width="80">ชื่อ</td>
-            <td><!--[$_POST.form.firstname]-->Ms.Charlotte&nbsp;</td>
+            <td><!--[$smarty.post.guset.firstname]-->&nbsp;</td>
           </tr>
           <tr>
             <td width="80">นามสกุล</td>
-            <td><!--[$_POST.form.lastname]-->Costello&nbsp;</td>
+            <td><!--[$_POST.guset.lastname]-->&nbsp;</td>
           </tr>
           <tr>
             <td width="80">โทรศัพท์</td>
-            <td><!--[$_POST.form.phone]-->8145556123 <!--[$_POST.form.mobile]-->&nbsp;</td>
+            <td><!--[$_POST.guset.mobile]--> : <!--[$_POST.guset.phone]--></td>
           </tr>
           <tr>
             <td width="80">อีเมลล์&nbsp;</td>
-            <td><!--[$_POST.form.email]-->charlotte.costello@corp.com&nbsp;</td>
+            <td><!--[$_POST.guset.email]-->&nbsp;</td>
           </tr>
           <tr>
             <td width="80">บัตรเครดิต&nbsp;</td>
-            <td>xxxx-xxxx-xxxx-<!--[$_POST.form.card4]-->11111&nbsp;</td>
+            <td>xxxx-xxxx-xxxx-<!--[$_POST.guset.card4]-->&nbsp;</td>
           </tr>
           <tr>
             <td width="80">&nbsp;</td>
@@ -103,16 +103,18 @@
 	<div style="padding-top: 15px; padding-bottom: 2px;" align="center">
 		<table align="center" width="50%" >
           <tr>
+            
+            
             <td width="60%" align="right">ค่าห้อง</td>
-            <td align="right">2,046.00 บาท</td>
+            <td align="right"><!--[math equation="x-(x*y)" x=$_POST.booking.totalall y=0.07]-->&nbsp;บาท</td>
           </tr>
           <tr>
             <td width="60%" align="right">ภาษี 7%</td>
-            <td align="right">154.00 บาท</td>
+            <td align="right"><!--[math equation="x*y" x=$_POST.booking.totalall y=0.07]-->&nbsp;บาท</td>
           </tr>
           <tr>
             <td align="right"><font size="3" color="#FF3300"><b>รวมค่าใช้จ่ายทั้งสิ้น</b></font></td>
-            <td align="right"><font size="3" color="#FF3300"><b>&nbsp;2,200.00 บาท</b></font></td>
+            <td align="right"><font size="3" color="#FF3300"><b><!--[$_POST.booking.totalall]-->&nbsp; บาท</b></font></td>
           </tr>
     </table>
 		<br>
