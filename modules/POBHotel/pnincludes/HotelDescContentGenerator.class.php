@@ -159,6 +159,7 @@ Class HotelDescContentGenerator {
     
     $Descriptions = $xml->createElement("Descriptions");
     $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
+    
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
     $TextItems = $xml->createElement("TextItems");
     $TextItem = $xml->createElement("TextItem");
@@ -167,6 +168,58 @@ Class HotelDescContentGenerator {
     $TextItem->appendChild($Description);
     $TextItems->appendChild($TextItem);
     $MultimediaDescription->appendChild($TextItems);
+    $MultimediaDescriptions->appendChild($MultimediaDescription);
+    
+    $MultimediaDescription = $xml->createElement("MultimediaDescription");
+    $TextItems = $xml->createElement("TextItems");
+    foreach($this->facilityInfoObject AS $key=>$value){
+      $TextItem = $xml->createElement("TextItem");
+      $TextItem->setAttribute("Title","FacilityInfo");
+      $TextItem->setAttribute("Name",$value["attraction_name"]);
+      $Description = $xml->createElement("Description",htmlentities($value["description"]));
+      $TextItem->appendChild($Description);
+    }
+    $TextItems->appendChild($TextItem);
+    $MultimediaDescription->appendChild($TextItems);
+    $MultimediaDescriptions->appendChild($MultimediaDescription);
+    
+    // Image
+    $MultimediaDescription = $xml->createElement("MultimediaDescription");
+    $ImageItems = $xml->createElement("ImageItems");
+    
+    // Thumbnail
+    foreach($this->imageObject AS $key=>$value){
+      $ImageItem = $xml->createElement("ImageItem");
+      $ImageItem->setAttribute("Category",2);
+      $ImageFormat = $xml->createElement("ImageFormat");
+      $Url = $xml->createElement("Url",htmlentities($_SERVER["HOST_NAME"].$value["filepath"].$value["filename"]));
+      $ImageFormat->appendChild($Url);
+      $ImageItem->appendChild($ImageFormat);
+    }
+    $ImageItems->appendChild($ImageItem);
+    // Thumbnail
+    foreach($this->imageObject AS $key=>$value){
+      $ImageItem = $xml->createElement("ImageItem");
+      $ImageItem->setAttribute("Category",1);
+      $ImageFormat = $xml->createElement("ImageFormat");
+      $Url = $xml->createElement("Url",htmlentities($_SERVER["HOST_NAME"].$value["thumbpath"].$value["filename"]));
+      $ImageFormat->appendChild($Url);
+      $ImageItem->appendChild($ImageFormat);
+    }
+    $ImageItems->appendChild($ImageItem);
+    $MultimediaDescription->appendChild($ImageItems);
+    $MultimediaDescriptions->appendChild($MultimediaDescription);
+    
+    
+    $Descriptions->appendChild($MultimediaDescriptions);
+
+    $HotelInfo->appendChild($CategoryCodes);
+    $HotelInfo->appendChild($Descriptions);
+    $HotelInfo->appendChild($Position);
+    $HotelInfo->appendChild($Services);
+    $xml->appendChild($HotelInfo);
+    return $xml->saveXML();
+    
     
     /* Image
     $TextItem = $xml->createElement("TextItem");
@@ -191,29 +244,6 @@ Class HotelDescContentGenerator {
     $TextItems->appendChild($TextItem);
     */
     
-    
-    $i=0;
-    foreach($this->facilityInfoObject AS $key=>$value){
-      $TextItem = $xml->createElement("TextItem");
-      $TextItem->setAttribute("Title","FacilityInfo");
-      $TextItem->setAttribute("Name",$value["attraction_name"]);
-      $Description = $xml->createElement("Description",htmlentities($value["description"]));
-      $TextItem->appendChild($Description);
-      $i++;
-    }
-    $TextItems->appendChild($TextItem);
-    $MultimediaDescription->appendChild($TextItems);
-    $MultimediaDescriptions->appendChild($MultimediaDescription);
-    
-    
-    $Descriptions->appendChild($MultimediaDescriptions);
-
-    $HotelInfo->appendChild($CategoryCodes);
-    $HotelInfo->appendChild($Descriptions);
-    $HotelInfo->appendChild($Position);
-    $HotelInfo->appendChild($Services);
-    $xml->appendChild($HotelInfo);
-    return $xml->saveXML();
   }
   private function genPolicies(){
     //$xml = new DOMDocument();
