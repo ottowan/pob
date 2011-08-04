@@ -7,30 +7,12 @@
 <meta name="keywords" content="<!--[keywords]-->" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/orman/orman.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/pascal/pascal.css" type="text/css" media="screen" />
-
-
-
-<!--[modulestylesheet xhtml=true]-->
-<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
-	<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
-    <script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider();
-    });
-    </script>
 </head>
 <body>
 <div id="theme_page_container">
 
 <div id="theme_header">
-<!--[blockposition name=gallery]-->
+
 </div>
 
 <div id="theme_navigation_bar">
@@ -39,7 +21,17 @@
         <ul>
             <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
             <li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
-            <li<!--[if $module eq 'Profile']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Profile]-->"><!--[pnml name="_YOURACCOUNT"]--></a></li>
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">admin</a></li>
+            <!--[/securityutil_checkpermission_block]-->
+            
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=InnoGallery">Add slide</a></li>
+            <!--[/securityutil_checkpermission_block]-->
+            
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=POBHotel&type=admin&func=form&ctrl=hotel">Add Room</a></li>
+            <!--[/securityutil_checkpermission_block]-->
         </ul>
     </div><!--end navigation_bar_center-->
     <div class="navigation_bar_right"></div>
@@ -47,31 +39,22 @@
 <div id="content_top"></div>
 <div id="content_center">
 <div id="slidshow">
-    <div class="slider-wrapper theme-default">
-            <div class="ribbon"></div>
-            <div id="slider" class="nivoSlider">
-                <img src="themes/coconut_sea/js/nivo-slider/demo/images/slide1.jpg" alt="" />
-                <img src="themes/coconut_sea/js/nivo-slider/demo/images/slide2.jpg" alt="" />   
-            </div>
-        </div>
+ <!--[blockposition name=slide]-->
 </div><!--end slidshow-->
-<div id="theme_subcontent2"></div>
+<div id="theme_subcontent">
+<!--[blockposition name=hotel_search]-->
+<div class="left_box">
+    <div class="left_top"><h3><!--[$title]--></h3></div>
+    <div class="left_repeat"><!--[displaygreeting]--><!--[userlogin]--><!--[userlinks]--></div>
+    <div class="left_buttom"></div>
+</div>
+
+</div>
 
 <div id="theme_content">
-<!--[blockposition name=center]-->
-<div id="theme_splitcontentleft">
-<!--[blockposition name=right]-->
-</div>
-
-<div id="theme_splitcontentright">
 <!--[$maincontent]-->
-
-</div>
 </div>
 
-<div id="theme_subcontent">
-<!--[blockposition name=left]-->
-</div>
 <div id="gallery">
 	<script>
 		$(document).ready(function() {

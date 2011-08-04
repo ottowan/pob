@@ -12,3 +12,5 @@
  */
 
 define('_COCONUT_SEA_HOME', 'Home');
+define('_NICKNAME', 'Username');
+define('_REMEMBERME', 'Remaember me');
