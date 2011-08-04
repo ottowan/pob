@@ -15,8 +15,9 @@
       <input type="hidden" name="forward[ctrl]" value="redirect" />
 
       <input type="hidden" name="booking[hotelname]" value="<!--[$smarty.post.transaction.hotelname]-->" />
+      <input type="hidden" name="booking[hotelcode]" value="<!--[$smarty.post.transaction.hotelcode]-->" />
       <input type="hidden" name="booking[hotelcontact]" value="<!--[$smarty.post.transaction.caontactinfo]-->" />
-      <input type="hidden" name="booking[roomstays]" value="<!--[$smarty.post.transaction.roomstays]-->" />
+      
 
 
 
@@ -77,6 +78,13 @@
           </TR>
           <!--[foreach from=$smarty.post.transaction.roomstays item=item name="foo"]-->
             <!--[if $item.numberofunit > 0]-->
+            <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]" value="<!--[$item.numberofunit]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$item.startdate]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$item.enddate]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][adult]" value="<!--[$item.adult]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="<!--[$item.child]-->">
               <TR>
                 <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
                 <TD align="center"><!--[$item.numberofunit]--></TD>
@@ -166,6 +174,10 @@
     <TR>
       <TD align="right">Town/City <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
       <TD align="left" ><input class="text" name="guset[city]"  id="city" size="20" type="text"><span id="error-city"></span></TD>
+    </TR>
+    <TR>
+      <TD align="right">State/Province <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
+      <TD align="left" ><input class="text" name="guset[province]"  id="province" size="20" type="text"><span id="error-province"></span></TD>
     </TR>
     <TR>
       <TD align="right">Country <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>

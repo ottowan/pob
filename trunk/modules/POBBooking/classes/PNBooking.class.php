@@ -14,6 +14,37 @@ class PNBooking extends PNObject {
   function insertPostProcess(){
 
     $form = FormUtil::getPassedValue ('form', false );
+    $chaincode = "";
+    $card_exp_month = $this->_objData['card_exp_month'];
+    $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+    $cardexpiredate = $card_exp_month.$card_exp_year;
+    $roomstays = $this->_objData['roomstays'];
+
+form[isocurrency]
+form[identificational]
+form[nameprefix]
+form[givenname]
+form[surname]
+form[addressline]
+form[cityname]
+form[stateprov]
+form[countryname]
+form[postalcode]
+form[phonenumber][5]
+form[phonenumber][1]
+form[email]
+form[comment]
+form[profiletype]
+                     
+form[cardcode]
+form[cardnumber]
+form[roomstays]
+form[cardholdername]
+form[cardbankname]
+form[cardissuingcountry]
+                     
+form[hotelcode]
+
 
     /////////////////////////////////////////////////////
     //////// GEN XML ////////
@@ -39,7 +70,7 @@ class PNBooking extends PNObject {
             $OTA_HotelResRQ->appendChild($POS);
               $Source = $xml->createElement("Source");
               $POS->appendChild($Source);
-              $Source->setAttribute("ISOCurrency", "THB");
+              $Source->setAttribute("ISOCurrency", $this->_objData['isocurrency']);
 
             //HotelReservations
             $HotelReservations = $xml->createElement("HotelReservations");
@@ -50,15 +81,15 @@ class PNBooking extends PNObject {
                 $HotelReservation->appendChild($RoomStays);
                   $RoomStay = $xml->createElement("RoomStay");
                   $RoomStays->appendChild($RoomStay);
-                  for(){
+                  foreach($roomstays as $key => $item){
                     $RoomTypes = $xml->createElement("RoomTypes");
                     $RoomStay->appendChild($RoomTypes);
                       $RoomType= $xml->createElement("RoomType");
                       $RoomTypes->appendChild($RoomType);
-                      $RoomType->setAttribute("NumberOfUnits", "1");
+                      $RoomType->setAttribute("NumberOfUnits", $item[numberofunits]);
                     $Inv = $xml->createElement("Inv");
                     $RoomStay->appendChild($Inv);
-                    $Inv->setAttribute("InvCode", "Deluxe");
+                    $Inv->setAttribute("InvCode", $item[numberofunits]);
                     $GuestCounts = $xml->createElement("GuestCounts");
                     $RoomStay->appendChild($GuestCounts);
                       $GuestCount = $xml->createElement("GuestCount");
@@ -77,20 +108,20 @@ class PNBooking extends PNObject {
                         $GuaranteesAccepted->appendChild($GuaranteeAccepted);
                           $PaymentCard = $xml->createElement("PaymentCard");
                           $GuaranteeAccepted->appendChild($PaymentCard);
-                          $PaymentCard->setAttribute("CardCode", "VS");
-                          $PaymentCard->setAttribute("CardNumber", "4111111111111202");
-                          $PaymentCard->setAttribute("ExpireDate", "0506");
-                            $CardHolderName = $xml->createElement("CardHolderName", "Costello");
+                          $PaymentCard->setAttribute("CardCode", $this->_objData['cardcode']);
+                          $PaymentCard->setAttribute("CardNumber", $this->_objData['cardnumber']);
+                          $PaymentCard->setAttribute("ExpireDate", $cardexpiredate);
+                            $CardHolderName = $xml->createElement("CardHolderName", $this->_objData['cardholdername']);
                             $PaymentCard->appendChild($CardHolderName);
                       $BasicPropertyInfo = $xml->createElement("BasicPropertyInfo");
                       $RoomStay->appendChild($BasicPropertyInfo);
-                      $BasicPropertyInfo->setAttribute("ChainCode", "MC");
-                      $BasicPropertyInfo->setAttribute("HotelCode", "RJBH001");
+                      $BasicPropertyInfo->setAttribute("ChainCode", $this->_objData['chaincode']);
+                      $BasicPropertyInfo->setAttribute("HotelCode", $this->_objData['hotelcode']);
                       $Comments = $xml->createElement("Comments");
                       $RoomStay->appendChild($Comments);
                         $Comment = $xml->createElement("Comment");
                         $Comments->appendChild($Comment);
-                          $Text = $xml->createElement("Text", "non-smoking room requested;king bed");
+                          $Text = $xml->createElement("Text", $this->_objData['comment']);
                           $Comment->appendChild($Text);
                   }
                 $ResGuests = $xml->createElement("ResGuests");
@@ -108,29 +139,35 @@ class PNBooking extends PNObject {
                         $Profile->appendChild($Customer);
                           $PersonName = $xml->createElement("PersonName");
                           $Customer->appendChild($PersonName);
-                            $NamePrefix = $xml->createElement("NamePrefix", "Ms.");
+                            $NamePrefix = $xml->createElement("NamePrefix", $this->_objData['nameprefix']);
                             $PersonName->appendChild($NamePrefix);
-                            $GivenName = $xml->createElement("GivenName", "Charlotte");
+                            $GivenName = $xml->createElement("GivenName", $this->_objData['givenname']);
                             $PersonName->appendChild($GivenName);
-                            $Surname = $xml->createElement("Surname", "Costello");
+                            $Surname = $xml->createElement("Surname", $this->_objData['givenname']);
                             $PersonName->appendChild($Surname);
                           $Telephone = $xml->createElement("Telephone");
                           $Customer->appendChild($Telephone);
-                          $Telephone->setAttribute("PhoneNumber", "8145556123");
-                          $Telephone->setAttribute("PhoneTechType", "1");
-                          $Email = $xml->createElement("Email", "charlotte.costello@corp.com");
+                          if($this->_objData['phone']){
+                            $Telephone->setAttribute("PhoneNumber", $this->_objData['phone']);
+                            $Telephone->setAttribute("PhoneTechType", "1");
+                          }
+                          if($this->_objData['mobile']){
+                            $Telephone->setAttribute("PhoneNumber", $this->_objData['mobile']);
+                            $Telephone->setAttribute("PhoneTechType", "5");
+                          }
+                          $Email = $xml->createElement("Email", $this->_objData['email']);
                           $Customer->appendChild($Email);
                           $Address = $xml->createElement("Address");
                           $Customer->appendChild($Address);
-                            $AddressLine = $xml->createElement("AddressLine", "123 Locust St.");
+                            $AddressLine = $xml->createElement("AddressLine", $this->_objData['addressline']);
                             $Address->appendChild($AddressLine);
-                            $CityName = $xml->createElement("CityName", "Hyndman");
+                            $CityName = $xml->createElement("CityName", $this->_objData['cityname']);
                             $Address->appendChild($CityName);
-                            $PostalCode = $xml->createElement("PostalCode", "15545");
+                            $PostalCode = $xml->createElement("PostalCode", $this->_objData['postalcode']);
                             $Address->appendChild($PostalCode);
-                            $StateProv = $xml->createElement("StateProv", "PA");
+                            $StateProv = $xml->createElement("StateProv", $this->_objData['stateprov']);
                             $Address->appendChild($StateProv);
-                            $CountryName = $xml->createElement("CountryName", "USA");
+                            $CountryName = $xml->createElement("CountryName", $this->_objData['countryname']);
                             $Address->appendChild($CountryName);
 
      //$xml->saveXML();

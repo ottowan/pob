@@ -1,5 +1,5 @@
   function validateForm(form) {
-     /*
+ /*
     //Check identificational
     var identificational = document.getElementById("identificational");
     if (trimString(identificational.value) == '' || !check_number(trimString(identificational.value))) {
@@ -88,7 +88,7 @@
     var address = document.getElementById("address");
     if (trimString(address.value) == '' ) {
 
-         alert("Please enter your lastname.");
+         alert("Please enter your address.");
 
         //document.getElementById('error-identificational').innerHTML = "* Identificational.";
         //titlename.value = "";
@@ -123,6 +123,27 @@
       city.style.borderWidth = "1px";
       document.getElementById('error-city').innerHTML = "<IMG SRC='modules/Booking/pnimages/right.gif' WIDTH='10' HEIGHT='10'>";
     }
+
+    //Check province
+    var province = document.getElementById("province");
+    if (trimString(province.value) == '' ) {
+
+         alert("Please enter your province.");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        //titlename.value = "";
+        province.style.borderStyle = "solid";
+        province.style.borderColor = "#FF0000";
+        province.style.borderWidth = "1px";
+        province.focus();
+        return false;
+    } else{
+      province.style.borderStyle = "solid";
+      province.style.borderColor = "#00CC00";
+      province.style.borderWidth = "1px";
+      document.getElementById('error-province').innerHTML = "<IMG SRC='modules/Booking/pnimages/right.gif' WIDTH='10' HEIGHT='10'>";
+    }
+
 
     //Check country
     var country = document.getElementById("country");
