@@ -401,7 +401,7 @@
                                           'type_id' =>'INT(11)',
                                           'season_id' =>'INT(11)',
                                           'limit' => 'INT(11)',
-                                          'available' => 'INT(11)'
+                                          'available' => 'INT(11)',
                                           'price' => 'VARCHAR(255)',
                                           'capacity' =>'INT(11)',
                                           'description' =>'TEXT  DEFAULT NULL'
