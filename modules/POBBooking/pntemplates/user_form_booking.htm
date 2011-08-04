@@ -1,3 +1,4 @@
+<script type="text/javascript" src="modules/POBBooking/pnjavascript/wz_tooltip.js"></script> 
 <script type="text/javascript" src="modules/POBBooking/pnjavascript/validateform.js"></script>
 
 <FORM id='form' 
@@ -13,6 +14,8 @@
       <input type="hidden" name="forward[func]" value="page" />
       <input type="hidden" name="forward[ctrl]" value="redirect" />
 
+
+
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
   <TABLE width="100%">
     <TR>
@@ -25,13 +28,13 @@
           <td align="left" valign="top">
           	<table width="100%" border="0">
                   <tr>
-                    <td colspan="2"><h4><!-- [$smarty.post.transaction.Hotelname] -->Bypass Hotel and SPA&nbsp;<a href="" โรงแรม<!-- [$smarty.post.transaction.Hotelname] -->Bypass Hotel and SPA&nbsp;</a></h4></td>
+                    <td colspan="2"><h4><!--[$smarty.post.transaction.hotelname]-->&nbsp;</h4></td>
                     </tr>
                   <tr>
-                    <td width="100">สถานที่&nbsp;: 102 Bypass, patong , PHUKET, thailand, 83000<!--[$smarty.post.transaction.location]--> &nbsp;</td>
+                    <td width="100">contact : <!--[$smarty.post.transaction.caontactinfo]--></td>
                   </tr>
                   <tr>
-                    <td colspan="2">&nbsp;&nbsp;The Bypass Hotel Resort is located along Patong Beach, a 10-minute walk from Jungceylon Shopping Mall. The resort offers free Wi-Fi, 2 outdoor pools and a restaurant. Burasari Resort is a 10-minute walk from nightlife district Bangla Road. The resort is a 40-minute drive from Phuket International Airport. Upon request, the hotel provides airport shuttle service at a fee. Resort Burasari's rooms are air conditioned and come with private balconies or terraces. Satellite TV, a minibar and tea/coffee maker are provided in all rooms. Selected rooms feature direct pool access. Guests can relax on lounge chairs by the pool, and enjoy the surrounding greenery. Spa by Burasari provides traditional Thai massage and beauty treatments. The hotel also offers a tour desk and car rental. Kantok Restaurant serves authentic local dishes and a daily breakfast buffet. It offers outdoor dining and evening dance performances. Refreshing drinks are served at Misty Bar, Pool Bar and Juice Bar.   </td>
+                    <td colspan="2">&nbsp;&nbsp;<!--[$smarty.post.transaction.description]--></td>
                   </tr>
 
                   <tr>
@@ -40,7 +43,17 @@
           	</table>
           </td>
           <td width="150" align="right" valign="top">
-              <img width="150" src="modules/POBBooking/pnimages/1031765.jpg" /><!--[$smarty.post.transaction.thumb]-->
+          <!--[if $smarty.post.transaction.thumb]-->
+            <a class="image_border" target="_blank" href="#" 
+                onmouseover="Tip('&lt;img src=\'<!--[$smarty.post.transaction.image]-->\' width=\'450\'/&gt;')" 
+                onmouseout="UnTip()
+            ">
+                <img width="100" height="100" src="<!--[$smarty.post.transaction.thumb]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+            </a>
+          <!--[else]-->
+                <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$view.HotelName]-->" class="recthumb">
+          <!--[/if]-->
+
           </td>
          </tr>
       </table>
@@ -58,43 +71,37 @@
             <TH bgcolor="#DCF5FA" width="5%">Child</TH>
             <TH bgcolor="#DCF5FA" width="15%">Total(THB)</TH>
           </TR>
-          <!--[$smarty.post.transaction.Roomstays assign="booking"]-->
-          <!--[assign var="sum" value=0 ]-->
-          <!--[foreach from=$booking item=item name="foo"]-->
-          <TR>
-            <TD align="center"><!--[$item.InvCode]--><br><!--[$item.Price]--></TD>
-            <TD align="center"><!--[$item.NumberOfUnit]--></TD>
-            <TD align="center"><!--[$item.Startdate]--> ถึง <br><!--[$item.Enddate]--></TD>
-            <TD align="center"><!--[date_diff date1=$item.Startdate date2=$item.Enddate]-->, <!--[$item.NumberOfDate]--></TD>
-            <TD align="center"><!--[$item.Adult]--></TD>
-            <TD align="center"><!--[if $item.Child]-->
-                  <!--[$item.Child]-->
-                <!--[else]-->-<!--[/if]--></TD>
-            <TD align="right"><!--[math equation="a*b" a=$item.NumberOfUnit b=$item.Price]-->
-                              <!--[math equation="x+y" x=$sum y=$item.Price assign="total"]-->
-                              <!--[php]-->
-                                  $item = $this->get_template_vars("item");
-                                  $total_price += $item['Price'];
-                              <!--[/php]-->
-            </TD>
-          </TR>
+          <!--[foreach from=$smarty.post.transaction.roomstays item=item name="foo"]-->
+            <TR>
+              <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
+              <TD align="center"><!--[$item.numberofunit]--></TD>
+              <TD align="center"><!--[$item.startdate]--> to <!--[$item.enddate]--></TD>
+              <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]--></TD>
+              <TD align="center"><!--[$item.adult]--></TD>
+              <TD align="center">
+                <!--[if $item.child]-->
+                  <!--[$item.child]-->
+                <!--[else]-->
+                  -
+                <!--[/if]-->
+              </TD>
+              <TD align="right">
+                <!--[math equation="a*b" a=$item.numberofunit b=$item.rate assign="total"]-->
+                THB <!--[$total|number_format:2:".":","]-->
+                <!--[php]-->
+                    $total = $this->get_template_vars("total");
+                    $totalAll += $total;
+                    $this->assign("totalAll", $totalAll);
+                <!--[/php]-->
+
+              </TD>
+            </TR>
          <!--[/foreach]-->
-         <TR>
-            <TD>Supreme<br>2,200</TD>
-            <TD align="center">1 ห้อง</TD>
-            <TD align="center">29 กรกฎาคม 2554 ถึง<br> 30 กรกฎาคม 2554</TD>
-            <TD align="center">1 คืน</TD>
-            <TD align="center">2 ท่าน</TD>
-            <TD align="center">-</TD>
-            <TD align="right">2,200</TD>
-          </TR>
           <TR>
             <TD colspan="7" align="center">
               <div align="center" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#FDF5E6; padding:3px; width:80%; border: #99bf00 1px  dotted;">
                 <b>Total Price :</b>&nbsp;<b style="color:#dc0e01;">
-                  <!--[php]-->
-                    //echo $total_price;
-                  <!--[/php]--> 2,200 <!--[$total]-->
+                  <!--[$totalAll|number_format:2:".":","]-->
                   &nbsp;THB</b>
               </div>
             </TD>

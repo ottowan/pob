@@ -5,7 +5,7 @@
  * @return string HTML string
  */
 function POBBooking_user_main() {
-
+/*
   if (!empty($_SERVER['HTTPS'])){
       return pobbooking_user_form();
   }else {
@@ -14,7 +14,8 @@ function POBBooking_user_main() {
     //pnRedirect($urls);
     header("HTTP/1.0 404 Not Found");
   }
-
+*/
+  return pobbooking_user_form();
 }
 
 
@@ -24,7 +25,7 @@ function POBBooking_user_main() {
 function POBBooking_user_page() {
   if (!empty($_SERVER['HTTPS'])){
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'POBBooking_confirm' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'BookingConfirm' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
     $render = pnRender::getInstance('POBBooking');
@@ -55,7 +56,7 @@ function POBBooking_user_page() {
 */
 function POBBooking_user_view() {
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'POBBooking' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Booking' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'view' , 'GET');
     //$lang enum[eng | jpn | tha]
@@ -104,7 +105,7 @@ function POBBooking_user_view() {
 function POBBooking_user_form() {
   //if (!empty($_SERVER['HTTPS'])){
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'POBBooking' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Booking' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'form' , 'GET');
     //$lang enum[eng | jpn | tha]
@@ -163,7 +164,7 @@ function POBBooking_user_form() {
 */
 function POBBooking_user_list() {
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'POBBooking' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Booking' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
     //$lang enum[eng | jpn | tha]

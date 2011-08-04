@@ -31,7 +31,7 @@ function smarty_function_date_diff($params, &$smarty) {
    } elseif($interval == "years") {
       $i = $i/365.25;
    }
-   
+   //var_dump($assign); exit;
    $date1 = ((is_string($date1))?strtotime($date1):$date1);
    $date2 = ((is_string($date2))?strtotime($date2):$date2);
    
