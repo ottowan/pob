@@ -26,6 +26,7 @@ body{
     float:left;
     width:950px;
 	height:600px;
+	overflow:auto;
 }
 #navigation{
     height:35px;

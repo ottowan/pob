@@ -701,35 +701,36 @@ function callback_refresh(){
 
 						<!--[if isset($extendResult.hotelGuestRoom)]-->
 							<TABLE width="900">
+							<!--[foreach from=$extendResult.hotelGuestRoom item=item]-->
 								<tr>
-								<td>
+								<td width="186">
 									Name
 								</td>
-								<td>
+								<td width="95">
 									Quantity
 								</td>
-								<td>
+								<td width="125">
 									Type
 								</td>
-								<td>
+								<td width="124">
 									Season
 								</td>
-								<td>
+								<td width="129">
 									Price
 								</td>
-								<td>
+								<td width="111">
 									Capacity
 								</td>
-								<td>
-								</td>
+								<td width="98">
+								  </td>
 								</tr>
-								<!--[foreach from=$extendResult.hotelGuestRoom item=item]-->
+								
 								<tr>
 								<td>
 									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
 								</td>
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" ROWS="10" COLS="40" size="70" value="<!--[$item.limit]-->">
+									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
 								</td>
 								<td>
 								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
@@ -765,9 +766,26 @@ function callback_refresh(){
 							</tr>
 							<tr>
 								<td>
-									<textarea name="itemGuestRoom[description]"><!--[$item.description]--></textarea>
+										Description
 								</td>
-							</tr> 
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+                                <td>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="7">
+									<textarea name="itemGuestRoom[description]" ROWS="3" COLS="50"><!--[$item.description]--></textarea>
+                                </td>
+                            </tr> 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->

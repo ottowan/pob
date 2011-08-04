@@ -7,6 +7,8 @@
       $this->_objField      = 'id';
       $this->_objPath       = 'form';
 
+      
+      
       $this->_init($init, $where);
     }
 /*
