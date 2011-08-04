@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<link rel="stylesheet" href="themes/redroom2/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/redroom2/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+
+    <script type="text/javascript" src="themes/redroom2/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="themes/redroom2/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+    
+<style type="text/css">
+.minitabs-container{ background-color:#fff;}
+div.pn-admincontainer{ background-color:#fff;}
+#pn-maincontent{ margin:-15px 0 0 0px;}
+</style>
+</head>
+<body>
+
+<div id="theme_page_container">
+
+    <div id="theme_header">
+    <div class="logo">
+        <h1><!--[sitename]--></h1>
+        <h2><!--[slogan]--></h2>
+    </div><!--end logo-->
+    <div id="theme_navigation_bar">
+        <ul>
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_REDROOM2_HOME"]--></a></li>
+            <li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
+            <li<!--[if $module eq 'Profile']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Profile]-->"><!--[pnml name="_YOURACCOUNT"]--></a></li>
+        </ul>
+    </div><!--theme_navigation_bar-->
+    </div><!--theme_header-->
+    <div id="theme_content">
+        <!--[$maincontent]-->
+    </div><!--theme_content-->
+</div><!--theme_page_container-->
+<div id="theme_footer">
+	<span class="specter"></span>
+        <div class="theme_footer_content">
+        </div><!--theme_footer_content-->
+</div><!--theme_footer-->
+</body>
+</html>

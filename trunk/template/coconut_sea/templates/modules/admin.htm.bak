@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/orman/orman.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/pascal/pascal.css" type="text/css" media="screen" />
+
+
+
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+	<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+</head>
+<body>
+<div id="theme_page_container">
+
+<div id="theme_header">
+
+</div>
+
+<div id="theme_navigation_bar">
+	<div class="navigation_bar_left"></div>
+    <div class="navigation_bar_center">
+        <ul>
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
+            <li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">admin</a></li>
+            <!--[/securityutil_checkpermission_block]-->
+            
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=InnoGallery">Add slide</a></li>
+            <!--[/securityutil_checkpermission_block]-->
+            
+            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+			<li class="selected"><a href="index.php?module=POBHotel&type=admin&func=form&ctrl=hotel">Add Room</a></li>
+            <!--[/securityutil_checkpermission_block]-->
+        </ul>
+    </div><!--end navigation_bar_center-->
+    <div class="navigation_bar_right"></div>
+</div>
+<div id="content_top"></div>
+<div id="content_center">
+<div id="theme_content" style="width:93% !important; padding:0 30px 0 30px; min-height:500px;" >
+<div id="theme_splitcontentright">
+<!--[$maincontent]-->
+
+</div>
+</div>
+</div><!--end content_center-->
+
+<div id="theme_footer">
+    <div class="footer_left"></div>
+    <div class="footer_center">
+        <p>PhuketCity.com Phuket Online Booking</p>
+        <!--[nocache]--><!--[pagerendertime]--><!--[/nocache]-->
+        <!--[nocache]--><!--[sqldebug]--><!--[/nocache]-->
+    </div><!--end footer_center-->
+    <div class="footer_right"></div>
+</div><!--end theme_footer-->
+</div>
+</body>
+</html>

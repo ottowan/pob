@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--[title]--></title>
+    
+    <!-- CSS -->
+        <link href="<!--[$stylepath]-->/reset.css" rel="stylesheet" type="text/css" />
+        <link href="<!--[$stylepath]-->/main.css" rel="stylesheet" type="text/css" />
+        <link href="<!--[$stylepath]-->/jquery-ui-1.8.1.custom.css" rel="stylesheet" type="text/css" />
+        <link href="<!--[$stylepath]-->/css3.css" rel="stylesheet" type="text/css" />
+    
+    <!-- JavaScript -->
+    <script type="text/javascript" src="themes/blueocean/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/jquery.rounded.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/excanvas.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/jquery.visualize.js"></script>
+    <script type="text/javascript" src="themes/blueocean/js/script.js"></script>
+  </head>
+
+  <body>
+    <div id="bokeh"><div id="container">
+      
+      <div id="header">
+        <h1 id="logo">Admin Control Panel </h1>
+        
+        <div id="header_buttons">
+          
+          <a href="#modal" rel="modal"><img src="themes/blueocean/images/admin/envelope.png" alt="3 Messages" />3</a>				
+          <a href="#modal2" rel="modal">modal box test</a>
+          <a href="#">logout</a>
+          <a href="#">view website</a>
+          
+        </div><!-- end #header_buttons -->
+        
+        <!-- Modal box -->
+        <div id="modal">	
+          <div class="modalbox">
+            <div class="modalhead">
+              <img src="themes/blueocean/images/admin/modaltop.png" alt="Modal arrow" />
+              Mailbox
+            </div>
+            
+            <div class="modalcontent">
+              <div class="message">
+                <div class="author"><a href="#">Teun</a></div>
+                <div class="content">This skin can be easily styled!</div>
+                <div class="datetime">16-05 - 08:16</div>
+              </div>
+              
+              <div class="message">
+                <div class="author"><a href="#">Pieter</a></div>
+                <div class="content">It can also be styled very easily.</div>
+                <div class="datetime">11-05 - 16:27</div>
+              </div>
+                
+              <div class="message">
+                <div class="author"><a href="#">Jane Doe</a></div>
+                <div class="content">This template uses a lot of nice CSS3 effects.</div>
+                <div class="datetime">10-05 - 18:42</div>
+              </div>
+            </div>
+              
+            <div class="modalfoot">
+              <img src="themes/blueocean/images/admin/newmessage.png" alt="New message" /> New message
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal box 2 -->
+        <div id="modal2">	
+          <div class="modalbox">
+            <div class="modalhead">
+              <img src="themes/blueocean/images/admin/modaltop.png" alt="Modal arrow" />
+              Mailbox 2
+            </div>
+            
+            <div class="modalcontent">
+              <div class="message">
+                <div class="author"><a href="#">Pieter</a></div>
+                <div class="content">It can also be styled very easily.</div>
+                <div class="datetime">11-05 - 16:27</div>
+              </div>
+                
+              <div class="message">
+                <div class="author"><a href="#">Jane Doe</a></div>
+                <div class="content">This template uses a lot of nice CSS3 effects.</div>
+                <div class="datetime">10-05 - 18:42</div>
+              </div>
+            </div>
+              
+            <div class="modalfoot">
+              <img src="themes/blueocean/images/admin/newmessage.png" alt="New message" /> New message
+            </div>
+          </div>
+        </div>
+        
+        <!-- Navigation -->
+        <ul id="main-nav">
+          <li>
+             <!--[if !($smarty.get.acid) ]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel" class="current">
+                 Dashboard
+               </a>
+             <!--[else]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel">
+                 Dashboard
+               </a>
+             <!--[/if]-->
+          </li>
+
+          <li>
+             <!--[if $smarty.get.acid == 5 ]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=5" class="current">
+                 3rd-Party
+               </a>
+             <!--[else]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=5">
+                 3rd-Party
+               </a>
+             <!--[/if]-->
+          </li>
+
+
+          <li>
+             <!--[if $smarty.get.acid == 2 ]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=2" class="current">
+                 Layout
+               </a>
+             <!--[else]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=2">
+                 Layout
+               </a>
+             <!--[/if]-->
+             	<ul>
+                    <li><a href="index.php?module=pnRender&type=admin">pnRender</a></li>
+                    <li><a href="index.php?module=%E0%B8%98%E0%B8%B5%E0%B8%A1&type=admin">ธีม</a></li>
+                    <li><a href="index.php?module=%E0%B8%9A%E0%B8%A5%E0%B9%87%E0%B8%AD%E0%B8%81&type=admin">บล็อก</a></li>
+				</ul>
+          </li>
+
+          <li>
+             <!--[if $smarty.get.acid == 3 ]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=3" class="current">
+                 User
+               </a>
+             <!--[else]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=3">
+                 User
+               </a>
+             <!--[/if]-->
+                <ul>
+                    <li><a href="index.php?module=pnRender&type=admin">pnRender</a></li>
+                    <li><a href="index.php?module=%E0%B8%98%E0%B8%B5%E0%B8%A1&type=admin">ธีม</a></li>
+                    <li><a href="index.php?module=%E0%B8%9A%E0%B8%A5%E0%B9%87%E0%B8%AD%E0%B8%81&type=admin">บล็อก</a></li>
+                </ul>
+          </li>
+
+          <li>
+             <!--[if $smarty.get.acid == 1 ]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=1" class="current">
+                 System
+               </a>
+             <!--[else]-->
+               <a href="index.php?module=admin&type=admin&func=adminpanel&acid=1">
+                 System
+               </a>
+             <!--[/if]-->
+          </li>
+        </ul><!-- end #nav -->
+        
+      </div><!-- end #header -->
+      
+      <div id="content">
+      
+        <div class="title"><img src="themes/blueocean/images/admin/tools_32.png" alt="Manage Users" />Manage Users</div>
+<!--			
+        <div class="notification information">
+          This is an informative notification. Click me to hide me.
+        </div>-->
+        
+                <div class="content-box">
+          <div class="content-box-header">
+            <h3>Form</h3>
+          </div>
+          
+          <div class="content-box-content">
+            <!--[$maincontent]-->
+          </div>
+        </div>
+        
+        <div class="content-box closed column-left sidebar"><!-- use the class .sidebar in combination with .column-left to create a sidebar --><!-- using .closed makes sure the content box is closed by default -->
+          <div class="content-box-header">
+            <h3>Closed Sidebar</h3>
+          </div>
+          
+          <div class="content-box-content">
+          <!--[blockposition name=left]-->
+          </div>
+        </div>
+        
+        <div class="content-box column-right main">
+          <div class="content-box-header">
+            <h3>Statistics</h3>
+            
+            <!-- You can create tabs with unordered lists -->
+            <ul>						
+              <li>
+                <a href="#bar">Bar chart</a>
+              </li>
+                          
+              <li>
+                <a href="#area">Area chart</a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="content-box-content">												
+            <div class="tab-content" id="bar">
+              <table class="bargraph">
+                <caption>Statistics</caption>
+                <thead>
+                  <tr>
+                    <td></td>
+                    <th scope="col">Jan</th>
+                    <th scope="col">Feb</th>
+                    <th scope="col">Mar</th>
+                    <th scope="col">Apr</th>
+                    <th scope="col">May</th>
+                    <th scope="col">Jun</th>
+                    <th scope="col">Jul</th>
+                    <th scope="col">Aug</th>
+                    <th scope="col">Sep</th>
+                    <th scope="col">Oct</th>
+                    <th scope="col">Nov</th>
+                    <th scope="col">Dec</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <th scope="row">Pageviews</th>
+                    <td>40</td>
+                    <td>50</td>
+                    <td>88</td>
+                    <td>80</td>
+                    <td>125</td>
+                    <td>45</td>
+                    <td>34</td>
+                    <td>87</td>
+                    <td>94</td>
+                    <td>115</td>
+                    <td>86</td>
+                    <td>54</td>
+                  </tr>
+                
+                  <tr>
+                    <th scope="row">Unique visitors</th>
+                    <td>20</td>
+                    <td>40</td>
+                    <td>68</td>
+                    <td>70</td>
+                    <td>102</td>
+                    <td>35</td>
+                    <td>14</td>
+                    <td>17</td>
+                    <td>74</td>
+                    <td>95</td>
+                    <td>45</td>
+                    <td>23</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- end .tab-content -->
+            
+            <div class="tab-content" id="area">
+              <table class="areagraph">
+                <caption>Statistics</caption>
+                <thead>
+                  <tr>
+                    <td></td>
+                    <th scope="col">Jan</th>
+                    <th scope="col">Feb</th>
+                    <th scope="col">Mar</th>
+                    <th scope="col">Apr</th>
+                    <th scope="col">May</th>
+                    <th scope="col">Jun</th>
+                    <th scope="col">Jul</th>
+                    <th scope="col">Aug</th>
+                    <th scope="col">Sep</th>
+                    <th scope="col">Oct</th>
+                    <th scope="col">Nov</th>
+                    <th scope="col">Dec</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <th scope="row">Pageviews</th>
+                    <td>40</td>
+                    <td>50</td>
+                    <td>88</td>
+                    <td>80</td>
+                    <td>125</td>
+                    <td>45</td>
+                    <td>34</td>
+                    <td>87</td>
+                    <td>94</td>
+                    <td>115</td>
+                    <td>86</td>
+                    <td>54</td>
+                  </tr>
+                
+                  <tr>
+                    <th scope="row">Unique visitors</th>
+                    <td>20</td>
+                    <td>40</td>
+                    <td>68</td>
+                    <td>70</td>
+                    <td>102</td>
+                    <td>35</td>
+                    <td>14</td>
+                    <td>17</td>
+                    <td>74</td>
+                    <td>95</td>
+                    <td>45</td>
+                    <td>23</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- end .tab-content -->
+          </div><!-- end .content-box-content -->
+        </div>
+        
+        <div class="clear"></div>
+              
+        <div class="content-box column-left main">
+          <div class="content-box-header">
+            <h3>Users</h3>
+          </div><!-- end .content-box-header -->
+          
+          <div class="content-box-content">
+            <table class="pagination" rel="5"><!-- add the class .pagination to dynamically create a working pagination! The rel-attribute will tell how many items there are per page -->
+              <thead>
+                <tr>
+                  <th><input type="checkbox" /></th>
+                  <th>Username</th>
+                  <th>Last login</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              
+              <tfoot>
+                <tr>
+                  <td colspan="4">			
+                    <div class="bulk-actions">
+                      <select>
+                        <option value="option1">Choose an action...</option>
+                        <option value="option2">Delete</option>
+                        <option value="option3">Move to authors</option>
+                      </select>
+                      <a href="#" class="graybutton">Apply to selected</a>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+                  
+              <tbody>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Admin</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a><!-- to create a tooltip-style confirmation, just add .confirmation to the <a>-tag -->
+                  </td>
+                </tr>
+                    
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Bram</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Teun</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Henk</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Jan-peter</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                    
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Wouter</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Admin</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>
+                </tr>
+                    
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Bram</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Teun</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Henk</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Jan-peter</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Teun</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png"alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Henk</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png"  alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Jan-peter</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Teun</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Henk</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png" alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png" alt="Delete" /></a>
+                  </td>									
+                </tr>
+                  
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">Jan-peter</a></td>
+                  <td>4th of May 2010 - 9:31</td>
+                  <td>
+                    <a href="#"><img src="themes/blueocean/images/admin/pencil.png"  alt="Edit" /></a>
+                    <a href="#" class="confirmation"><img src="themes/blueocean/images/admin/cross.png"  alt="Delete" /></a>
+                  </td>									
+                </tr>
+                
+              </tbody>
+            </table>
+            
+          </div><!-- end .content-box-content -->
+          
+        </div><!-- end .content-box -->
+        
+        <div class="content-box column-right sidebar">
+          <div class="content-box-header">
+            <h3>Sidebar</h3>
+          </div>
+          
+          <div class="content-box-content">
+            <p>This theme features lots of nifty little effects. Try deleting a row from the table for instance.</p>
+            <p>Everything in this theme is very modular and can be combined in any way.</p>
+            <small>Hint: Don't forget to check your messages!</small>
+          </div>
+        </div>
+        
+        <div class="clear"></div>
+        
+    
+      
+    </div></div><!-- end #bokeh and #container -->
+    
+    <div id="footer">
+      Admin Control Panel | Designed by <a href="javascript:if(confirm('http://www.bramjetten.nl/  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.bramjetten.nl/'" tppabs="http://www.bramjetten.nl/">Bram Jetten Webdesign</a> 2010
+    </div><!-- end #footer -->
+
+  </div></body>
+</html>
