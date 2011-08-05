@@ -10,6 +10,7 @@ Class SubdomainCreator {
   private $dbpassword = NULL;
   private $dbtype = NULL;
   private $prefix = NULL;
+  private $sitename = '';
   private $dbname = '';
   private $username;
   private $password;
@@ -17,7 +18,8 @@ Class SubdomainCreator {
   private $form;
   private $exist;
   private $_error;
-  
+  private $hotelcode;
+
   function __construct($dbpassword=NULL, $dbusername=NULL, $dbtype=NULL, $dbhost=NULL){
     $this->dbusername = $dbusername;
     $this->dbpassword = $dbpassword;
@@ -49,19 +51,22 @@ Class SubdomainCreator {
    * @param string $dbconn Database connection
    * @param string $dbname Database name
    */
-  function makedb($dbname,$username,$password,$email)
+  function makedb($hotelcode, $sitename, $dbname, $username, $password, $email)
   {
     
-    echo "DB Name : ".$dbname;
-    echo "<BR>DB Username : ".$this->dbusername;
-    echo "<BR>DB Password : ".$this->dbpassword;
-    echo "<BR>DB Type : ".$this->dbtype;
-    echo "<BR>DB Host : ".$this->dbhost;
-    
+    //echo "DB Name : ".$dbname;
+    //echo "<BR>DB Username : ".$this->dbusername;
+    //echo "<BR>DB Password : ".$this->dbpassword;
+    //echo "<BR>DB Type : ".$this->dbtype;
+    //echo "<BR>DB Host : ".$this->dbhost;
+
+
+    $this->sitename = $sitename;
     $this->dbname = $dbname;
     $this->username = $username;
     $this->password = $password;
     $this->email = $email;
+    $this->hotelcode = $hotelcode;
     //function makedb($dbtype, $dbhost, $dbusername, $dbpassword, $dbname, $charset, $collation) {
     // make a new database - the adodb way
     $dbconn = ADONewConnection($this->dbtype);
@@ -108,7 +113,7 @@ Class SubdomainCreator {
   
   public function sqlDump(){
     
-    if($this->exist){
+    if(!$this->exist){
       $backUpDB = $GLOBALS['PNConfig']['DBInfo']['default']['dbname'];
     
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $this->dbname;
@@ -117,33 +122,40 @@ Class SubdomainCreator {
       if($this->proceed){
         // create the database
         // set sql dump file path
-        $fileurl = 'modules/POBHotel/data/zikulacms.sql';
+        $fileurl = 'modules/POBMember/data/zikulacms.sql';
+        //var_dump(file_exists($fileurl));
         // checks if file exists
         if (!file_exists($fileurl)) {
             //do something
         } else {
-        	// execute the SQL dump
-            $installed = true;
-            $lines = file($fileurl);
-            $exec = '';
-            foreach ($lines as $line_num => $line) {
-                $line = trim($line);
-                if (empty($line) || strpos($line, '--') === 0)
-                    continue;
-                $exec .= $line;
-                if (strrpos($line, ';') === strlen($line) - 1) {
-                    if (!DBUtil::executeSQL(str_replace('z_', $this->prefix. '_', $exec))) {
-                        $installed = false;
-                        $action = 'dbinformation';
-                        $smarty->assign('dbdumpfailed', true);
-                        break;
-                    }
-                    $exec = '';
-                }
+          // execute the SQL dump
+          $installed = true;
+          $lines = file($fileurl);
+          $exec = '';
+          foreach ($lines as $line_num => $line) {
+              $line = trim($line);
+              if (empty($line) || strpos($line, '--') === 0)
+                  continue;
+              $exec .= $line;
+              if (strrpos($line, ';') === strlen($line) - 1) {
+
+                $strReplace = str_replace('z_', $this->prefix. '_', $exec);
+                $strReplace = str_replace('Site name', $this->sitename, $strReplace);
+                $strReplace = str_replace('_HOTELCODE', $this->hotelcode, $strReplace);
+                $strReplace = str_replace('_HOTELNAME', $this->sitename, $strReplace);
+
+                  if (!DBUtil::executeSQL($strReplace)) {
+                      $installed = false;
+                      $action = 'dbinformation';
+                      $smarty->assign('dbdumpfailed', true);
+                      break;
+                  }
+                  $exec = '';
+              }
             }
         }
       }
-      
+      /*
       $moduleName ='POBHotel';
       $sql = "SELECT count(pn_id) FROM ".$this->prefix."_modules WHERE pn_name LIKE '".$moduleName."'" ;
       $sql = DBUtil::executeSQL($sql);
@@ -159,7 +171,7 @@ Class SubdomainCreator {
          echo "<BR>Module [$moduleName] is exists.";
       }
       
-      
+      */
       $this->createuser($this->username,$this->password,$this->email);
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $backUpDB;
     }
