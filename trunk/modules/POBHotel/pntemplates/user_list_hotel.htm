@@ -1,0 +1,143 @@
+<!--[if isset($objectArray)]-->
+  <style>
+  img.recthumb{
+        float:left;
+        padding:15px 10px 0px 0px;
+  }
+  tr.result {
+        min-height:110px;
+        width:100%;
+        border-width:1px;
+        border-top-style:dotted;
+        clear:both;
+        float:left;
+        margin-top:5px;
+  }
+  div.result h1 {
+        font-size:16px;
+  }
+
+  #showPriceButton{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border:none;
+    width:150px;
+    height:35px;
+    color:#fff;
+    font-size:20px;
+    border:#FFF 3px solid;
+    background-color:#0896ff;
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    float:right;
+  }
+
+  #distance{
+    color:#cccccc;
+  }
+
+  #address{
+    color:#ff9900;
+  }
+
+  #link{
+    color:#3366ff;
+    font-weight:bolder;
+  }
+
+  #hotelname{
+    color:#6AA118;
+    font-size:16px;
+    font-weight:bolder;
+    
+  }
+
+</style>
+<script type="text/javascript" src="modules/POBPortal/pnjavascript/wz_tooltip.js"></script> 
+<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> to <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
+<!-- <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--> to <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--> -->
+<table width="100%">
+  <!--[foreach from=$objectArray item=item]-->
+    <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
+
+      <td valign="top">
+        <!--[if isset($item.ThumbItem.URL)]-->
+          <a class="image_border" target="_blank" href="#" 
+              onmouseover="Tip('&lt;img src=\'<!--[$item.ThumbItem.URL]-->\' width=\'450\'/&gt;')" 
+              onmouseout="UnTip()
+          ">
+              <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+          </a>
+        <!--[else]-->
+              <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
+        <!--[/if]-->
+      </td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>
+              <p>
+                <span id="hotelname">
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">
+                    <!--[$item.HotelName]-->
+                  </a>
+                </span> 
+                <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+
+                <em id="distance"> ห่างจากคุณ <!--[$item.Distance]--> km.</em><br>
+                <em id="address">
+                  <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
+                  <a id="link" href="index.php?module=POBPortal&type=search&func=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">Map</a>
+                </em><br>
+                <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
+                <em>
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">more>></a>
+                </em>
+                <!-- <button id="showPriceButton" type="submit">แสดงราคา</button> -->
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <!--[if $item.Availabilities]-->
+                <table width="100%">
+                  <tr>
+                    <th width="60%" align="left">ประเภทห้องที่ว่าง</th>
+                    <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
+                    <th width="30%" align="right">ราคา</th>
+                  </tr>
+
+                  <!--[group_availabilities_array avail=$item.Availabilities]-->
+                  <!--[foreach from=$groupAvailabilities item=itemAvailabilities]-->
+                  <tr>
+                    <td align="left">
+                      <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                        <!--[$itemAvailabilities.InvCode]-->
+                      </a>
+                    </td>
+                    <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                    <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                  </tr>
+                  <!--[/foreach]-->
+                </table>
+              <!--[else]-->
+              <tr align="left">
+                <td><font color="#cc0066"><b>ไม่มีห้องว่างเหลือ</b></font></td>
+              </tr>
+              <!--[/if]-->
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  <!--[/foreach]--> 
+</table>
+
+<!--[else]-->
+<div class="recommend">
+    <p>
+      <h1>ไม่มีข้อมูล</h1>
+    </p>
+</div>
+<!--[/if]-->

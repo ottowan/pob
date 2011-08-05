@@ -50,7 +50,9 @@ function _preRender(&$render){
  */
 function POBHotel_user_main() {
     //_autoexecute();
-    return POBHotel_user_set();
+    //return POBHotel_user_view();
+    return POBHotel_user_list();
+    //return POBHotel_user_set();
 }
 
 /**
@@ -84,7 +86,7 @@ function POBHotel_user_page() {
 function POBHotel_user_view() {
     //_autoexecute();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', false , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Hotel' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'view' , 'GET');
     //$id the id no if edit form
