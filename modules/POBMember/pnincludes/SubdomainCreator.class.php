@@ -141,8 +141,8 @@ Class SubdomainCreator {
 
                 $strReplace = str_replace('z_', $this->prefix. '_', $exec);
                 $strReplace = str_replace('Site name', $this->sitename, $strReplace);
-                $strReplace = str_replace('_HOTELCODE', $this->hotelcode, $strReplace);
-                $strReplace = str_replace('_HOTELNAME', $this->sitename, $strReplace);
+                $strReplace = str_replace('_HOTELCODE_', $this->hotelcode, $strReplace);
+                $strReplace = str_replace('_HOTELNAME_', $this->sitename, $strReplace);
 
                   if (!DBUtil::executeSQL($strReplace)) {
                       $installed = false;
