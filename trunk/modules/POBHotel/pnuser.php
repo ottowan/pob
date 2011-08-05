@@ -127,7 +127,7 @@ function POBHotel_user_list() {
     POBHotel_user_permission();
     //_autoexecute();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Layer' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Hotel' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
 
