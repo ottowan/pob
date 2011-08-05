@@ -54,8 +54,7 @@
 
 </style>
 <script type="text/javascript" src="modules/POBPortal/pnjavascript/wz_tooltip.js"></script> 
-<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> to <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
-<!-- <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--> to <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--> -->
+<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( 
 <table width="100%">
   <!--[foreach from=$objectArray item=item]-->
     <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
@@ -66,10 +65,10 @@
               onmouseover="Tip('&lt;img src=\'<!--[$item.ThumbItem.URL]-->\' width=\'450\'/&gt;')" 
               onmouseout="UnTip()
           ">
-              <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+              <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.name]-->" class="recthumb">
           </a>
         <!--[else]-->
-              <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
+              <img width="100" height="100" src="http://www.econ.mju.ac.th/alumni/images/no_image.gif" alt="<!--[$item.name]-->" class="recthumb">
         <!--[/if]-->
       </td>
       <td>
@@ -78,18 +77,18 @@
             <td>
               <p>
                 <span id="hotelname">
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">
-                    <!--[$item.HotelName]-->
+                  <a href="index.php?module=POBHotel&type=user&func=view&ctrl=hotel&id=<!--[$item.id]-->">
+                    <!--[$item.name]-->
                   </a>
                 </span> 
-                <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+                <img src="modules/POBPortal/pnimages/<!--[$item.rating]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
 
                 <em id="distance"> ห่างจากคุณ <!--[$item.Distance]--> km.</em><br>
                 <em id="address">
-                  <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
-                  <a id="link" href="index.php?module=POBPortal&type=search&func=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">Map</a>
+                  <!--[$item.address_line]-->, <!--[$item.city_name]-->, <!--[$item.state_province]-->, <!--[$item.country]-->&nbsp;<!--[$item.postal_code]-->&nbsp;
+                  <a id="link" href="index.php?module=POBPortal&type=search&func=map&lat=<!--[$item.position_latitude]-->&lon=<!--[$item.position_longitude]-->">Map</a>
                 </em><br>
-                <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
+                <span class="description"><!--[$item.descriptions|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">more>></a>
                 </em>
