@@ -54,7 +54,7 @@
 
 </style>
 <script type="text/javascript" src="modules/POBPortal/pnjavascript/wz_tooltip.js"></script> 
-<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( 
+<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em>  
 <table width="100%">
   <!--[foreach from=$objectArray item=item]-->
     <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
@@ -77,20 +77,20 @@
             <td>
               <p>
                 <span id="hotelname">
-                  <a href="index.php?module=POBHotel&type=user&func=view&ctrl=hotel&id=<!--[$item.id]-->">
+                  <a href="d">
                     <!--[$item.name]-->
                   </a>
                 </span> 
                 <img src="modules/POBPortal/pnimages/<!--[$item.rating]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
 
-                <em id="distance"> ห่างจากคุณ <!--[$item.Distance]--> km.</em><br>
+                <br>
                 <em id="address">
                   <!--[$item.address_line]-->, <!--[$item.city_name]-->, <!--[$item.state_province]-->, <!--[$item.country]-->&nbsp;<!--[$item.postal_code]-->&nbsp;
-                  <a id="link" href="index.php?module=POBPortal&type=search&func=map&lat=<!--[$item.position_latitude]-->&lon=<!--[$item.position_longitude]-->">Map</a>
+                  
                 </em><br>
                 <span class="description"><!--[$item.descriptions|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">more>></a>
+                  <a href="index.php?module=POBHotel&type=user&func=view&ctrl=hotel&id=<!--[$item.id]-->">more>></a>
                 </em>
                 <!-- <button id="showPriceButton" type="submit">แสดงราคา</button> -->
               </p>
