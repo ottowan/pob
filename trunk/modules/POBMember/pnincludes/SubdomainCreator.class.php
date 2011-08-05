@@ -18,6 +18,7 @@ Class SubdomainCreator {
   private $form;
   private $exist;
   private $_error;
+  private $hotelcode;
 
   function __construct($dbpassword=NULL, $dbusername=NULL, $dbtype=NULL, $dbhost=NULL){
     $this->dbusername = $dbusername;
@@ -65,6 +66,7 @@ Class SubdomainCreator {
     $this->username = $username;
     $this->password = $password;
     $this->email = $email;
+    $this->hotelcode = $hotelcode;
     //function makedb($dbtype, $dbhost, $dbusername, $dbpassword, $dbname, $charset, $collation) {
     // make a new database - the adodb way
     $dbconn = ADONewConnection($this->dbtype);
@@ -137,10 +139,12 @@ Class SubdomainCreator {
               $exec .= $line;
               if (strrpos($line, ';') === strlen($line) - 1) {
 
-                $strReplace1 = str_replace('z_', $this->prefix. '_', $exec);
-                $strReplace2 = str_replace('Site name', $this->sitename, $strReplace1);
+                $strReplace = str_replace('z_', $this->prefix. '_', $exec);
+                $strReplace = str_replace('Site name', $this->sitename, $strReplace);
+                $strReplace = str_replace('_HOTELCODE', $this->hotelcode, $strReplace);
+                $strReplace = str_replace('_HOTELNAME', $this->sitename, $strReplace);
 
-                  if (!DBUtil::executeSQL($strReplace2)) {
+                  if (!DBUtil::executeSQL($strReplace)) {
                       $installed = false;
                       $action = 'dbinformation';
                       $smarty->assign('dbdumpfailed', true);
