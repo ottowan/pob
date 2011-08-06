@@ -51,7 +51,7 @@ function _preRender(&$render){
 function POBHotel_user_main() {
     //_autoexecute();
     //return POBHotel_user_view();
-    return POBHotel_user_list();
+    return POBHotel_user_view();
     //return POBHotel_user_set();
 }
 
