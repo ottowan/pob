@@ -7,25 +7,17 @@
 <meta name="keywords" content="<!--[keywords]-->" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/orman/orman.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/coconut_sea/js/nivo-slider/themes/pascal/pascal.css" type="text/css" media="screen" />
-
-
 
 <!--[modulestylesheet xhtml=true]-->
 <!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
 	<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="themes/coconut_sea/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
 </head>
 <body>
 <div id="theme_page_container">
 
 <div id="theme_header">
-
+	    <h1><!--[sitename]--></h1>
+        <h2><!--[slogan]--></h2>
 </div>
 
 <div id="theme_navigation_bar">
@@ -34,16 +26,6 @@
         <ul>
             <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
             <li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
-            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
-			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">admin</a></li>
-            <!--[/securityutil_checkpermission_block]-->
-            
-            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
-			<li class="selected"><a href="index.php?module=InnoGallery">Add slide</a></li>
-            <!--[/securityutil_checkpermission_block]-->
-            
-            <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
-			<li class="selected"><a href="index.php?module=POBHotel&type=admin&func=form&ctrl=hotel">Add Room</a></li>
             <!--[/securityutil_checkpermission_block]-->
         </ul>
     </div><!--end navigation_bar_center-->
