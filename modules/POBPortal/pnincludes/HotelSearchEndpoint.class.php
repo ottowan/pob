@@ -177,7 +177,7 @@ Class HotelSearchEndpoint {
       //////////////////////////////////////////
       //echo count($arrayResponse["Properties"]["Properties"]);
       for($i=0; $i<count($originalArray["Properties"]["Properties"]); $i++){
-
+        if(!is_null($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"])){
         $repackArray[$i]["startDate"] = $originalArray["startDate"];
         $repackArray[$i]["endDate"]   = $originalArray["endDate"];
 
@@ -269,6 +269,10 @@ Class HotelSearchEndpoint {
 
         } //End check image
 
+
+        }//End check price
+
+
       }//End loop  : loop Properties array
 
 
@@ -277,6 +281,8 @@ Class HotelSearchEndpoint {
         //////////////////////////////////////////
         //Display one item (page view)
         //////////////////////////////////////////
+
+        if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"])){
         //Repack Hotel information
         $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
         $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
@@ -334,14 +340,13 @@ Class HotelSearchEndpoint {
             $repackArray["ImageItems"][$k]["ThumbItem"][$l]["URL"] = $ImageItem[$l]["URL"];
           }
 
-        }
+        } //End loop ImageItem
 
-        //var_dump($repackArray["ImageItems"][$k]["ImageItem"]); exit;
+      }//End loop ImageItems
 
-      }
-        //var_dump($repackArray["ImageItems"][0]["category"]); exit;
-        //return $repackArray;
-    }
+      }//End check price
+
+  }//End check info
 
   //var_dump($originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"]); exit;
 
