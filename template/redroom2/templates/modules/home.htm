@@ -7,19 +7,8 @@
 <meta name="keywords" content="<!--[keywords]-->" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
-<link rel="stylesheet" href="themes/redroom2/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="themes/redroom2/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
 <!--[modulestylesheet xhtml=true]-->
 <!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
-
-    <script type="text/javascript" src="themes/redroom2/js/nivo-slider/demo/scripts/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="themes/redroom2/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
-    <script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider();
-    });
-    </script>
-    
 </head>
 <body>
 <div id="theme_page_container">
@@ -38,12 +27,7 @@
     </div><!--theme_navigation_bar-->
     </div><!--theme_header-->
     <div id="slideshow">
-          
-                <div id="slider" class="nivoSlider">
-                  <img src="themes/redroom2/js/nivo-slider/demo/images/slide1.jpg" alt="" />
-                  <img src="themes/redroom2/js/nivo-slider/demo/images/slide2.jpg" alt="" />
-                </div>
-            
+    	<!--[blockposition name=slide]-->
     </div><!--slideshow-->
     <div id="theme_content">
         <div id="theme_content_left"><!--[$maincontent]--></div>
@@ -53,9 +37,24 @@
 <div id="theme_footer">
 	<span class="specter"></span>
         <div class="theme_footer_content">
-            <div class="left"><!--[blockposition name=login]--></div>
+            <div class="left"><!--[blockposition name=login]-->
+			<!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->            
+                <div class="all">
+                    <h3>สำหรับสมาชิก</h3>
+                    <ul>
+                        <li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">ระบบจัดการหลัก</a></li>       	
+                        <li class="selected"><a href="index.php?module=InnoGallery">จัดการแกลลอรี่</a></li>
+                        <li class="selected"><a href="index.php?module=POBHotel&type=admin&func=form&ctrl=hotel">เพิ่มห้องพัก</a></li>
+        			</ul>
+                    <!--[displaygreeting]--></br><!--[userlinks]--></div>
+                    <!--[/securityutil_checkpermission_block]-->
+
+                </div><!-- end left-->
             <div class="right">
-                <img src="themes/redroom2/images/map.png"/>
+                <img src="themes/redroom2/images/map.png"/><!--[blockposition name=map]-->
+            </div>
+            <div class="description">PhuketCity.com องค์การบริหารส่วนจังหวัดภูเก็ต
+            
             </div>
         </div><!--theme_footer_content-->
 </div><!--theme_footer-->

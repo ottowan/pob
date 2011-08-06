@@ -125,10 +125,12 @@ text-decoration:none;
 	width:590px;
 	height:auto;
 	font-size:0.9em;
-	padding:20px 0 0 0px;
+	padding:15px 0 0 0px;
 	color:#000;
 	color:#FFF;
+	margin:0px;
 }
+#theme_content_left b{ font-size:16px;}
 #theme_content_left2{
 	position:relative;
 	padding:10px 0 0 0px;
@@ -190,9 +192,7 @@ background-color:inherit;
 	width:79px !important;
 	height:30px !important;
 	 }
-#theme_content_right .search,#theme_content_right p{
-	display:none;
-	}
+
 #slideshow{
 	position:relative;
 	height:372px;
@@ -256,8 +256,8 @@ font-size:0.9em;
 
 #theme_footer{
 	position:relative;
+	float:left;
 	text-align:left;
-	clear:both;
 	width:100%;
 	font-size:0.9em;
 	color:#8a846f;
@@ -298,6 +298,13 @@ font-size:0.9em;
 	color:#000;
 
 	}
+#theme_footer  .description{
+	width:100%;
+	float:left;
+	text-align:center;
+	line-height:0px;
+
+	}
 #theme_footer input[type=submit]{
 	float:left;
 	background-image:url(../images/button_login.jpg);
@@ -315,6 +322,7 @@ font-size:0.9em;
 	border:none;
 	width:249px;
 	height:29px;
+	padding:0 0 0 10px;
 	}
 #theme_footer ul{ float:left}
 #theme_footer input[type="checkbox"]{ width:16px; height:16px; margin:15px 0 0 0;}
@@ -443,3 +451,24 @@ table.pn-datatable tbody tr:hover {
 table.pn-datatable tbody tr th:hover {
 	background:#fff;
 }
+div.pn-adminbox{ background-color:#FFF}
+
+#theme_footer .left ul{
+	margin: 15px 10px 15px 0px;
+	}
+#theme_footer .left li{
+	list-style:none;
+	padding:0 0 10px 0px;
+	border-bottom: dotted 1px #CCC;
+	width:222px;
+	background-repeat:no-repeat;
+	background-position:left 8px;
+	text-indent:18px;
+	line-height:25px;
+	}
+#theme_footer .left li:hover{
+
+	}
+#theme_footer .left li a:hover{
+	color:#989898;
+	}
