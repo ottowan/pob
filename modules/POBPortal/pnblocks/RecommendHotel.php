@@ -51,11 +51,13 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
 
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
-    $pagesize = $vars['pagesize'];
+    $limit = $vars['pagesize'];
+    $offset = 0;
 
     $modinfo = pnModGetInfo(pnModGetIDFromName($modname));
     $directory = $modinfo['directory'];
     pnModDBInfoLoad($modname, $directory);
+
     //load render
     $render = pnRender::getInstance($modname);
 
@@ -70,12 +72,12 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     $longitude = "98.3975";
 
     //Send param to HotelSearch service 
-    Loader::loadClass('HotelSearchEndpoint',"modules/POBPortal/pnincludes");
-    $hotelSearch = new HotelSearchEndpoint();
-    $hotelSearch->setHotelSearchXML( $location, $distance, $latitude, $longitude, $startDate, $endDate);
+    Loader::loadClass('HotelLimitSearchEndpoint',"modules/POBPortal/pnincludes");
+    $hotelLimitSearch = new HotelLimitSearchEndpoint();
+    $hotelLimitSearch->setHotelLimitSearchXML( $location, $distance, $latitude, $longitude, $startDate, $endDate, $limit, $offset);
 
     //XML Response
-    $response = $hotelSearch->getHotelSearchXML();
+    $response = $hotelLimitSearch->getHotelLimitSearchXML();
     //print($response); exit;
 
     //Convert xml response to array
@@ -86,7 +88,7 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     $arrayResponse["endDate"] = $endDate;
 
     $repackArray = array();
-    $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
+    $repackArray = $hotelLimitSearch->repackArrayLimitForDisplay($arrayResponse);
 
     $render->assign("objectArray",$repackArray);
 
