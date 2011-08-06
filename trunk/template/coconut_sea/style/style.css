@@ -46,21 +46,23 @@ color:#ffffff;
 }
 
 #theme_header h1{
-padding:35px 0 0 20px;
+	padding:30px 0 0 20px;
 font-size:2.4em;
 background-color:inherit;
 color:#ffffff;
 letter-spacing:-2px;
 font-weight:normal;
+text-align:left;
 }
 
 #theme_header h2{
-margin:10px 0 0 40px;
-font-size:1.4em;
-background-color:inherit;
-color:#f0f2f4;
-letter-spacing:-1px;
-font-weight:normal;
+		margin:15px 0 0 20px;
+	text-align:left;
+	font-size:1.4em;
+	background-color:inherit;
+	color:#f0f2f4;
+	letter-spacing:-1px;
+	font-weight:normal;
 }
 
 #theme_navigation_bar{
@@ -204,7 +206,16 @@ background-color:inherit;
 	opacity:0.8;
 	cursor:pointer;
 	} 
-#theme_subcontent table{
+#theme_subcontent select{
+		border: solid 1px #E5E5E5;
+	outline: 0;
+	font: normal 13px/100% Verdana, Tahoma, sans-serif;
+	width: 60px;
+
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	
 	} 
 #theme_subcontent{
 	text-align:left;
@@ -296,10 +307,10 @@ background-color:inherit;
 	text-shadow: 0.1em 0.1em 0.01em #ccc;
 
 	}
-.navcontainer ul{
-	padding:0 0 0 -5px;
+.left_repeat ul{
+	margin: 15px 0 15px 0px;
 	}
-.navcontainer li{
+.left_repeat li{
 	list-style:none;
 	padding:0 0 10px 0px;
 	border-bottom: dotted 1px #CCC;
@@ -310,10 +321,10 @@ background-color:inherit;
 	text-indent:18px;
 	line-height:25px;
 	}
-.navcontainer li:hover{
+.left_repeat li:hover{
 	background-image:url(../images/list_hover.jpg);
 	}
-.navcontainer li a:hover{
+.left_repeat li a:hover{
 	color:#989898;
 	}
 .left_buttom{
