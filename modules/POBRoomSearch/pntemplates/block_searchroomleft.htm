@@ -59,27 +59,21 @@ border-right: 1px solid #D8D8D8;
 	}
 </style>
 <div class="box">
-<p>ค้นหาห้องพัก</p>
 <FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBRoomSearch' type='search' func='view']-->">
-  <TABLE width="100%">
-    <TR>
-      <TD colspan="2">วันที่เช็คอิน</TD>
-      <td colspan="2" rowspan="8">
-    </TR>
-    <TR>
-      <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></TD>
-    </TR>
-    <TR>
-      <TD colspan="2">วันที่เช็คเอ้าท์ </TD>
-    </TR>
-    <TR>
-      <TD colspan="2"><!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--></TD>
-    </TR>
-      <TD colspan="2">&nbsp;</TD>
-      </TR>
-    <TR>
-      <TD colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
-    </TR>
-  </TABLE>
+	 
+<dl>
+  <dt>วันที่เช็คอิน</dt>
+    <dd><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></dd>
+  <dt>วันที่เช็คเอ้าท์</dt>
+    <dd><!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--></dd>
+</dl>
+    
+	 
+	
+	
+    
+<button id="submitButton" type="submit">ค้นหา</button>
+
+
 </FORM>
 </div>
