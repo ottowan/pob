@@ -90,7 +90,7 @@ function POBHotel_user_view() {
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'view' , 'GET');
     //$id the id no if edit form
-    $id      = FormUtil::getPassedValue ('id', null , 'GET');
+    $id      = FormUtil::getPassedValue ('id', 1 , 'GET');
     //pagnigation variable
     $filter  = FormUtil::getPassedValue ('filter', 0);
     $offset  = FormUtil::getPassedValue ('startnum', 0);
