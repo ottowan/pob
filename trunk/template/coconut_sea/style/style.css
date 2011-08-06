@@ -11,7 +11,8 @@ text-align:center;
 color:#303030;
 margin: 0 0 0 0;
 padding: 0 0 0 0;
-background:#e4bc8b url(../images/bg.jpg)top center no-repeat;
+background:#e4bc8b url(../images/bg.jpg) top center no-repeat;
+
 }
 
 a{
@@ -201,6 +202,7 @@ background-color:inherit;
 	width:77px;
 	height:38px;
 	border:none;
+	margin:0 7px 0 0px;
 	}	
 #theme_subcontent #submitButton:hover{
 	opacity:0.8;
@@ -231,7 +233,7 @@ background-color:inherit;
 	border: solid 1px #E5E5E5;
 	outline: 0;
 	font: normal 13px/100% Verdana, Tahoma, sans-serif;
-	width: 200px;
+	width: 200px !important;
 	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
 	background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
 	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
@@ -244,21 +246,22 @@ background-color:inherit;
 	
 	}
 
-#theme_subcontent input[type=submit]{
+#theme_subcontent  .jqTransformButton,#theme_subcontent input[type="submit"]{
 	background: url(../images/button.jpg) no-repeat ;
-	width:77px;
+	width:77px !important;
 	height:38px;
 	border:none !important;
-	margin:0px 0 0 150px;
+	margin:0px 0 0 138px;
 	box-shadow:none;
 	color:#fff;
 	}
+
 #theme_subcontent a{ margin:0 0 0 0px;}
-#theme_subcontent input[type=submit]:hover{opacity:0.8; cursor:pointer;}
-#theme_subcontent form{ margin:5px 0 0 0px;}
+#theme_subcontent .jqTransformButton:hover{opacity:0.8; cursor:pointer;}
+#theme_subcontent form{ margin:20px 0 0 0px;}
 #theme_subcontent form li{ list-style:none;}
 #theme_subcontent .box{ margin:0 0 0 -20px;}
-#theme_subcontent input[type="checkbox"]{ width:16px; height:16px; margin:0px 0px 0 0px; padding:0 0 0 5px;}
+#theme_subcontent input[type="checkbox"]{ width:16px !important; height:16px; margin:0px 0px 0 0px; padding:0 0 0 5px;}
 
 #theme_subcontent h2{
 display:block;
@@ -283,7 +286,7 @@ background-color:inherit;
 	height:46px;
 	}
 .left_top h3{
-	color:#76d0f5;
+	color:#6AB044;
 	line-height:46px;
 	padding:0 0 0 25px;
 	font-size:18px;
@@ -565,3 +568,8 @@ ul.gallery li a {text-decoration: none; color: #777; display: block;}
 	padding:10px 0 0 20px;
 	text-shadow: 0.1em 0.01em 0.2em #999;
 	}
+.jqTransformSelectWrapper li,.jqTransformSelectWrapper li:hover{ line-height:5px; background-image:none; border-bottom:none; padding:0 0 5px -5px; width:auto; }
+.jqTransformSelectWrapper ul a{padding:0 -5px 5px 0px;text-indent:0px; font-size:10px; font-weight:normal; height:15px !important; }
+.jqTransformSelectWrapper{ width:80px !important; float:left;}
+.jqTransformSelectWrapper ul {}
+.box dd{margin:10px 0 60px 0px;}
