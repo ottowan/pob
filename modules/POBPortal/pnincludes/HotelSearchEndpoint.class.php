@@ -282,7 +282,7 @@ Class HotelSearchEndpoint {
         //Display one item (page view)
         //////////////////////////////////////////
 
-        if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"])){
+        //if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"])){
         //Repack Hotel information
         $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
         $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
@@ -344,7 +344,7 @@ Class HotelSearchEndpoint {
 
       }//End loop ImageItems
 
-      }//End check price
+      //}//End check price
 
   }//End check info
 
