@@ -193,6 +193,10 @@ background-color:inherit;
 	width:250px;
 	background-color:transparent;
 	}
+#theme_subcontent dl{
+	color:#6BCCF6;
+	}
+
 
 #theme_subcontent .search{
 	display:none;
@@ -226,7 +230,7 @@ background-color:inherit;
 	padding:0px 0px 0px 0;
 	margin:0 0 0 35px;
 }
-#theme_subcontent label, #theme_subcontent span{margin:0 0 0 0px;}
+#theme_subcontent label, #theme_subcontent span{margin:0 0 0 0px; color:#000;}
 #theme_subcontent input{
 	margin:0 100px 10px 0px;
 	padding: 5px;
@@ -568,8 +572,10 @@ ul.gallery li a {text-decoration: none; color: #777; display: block;}
 	padding:10px 0 0 20px;
 	text-shadow: 0.1em 0.01em 0.2em #999;
 	}
+/*-----------------------general---------------------------*/
 .jqTransformSelectWrapper li,.jqTransformSelectWrapper li:hover{ line-height:5px; background-image:none; border-bottom:none; padding:0 0 5px -5px; width:auto; }
-.jqTransformSelectWrapper ul a{padding:0 -5px 5px 0px;text-indent:0px; font-size:10px; font-weight:normal; height:15px !important; }
+.jqTransformSelectWrapper ul a{padding:0 -5px 5px 0px;text-indent:0px; font-size:11px !important; font-weight:normal; height:15px !important; }
 .jqTransformSelectWrapper{ width:80px !important; float:left;}
 .jqTransformSelectWrapper ul {}
 .box dd{margin:10px 0 60px 0px;}
+.jqTransformSelectWrapper ul{ width:85px !important; }
