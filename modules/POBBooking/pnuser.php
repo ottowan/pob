@@ -24,24 +24,24 @@ function POBBooking_user_main() {
 */
 function POBBooking_user_page() {
   if (!empty($_SERVER['HTTPS'])){
+    //_autoexecute();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'BookingConfirm' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'home' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
     $render = pnRender::getInstance('POBBooking');
-    $render->assign ('_GET', $_GET);
-    $render->assign ('_POST', $_POST);
-    $render->assign ('_REQUEST', $_REQUEST);
-    //set new lang
-    if ($lang){
-      SessionUtil::setVar('lang', $lang);
+    
+    _preRender($render);
+    //try to load class
+    $class = Loader::loadClassFromModule ('POBBooking','User' . $ctrl, false);
+    if ($class){
+      $object  = new $class ();
+      if (method_exists($object,'selectExtendResult')){
+        $resultex = $object->selectExtendResult();
+        $render->assign('extendResult', $resultex);
+      }
     }
-    $render->assign('ctrl', $ctrl);
-    if ($lang){
-      $render->assign('lang', $lang);
-    }else{
-      $render->assign('lang', pnUserGetLang());
-    }
+
     return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
   }else {
     //Redirect page
@@ -117,6 +117,8 @@ function POBBooking_user_form() {
     $offset  = FormUtil::getPassedValue ('startnum', 0);
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
+	//var_dump($ctrl);
+	//exit;
 
     $pagesize = pnModGetVar ('POBBooking', 'pagesize') ? pnModGetVar ('POBBooking', 'pagesize') : 100;
     $render = pnRender::getInstance('POBBooking');
@@ -151,7 +153,9 @@ function POBBooking_user_form() {
     }else{
       $render->assign('lang', pnuserGetLang());
     }
+	
     return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
+	
   /*}else {
     //Redirect page
     //$urls = "https" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];

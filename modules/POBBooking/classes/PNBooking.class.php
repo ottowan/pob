@@ -11,7 +11,7 @@ class PNBooking extends PNObject {
     $this->_init($init, $where);
   }
 
-  function insertPreProcess(){
+  function insertPostProcess(){
 
     $form = FormUtil::getPassedValue ('form', false );
     $chaincode = "";
@@ -172,7 +172,7 @@ form[hotelcode]
 
     $xml->saveXML();
     print $xml->saveXML();
-	echo $xml->asXML();
+	//echo $xml->asXML();
     $xml->save("OTA_HotelResRQ1.xml");
 
 ////send xml

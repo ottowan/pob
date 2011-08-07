@@ -2,18 +2,21 @@
 function POBBooking_userform_submit ()
 {
     $forward =  FormUtil::getPassedValue ('forward', null);
-    $ctrl =  FormUtil::getPassedValue ('ctrl', null, 'Booking');
+    $ctrl =  FormUtil::getPassedValue ('ctrl', null);
     $form = FormUtil::getPassedValue ('form', null);
-    $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
-    $success_url = pnModURL('POBHotel', 'user', 'page', array('ctrl'=>'redirect'));
+    
     //$success_url = pnModURL('POBHotel', 'user', 'list', array('ctrl'=>'price'));
-
-	$is_array = FormUtil::getPassedValue ('array', false);
-    if ($is_array){
-      $is_array = true;
-    }else{
-      $is_array = false;
+	
+    $is_array = FormUtil::getPassedValue ('array', false);
+//var_dump($is_array);
+//var_dump($form);
+	//exit;
+    if ($is_array) {
+        $is_array = true;
+    }else {
+        $is_array = false;
     }
+
      if (empty($ctrl)) {
         if ($form[ctrl]) {
             $ctrl = $form[ctrl];
@@ -21,9 +24,13 @@ function POBBooking_userform_submit ()
             return 'ERROR POBBooking system can not find controller variable';
         }
     }
+	//var_dump($ctrl);
+	//exit;
 
     $form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
     $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
+	$view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
+    $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
 
     if ( (isset($_POST['button_cancel']) || isset($_POST['button_cancel_x'])) &&
             empty($_POST['button_submit'])) {
@@ -31,7 +38,7 @@ function POBBooking_userform_submit ()
         return true;
     }
 
-    if (!($class = Loader::loadClassFromModule ('POBBooking', 'User' . $ctrl , $is_array))) {
+    if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl ))) {
         return LogUtil::registerError ("Unable to load class [$ctrl] ...");
     }
     $object = new $class ();
@@ -63,7 +70,7 @@ function POBBooking_userform_submit ()
         $object->delete ();
     }else {
         $object->save ();
-        $forward[status] = "success";
+        //$forward[status] = "success";
 		pnRedirect($success_url);
     }
     if (method_exists($object,'genForward')) {
