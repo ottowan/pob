@@ -16,118 +16,18 @@
  * @return string HTML string
  */
 function POBPortal_user_main() {
-    return POBPortal_user_display();
+    return POBPortal_user_page();
 }
 
-/**
- * Display a POBPortal page
- * @author Simon Birtwistle
- * @return string HTML string
- */
-function POBPortal_user_display() {
-    $page = FormUtil::getPassedValue('page', 'home', 'GET');
-    
-    if ($page == 'extensions') {
-        $content = pnModFunc('POBPortal', 'user', 'extensions');
-    } else {
-        $render = pnRender::getInstance('POBPortal');
-        $lang = pnUserGetLang();
-        if ($render->template_exists($lang.'/POBPortal_user_display_'.$page.'.htm')) {
-            $content = $render->fetch($lang.'/POBPortal_user_display_'.$page.'.htm');
-        } else {
-            $content = $render->fetch('POBPortal_user_display_'.$page.'.htm');
-        }
-    }
-    
-    return $content;
-}
 
-/**
- * Cycle through all installed modules looking for available module POBPortals
- * @author Simon Birtwistle
- * @return string HTML string
- */
-function POBPortal_user_extensions() {
-    $modules = pnModGetAllMods();
-    $modpages = array();
-    foreach ($modules as $mod) {
-        if (file_exists('modules/'.$mod['directory'].'/pndocs/POBPortal_page1.htm')) {
-            $modpages[] = $mod['name'];
-        }
-    }
-    $themes = pnThemeGetAllThemes();
-    $themepages = array();
-    foreach ($themes as $theme) {
-        if (file_exists('themes/'.$theme['directory'].'/pndocs/POBPortal_page1.htm')) {
-            $themepages[] = $theme['name'];
-        }
-    }
-    
+function POBPortal_user_page() {
+
+    //$ctrl the class name
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'map' , 'GET');
+    //$method the method of request for edit or view enum[ view | form | delete | list | page]
+    $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
     $render = pnRender::getInstance('POBPortal');
-    $render->assign('modpages', $modpages);
-    $render->assign('themepages', $themepages);
-    $lang = pnUserGetLang();
-    if ($render->template_exists($lang.'/POBPortal_user_extensions.htm')) {
-        $content = $render->fetch($lang.'/POBPortal_user_extensions.htm');
-    } else {
-        $content = $render->fetch('POBPortal_user_extensions.htm');
-    }
-
-    return $content;
-}
-
-/**
- * Display a POBPortal page from an installed extension, or the distribution's POBPortal page
- * @author Simon Birtwistle
- * @return string HTML string
- */
-function POBPortal_user_extPOBPortal() {
-    $page = FormUtil::getPassedValue('page', '1', 'GET');
-    $ext = FormUtil::getPassedValue('ext', '', 'GET');
-    $exttype = FormUtil::getPassedValue('exttype', 'module', 'GET');
-
-    switch ($exttype) {
-        case 'distro':
-            $directory = 'docs/distribution';
-            break;
-        case 'module':
-            $id = pnModGetIDFromName($ext);
-            if (!$id) {
-                LogUtil::registerError('Unknown module '.$ext.' in POBPortal_user_extPOBPortal.');
-                pnRedirect(pnModURL('POBPortal', 'user', 'main'));
-            }
-            $info = pnModGetInfo($id);
-            $directory = 'modules/'.$info['directory'].'/pndocs';
-            break;
-        case 'theme':
-            $id = pnThemeGetIDFromName($ext);
-            if (!$id) {
-                LogUtil::registerError('Unknown theme '.$ext.' in POBPortal_user_extPOBPortal.');
-                pnRedirect(pnModURL('POBPortal', 'user', 'main'));
-            }
-            $info = pnThemeGetInfo($id);
-            $directory = $info['directory'].'/pndocs';
-            break;
-    }
     
-    $lang = pnUserGetLang();
-    $files = array($directory.'/'.$lang.'/POBPortal_page'.$page.'.htm', $directory.'/POBPortal_page'.$page.'.htm');
-    
-    $exists = false;
-    foreach ($files as $file) {
-        $file = DataUtil::formatForOS($file);
-        $file = getcwd().'/'.$file;
-        if (file_exists($file)) {
-            $exists = true;
-            break;
-        }
-    }
-    
-    if (!$exists) {
-        LogUtil::registerError('POBPortal file does not exist!');
-        return pnRedirect(pnModURL('POBPortal', 'user', 'extensions'));
-    }
-    
-    $render = pnRender::getInstance('POBPortal');
-    return $render->fetch('POBPortal_user_menu.htm').$render->fetch('file://'.$file);
+    //try to load class
+    return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
 }
