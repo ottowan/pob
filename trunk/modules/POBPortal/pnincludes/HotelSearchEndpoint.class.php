@@ -26,7 +26,7 @@ Class HotelSearchEndpoint {
   }
 
   public function genHotelSearchXML(){
-
+    //echo "Called"; exit;
     $xml = new DOMDocument();
     $xml->preserveWhiteSpace = true;
     $xml->formatOutput = true;
@@ -86,8 +86,8 @@ Class HotelSearchEndpoint {
     
     
 
-    return $xml->saveXML();;
-    //echo $out; exit;
+    return $xml->saveXML();
+    //echo  $xml->saveXML(); exit;
   }
 
   public function hotelSearchTemp(){
@@ -281,8 +281,6 @@ Class HotelSearchEndpoint {
         //////////////////////////////////////////
         //Display one item (page view)
         //////////////////////////////////////////
-
-        //if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"])){
         //Repack Hotel information
         $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
         $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
@@ -346,14 +344,121 @@ Class HotelSearchEndpoint {
 
       //}//End check price
 
-  }//End check info
 
   //var_dump($originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"]); exit;
 
+//End check info
+  }else if($originalArray["Properties"]["Property"]){
+
+      //var_dump($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]); exit;
+      //////////////////////////////////////////
+      //Display multi item (page list)
+      //////////////////////////////////////////
+      //echo count($arrayResponse["Properties"]["Properties"]);
+      //for($i=0; $i<count($originalArray["Properties"]["Property"]); $i++){
+        if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"])){
+        $repackArray[$i]["startDate"] = $originalArray["startDate"];
+        $repackArray[$i]["endDate"]   = $originalArray["endDate"];
+
+        //Repack Hotel information
+        $repackArray[$i]["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
+        $repackArray[$i]["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
+        $repackArray[$i]["Description"] = $originalArray["Properties"]["Property"]["@attributes"]["Description"];
+
+        //Repack Relative position
+        $repackArray[$i]["Direction"] = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Direction"];
+        $repackArray[$i]["DistanceUnitName"] = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["DistanceUnitName"];
+        $repackArray[$i]["Distance"] = number_format($this->mileToKilometre($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]), 2);
+        $repackArray[$i]["Latitude"] = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Latitude"];
+        $repackArray[$i]["Longitude"] = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Longitude"];
+
+        //Repack ContactInfo
+        $repackArray[$i]["AddressLine"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["AddressLine"];
+        $repackArray[$i]["CityName"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["CityName"];
+        $repackArray[$i]["CountryName"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["CountryName"];
+        $repackArray[$i]["PhoneNumber"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["PhoneNumber"];
+        $repackArray[$i]["PostalCode"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["PostalCode"];
+        $repackArray[$i]["StateProv"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["StateProv"];
+
+        $repackArray[$i]["startDate"] = $originalArray["startDate"];
+        $repackArray[$i]["endDate"]   = $originalArray["endDate"];
+
+        //$repackArray[$i]["Availabilities"] =  $originalArray["Properties"]["Property"][0]["Availabilities"]["Availabilities"];
+
+        //var_dump($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]); exit;
+        if($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]){
+            for($j=0; $j<count($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]); $j++){
+              $repackArray[$i]["Availabilities"][$j]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Date"];
+              $repackArray[$i]["Availabilities"][$j]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["InvCode"];
+              $repackArray[$i]["Availabilities"][$j]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Limit"];
+              $repackArray[$i]["Availabilities"][$j]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Rate"];
+              $repackArray[$i]["Availabilities"][$j]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["RatePlanCode"];
+
+            }//End loop  : loop Availabilities array
+
+        //End if : check Availabilities array
+        }else if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]){
+              //echo "unknown";
+              $repackArray[$i]["Availabilities"][0]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Date"];
+              $repackArray[$i]["Availabilities"][0]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["InvCode"];
+              $repackArray[$i]["Availabilities"][0]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Limit"];
+              $repackArray[$i]["Availabilities"][0]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Rate"];
+              $repackArray[$i]["Availabilities"][0]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["RatePlanCode"];
+       }//End if : check Availability array
+
+
+      ///////////////////////////////////
+      // Array 1 : MultimediaDescriptions
+      // Array 2 : ImageItems
+      // Array 3 : ImageFormat
+      ///////////////////////////////////
+
+        //if($originalArray["Properties"]["Property"]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"]){
+        //  $repackArray[$i]["ImageItems"][0]["url"] = $originalArray["Properties"]["Property"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"];
+        //} //End check image
+
+
+      ///////////////////////////////////
+      // Array 1 : MultimediaDescriptions
+      // Array 2 : ImageItems
+      // Array 3 : ImageFormat
+      ///////////////////////////////////
+        ///////////////////////////////
+        //Get image
+        //////////////////////////////
+        $MultimediaDescriptions = $originalArray["Properties"]["Property"]["MultimediaDescriptions"]["MultimediaDescriptions"];
+        if($MultimediaDescriptions){
+            foreach($MultimediaDescriptions as $item){
+              if (array_key_exists('ImageItems', $item)) {
+
+                $ImageItems = $item["ImageItems"]["ImageItems"];
+                //var_dump($ImageItems[0]); exit;
+                $repackArray[$i]["ImageItems"]["category"] = $ImageItems[0]["@attributes"]["Category"];
+                $ImageItem = $ImageItems[0]["ImageFormat"];
+                if($repackArray[$i]["ImageItems"]["category"] == 6){
+                  $repackArray[$i]["ImageItem"]["URL"] = $ImageItem[0]["URL"];
+                }
+
+                if($repackArray[$i]["ImageItems"]["category"] == 1){
+                  $repackArray[$i]["ThumbItem"]["URL"] = $ImageItem[0]["URL"];
+                }
+                //var_dump($repackArray["ImageItems"]); exit;
+              }
+          }
+
+        } //End check image
+
+
+        }//End check price
+
+
+      //}//End loop  : loop Properties array
+
+  }//End check one list item
+
 
     return $repackArray;
-
-  }
+}
 
 
   public function mileToKilometre($mile){
