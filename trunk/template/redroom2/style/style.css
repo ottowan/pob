@@ -96,19 +96,18 @@ font-weight:normal;
 #theme_navigation_bar li a{
 	height:30px;
 	display:block;
-	padding:0 20px;
-	font-size:1.0em;
+	font-size:16px;
 	font-weight:normal;
 	text-transform:uppercase;
 	background-color:inherit;
 	color: #c3bca7;
+	padding:0 10px 0 10px;
 }
 
 * html #theme_navigation_bar a {width:1%;} /* this hack targets IE<7 */
 
 #theme_navigation_bar .selected, #theme_navigation_bar a:hover{
 	background:url(../images/menu_hover.png)  repeat-x;
-color:#ffffff;
 text-decoration:none;
 }
 
@@ -139,12 +138,24 @@ text-decoration:none;
 }
 #theme_content_left h1{
 display:block; 
-margin:0 0 16px 0;
-font-size:1.9em;
+margin:0px 0 10px 0;
+font-size:20px;
 font-weight:normal;
 letter-spacing:-1px;
-color:#fff;
+color:#edebd1 !important;
 background-color:inherit;
+border-bottom:solid 2px #edebd1;
+line-height:30px;
+text-indent:0px !important;
+}
+#theme_content h1{
+display:block; 
+font-size:20px;
+color:#000;
+background-color:inherit;
+border-bottom:solid 2px #edebd1;
+line-height:30px;
+text-indent:10px;
 }
 
 #theme_content_left h2{
@@ -171,8 +182,8 @@ background-color:inherit;
 	background:url(../images/search_bg.jpg) no-repeat top right;
 	}
 #theme_content_right .box{
-	padding:0 0 0 55px;
-	width:334px;
+	padding:0 0 0 45px;
+	width:300px;
 	background-color:transparent;
 	}
 #theme_content_right h3{
@@ -191,6 +202,11 @@ background-color:inherit;
 	background-color:transparent !important;
 	width:79px !important;
 	height:30px !important;
+	margin:10px 60px 0 0px;
+	cursor:pointer;
+	 }
+#submitButton:hover{
+	opacity:0.8;
 	 }
 
 #slideshow{
@@ -212,7 +228,7 @@ background-color:inherit;
 #theme_content_left dl{margin:0 5px 10px 25px;}
 #theme_content_left dt{font-weight:bold; margin-bottom:5px;}
 #theme_content_left dd{margin:0 0 10px 15px;}
-#theme_content_left p{ color:#fff;}
+#theme_content_left p{ color:#fff; font-size:14px; line-height:20px}
 /**************** Sidebar styles ****************/
 
 #theme_subcontent{
@@ -305,37 +321,39 @@ font-size:0.9em;
 	line-height:0px;
 
 	}
-#theme_footer input[type=submit]{
+#theme_footer .jqTransformButton{
 	float:left;
 	background-image:url(../images/button_login.jpg);
 	width:79px;
 	height:29px;
 	border:none;
-	margin:-25px 0 0 170px;
+	margin:5px 0 0 170px;
 	}
-#theme_footer input[type=submit]:hover{
+#theme_footer .jqTransformButton:hover{
 	cursor:pointer;
 	color:#fff;
 	}
 #theme_footer input{
 	background:url(../images/textbox_bg.jpg) no-repeat;
 	border:none;
-	width:249px;
+	width:239px !important;
 	height:29px;
 	padding:0 0 0 10px;
+	margin:0 0 5px 0;
 	}
 #theme_footer ul{ float:left}
-#theme_footer input[type="checkbox"]{ width:16px; height:16px; margin:15px 0 0 0;}
+#theme_footer input[type="checkbox"]{ width:16px !important; height:16px; margin:0px 0 0 0; float:left; display:block !important;}
 #theme_footer h3{
 	text-align:left;
 	color:#8a846f;
 	font-size:22px;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica, sans-serif;
+	margin:0 0 10px 0;
 	}
 #theme_footer p{padding:0; margin:0; text-align:center;}
-#theme_footer a{color:#8a846f; background-color:inherit; font-weight:bold;}
-#theme_footer a:hover{color:#8a846f; background-color:inherit; text-decoration:none;}
+#theme_footer a{color:#aba884; background-color:inherit; font-weight:bold; font-size:14px;}
+#theme_footer a:hover{color:#ABA884; background-color:inherit; text-decoration:none;}
 #theme_footer li{ list-style:none;}
 
 /* admin style override */
@@ -459,16 +477,24 @@ div.pn-adminbox{ background-color:#FFF}
 #theme_footer .left li{
 	list-style:none;
 	padding:0 0 10px 0px;
-	border-bottom: dotted 1px #CCC;
+	border-bottom: dotted 1px #ABA884;
 	width:222px;
+	background-image:url(../images/list.jpg);
 	background-repeat:no-repeat;
 	background-position:left 8px;
 	text-indent:18px;
 	line-height:25px;
 	}
 #theme_footer .left li:hover{
+	background-image:url(../images/list_hover.jpg);
 
 	}
 #theme_footer .left li a:hover{
 	color:#989898;
 	}
+/*------------------------general------------------------------*/
+.jqTransformSelectWrapper{width:80px !important;}
+.jqTransformSelectWrapper div span{color:#000 !important;}
+.box dd{margin:5px 0 40px 0px;}
+.jqTransformSelectWrapper a.jqTransformSelectOpen{background-position:top center !important; right:-2px !important; }
+.jqTransformSelectWrapper li{background-color:#4f4e4e !important;}
