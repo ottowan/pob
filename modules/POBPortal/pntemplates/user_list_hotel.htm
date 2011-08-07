@@ -87,7 +87,10 @@
                 <em id="distance"> ห่างจากคุณ <!--[$item.Distance]--> km.</em><br>
                 <em id="address">
                   <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
-                  <a id="link" href="index.php?module=POBPortal&type=search&func=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">Map</a>
+                  <a id="link"
+                     target="_blank"
+                     href="index.php?module=POBPortal&type=user&func=page&ctrl=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&hotelname=<!--[$item.HotelName]-->"
+                  >Map</a>
                 </em><br>
                 <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
