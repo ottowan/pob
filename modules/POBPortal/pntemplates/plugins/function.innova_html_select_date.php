@@ -291,7 +291,7 @@ function smarty_function_innova_html_select_date($params, &$smarty)
 
             /*
             if($lang == "th"){
-              $years = range((int)$start_year+543, (int)$end_year+543);
+              $years = range((int)$start_year-543, (int)$end_year-543);
             }else{
               $years = range((int)$start_year, (int)$end_year);
             }

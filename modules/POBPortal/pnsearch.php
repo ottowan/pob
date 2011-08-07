@@ -13,6 +13,23 @@ function POBPortal_search_searchResult(){
   $endMonth = FormUtil::getPassedValue ('endMonth', FALSE, 'POST');
   $endYear = FormUtil::getPassedValue ('endYear', FALSE, 'POST');
   
+
+//echo date("Y")+1; exit;
+
+  if(($startYear-543) == date("Y")){
+    $startYear = date("Y");
+  }else if(($startYear-543) == date("Y")+1){
+    $startYear = date("Y")+1;
+  }
+
+  if(($endYear-543) == date("Y")){
+    $endYear = date("Y");
+  }else if(($endYear-543) == date("Y")+1){
+    $endYear = date("Y")+1;
+  }
+
+  //var_dump($endYear); exit;
+
   if(!$form['search']){
     $form['search'] = "phuket";
     $form['page'] = 1;
@@ -20,6 +37,14 @@ function POBPortal_search_searchResult(){
     $distance  = "10";
     $latitude  = "7.88806";
     $longitude = "98.3975";
+    $startDate = $startYear."-".$startMonth."-".$startDay;
+    $endDate   = $endYear."-".$endMonth."-".$endDay;
+  }else{
+    $referencePoint = referencePoint($form['search']);
+    $location  = $form['search'];
+    $distance  = "10";
+    $latitude  = $referencePoint["latitude"];
+    $longitude = $referencePoint["longitude"];
     $startDate = $startYear."-".$startMonth."-".$startDay;
     $endDate   = $endYear."-".$endMonth."-".$endDay;
   }
@@ -39,7 +64,7 @@ function POBPortal_search_searchResult(){
   $arrayResponse = $reader->xmlToArray($response);
   $arrayResponse["startDate"] = $startDate;
   $arrayResponse["endDate"] = $endDate;
-
+  //print_r($arrayResponse["Properties"]); exit;
   $repackArray = array();
   $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
   //echo count($repackArray); exit;
@@ -109,5 +134,127 @@ function POBPortal_search_view(){
     return $render->fetch('user_view_hotel.htm');
   }
 }
+
+
+
+
+  function referencePoint($key){
+    $reference = array(
+                        "patong"=>array(
+                                        "latitude"=> "7.894669",
+                                        "longitude"=> "98.295708"
+                                 ),
+                        "ป่าตอง"=>array(
+                                        "latitude"=> "7.894669",
+                                        "longitude"=> "98.295708"
+                                 ),
+                        "kata"=>array(
+                                        "latitude"=> "7.821123",
+                                        "longitude"=> "98.299356"
+                                 ),
+                        "กะตะ"=>array(
+                                        "latitude"=> "7.821123",
+                                        "longitude"=> "98.299356"
+                                 ),
+                        "karon"=>array(
+                                        "latitude"=> "7.850118",
+                                        "longitude"=> "98.298111"
+                                 ),
+                        "กะรน"=>array(
+                                        "latitude"=> "7.850118",
+                                        "longitude"=> "98.298111"
+                                 ),
+                        "rawai"=>array(
+                                        "latitude"=> "7.77971",
+                                        "longitude"=> "98.325577"
+                                 ),
+                        "ราไวย์"=>array(
+                                        "latitude"=> "7.77971",
+                                        "longitude"=> "98.325577"
+                                 ),
+                        "kathu"=>array(
+                                        "latitude"=> "7.911332",
+                                        "longitude"=> "98.333473"
+                                 ),
+                        "กะทู้"=>array(
+                                        "latitude"=> "7.911332",
+                                        "longitude"=> "98.333473"
+                                 ),
+                        "phuket"=>array(
+                                        "latitude"=> "7.890248",
+                                        "longitude"=> "98.383255"
+                                 ),
+                        "ภูเก็ต"=>array(
+                                        "latitude"=> "7.890248",
+                                        "longitude"=> "98.383255"
+                                 ),
+                        "kamala"=>array(
+                                        "latitude"=> "7.948397",
+                                        "longitude"=> "98.277855"
+                                 ),
+                        "กมลา"=>array(
+                                        "latitude"=> "7.948397",
+                                        "longitude"=> "98.277855"
+                                 ),
+                        "MaiKhao"=>array(
+                                        "latitude"=> "8.134008",
+                                        "longitude"=> "98.305664"
+                                 ),
+                        "ไม้ขาว"=>array(
+                                        "latitude"=> "8.134008",
+                                        "longitude"=> "98.305664"
+                                 ),
+                        "Chalongitudeg"=>array(
+                                        "latitude"=> "7.847737",
+                                        "longitude"=> "98.33828"
+                                 ),
+                        "ฉลอง"=>array(
+                                        "latitude"=> "7.847737",
+                                        "longitude"=> "98.33828"
+                                 ),
+                        "panwa"=>array(
+                                        "latitude"=> "7.806157",
+                                        "longitude"=> "98.406601"
+                                 ),
+                        "พันวา"=>array(
+                                        "latitude"=> "7.806157",
+                                        "longitude"=> "98.406601"
+                                 ),
+                        "layan"=>array(
+                                        "latitude"=> "8.029145",
+                                        "longitude"=> "98.291416"
+                                 ),
+                        "ลายัน"=>array(
+                                        "latitude"=> "8.029145",
+                                        "longitude"=> "98.291416"
+                                 ),
+                        "thalang"=>array(
+                                        "latitude"=> "8.038153",
+                                        "longitude"=> "98.33313"
+                                 ),
+                        "ถลาง"=>array(
+                                        "latitude"=> "8.038153",
+                                        "longitude"=> "98.33313"
+                                 ),
+                        "sakhu"=>array(
+                                        "latitude"=> "8.092542",
+                                        "longitude"=> "98.304977"
+                                 ),
+                        "สาคู"=>array(
+                                        "latitude"=> "8.092542",
+                                        "longitude"=> "98.304977"
+                                 )
+                 );
+
+
+    if (array_key_exists($key, $reference)) {
+      $result = $reference[$key];
+    }
+
+    //var_dump($result); exit;
+
+    return $result;
+    
+  }
 
 ?>
