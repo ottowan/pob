@@ -1,99 +1,73 @@
 <?php
 function POBBooking_userform_submit ()
 {
-    $forward =  FormUtil::getPassedValue ('forward', null);
-    $ctrl =  FormUtil::getPassedValue ('ctrl', null);
-    $form = FormUtil::getPassedValue ('form', null);
-    
-    //$success_url = pnModURL('POBHotel', 'user', 'list', array('ctrl'=>'price'));
-	
-    $is_array = FormUtil::getPassedValue ('array', false);
-//var_dump($is_array);
-//var_dump($form);
-	//exit;
-    if ($is_array) {
-        $is_array = true;
-    }else {
-        $is_array = false;
+    $forward  = FormUtil::getPassedValue ('forward', null);
+    $ctrl     = FormUtil::getPassedValue ('ctrl', 'Booking');
+    $with_id  = FormUtil::getPassedValue ('_WITH_INSERT_ID', false);
+    $validate_form_url = pnModURL('Booking', 'user', 'form' , array('ctrl'=>$ctrl));
+    $invalidate_form_url = pnModURL('Booking', 'user', 'form' , array('ctrl'=>'Booking'));
+    $view_url = pnModURL('Booking', 'user', 'view' , array('ctrl'=>$ctrl));
+    $list_url = pnModURL('Booking', 'user', 'list' , array('ctrl'=>$ctrl));
+    //$success_url = pnModURL('iHotel', 'user', 'page', array('ctrl'=>'redirect'));
+    $success_url = pnModURL('iHotel', 'user', 'list', array('ctrl'=>'price'));
+
+    if (count($forward)){
+      $forward_url = generateUrl($forward);
     }
 
-     if (empty($ctrl)) {
-        if ($form[ctrl]) {
-            $ctrl = $form[ctrl];
-        }else {
-            return 'ERROR POBBooking system can not find controller variable';
-        }
-    }
-	//var_dump($ctrl);
-	//exit;
-
-    $portal_url = pnModURL('POBPortal', 'user');
-    $form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
-    $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
-	  $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
-    $success_url = pnModURL('POBBooking', 'user', 'page', 'redirect');
-
-    if ( (isset($_POST['button_cancel']) || isset($_POST['button_cancel_x'])) &&
-            empty($_POST['button_submit'])) {
-        pnRedirect($list_url);
-        return true;
+    if ($_POST['button_cancel'] || $_POST['button_cancel_x'])
+    {
+      pnRedirect($list_url);
+      return true;
     }
 
-    if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl , $is_array))) {
-        return LogUtil::registerError ("Unable to load class [$ctrl] ...");
+    if (!($class = Loader::loadClassFromModule ('Booking', $ctrl))){
+      v4b_exit ("Unable to load class [$ctrl] ...");
     }
     $object = new $class ();
-
-    if (method_exists($object,'genPermission')) {
-        $permit = $object->genPermission();
-        if (empty($permit)) {
-            return LogUtil::registerError ("Access denied");
-        }
-    }
-
     $object->getDataFromInput ('form',null,'POST');
-
-
-    if (method_exists($object,'validate')) {
-        if (!$object->validate()) {
-            if (count($forward) > 0) {
-                $forward_url = generateUrl($forward);
-                pnRedirect($forward_url);
-            }else {
-                pnRedirect($form_url);
-            }
-
-            return true;
-        }
+    //prepare multi language support
+    if (method_exists($object,'prepareLanguageForInput')){
+      $object->prepareLanguageForInput();
     }
 
-    if ($_POST['button_delete'] || $_POST['button_delete_x']) {
-        $object->delete ();
-    }else {
+
+    if (method_exists($object,'validate')){
+      if (!$object->validate())
+      {
+          pnRedirect($invalidate_form_url);
+          return true;
+      } else {
         $object->save ();
-        //$forward[status] = "success";
-		pnRedirect($success_url);
-    }
-/*
-    if (method_exists($object,'genForward')) {
-        $forwar_url = $object->genForward();
-        if (!empty($forwar_url)) {
-            pnRedirect($forwar_url);
+////////////////////////////////////////////////////////////////////////////////////////////////*
+        $booking = SessionUtil::getVar('booking');
+        $i = 1;
+        $j = 1;
+        $room_name[$i] = '';
+        $room_count = 0;
+        foreach ($booking as $item){
+                   
+          if($item[roomtype] != '$room_name[$i]'){
+              $room_name[$i] = $item[roomtype];
+              
+          }else{
+              $room_count = 0;
+              
+          }
+          $i++;
+          $room_count++;
+                    
         }
-    }else if (count($forward) > 0) {
-        if($forward[id]) {
-            $forward[id] =  $forward[id];
-        }else {
-            $forward[id] = $object->_objData[id];
-        }
-        $forward_url = generateUrl($forward);
-        pnRedirect($forward_url);
-    }else {
-        pnRedirect($list_url);
-    }
-*/
-    return true;
 
+        $object1 = array('amount_room'   => $amount_room);
+        //$object1->getDataFromInput ('form',null,'POST');
+        pnModAPIFunc('iHotel', 'user', 'updateRoomReserv',array('form' => $object1));
+*////////////////////////////////////////////////////////////////////////////////////////////////
+        pnRedirect($forward_url);
+      }
+    }
+
+    return true;
 }
 
 function POBBooking_userform_sent (){
