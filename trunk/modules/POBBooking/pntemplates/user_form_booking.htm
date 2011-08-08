@@ -89,8 +89,10 @@
                 <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
                 <TD align="center"><!--[$item.numberofunit]--></TD>
                 <TD align="center"><!--[$item.startdate]--> to <!--[$item.enddate]--></TD>
-                <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]--></TD>
-                <TD align="center"><!--[$item.adult]--></TD>
+                <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]-->
+                   <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
+                </TD>
+                <TD align="center"><!--[math equation="a*b" a=$item.numberofunit b=2]--><!--[$item.adult]--></TD>
                 <TD align="center">
                   <!--[if $item.child]-->
                     <!--[$item.child]-->
@@ -100,13 +102,14 @@
                 </TD>
                 <TD align="right">
                   <!--[math equation="a*b" a=$item.numberofunit b=$item.rate assign="total"]-->
+                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][room_rate_total]" value="<!--[$total]-->">
                   THB <!--[$total|number_format:2:".":","]-->
                   <!--[php]-->
                       $total = $this->get_template_vars("total");
                       $totalAll += $total;
                       $this->assign("totalAll", $totalAll);
                   <!--[/php]-->
-
+                  
                 </TD>
               </TR>
             <!--[/if]-->
@@ -777,7 +780,7 @@
     <TR>
       <TD align="right">Expire Date <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
-        <select name="Month" id="guset[card_expire_month]" tabindex="112">
+        <select name="guset[card_expire_month]" id="card_expire_month" tabindex="112">
           <option value="">Month</option>
             <option value="01">01</option>
             <option value="02">02</option>
@@ -793,7 +796,7 @@
             <option value="12">12</option>
         </select>
         
-        <select name="Year" id="guset[card_expire_year]" tabindex="112">
+        <select name="guset[card_expire_year]" id="card_expire_year" tabindex="112">
           </option>
           <option value="">Year</option>
           <option value="2010">2010</option>

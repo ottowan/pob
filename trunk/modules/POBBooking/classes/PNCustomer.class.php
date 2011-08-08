@@ -114,43 +114,7 @@ class PNCustomer extends PNObject {
 
 
     //$is_validate = false;
-/*
-    $checkin_date = "2010-06-10";
-    $checkout_date = "2010-06-13";
-    $night = "2";
-    $amount_room = "2";
 
-
-    $booking[] = array(
-                       "roomtype" => "Deluxe",
-                       "bedtype" => "Twin",
-                       "breakfast" => "yes",
-                       "night" => "2",
-                       "adult" => "2",
-                       "child_age" => "1",
-                       "price" => "5000"
-                    );
-
-
-    $booking[] = array(
-                       "roomtype" => "Superior",
-                       "bedtype" => "Single",
-                       "breakfast" => "yes",
-                       "night" => "2",
-                       "adult" => "2",
-                       "child_age" => "0",
-                       "price" => "20000"
-
-                    );
-
-
-    SessionUtil::setVar('checkin_date', $checkin_date, '/', true, true);
-    SessionUtil::setVar('checkout_date', $checkout_date, '/', true, true);
-    SessionUtil::setVar('night', $night, '/', true, true);
-    SessionUtil::setVar('amount_room', $amount_room, '/', true, true);
-
-    SessionUtil::setVar('booking', $booking, '/', true, true);
-    */
     /*
     return $is_validate;
   }
@@ -159,14 +123,14 @@ class PNCustomer extends PNObject {
 
     function insertPreProcess() {
         //get
-        /*
-    $card1 = FormUtil::getPassedValue ('form[card1]', false);
-    $card2 = FormUtil::getPassedValue ('form[card2]', false);
-    $card3 = FormUtil::getPassedValue ('form[card3]', false);
-    $card4 = FormUtil::getPassedValue ('form[card4]', false);
-        */
-        $this->_objData['card_number'] = $this->_objData[card1].$this->_objData[card2].$this->_objData[card3].$this->_objData[card4];
-        $this->_objData['status_id'] = 2;
+        $form = FormUtil::getPassedValue ('form', false );
+        
+        $card_exp_month = $this->_objData['card_exp_month'];
+        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+        $cardexpiredate = $card_exp_month.$card_exp_year;
+        //$roomstays = $this->_objData['roomstays'];
+        //insert
+        $this->_objData['cardexpire'] = $cardexpiredate;
         return true;
     }
 
@@ -175,7 +139,8 @@ class PNCustomer extends PNObject {
         Loader::loadClass('DataUtilEx', "modules/Booking/pnincludes");
 
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
-        $refid = "HO00".$id;
+        $refid = "B".$id+1000;
+        
         $object = array('refid'=>$refid);
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
@@ -186,7 +151,8 @@ class PNCustomer extends PNObject {
             //return true;
         }
 
-        //Get session value
+        //Get form value to insert booking
+/*
         $pre_checkin_date = SessionUtil::getVar('checkin_date');
         $pre_checkout_date = SessionUtil::getVar('checkout_date');
         $checkin_date = date('Y-m-d', strtotime($pre_checkin_date));
@@ -195,9 +161,17 @@ class PNCustomer extends PNObject {
         $amount_room = SessionUtil::getVar('amount_room');
         $total_price = SessionUtil::getVar('total_price');
         $booking = SessionUtil::getVar('booking');
-
+*/
+        $form = FormUtil::getPassedValue ('form', false );
+        $card_exp_month = $this->_objData['card_exp_month'];
+        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+        $cardexpire = $card_exp_month.$card_exp_year;
+        
+        $chaincode = $this->_objData['chaincode'];
+        
+        $roomstays = $this->_objData['roomstays'];
           
-        foreach($booking as $item) {
+        foreach($roomstays as $item) {
             //Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_booking', 'id', 'MAX', '');
             if($current_booking_id == null) {
@@ -206,21 +180,36 @@ class PNCustomer extends PNObject {
                 $current_booking_id = $current_booking_id+1;
             }
             $objects = array(
-                    'id'            => $current_booking_id,
-                    'cus_id'        => $id,
-                    'status_id'     => '2',
-                    'refid'         => $refid,
-                    'checkin_date'  => $checkin_date,
-                    'checkout_date' => $checkout_date,
-                    'night'         => $night,
-                    'amount_room'   => $amount_room,
-                    'roomtype'      => $item[roomtype],
-                    'bedtype'       => $item[bedtype],
-                    'breakfast'     => $item[breakfast],
-                    'adult'         => $item[adult],
-                    'child_age'     => $item[child_age],
-                    'price'         => $item[price],
-                    'total_price'   => $total_price
+                    'id'                  => $current_booking_id,
+                    'customer_refid'      => $refid,
+                    'chaincode'           => $this->_objData['chaincode'],
+                    'isocurrency'         => $this->_objData['isocurrency'],
+                    'checkin_date'        => $item[startdate],
+                    'checkout_date'       => $item[enddate],
+                    'night'               => $item[night],
+                    'amount_room'         => $item[numberofunit],
+                    'roomtype'            => $item[invcode],
+                    'adult'               => $item[adult],
+                    'child'               => $item[child],
+                    'room_rate'           => $item[rate],
+                    'room_rate_total'     => $item[room_rate_total],
+                    'identificational'    => $this->_objData['identificational'],
+                    'nameprefix'          => $this->_objData['nameprefix'],
+                    'givenname'           => $this->_objData['givenname'],
+                    'surname'             => $this->_objData['surname'],
+                    'addressline'         => $this->_objData['addressline'],
+                    'cityname'            => $this->_objData['cityname'],
+                    'stateprov'           => $this->_objData['stateprov'],
+                    'countryname'         => $this->_objData['countryname'],
+                    'postalcode'          => $this->_objData['postalcode'],
+                    'mobile'              => $this->_objData['mobile'],
+                    'phone'               => $this->_objData['phone'],
+                    'email'               => $this->_objData['email'],
+                    'addition_request'    => $this->_objData['addition_request'],
+                    'cardcode'            => $this->_objData['cardcode'],
+                    'cardnumber'          => $this->_objData['cardnumber'],
+                    'cardholdername'      => $this->_objData['cardholdername'],
+                    'cardexpire'          => $this->_objData['cardexpire']
             );
             
             DBUtil::insertObject($objects,'pobbooking_booking');
@@ -246,13 +235,6 @@ class PNCustomer extends PNObject {
         //Call sendEmail method
         $this->sendEmail();
 
-        //Delete session variable & data
-        SessionUtil::delVar( 'checkin_date');
-        SessionUtil::delVar( 'checkout_date');
-        SessionUtil::delVar( 'night');
-        SessionUtil::delVar( 'amount_room');
-        SessionUtil::delVar( 'total_price');
-        //SessionUtil::delVar( 'booking');
 
     }
 
@@ -274,54 +256,53 @@ class PNCustomer extends PNObject {
 
     }
 
-
+/*
     function sendEmail() {
         //Get value from input
         $form = FormUtil::getPassedValue ('form', false);
 
-        //Get session data
-        $checkin_date = SessionUtil::getVar('checkin_date');
-        $checkout_date = SessionUtil::getVar('checkout_date');
-        $night = SessionUtil::getVar('night');
-        $amount_room = SessionUtil::getVar('amount_room');
-        $total_price = SessionUtil::getVar('total_price');
-        $booking = SessionUtil::getVar('booking');
+        $booking = $this->_objData['roomstays'];
+
 
 
         //Config email
-        $adminEmail = "info@karonphunaka.com";
+        $adminEmail = "admin@phuketcity.com";
         $toEmail = $form[email].",".$adminEmail;
 
         //Config email body
-        $body = "Dear ".$form[titlename] .' ' .$form[firstname].",\n";
+        $body = "Dear ".$this->_objData['nameprefix'] .' ' .$this->_objData['givenname'].",\n";
         $body.= "\tThank you for your enquiry. Your request as\n";
         $body.= "detailed below has been sent to one of our client\n";
         $body.= "service who will respond to you within 1-2 business day.\n";
         $body.= "Should you require any assistancen\n";
-        $body.= "please contact us at info@karonphunaka.com\n";
+        $body.= "please contact us at info@phuketcity.com\n";
         $body.= "[BOOKING DETAILS]\n";
         $body.= "Request type: Make a booking\n";
         foreach($booking  as $item) {
-            $body.= "           Room Type:".$item[roomtype]."\n";
-            $body.= "           Room:".$amount_room."\n";
+            $body.= "           Room Type:".$item[invcode]."\n";
+            $body.= "           Room:".$item[numberofunit]."\n";
             $body.= "           Night:".$item[night]."\n";
             $body.= "           Adult:".$item[adult]."\n";
-            $body.= "           Children age:".$item[child_age]."\n";
-            $body.= "           Price/ One room:".$item[price]."\n";
+            if($item[child]){
+              $body.= "           Children :".$item[child]."\n";
+            }
+            $body.= "           Price / One room / One night:".$item[rate]."\n";
         }
         $body.= "Addition requests:".$form[addition_request]."\n";
         $body.= "[CUSTOMER INFORMATION]\n";
-        $body.= "name : ".$form[titlename]."".$form[firstname]."\t".$form[lastname]."\t\n";
+        $body.= "name : ".$form[nameprefix]."".$form[givenname]."\t".$form[surname]."\t\n";
         $body.= "email : ".$form[email]."\n";
         $body.= "[OTHERS]\n";
-        $body.= "Checkin Date :".$checkin_date."\n";
-        $body.= "Checkout Date :".$checkout_date."\n";
-        $body.= "--------BOOKING PRICE:".$total_price." BAHT--------\n\n\n\n";
-        $body.= "karonphunaka.com Client Service\n";
-        $body.= "info@karonphunaka.com";
+        foreach($booking  as $item) {
+          $body.= "Checkin Date :".$item[startdate]."\n";
+          $body.= "Checkout Date :".$item[enddate]."\n";
+        }
+        $body.= "--------BOOKING PRICE:".$form[totalall]." BAHT--------\n\n\n\n";
+        $body.= "phuketcity.com Client Service\n";
+        $body.= "info@phuketcity.com";
         $body.= "             ";
 
         mail($toEmail,$subject,$body,$header);
     }
-
+*/
 }
