@@ -27,10 +27,11 @@ function POBBooking_userform_submit ()
 	//var_dump($ctrl);
 	//exit;
 
+    $portal_url = pnModURL('POBPortal', 'user');
     $form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
     $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
-	$view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
-    $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
+	  $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
+    $success_url = pnModURL('POBBooking', 'user', 'page', 'redirect');
 
     if ( (isset($_POST['button_cancel']) || isset($_POST['button_cancel_x'])) &&
             empty($_POST['button_submit'])) {
@@ -38,7 +39,7 @@ function POBBooking_userform_submit ()
         return true;
     }
 
-    if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl ))) {
+    if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl , $is_array))) {
         return LogUtil::registerError ("Unable to load class [$ctrl] ...");
     }
     $object = new $class ();
@@ -73,6 +74,7 @@ function POBBooking_userform_submit ()
         //$forward[status] = "success";
 		pnRedirect($success_url);
     }
+/*
     if (method_exists($object,'genForward')) {
         $forwar_url = $object->genForward();
         if (!empty($forwar_url)) {
@@ -89,7 +91,7 @@ function POBBooking_userform_submit ()
     }else {
         pnRedirect($list_url);
     }
-
+*/
     return true;
 
 }

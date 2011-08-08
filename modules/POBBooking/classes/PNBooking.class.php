@@ -33,7 +33,7 @@ form[postalcode]
 form[phonenumber][5]
 form[phonenumber][1]
 form[email]
-form[comment]
+form[addition_request]
 form[profiletype]
                      
 form[cardcode]
@@ -92,10 +92,21 @@ form[hotelcode]
                     $Inv->setAttribute("InvCode", $item[numberofunits]);
                     $GuestCounts = $xml->createElement("GuestCounts");
                     $RoomStay->appendChild($GuestCounts);
+                    if($this->_objData['adult'] != ""){
                       $GuestCount = $xml->createElement("GuestCount");
                       $GuestCounts->appendChild($GuestCount);
                       $GuestCount->setAttribute("AgeQualifyingCode", "10");
-                      $GuestCount->setAttribute("Count", "1");
+                      $GuestCount->setAttribute("Count", $this->_objData['adult']);
+                    }elseif($this->_objData['child'] != ""){
+                      $GuestCount = $xml->createElement("GuestCount");
+                      $GuestCounts->appendChild($GuestCount);
+                      $GuestCount->setAttribute("AgeQualifyingCode", "8");
+                      $GuestCount->setAttribute("Count", $this->_objData['child']);
+                    }
+                      $GuestCount = $xml->createElement("GuestCount");
+                      $GuestCounts->appendChild($GuestCount);
+                      $GuestCount->setAttribute("AgeQualifyingCode", "10");
+                      $GuestCount->setAttribute("Count", $this->_objData['guests']);
                     $TimeSpan = $xml->createElement("TimeSpan");
                     $RoomStay->appendChild($TimeSpan);
                     $TimeSpan->setAttribute("End", "2011-07-29");
@@ -121,7 +132,7 @@ form[hotelcode]
                       $RoomStay->appendChild($Comments);
                         $Comment = $xml->createElement("Comment");
                         $Comments->appendChild($Comment);
-                          $Text = $xml->createElement("Text", $this->_objData['comment']);
+                          $Text = $xml->createElement("Text", $this->_objData['addition_request']);
                           $Comment->appendChild($Text);
                   }
                 $ResGuests = $xml->createElement("ResGuests");
@@ -170,9 +181,10 @@ form[hotelcode]
                             $CountryName = $xml->createElement("CountryName", $this->_objData['countryname']);
                             $Address->appendChild($CountryName);
 
-    $xml->saveXML();
+    //$xml->saveXML();
     print $xml->saveXML();
 	//echo $xml->asXML();
+	exit;
     $xml->save("OTA_HotelResRQ1.xml");
 
 ////send xml
