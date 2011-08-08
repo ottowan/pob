@@ -283,7 +283,7 @@
             $filename_temp  = "images_".$id.$rootname;
             $thumbname_temp = "thumbs_".$id.$rootname;
             $imgpath        = $imagespath.$filename_temp;
-            $tmbpath        = $thumbspath.$filename_temp;
+            $tmbpath        = $thumbspath.$thumbname_temp;
             if($key==0){
               $firstimage_temp = $filename_temp;
             }
