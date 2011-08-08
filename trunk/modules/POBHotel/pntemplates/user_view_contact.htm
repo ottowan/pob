@@ -116,22 +116,29 @@ function makeShadow(){
 </head>
 
 <body onload="initialize()">
-<h1>Contact Us</h1><BR>
-<div id="map_canvas" style="position:relative;width:490px; height:300px;"></div><BR>
-  <TABLE width="100%">
+<TABLE width="100%">
   <TR valign='top'>
-    <TD ><h1>Address</h1></TD>
+    <TD ><h1>Contact Us</h1></TD>
   </TR>
   <TR valign='top'>
-    <TD ><p><!--[$view.address_line]-->,<!--[$view.city_name]-->, <!--[$view.state_province]-->, <!--[$view.country]-->, <!--[$view.postal_code]--></p></TD>
+    <TD ><p>Address : <!--[$view.address_line]-->,<!--[$view.city_name]-->, <!--[$view.state_province]-->, <!--[$view.country]-->, <!--[$view.postal_code]--></p></TD>
   </TR>
+  <!--[if $view.telephone]-->
+    <TR valign='top'>
+      <TD ><p>tel. <!--[$view.telephone]--></p></TD>
+    </TR>
+  <!--[/if]-->
+  <!--[if $view.email]-->
+    <TR valign='top'>
+      <TD ><p>email : <!--[$view.email]--></p></TD>
+    </TR>
+  <!--[/if]-->
   <TR valign='top'>
-    <TD ><p><!--[if $view.telephone]-->tel. <!--[$view.telephone]--><!--[else]--><!--[/if]--></p></TD>
+    <TD ><div id="map_canvas" style="position:relative;width:490px; height:300px;"></div></TD>
   </TR>
-  <TR valign='top'>
-    <TD ><p><!--[if $view.email]-->email : <!--[$view.email]--><!--[else]--><!--[/if]--></p></TD>
-  </TR>
-  </TABLE>
+</TABLE>
+
+
 </body>
 </html>
 
