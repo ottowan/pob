@@ -21,34 +21,6 @@ function detectBrowser() {
     mapdiv.style.height = '200px';
   }
 }
-/*
-  google.load('maps', '2');
-  var map;
-
-  function initialize() {
-
-    map = new GMap2(document.getElementById("map_canvas"));
-    map.setCenter(new GLatLng(37.4328, -122.077), 12);
-
-    // The following line makes the map Earth-enabled by adding the
-    // "Earth" button to the map type control.  Note that you still
-    // need to add a map type control (GMapTypeControl,
-    // GMenuMapTypeControl, or GHierarchicalMapTypeControl) to the
-    // the map (as is done below) for the "Earth" button and the rest
-    // of the map type buttons to show up at all.
-    map.addMapType(G_SATELLITE_3D_MAP);
-
-    map.addControl(new GHierarchicalMapTypeControl());
-    map.addControl(new GLargeMapControl());
-    
-    var marker = new GMarker(new GLatLng(37.4228, -122.085));
-    GEvent.addListener(marker, "click", function() {
-      var html = '<div style="width: 210px; padding-right: 10px">Hello world!<\/div>';
-      marker.openInfoWindowHtml(html);
-    });
-    map.addOverlay(marker);
-  }
-*/
 
   function initialize() {
   
@@ -146,7 +118,6 @@ function makeShadow(){
 <body onload="initialize()">
 <h1><!--[$view.name]--></h1><BR>
 <div id="map_canvas" style="position:relative;width:490px; height:200px;"></div><BR>
-  <TABLE>
 </body>
 </html>
 
