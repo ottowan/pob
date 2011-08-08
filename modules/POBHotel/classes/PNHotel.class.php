@@ -69,7 +69,7 @@
         $guestRoomObject = new $class;
         $guestRoomObject->get();
         $result['hotelGuestRoom'] = $guestRoomObject->_objData;
-        
+
 
       }
       return $result;
@@ -139,7 +139,7 @@
 
 
         $this->uploadFiles($id);
-        //$this->sendNotify();
+        $this->sendNotify();
     }
 
     function updatePostProcess(){
@@ -196,27 +196,6 @@
 
       $this->uploadFiles($id);
       $this->sendNotify();
-      /*
-
-      $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
-      //Delete old data
-      DBUtil::deleteObjectByID( 'pobhotel_hotel_amenity', $id, 'hotel_id');
-
-      $itemAmenity = FormUtil::getPassedValue ('itemAmenity', false);
-      $id = $this->_objData['id'];
-      if($itemAmenity && $id){
-        foreach($itemAmenity as $key=>$val ){
-          //$valArray = explode("@", $key);
-          $obj[] = array(
-                          'amenity_id' => $val,
-                          'hotel_id' => $id
-                   );
-        }
-        //Do the insert
-        DBUtil::insertObjectArray($obj, 'pobhotel_hotel_amenity');
-      }
-      */
-
     }
 
   function uploadFiles($id){
@@ -398,19 +377,12 @@
         return LogUtil::registerError ('Unable to load class [HotelDescContentGenerator] ...');
       $obj = new HotelDescContentGenerator($this->_objData['id']);
       $res = $obj->sendContent();
-      print $res;
 
-    }
-    private function createDatabase(){
-      if (!($class = Loader::loadClass('SubdomainCreator', "modules/POBHotel/pnincludes"))){
-        return LogUtil::registerError ('Unable to load class [SubdomainCreator] ...');
+      if (!($class = Loader::loadClass('OTA_HotelAvailNotifRQ', "modules/POBHotel/pnincludes"))){
+        return LogUtil::registerError ('Unable to load class [OTA_HotelAvailNotifRQ] ...');
       }
-
-      $form = FormUtil::getPassedValue ('form', false, 'REQUEST');
-      $obj = new SubdomainCreator();
-      $obj->makedb($form['database_name']);
-      $obj->sqlDump();
-      exit;
+      $tester = new OTA_HotelAvailNotifRQ();;
+      $tester->sendContent();
     }
   }
 ?>
