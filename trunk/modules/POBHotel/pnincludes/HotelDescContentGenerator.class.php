@@ -57,9 +57,6 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
-    header("Content-type: text/xml");
-    print $data;
-    exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
