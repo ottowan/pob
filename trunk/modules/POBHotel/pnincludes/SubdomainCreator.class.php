@@ -54,13 +54,6 @@ Class SubdomainCreator {
   function makedb($hotelcode, $sitename, $dbname, $username, $password, $email)
   {
 
-    //echo "DB Name : ".$dbname;
-    //echo "<BR>DB Username : ".$this->dbusername;
-    //echo "<BR>DB Password : ".$this->dbpassword;
-    //echo "<BR>DB Type : ".$this->dbtype;
-    //echo "<BR>DB Host : ".$this->dbhost;
-
-
     $this->sitename = $sitename;
     $this->dbname = $dbname;
     $this->username = $username;
@@ -155,23 +148,7 @@ Class SubdomainCreator {
             }
         }
       }
-      /*
-      $moduleName ='POBHotel';
-      $sql = "SELECT count(pn_id) FROM ".$this->prefix."_modules WHERE pn_name LIKE '".$moduleName."'" ;
-      $sql = DBUtil::executeSQL($sql);
-      $sql = DBUtil::marshallObjects($sql, array('count'));
 
-      if($sql[0]['count']==0){
-        if($this->installmodules($moduleName)){
-          echo "<BR>Install [$moduleName] Complete.";
-        }else{
-          echo "<BR>Install [$moduleName] failed.";
-        }
-      }else{
-         echo "<BR>Module [$moduleName] is exists.";
-      }
-
-      */
       $this->createuser($this->username,$this->password,$this->email);
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $backUpDB;
     }
