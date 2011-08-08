@@ -257,8 +257,8 @@ background-color:inherit;
 	border:none !important;
 	margin:0px 0 0 138px;
 	box-shadow:none;
-	color:#fff;
 	}
+.jqTransformButton span{ color:#fff !important; font-size:14px;}
 
 #theme_subcontent a{ margin:0 0 0 0px;}
 #theme_subcontent .jqTransformButton:hover{opacity:0.8; cursor:pointer;}
