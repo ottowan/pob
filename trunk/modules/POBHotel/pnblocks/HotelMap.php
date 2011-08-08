@@ -59,7 +59,7 @@ function POBHotel_HotelMapblock_display($blockinfo)
 
     if ($id){
       //load class
-      if (!($class = Loader::loadClassFromModule ('POBHotel',  ucfirst($ctrl), false))){
+      if (!($class = Loader::loadClassFromModule ('POBHotel',  ucfirst($class), false))){
         return LogUtil::registerError ("Unable to load class [$ctrl] ...");
       }
       $object  = new $class ();
