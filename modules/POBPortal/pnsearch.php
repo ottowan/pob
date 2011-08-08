@@ -42,7 +42,7 @@ function POBPortal_search_searchResult(){
   }else{
     $referencePoint = referencePoint($form['search']);
     $location  = $form['search'];
-    $distance  = "10";
+    $distance  = "2";
     $latitude  = $referencePoint["latitude"];
     $longitude = $referencePoint["longitude"];
     $startDate = $startYear."-".$startMonth."-".$startDay;
@@ -180,11 +180,11 @@ function POBPortal_search_view(){
                                         "latitude"=> "7.911332",
                                         "longitude"=> "98.333473"
                                  ),
-                        "phuket"=>array(
+                        "phukettown"=>array(
                                         "latitude"=> "7.890248",
                                         "longitude"=> "98.383255"
                                  ),
-                        "ภูเก็ต"=>array(
+                        "ภูเก็ตทาวน์"=>array(
                                         "latitude"=> "7.890248",
                                         "longitude"=> "98.383255"
                                  ),
@@ -204,7 +204,7 @@ function POBPortal_search_view(){
                                         "latitude"=> "8.134008",
                                         "longitude"=> "98.305664"
                                  ),
-                        "Chalongitudeg"=>array(
+                        "Chalong"=>array(
                                         "latitude"=> "7.847737",
                                         "longitude"=> "98.33828"
                                  ),
