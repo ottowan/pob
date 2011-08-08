@@ -665,7 +665,7 @@ function callback_refresh(){
 						</div>
 						
 
-						<legend>Guest Room Type</legend>
+						<legend>Rate</legend>
 						<div id="HotelGuestRoomType">
 						<!--[if isset($extendResult.hotelGuestRoomType)]-->
 							<TABLE width="900">
@@ -687,13 +687,11 @@ function callback_refresh(){
 								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 							</tr>
-								 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->
 							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 						</div>
-
 						<legend>Guest Room</legend>
 						<div id="HotelGuestRoom">
 						<!--[get_all_guest_room_type]-->
