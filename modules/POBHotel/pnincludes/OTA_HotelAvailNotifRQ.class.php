@@ -1,27 +1,27 @@
 <?php
   /**
-  * 
-  * 
-  * 
+  *
+  *
+  *
   */
 Class OTA_HotelAvailNotifRQ {
   private $hotelObject = NULL;
   private $guestRoomObject = NULL;
-  
+
   function __construct(){
 
 
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelArray] ...');
-      
+
     $objectArray = new $class;
     $objectArray->get();
     $this->hotelObject = $objectArray->_objData[0];
-    
-    
+
+
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'GuestRoomArray', false)))
       return LogUtil::registerError ('Unable to load class [GuestRoomArray] ...');
-      
+
     $objectArray = new $class;
     $objectArray->get();
     $this->guestRoomObject = $objectArray->_objData;
@@ -31,7 +31,7 @@ Class OTA_HotelAvailNotifRQ {
     return $this->genHotelAvailNotif();
   }
   public function sendContent(){
-    $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
+    $url = 'http://pob-ws.heroku.com/api/hotel_avail_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
     header("Content-type: text/xml");
@@ -62,7 +62,7 @@ Class OTA_HotelAvailNotifRQ {
     $OTA_HotelAvailNotifRQ->setAttribute("Target", "Production");
 
     $AvailStatusMessages  = $xml->createElement("AvailStatusMessages");
-    
+
     $AvailStatusMessages->setAttribute("ChainCode", $this->hotelObject["code"]);
     $AvailStatusMessages->setAttribute("BrandCode", $this->hotelObject["code"]);
     $AvailStatusMessages->setAttribute("HotelCode", $this->hotelObject["code"]);
@@ -78,7 +78,7 @@ Class OTA_HotelAvailNotifRQ {
       $StatusApplicationControl->setAttribute("RatePlanCode",$guestRoom["type_name"]);
       $StatusApplicationControl->setAttribute("InvCode",$guestRoom["type_name"]);
       $StatusApplicationControl->setAttribute("Rate",$guestRoom["price"]);
-      
+
       $UniqueID  = $xml->createElement("UniqueID");
       $UniqueID->setAttribute("Type",16);
       $UniqueID->setAttribute("ID",1);
