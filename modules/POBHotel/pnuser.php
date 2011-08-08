@@ -141,7 +141,7 @@ function POBHotel_user_list() {
 
     if (!($class = Loader::loadClassFromModule ('POBHotel',$ctrl, true)))
       return LogUtil::registerError ("Unable to load class [$ctrl] ...");
-
+    //var_dump($class); exit;
     $objectArray = new $class ();
     $where   = null;
     $sort = null;
