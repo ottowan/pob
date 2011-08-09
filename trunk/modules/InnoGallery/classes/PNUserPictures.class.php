@@ -11,9 +11,4 @@ class PNUserPictures extends PNObjectEx {
     $this->_init($init, $where);
   }
 
-  function deletePostProcess(){
-    //1.delete comment
-    //2.delete files large
-    //2.delete files small
-  }
 }

@@ -47,6 +47,7 @@ function InnoGallery_UserNivoGalleryblock_display($blockinfo)
 {
 
     $modname  = 'InnoGallery';
+    $class = '';
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     $modinfo = pnModGetInfo(pnModGetIDFromName($modname));
     $directory = $modinfo['directory'];
@@ -55,14 +56,20 @@ function InnoGallery_UserNivoGalleryblock_display($blockinfo)
     $render = pnRender::getInstance($modname);
     $render->assign('modulepath', 'modules/' . $modname);
     $render->assign('vars',$vars);
-    /*
-    $object = DBUtil::selectFieldArray ('innogallery_albums', 
-                                      'id', 
-                                      'WHERE abm_count_pictures > 0 AND abm_is_show = 1',
-                                      'RAND()');
-    $render->assign('albums_id',$object[0]);
-    */
-    // Populate block info and pass to theme
+
+
+
+    $imagesArray = pnModAPIFunc('InnoGallery', 
+                                                    'user', 
+                                                    'getImage',
+                                                    array( 'id'   => 1,
+                                                           'path'  => IMAGE_LARGE_PATH
+                                                     )
+                                        );
+
+    //var_dump($objectArray); exit;
+    $render->assign('imagesArray', $imagesArray);
+
     $blockinfo['content'] = $render->fetch('block_usernivogallery.htm');
     return themesideblock($blockinfo);
 
