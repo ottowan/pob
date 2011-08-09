@@ -22,7 +22,8 @@
                                           'city_name' => 'hotel_city_name',
                                           'state_province' => 'hotel_state_province',
                                           'postal_code' => 'hotel_postal_code',
-                                          'country' => 'hotel_country'
+                                          'country' => 'hotel_country',
+                                          'phone_number' => 'hotel_phone_number'
     );
     $pntable['pobhotel_hotel_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
@@ -39,7 +40,8 @@
                                           'city_name' => 'VARCHAR(255)',
                                           'state_province' => 'VARCHAR(255)',
                                           'postal_code' => 'INT(5)',
-                                          'country' => 'VARCHAR(255)'
+                                          'country' => 'VARCHAR(255)',
+                                          'phone_number' => 'VARCHAR(255)'
     );
     $pntable['pobhotel_hotel_primary_key_column'] = 'id';
     //add standard data fields

@@ -57,6 +57,8 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
+    //header("Content-type: text/xml");
+    //print $data;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -77,7 +79,7 @@ Class HotelDescContentGenerator {
     // Set the attributes.
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xmlns", "http://www.opentravel.org/OTA/2003/05");
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd");
+    $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd");x
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("Version", "2.001");
 
     $HotelDescriptiveContents = $xml->createElement("HotelDescriptiveContents");
@@ -189,7 +191,7 @@ Class HotelDescContentGenerator {
       $ImageItem = $xml->createElement("ImageItem");
       $ImageItem->setAttribute("Category",6);
       $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("Url",htmlentities($_SERVER["HOST_NAME"].$value["filepath"].$value["filename"]));
+      $Url = $xml->createElement("Url",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
       $ImageFormat->appendChild($Url);
       $ImageItem->appendChild($ImageFormat);
     }
@@ -199,7 +201,7 @@ Class HotelDescContentGenerator {
       $ImageItem = $xml->createElement("ImageItem");
       $ImageItem->setAttribute("Category",1);
       $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("Url",htmlentities($_SERVER["HOST_NAME"].$value["thumbpath"].$value["filename"]));
+      $Url = $xml->createElement("Url",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
       $ImageFormat->appendChild($Url);
       $ImageItem->appendChild($ImageFormat);
     }
