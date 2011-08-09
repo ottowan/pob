@@ -175,8 +175,19 @@ function POBHotel_user_list() {
     $render->assign ('pager', $pager);
     $objectArray->get ($where, $sort , $offset, $pagesize);
 
-    //assign to view
-    $render->assign('objectArray', $objectArray->_objData);
+    
+    if($ctrl == "Rate"){
+      //$combineArray = array();
+      //$combineArray = combineRateArray($objectArray->_objData);
+
+      $render->assign('objectArray', $objectArray->_objData);
+      //var_dump($combineArray); exit;
+    }else{
+      //assign to view
+      $render->assign('objectArray', $objectArray->_objData);
+
+
+    }
 
     _preRender($render);
 
@@ -271,8 +282,7 @@ function POBHotel_user_delete() {
       }
       pnRedirect($forward_url);
       die;
-    }
-    else{
+    }else{
      $url = pnModURL('Users', 'user', 'loginscreen' , array('ctrl'=>$ctrl) );
 
       pnRedirect($url);
@@ -352,4 +362,6 @@ function POBHotel_user_ws() {
   pnShutDown();
 
 }
+
+
 
