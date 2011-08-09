@@ -6,13 +6,15 @@
     <div class="slider-wrapper theme-default">
         <div class="ribbon"></div>
         <div id="slider" class="nivoSlider">
-            <img src="modules/InnoGallery/pnjavascript/nivo-slider/images/toystory.jpg" alt="" />
-            <img src="modules/InnoGallery/pnjavascript/nivo-slider/images/up.jpg" alt="" title="This is an example of a caption" />
-            <img src="modules/InnoGallery/pnjavascript/nivo-slider/images/walle.jpg" alt="" />
-            <img src="modules/InnoGallery/pnjavascript/nivo-slider/images/nemo.jpg" alt="" title="#htmlcaption" />
+
+
+          <!--[foreach from=$imagesArray item=image]-->
+            <img src="<!--[const name='IMAGE_LARGE_PATH']-->/1/<!--[$image]-->"  title="#htmlcaption" >
+          <!--[/foreach]-->
+
         </div>
         <div id="htmlcaption" class="nivo-html-caption">
-            <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+            <strong><!--[sitename]--></strong><!--[slogan]-->
         </div>
     </div>
 </div>
