@@ -1,4 +1,3 @@
-
 <!--[foreach from=$objectArray item=item name=foo]-->
   Rate :  <!--[$item.price]--><br>
   Capacity : &nbsp;&nbsp;<font size="" color="#999999"><!--[$item.capacity]--></font><br>
@@ -8,3 +7,34 @@
   Season Date : <!--[$item.season_date_start]--> to <!--[$item.season_date_end]-->
   <br><br>
 <!--[/foreach]-->
+
+<!--
+<table border="1">
+<!--[foreach from=$objectArray item=item name=foo]-->
+  <tr>
+    <td><!--[$item.season_name]--><br><!--[$item.season_date_start]--> to <!--[$item.season_date_end]--></td>
+    <td><!--[if $item.roomtype_id == $item.roomtype_id]--><!--[$item.roomtype_name]--><!--[/if]--></td>
+    <td><!--[$item.price]--></td>
+  </tr>
+<!--[/foreach]-->
+</table>
+
+
+
+<!--[$objectArray|print_r]-->
+<table border="1">
+<!--[foreach from=$objectArray item=item key=key]-->
+  <tr>
+    <td>
+        <!--[$item.season_name]--><br>
+         &nbsp;&nbsp;<font size="" color="#999999"><!--[$item.season_date_start]--> to <!--[$item.season_date_end]--></font>
+    </td>
+    <!--[foreach from=$keyRoomType item=itemRoomType]-->
+      <td>
+        <!--[$itemRoomType.season_name]-->
+      </td>
+    <!--[/foreach]-->
+  </tr>
+<!--[/foreach]-->
+</table>
+-->

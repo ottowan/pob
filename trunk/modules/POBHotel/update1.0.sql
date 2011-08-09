@@ -1,0 +1,2 @@
+ALTER TABLE `zikulath`.`zk_pobhotel_hotel`     ADD COLUMN `hotel_phone_number` VARCHAR(255) NULL AFTER `hotel_country`,     ADD COLUMN `hotel_email` VARCHAR(255) NULL AFTER `hotel_phone_number`,    CHANGE `hotel_obj_status` `hotel_obj_status` VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'A' NOT NULL;
+ALTER TABLE `zikulath`.`zk_pobhotel_hotel`     ADD COLUMN `hotel_mobile_number` VARCHAR(255) NULL AFTER `hotel_phone_number`,     ADD COLUMN `hotel_fax_number` VARCHAR(255) NULL AFTER `hotel_mobile_number`;
