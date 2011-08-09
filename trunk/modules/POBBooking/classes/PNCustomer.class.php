@@ -125,22 +125,28 @@ class PNCustomer extends PNObject {
         //get
         $form = FormUtil::getPassedValue ('form', false );
         
-        $card_exp_month = $this->_objData['card_exp_month'];
-        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+        $card_exp_month = $form['card_exp_month'];//$this->_objData['card_exp_month'];
+        $card_exp_year = substr($form['card_exp_month'], -2);
         $cardexpiredate = $card_exp_month.$card_exp_year;
-        //$roomstays = $this->_objData['roomstays'];
+        $datenow = date("Y-m-d H:i:s");
+		//var_dump($datenow);
+        //exit;
+
+        //$roomstays = $form['roomstays'];
         //insert
         $this->_objData['cardexpire'] = $cardexpiredate;
+        $this->_objData['cr_date'] = $datenow;
         return true;
     }
 
 
     function insertPostProcess() {
-        Loader::loadClass('DataUtilEx', "modules/Booking/pnincludes");
+        Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
 
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
-        $refid = "B".$id+1000;
-        
+        $refid = "B".($id+1000);
+        //var_dump($refid);
+        //exit;
         $object = array('refid'=>$refid);
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
@@ -152,25 +158,14 @@ class PNCustomer extends PNObject {
         }
 
         //Get form value to insert booking
-/*
-        $pre_checkin_date = SessionUtil::getVar('checkin_date');
-        $pre_checkout_date = SessionUtil::getVar('checkout_date');
-        $checkin_date = date('Y-m-d', strtotime($pre_checkin_date));
-        $checkout_date = date('Y-m-d', strtotime($pre_checkout_date));
-        $night = SessionUtil::getVar('night');
-        $amount_room = SessionUtil::getVar('amount_room');
-        $total_price = SessionUtil::getVar('total_price');
-        $booking = SessionUtil::getVar('booking');
-*/
+
         $form = FormUtil::getPassedValue ('form', false );
-        $card_exp_month = $this->_objData['card_exp_month'];
-        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+        $card_exp_month = $form['card_exp_month'];
+        $card_exp_year = substr($form['card_exp_year'], -2);
         $cardexpire = $card_exp_month.$card_exp_year;
-        
-        $chaincode = $this->_objData['chaincode'];
-        
-        $roomstays = $this->_objData['roomstays'];
-          
+        $chaincode = $form['chaincode'];
+        $roomstays = $form['roomstays'];
+        $datenow = date("Y-m-d H:i:s");
         foreach($roomstays as $item) {
             //Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_booking', 'id', 'MAX', '');
@@ -182,34 +177,35 @@ class PNCustomer extends PNObject {
             $objects = array(
                     'id'                  => $current_booking_id,
                     'customer_refid'      => $refid,
-                    'chaincode'           => $this->_objData['chaincode'],
-                    'isocurrency'         => $this->_objData['isocurrency'],
+                    'chaincode'           => $form['chaincode'],
+                    'isocurrency'         => $form['isocurrency'],
                     'checkin_date'        => $item[startdate],
                     'checkout_date'       => $item[enddate],
                     'night'               => $item[night],
-                    'amount_room'         => $item[numberofunit],
+                    'amount_room'         => $item[numberofunits],
                     'roomtype'            => $item[invcode],
                     'adult'               => $item[adult],
                     'child'               => $item[child],
                     'room_rate'           => $item[rate],
                     'room_rate_total'     => $item[room_rate_total],
-                    'identificational'    => $this->_objData['identificational'],
-                    'nameprefix'          => $this->_objData['nameprefix'],
-                    'givenname'           => $this->_objData['givenname'],
-                    'surname'             => $this->_objData['surname'],
-                    'addressline'         => $this->_objData['addressline'],
-                    'cityname'            => $this->_objData['cityname'],
-                    'stateprov'           => $this->_objData['stateprov'],
-                    'countryname'         => $this->_objData['countryname'],
-                    'postalcode'          => $this->_objData['postalcode'],
-                    'mobile'              => $this->_objData['mobile'],
-                    'phone'               => $this->_objData['phone'],
-                    'email'               => $this->_objData['email'],
-                    'addition_request'    => $this->_objData['addition_request'],
-                    'cardcode'            => $this->_objData['cardcode'],
-                    'cardnumber'          => $this->_objData['cardnumber'],
-                    'cardholdername'      => $this->_objData['cardholdername'],
-                    'cardexpire'          => $this->_objData['cardexpire']
+                    'identificational'    => $form['identificational'],
+                    'nameprefix'          => $form['nameprefix'],
+                    'givenname'           => $form['givenname'],
+                    'surname'             => $form['surname'],
+                    'addressline'         => $form['addressline'],
+                    'cityname'            => $form['cityname'],
+                    'stateprov'           => $form['stateprov'],
+                    'countryname'         => $form['countryname'],
+                    'postalcode'          => $form['postalcode'],
+                    'mobile'              => $form['mobile'],
+                    'phone'               => $form['phone'],
+                    'email'               => $form['email'],
+                    'addition_request'    => $form['addition_request'],
+                    'cardcode'            => $form['cardcode'],
+                    'cardnumber'          => $form['cardnumber'],
+                    'cardholdername'      => $form['cardholdername'],
+                    'cardexpire'          => $cardexpire,
+                    'issue_date'          => $datenow
             );
             
             DBUtil::insertObject($objects,'pobbooking_booking');
@@ -230,10 +226,11 @@ class PNCustomer extends PNObject {
 
         }
 
+        $this->sendXML();
 
 
         //Call sendEmail method
-        $this->sendEmail();
+        //$this->sendEmail();
 
 
     }
@@ -256,12 +253,12 @@ class PNCustomer extends PNObject {
 
     }
 
-/*
+
     function sendEmail() {
         //Get value from input
         $form = FormUtil::getPassedValue ('form', false);
 
-        $booking = $this->_objData['roomstays'];
+        $booking = $form['roomstays'];
 
 
 
@@ -270,7 +267,7 @@ class PNCustomer extends PNObject {
         $toEmail = $form[email].",".$adminEmail;
 
         //Config email body
-        $body = "Dear ".$this->_objData['nameprefix'] .' ' .$this->_objData['givenname'].",\n";
+        $body = "Dear ".$form['nameprefix'] .' ' .$form['givenname'].",\n";
         $body.= "\tThank you for your enquiry. Your request as\n";
         $body.= "detailed below has been sent to one of our client\n";
         $body.= "service who will respond to you within 1-2 business day.\n";
@@ -304,5 +301,188 @@ class PNCustomer extends PNObject {
 
         mail($toEmail,$subject,$body,$header);
     }
+
+    function sendXML() {
+      
+    $form = FormUtil::getPassedValue ('form', false );
+    $chaincode = "";
+    $card_exp_month = $form['card_exp_month'];
+    $card_exp_year = substr($form['card_exp_year'], -2);
+    $cardexpiredate = $card_exp_month.$card_exp_year;
+    $roomstays = $form['roomstays'];
+
+    /////////////////////////////////////////////////////
+    //////// GEN XML ////////
+    /////////////////////////////////////////////////////
+    // Set the content type to be XML, so that the browser will recognise it as XML.
+    // "Create" the document.
+    $xml = new DOMDocument("1.0", "UTF-8");
+    $xml->preserveWhiteSpace = false; 
+    $xml->formatOutput = true;
+
+        // Create some elements.
+        //OTA_HotelResRQ.xml
+        $OTA_HotelResRQ = $xml->createElement("OTA_HotelResRQ");
+        // Set the attributes.
+        $OTA_HotelResRQ->setAttribute("xmlns", "http://www.opentravel.org/OTA/2003/05");
+        $OTA_HotelResRQ->setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        $OTA_HotelResRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelResRQ.xsd");
+        $OTA_HotelResRQ->setAttribute("Version", "1.000");
+        $xml->appendChild($OTA_HotelResRQ);
+
+             //POS
+            $POS = $xml->createElement("POS");
+            $OTA_HotelResRQ->appendChild($POS);
+              $Source = $xml->createElement("Source");
+              $POS->appendChild($Source);
+              $Source->setAttribute("ISOCurrency", $form['isocurrency']);
+
+            //HotelReservations
+            $HotelReservations = $xml->createElement("HotelReservations");
+            $OTA_HotelResRQ->appendChild($HotelReservations);
+              $HotelReservation = $xml->createElement("HotelReservation");
+              $HotelReservations->appendChild($HotelReservation);
+                $RoomStays = $xml->createElement("RoomStays");
+                $HotelReservation->appendChild($RoomStays);
+                  $RoomStay = $xml->createElement("RoomStay");
+                  $RoomStays->appendChild($RoomStay);
+                  foreach($roomstays as $key => $item){
+                    $RoomTypes = $xml->createElement("RoomTypes");
+                    $RoomStay->appendChild($RoomTypes);
+                      $RoomType= $xml->createElement("RoomType");
+                      $RoomTypes->appendChild($RoomType);
+                      $RoomType->setAttribute("NumberOfUnits", $item[numberofunits]);
+                    $Inv = $xml->createElement("Inv");
+                    $RoomStay->appendChild($Inv);
+                    $Inv->setAttribute("InvCode", $item[invcode]);
+                    $GuestCounts = $xml->createElement("GuestCounts");
+                    $RoomStay->appendChild($GuestCounts);
+                    if($form['adult'] != ""){
+                      $GuestCount = $xml->createElement("GuestCount");
+                      $GuestCounts->appendChild($GuestCount);
+                      $GuestCount->setAttribute("AgeQualifyingCode", "10");
+                      $GuestCount->setAttribute("Count", $form['adult']);
+                    }elseif($form['child'] != ""){
+                      $GuestCount = $xml->createElement("GuestCount");
+                      $GuestCounts->appendChild($GuestCount);
+                      $GuestCount->setAttribute("AgeQualifyingCode", "8");
+                      $GuestCount->setAttribute("Count", $form['child']);
+                    }
+                      $GuestCount = $xml->createElement("GuestCount");
+                      $GuestCounts->appendChild($GuestCount);
+                      $GuestCount->setAttribute("AgeQualifyingCode", "10");
+                      $GuestCount->setAttribute("Count", $form['guests']);
+                    $TimeSpan = $xml->createElement("TimeSpan");
+                    $RoomStay->appendChild($TimeSpan);
+                    $TimeSpan->setAttribute("End", $item['enddate']);
+                    $TimeSpan->setAttribute("Start", $item['startdate']);
+                    $Guarantee = $xml->createElement("Guarantee");
+                    $RoomStay->appendChild($Guarantee);
+                      $GuaranteesAccepted = $xml->createElement("GuaranteesAccepted");
+                      $Guarantee->appendChild($GuaranteesAccepted);
+                        $GuaranteeAccepted = $xml->createElement("GuaranteeAccepted");
+                        $GuaranteesAccepted->appendChild($GuaranteeAccepted);
+                          $PaymentCard = $xml->createElement("PaymentCard");
+                          $GuaranteeAccepted->appendChild($PaymentCard);
+                          $PaymentCard->setAttribute("CardCode", $form['cardcode']);
+                          $PaymentCard->setAttribute("CardNumber", $form['cardnumber']);
+                          $PaymentCard->setAttribute("ExpireDate", $cardexpiredate);
+                            $CardHolderName = $xml->createElement("CardHolderName", $form['cardholdername']);
+                            $PaymentCard->appendChild($CardHolderName);
+                      $BasicPropertyInfo = $xml->createElement("BasicPropertyInfo");
+                      $RoomStay->appendChild($BasicPropertyInfo);
+                      $BasicPropertyInfo->setAttribute("ChainCode", $form['chaincode']);
+                      $BasicPropertyInfo->setAttribute("HotelCode", $form['hotelcode']);
+                      $Comments = $xml->createElement("Comments");
+                      $RoomStay->appendChild($Comments);
+                        $Comment = $xml->createElement("Comment");
+                        $Comments->appendChild($Comment);
+                          $Text = $xml->createElement("Text", $form['addition_request']);
+                          $Comment->appendChild($Text);
+                  }
+                $ResGuests = $xml->createElement("ResGuests");
+                $HotelReservation->appendChild($ResGuests);
+                  $ResGuest = $xml->createElement("ResGuest");
+                  $ResGuests->appendChild($ResGuest);
+                    $Profiles = $xml->createElement("Profiles");
+                    $ResGuest->appendChild($Profiles);
+                    $ProfileInfo = $xml->createElement("ProfileInfo");
+                    $Profiles->appendChild($ProfileInfo);
+                      $Profile = $xml->createElement("Profile");
+                      $ProfileInfo->appendChild($Profile);
+                      $Profile->setAttribute("ProfileType", "1");
+                        $Customer = $xml->createElement("Customer");
+                        $Profile->appendChild($Customer);
+                          $PersonName = $xml->createElement("PersonName");
+                          $Customer->appendChild($PersonName);
+                            $NamePrefix = $xml->createElement("NamePrefix", $form['nameprefix']);
+                            $PersonName->appendChild($NamePrefix);
+                            $GivenName = $xml->createElement("GivenName", $form['givenname']);
+                            $PersonName->appendChild($GivenName);
+                            $Surname = $xml->createElement("Surname", $form['givenname']);
+                            $PersonName->appendChild($Surname);
+                          $Telephone = $xml->createElement("Telephone");
+                          $Customer->appendChild($Telephone);
+                          if($form['phone']){
+                            $Telephone->setAttribute("PhoneNumber", $form['phone']);
+                            $Telephone->setAttribute("PhoneTechType", "1");
+                          }
+                          if($form['mobile']){
+                            $Telephone->setAttribute("PhoneNumber", $form['mobile']);
+                            $Telephone->setAttribute("PhoneTechType", "5");
+                          }
+                          $Email = $xml->createElement("Email", $form['email']);
+                          $Customer->appendChild($Email);
+                          $Address = $xml->createElement("Address");
+                          $Customer->appendChild($Address);
+                            $AddressLine = $xml->createElement("AddressLine", $form['addressline']);
+                            $Address->appendChild($AddressLine);
+                            $CityName = $xml->createElement("CityName", $form['cityname']);
+                            $Address->appendChild($CityName);
+                            $PostalCode = $xml->createElement("PostalCode", $form['postalcode']);
+                            $Address->appendChild($PostalCode);
+                            $StateProv = $xml->createElement("StateProv", $form['stateprov']);
+                            $Address->appendChild($StateProv);
+                            $CountryName = $xml->createElement("CountryName", $form['countryname']);
+                            $Address->appendChild($CountryName);
+
+    //$xml->saveXML();
+    print $xml->saveXML();
+	//echo $xml->asXML();
+	exit;
+    $xml->save("OTA_HotelResRQ1.xml");
+
+////send xml
+/*    $url = 'http://pob-ws.heroku.com/api/hotel_res';
+    $data = $xml->saveXML();
+    //$data = $data->saveXML();
+    print $data;
+    //$data = $data->saveXML();
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    $response = curl_exec($ch);
+
+    $mystring = $response;
+    $findme   = 'Success';
+    $pos = strpos($mystring, $findme);
+    if($pos > 0){
+      echo "Booking Success.";
+    }else{
+      echo "Booking NOT Success.";
+    }
+
+    curl_close($ch);
 */
+    //print $response;
+    //exit;
+
+
+    
+    }
+
+
 }

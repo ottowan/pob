@@ -3,25 +3,23 @@ function POBBooking_userform_submit ()
 {
     $forward  = FormUtil::getPassedValue ('forward', null);
     $ctrl     = FormUtil::getPassedValue ('ctrl', 'Booking');
-    $with_id  = FormUtil::getPassedValue ('_WITH_INSERT_ID', false);
-    $validate_form_url = pnModURL('Booking', 'user', 'form' , array('ctrl'=>$ctrl));
-    $invalidate_form_url = pnModURL('Booking', 'user', 'form' , array('ctrl'=>'Booking'));
-    $view_url = pnModURL('Booking', 'user', 'view' , array('ctrl'=>$ctrl));
-    $list_url = pnModURL('Booking', 'user', 'list' , array('ctrl'=>$ctrl));
+    $validate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
+    $invalidate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>'Booking'));
+    $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
+    $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
     //$success_url = pnModURL('iHotel', 'user', 'page', array('ctrl'=>'redirect'));
-    $success_url = pnModURL('iHotel', 'user', 'list', array('ctrl'=>'price'));
+    $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
 
     if (count($forward)){
       $forward_url = generateUrl($forward);
     }
 
-    if ($_POST['button_cancel'] || $_POST['button_cancel_x'])
-    {
+    if ($_POST['button_cancel'] || $_POST['button_cancel_x']){
       pnRedirect($list_url);
       return true;
     }
 
-    if (!($class = Loader::loadClassFromModule ('Booking', $ctrl))){
+    if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl))){
       v4b_exit ("Unable to load class [$ctrl] ...");
     }
     $object = new $class ();
@@ -39,7 +37,8 @@ function POBBooking_userform_submit ()
           return true;
       } else {
         $object->save ();
-////////////////////////////////////////////////////////////////////////////////////////////////*
+///////////////////////////////////////////////////////////////////////////////////////////////
+/*
         $booking = SessionUtil::getVar('booking');
         $i = 1;
         $j = 1;
@@ -62,8 +61,9 @@ function POBBooking_userform_submit ()
         $object1 = array('amount_room'   => $amount_room);
         //$object1->getDataFromInput ('form',null,'POST');
         pnModAPIFunc('iHotel', 'user', 'updateRoomReserv',array('form' => $object1));
-*////////////////////////////////////////////////////////////////////////////////////////////////
-        pnRedirect($forward_url);
+*/
+///////////////////////////////////////////////////////////////////////////////////////////////
+        pnRedirect($success_url);
       }
     }
 

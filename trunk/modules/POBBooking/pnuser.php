@@ -23,31 +23,35 @@ function POBBooking_user_main() {
 * display page with out class loader
 */
 function POBBooking_user_page() {
-  if (!empty($_SERVER['HTTPS'])){
+
     //_autoexecute();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'home' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Redirect');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'page' , 'GET');
     $render = pnRender::getInstance('POBBooking');
-    
-    _preRender($render);
-    //try to load class
-    $class = Loader::loadClassFromModule ('POBBooking','User' . $ctrl, false);
-    if ($class){
-      $object  = new $class ();
-      if (method_exists($object,'selectExtendResult')){
-        $resultex = $object->selectExtendResult();
-        $render->assign('extendResult', $resultex);
-      }
+    $render->assign ('_GET', $_GET);
+    $render->assign ('_POST', $_POST);
+    $render->assign ('_REQUEST', $_REQUEST);
+    //set new lang
+    if ($lang){
+      SessionUtil::setVar('lang', $lang);
+    }
+    $render->assign('ctrl', $ctrl);
+    if ($lang){
+      $render->assign('lang', $lang);
+    }else{
+      $render->assign('lang', pnUserGetLang());
     }
 
     return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
+  if (!empty($_SERVER['HTTPS'])){
   }else {
     //Redirect page
     //$urls = "https" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
     //pnRedirect($urls);
-    header("HTTP/1.0 404 Not Found");
+
+    //header("HTTP/1.0 404 Not Found");
   }
 
 }
