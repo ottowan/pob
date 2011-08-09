@@ -27,7 +27,7 @@
       <input type="hidden" name="form[email]" value="<!--[$smarty.post.guset.email]-->">
       <input type="hidden" name="form[addition_request]" value="<!--[$smarty.post.guset.addition_request]-->">
       <input type="hidden" name="form[profiletype]" value="1">
-      <input type="hidden" name="form[totalall]" value="$_POST.booking.totalall">
+      <input type="hidden" name="form[totalall]" value="<!--[$_POST.booking.totalall]-->">
 
       <input type="hidden" name="form[cardcode]" value="<!--[$smarty.post.guset.cardtype]-->">
       <input type="hidden" name="form[cardnumber]" value="<!--[$smarty.post.guset.card1]--><!--[$smarty.post.guset.card2]--><!--[$smarty.post.guset.card3]--><!--[$smarty.post.guset.card4]-->">
@@ -38,7 +38,9 @@
       <input type="hidden" name="form[cardbankname]" value="<!--[$smarty.post.guset.card_bank_name]-->">
       <input type="hidden" name="form[cardissuingcountry]" value="<!--[$smarty.post.guset.card_issuing_country]-->">
       
+      <input type="hidden" name="form[chaincode]" value="<!--[$smarty.post.booking.chaincode]-->">
       <input type="hidden" name="form[hotelcode]" value="<!--[$smarty.post.booking.hotelcode]-->">
+
 
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
@@ -49,9 +51,9 @@
     </TR>
     <TR>
       <TD width="50%" valign="top" align="right">
-        <table width="80%" style="border: 1px dashed rgb(0, 245, 255);">
+        <table width="90%" style="border: 1px dashed rgb(0, 245, 255);">
           <tr>
-            <td colspan="2" bgcolor="#DCF5FA"><h6>โรงแรม&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
+            <td colspan="3" bgcolor="#DCF5FA"><h6>โรงแรม&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
           </tr>
           <!--[foreach from=$smarty.post.booking.roomstays item=item name="foo"]-->
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
@@ -66,28 +68,30 @@
               <input type="hidden" name="form[guests]" value="2">
           <tr>
             <td width="80">ห้อง</td>
-            <td><!--[$item.invcode]--> : <!--[$item.rate|number_format:2:".":","]--></td>
+            <td><!--[$item.invcode]--></td>
+            <td align="right">&nbsp;<!--[$item.rate|number_format:2:".":","]--> ฿</td>
           </tr>
           <tr>
             <td width="80"></td>
             <td><!--[$item.numberofunit]-->&nbsp;ห้อง</td>
+            <td align="right">รวมเป็น&nbsp;<!--[math equation="x*y" x=$item.rate y=$item.numberofunit assign="room_rate_total"]--><!--[$room_rate_total|number_format:2:".":","]--> ฿</td>
           </tr>
           <tr>
             <td width="80">เช็คอิน</td>
-            <td><!--[$item.startdate]-->&nbsp;</td>
+            <td colspan="2"><!--[$item.startdate]-->&nbsp;</td>
           </tr>
           <tr>
             <td width="80">เช็คเอ้าท์&nbsp;</td>
-            <td><!--[$item.enddate]-->&nbsp;</td>
+            <td colspan="2"><!--[$item.enddate]-->&nbsp;</td>
           </tr>
            <tr>
-            <td align="center" colspan="2">--------------------</td>
+            <td align="center" colspan="3">--------------------</td>
           </tr>
           <!--[/foreach]-->
         </table>
      </TD>
      <TD width="50%" valign="top" align="left">
-        <table width="80%" style="border: 1px dashed rgb(0, 245, 255);">
+        <table width="90%" style="border: 1px dashed rgb(0, 245, 255);">
           <tr>
             <td colspan="2" bgcolor="#DCF5FA"><h6>ผู้จอง</h6></td>
             </tr>
@@ -121,7 +125,7 @@
           </tr>
 		      <tr>
             <td width="80">วันที่ทำรายการ&nbsp;</td>
-            <td>&nbsp;</td>
+            <td><!--[$smarty.now|date_format]-->&nbsp;</td>
           </tr>
         </table>
       </TD>

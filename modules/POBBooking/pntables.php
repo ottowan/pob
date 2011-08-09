@@ -53,7 +53,7 @@
                                                   'nameprefix'          => 'VARCHAR(50) DEFUALT NULL',
                                                   'givenname'           => 'TEXT',
                                                   'surname'             => 'TEXT',
-                                                  'address'             => 'TEXT',
+                                                  'addressline'             => 'TEXT',
                                                   'stateprov'           => 'VARCHAR(255) DEFUALT NULL',
                                                   'cityname'            => 'VARCHAR(255) DEFUALT NULL',
                                                   'countryname'         => 'VARCHAR(255) DEFUALT NULL',
@@ -111,7 +111,8 @@
                                                   'cardcode'            => 'boo_cardcode',
                                                   'cardnumber'          => 'boo_cardnumber',
                                                   'cardholdername'      => 'cus_cardholdernamer',
-                                                  'cardexpire'            => 'cus_cardexpire'
+                                                  'cardexpire'          => 'cus_cardexpire',
+                                                  'issue_date'          => 'cus_issue_date'
                                           ); 
 
       $pntable['pobbooking_booking_column_def'] = array(
@@ -132,7 +133,7 @@
                                                   'nameprefix'           => 'VARCHAR(50) DEFUALT NULL',
                                                   'givenname'           => 'TEXT',
                                                   'surname'            => 'TEXT',
-                                                  'address'             => 'TEXT',
+                                                  'addressline'             => 'TEXT',
                                                   'stateprov'                => 'VARCHAR(255) DEFUALT NULL',
                                                   'cityname'                => 'VARCHAR(255) DEFUALT NULL',
                                                   'countryname'             => 'VARCHAR(255) DEFUALT NULL',
@@ -144,12 +145,10 @@
                                                   'cardcode'           => 'VARCHAR(255)',
                                                   'cardnumber'         => 'TEXT',
                                                   'cardholdername'      => 'TEXT',
-                                                  'cardexpire'            => 'VARCHAR(10)'
+                                                  'cardexpire'            => 'VARCHAR(10)',
+                                                  'issue_date'          => 'DATETIME'
                                                                       );
       $pntable['pobbooking_booking_primary_key_column'] = 'id';
-      // add standard data fields
-      ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobbooking_booking_column'], 'boo_');
-      ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobbooking_booking_column_def']);
 
       return $pntable;
 
