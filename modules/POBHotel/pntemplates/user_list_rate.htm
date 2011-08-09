@@ -1,0 +1,11 @@
+
+<!--[foreach from=$objectArray item=item name=foo]-->
+
+    Rate :  <!--[$item.price]--><br>
+    Capacity : &nbsp;&nbsp;<font size="" color="#999999"><!--[$item.capacity]--></font><br>
+    Limit :  <!--[$item.limit]--><br>
+    Room name :  <!--[$item.roomtype_name]--><br>
+    Season Name :  <!--[$item.season_name]--><br>
+    Season Date : <!--[$item.season_date_start]--> to <!--[$item.season_date_end]-->
+<br><br>
+<!--[/foreach]-->
