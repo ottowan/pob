@@ -123,14 +123,24 @@ function makeShadow(){
   <TR valign='top'>
     <TD ><p>Address : <!--[$view.address_line]-->,<!--[$view.city_name]-->, <!--[$view.state_province]-->, <!--[$view.country]-->, <!--[$view.postal_code]--></p></TD>
   </TR>
-  <!--[if $view.telephone]-->
+  <!--[if $view.mobile_number]-->
     <TR valign='top'>
-      <TD ><p>tel. <!--[$view.telephone]--></p></TD>
+      <TD ><p>Mobile : <!--[$view.mobile_number]--></p></TD>
+    </TR>
+  <!--[/if]-->
+  <!--[if $view.phone_number]-->
+    <TR valign='top'>
+      <TD ><p>Tel. <!--[$view.phone_number]--></p></TD>
+    </TR>
+  <!--[/if]-->
+  <!--[if $view.phone_number]-->
+    <TR valign='top'>
+      <TD ><p>Fax : <!--[$view.fax_number]--></p></TD>
     </TR>
   <!--[/if]-->
   <!--[if $view.email]-->
     <TR valign='top'>
-      <TD ><p>email : <!--[$view.email]--></p></TD>
+      <TD ><p>Email : <!--[$view.email]--></p></TD>
     </TR>
   <!--[/if]-->
   <TR valign='top'>
