@@ -49,7 +49,7 @@ function POBHotel_FourImageblock_display($blockinfo)
 
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
-
+    $render = pnRender::getInstance($modname);
     $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
     if((int)$imageRows > 0){
       if (!($class = Loader::loadClassFromModule ('POBHotel',$class, true)))
