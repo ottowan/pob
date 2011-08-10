@@ -17,3 +17,9 @@ define('_COCONUT_SEA_FACILITIES', 'สิ่งอำนวยความสะ
 define('_COCONUT_SEA_GALLERY', 'อัลบัมรูป');
 define('_COCONUT_SEA_CANTACT', 'ติดต่อ');
 define('_COCONUT_SEA_HOME', 'หน้าแรก');
+define('_COCONUT_SEA_MEMBER', 'สำหรับสมาชิก');
+define('_COCONUT_SEA_ADMIN_PANEL', 'ระบบจัดการหลัก');
+define('_COCONUT_SEA_ADD_SLIDE', 'จัดการรูปสไลด์');
+define('_COCONUT_SEA_ADD_ROOM', 'เพิ่มข้อมูลและห้องพัก');
+define('_COCONUT_SEA_ADD_PIC_HOTEL', 'จัดการรูปโรงแรม');
+define('_COCONUT_SEA_CHANGE_TEMPLATE', 'เปลี่ยนแทมเพลท');
