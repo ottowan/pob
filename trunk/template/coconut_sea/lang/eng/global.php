@@ -12,5 +12,7 @@
  */
 
 define('_COCONUT_SEA_HOME', 'Home');
-define('_NICKNAME', 'Username');
-define('_REMEMBERME', 'Remaember me');
+define('_COCONUT_SEA_ROOM', 'Room');
+define('_COCONUT_SEA_FACILITIES', 'Faccilities');
+define('_COCONUT_SEA_GALLERY', 'Gallery');
+define('_COCONUT_SEA_CANTACT', 'Contact');

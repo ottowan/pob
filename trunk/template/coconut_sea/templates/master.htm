@@ -8,13 +8,10 @@
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
 <link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
 
-<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="themes/coconut_sea/js/jqtransform/jqtransformplugin/jqtransform.css" type="text/css" media="all" />
-	<script type="text/javascript" src="themes/coconut_sea/js/jqtransform/requiered/jquery.js" ></script>
-	<script type="text/javascript" src="themes/coconut_sea/js/jqtransform/jqtransformplugin/jquery.jqtransform.js" ></script>
 	<script language="javascript">
-		$(function(){
-			$('form').jqTransform({imgPath:'themes/coconut_sea/js/jqtransform/jqtransformplugin/img/'});
+		jQuery(function(){
+			jQuery('form').jqTransform({imgPath:'themes/coconut_sea/js/jqtransform/jqtransformplugin/img/'});
 		});
 </script>
 
@@ -33,10 +30,10 @@
     <div class="navigation_bar_center">
         <ul>
             <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
-            <li><a href="#">Room</a></li>
-            <li><a href="#">Faccilities</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#"><!--[pnml name="_COCONUT_SEA_ROOM"]--></a></li>
+            <li><a href="#"><!--[pnml name="_COCONUT_SEA_FACILITIES"]--></a></li>
+            <li><a href="#"><!--[pnml name="_COCONUT_SEA_GALLERY"]--></a></li>
+            <li><a href="#"><!--[pnml name="_COCONUT_SEA_CANTACT"]--></a></li>
         </ul>
     </div><!--end navigation_bar_center-->
     <div class="navigation_bar_right"></div>
@@ -56,8 +53,11 @@
         <div class="left_repeat">
         <ul>
 			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">ระบบจัดการหลัก</a></li>       	
-        	<li class="selected"><a href="index.php?module=InnoGallery">จัดการแกลลอรี่</a></li>
-			<li class="selected"><a href="index.php?module=POBHotel&type=admin&func=form&ctrl=hotel">เพิ่มห้องพัก</a></li>
+        	<li class="selected"><a href="index.php?module=InnoGallery">จัดการรูปสไลด์</a></li>
+			<li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->">เพิ่มข้อมูลและห้องพัก</a></li>
+ 			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->">จัดการรูปโรงแรม</a></li>
+			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->">เปลี่ยนแทมเพลท</a></li>
+
         </ul><!--[displaygreeting]--></br><!--[userlinks]--></div>
         <div class="left_buttom"></div></br>
     </div>
@@ -66,6 +66,7 @@
 
 <div id="theme_content">
 <!--[$maincontent]-->
+<div id="map"><!--[blockposition name=map]--></div>
 </div>
 
 <div id="gallery">

@@ -1,5 +1,0 @@
-<div class="left_box">
-    <div class="left_top"><h3><!--[$title]--></h3></div>
-    <div class="left_repeat"><p><!--[$content]--><!--[displaygreeting]--></p></div>
-    <div class="left_buttom"></div>
-</div>

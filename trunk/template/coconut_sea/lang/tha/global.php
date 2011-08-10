@@ -12,3 +12,8 @@
  */
 
 define('_COCONUT_SEA_HOME', 'หน้าแรก');
+define('_COCONUT_SEA_ROOM', 'ห้องพัก');
+define('_COCONUT_SEA_FACILITIES', 'สิ่งอำนวยความสะดวก');
+define('_COCONUT_SEA_GALLERY', 'อัลบัมรูป');
+define('_COCONUT_SEA_CANTACT', 'ติดต่อ');
+define('_COCONUT_SEA_HOME', 'หน้าแรก');
