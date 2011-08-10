@@ -17,6 +17,6 @@
   define('_POBROOMSEARCH_ROOM_RATE','Rate');
 
 
-  define('_POBROOMSEARCH_BOOKING_BUTTON','ทำการจอง');
-  define('_POBROOMSEARCH_NO_ROOM_LEFT','ไม่มีห้องว่างเหลือ');
+  define('_POBROOMSEARCH_BOOKING_BUTTON','Booking');
+  define('_POBROOMSEARCH_NO_ROOM_LEFT','No room left');
 ?>
