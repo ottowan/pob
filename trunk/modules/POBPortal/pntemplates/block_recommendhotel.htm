@@ -86,7 +86,9 @@
                 </em>
                 <span class="description"><!--[$item.Description|truncate:150:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">more>></a>
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">
+                    <!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]-->
+                  </a>
                 </em>
               </p>
             </td>
@@ -99,7 +101,7 @@
 <!--[else]-->
 <div class="recommend">
     <p>
-      <h1>ไม่มีข้อมูล</h1>
+      <h1><!--[pnml name="_POBPORTAL_USER_NO_RESULT"]--></h1>
     </p>
 </div>
 <!--[/if]-->

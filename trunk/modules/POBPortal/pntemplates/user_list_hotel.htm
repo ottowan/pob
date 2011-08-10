@@ -54,8 +54,8 @@
 
 </style>
 <script type="text/javascript" src="modules/POBPortal/pnjavascript/wz_tooltip.js"></script> 
-<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> to <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
-<!-- <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--> to <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--> -->
+<em><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_RESULT"]--> : <!--[$objectArray|@count]--> <!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_HOTEL"]--></em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> <!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_TO"]--> <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
+<!-- <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--> <!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_TO"]--> <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--> -->
 <table width="100%">
   <!--[foreach from=$objectArray item=item]-->
     <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
@@ -84,17 +84,17 @@
                 </span> 
                 <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
 
-                <em id="distance"> ห่างจากคุณ <!--[$item.Distance]--> km.</em><br>
+                <em id="distance"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_AWAY_FROM_YOU"]--> <!--[$item.Distance]--> km.</em><br>
                 <em id="address">
                   <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
                   <a id="link"
                      target="_blank"
                      href="index.php?module=POBPortal&type=user&func=page&ctrl=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&hotelname=<!--[$item.HotelName]-->"
-                  >Map</a>
+                  ><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MAP"]--></a>
                 </em><br>
                 <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">more>></a>
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]--></a>
                 </em>
                 <!-- <button id="showPriceButton" type="submit">แสดงราคา</button> -->
               </p>
@@ -105,9 +105,9 @@
               <!--[if $item.Availabilities]-->
                 <table width="100%">
                   <tr>
-                    <th width="60%" align="left">ประเภทห้องที่ว่าง</th>
-                    <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
-                    <th width="30%" align="right">ราคา</th>
+                    <th width="60%" align="left"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_TYPE"]--></th>
+                    <th width="15%" align="center"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_AMOUNT"]--></th>
+                    <th width="30%" align="right"><!--[pnml name="_POBPORTAL_ROOM_RATE"]--></th>
                   </tr>
 
                   <!--[group_availabilities_array avail=$item.Availabilities]-->
@@ -141,7 +141,7 @@
 <!--[else]-->
 <div class="recommend">
     <p>
-      <h1>ไม่มีข้อมูล</h1>
+      <h1><!--[pnml name="_POBPORTAL_USER_NO_RESULT"]--></h1>
     </p>
 </div>
 <!--[/if]-->

@@ -81,7 +81,7 @@
     }
 
     if(!validate) {
-      alert("โปรดเลือกจำนวนห้องพักที่ต้องการ");
+      alert(<!--[pnml name='_POBPORTAL_ERROR_SELECT_ROOM']-->);
       return false;
     }
   }
@@ -152,10 +152,10 @@
         <td>
             <table width="100%">
               <tr>
-                <th width="40%" align="left">ประเภทห้องที่ว่าง</th>
-                <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
-                <th width="15%" align="center">จำนวนห้องพัก</th>
-                <th width="30%" align="right">ราคา</th>
+                <th width="40%" align="left"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_TYPE"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_AMOUNT"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBPORTAL_ROOM_AMOUNT"]--></th>
+                <th width="30%" align="right"><!--[pnml name="_POBPORTAL_ROOM_RATE"]--></th>
               </tr>
 
 
@@ -205,7 +205,7 @@
         </td>
       </tr>
       <tr align="right">
-        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();">ทำการจอง</button></td>
+        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();"><!--[pnml name="_POBPORTAL_BOOKING_BUTTON"]--></button></td>
       </tr>
       <!--[/if]-->
   </table>
@@ -213,7 +213,7 @@
 <!--[else]-->
   <div class="recommend">
       <p>
-        <h1>ไม่มีข้อมูล</h1>
+        <h1><!--[pnml name="_POBPORTAL_USER_NO_RESULT"]--></h1>
       </p>
   </div>
 <!--[/if]-->

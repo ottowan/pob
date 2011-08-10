@@ -71,6 +71,14 @@ function POBPortal_search_searchResult(){
   //var_dump($repackArray[3]["ThumbItem"]["URL"]); exit;
 
 
+  //Load language
+  $lang = pnUserGetLang();
+  if (file_exists('modules/POBPortal/pnlang/' . $lang . '/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/' . $lang );
+  }else if (file_exists('modules/POBPortal/pnlang/eng/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/eng' );
+  }
+
   if($repackArray){
     $render->assign("objectArray", $repackArray );
     return $render->fetch('user_list_hotel.htm');
@@ -125,6 +133,13 @@ function POBPortal_search_view(){
   }
 
 
+  //Load language
+  $lang = pnUserGetLang();
+  if (file_exists('modules/POBPortal/pnlang/' . $lang . '/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/' . $lang );
+  }else if (file_exists('modules/POBPortal/pnlang/eng/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/eng' );
+  }
     
   if($issetArray == true){
     $render->assign("view", $repackArray );

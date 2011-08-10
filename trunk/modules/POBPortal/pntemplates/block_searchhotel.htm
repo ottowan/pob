@@ -68,18 +68,23 @@
   }
 </style>
 <div class="box_search">
-<h3>ค้นหาโรงแรมในภูเก็ต</h3>
+<h3><!--[pnml name="_POBPORTAL_USER_SEARCH_HOTEL_IN_PHUKET"]--></h3>
 <FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBPortal' type='search' func='searchResult']-->">
   <TABLE width="100%">
     <TR>
       <TD colspan="4">
-          ชื่อสถานที่<br>
-          <INPUT TYPE="text" class="search" NAME="form[search]" value="<!--[$form.search]-->" placeholder="เช่น ชื่อหาดหรือเมือง" >
+          <!--[pnml name='_POBPORTAL_USER_PLACE_NAME']--><br>
+          <INPUT TYPE="text" 
+                  class="search" 
+                  NAME="form[search]" 
+                  value="<!--[$form.search]-->" 
+                  placeholder="<!--[pnml name='_POBPORTAL_USER_SEARCH_SUGGESSTION']-->"
+           >
       </TD>
     </TR>
     <TR>
-      <TD colspan="2">วันที่เช็คอิน</TD>
-      <td colspan="2">วันที่เช็คเอ้าท์</TD>
+      <TD colspan="2"> <!--[pnml name='_POBPORTAL_USER_CHECK_IN_DATE']--></TD>
+      <td colspan="2"> <!--[pnml name='_POBPORTAL_USER_CHECK_OUT_DATE']--></TD>
     </TR>
     <TR>
       <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></TD>
@@ -111,7 +116,7 @@
 
     <TR>
       <TD colspan="2">&nbsp;</TD>
-      <td colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
+      <td colspan="2"><button id="submitButton" type="submit"><!--[pnml name="_POBPORTAL_USER_SAERCH_BUTTON"]--></button>  </TD>
     </TR>
   </TABLE>
 </FORM>
