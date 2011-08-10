@@ -54,7 +54,7 @@
 
 </style>
 <script type="text/javascript" src="modules/POBRoomSearch/pnjavascript/wz_tooltip.js"></script> 
-<em>ผลลัพท์ทั้งหมด : <!--[$objectArray|@count]--> โรงแรม</em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> to <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
+<em><!-- [pnml name="_POBROOMSEARCH_USER_RESULT"] --> : <!--[$objectArray|@count]--> โรงแรม</em> ( <!--[$smarty.post.startDay]-->-<!--[$smarty.post.startMonth]-->-<!--[$smarty.post.startYear]--> to <!--[$smarty.post.endDay]-->-<!--[$smarty.post.endMonth]-->-<!--[$smarty.post.endYear]-->)<br>
 <!-- <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--> to <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--> -->
 <table width="100%">
   <!--[foreach from=$objectArray item=item]-->
@@ -121,9 +121,7 @@
                   <!--[/foreach]-->
                 </table>
               <!--[else]-->
-              <tr align="left">
-                <td><font color="#cc0066"><b>ไม่มีห้องว่างเหลือ</b></font></td>
-              </tr>
+
               <!--[/if]-->
             </td>
           </tr>
@@ -137,7 +135,7 @@
 <!--[else]-->
 <div class="recommend">
     <p>
-      <h1>ไม่มีข้อมูล</h1>
+      <h1><!-- [pnml name="_POBROOMSEARCH_USER_NO_RESULT"] --></h1>
     </p>
 </div>
 <!--[/if]-->
