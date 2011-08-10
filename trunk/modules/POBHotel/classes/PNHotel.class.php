@@ -376,14 +376,13 @@
       if (!($class = Loader::loadClass('HotelDescContentGenerator', "modules/POBHotel/pnincludes")))
         return LogUtil::registerError ('Unable to load class [HotelDescContentGenerator] ...');
       $obj = new HotelDescContentGenerator($this->_objData['id']);
-      $res = $obj->getContent();
+      $res = $obj->sendContent();
 
-      $myFile = "HotelDescContentGenerator.xml";
-      $fh = fopen($myFile, 'w') or die("can't open file");
-
-      fwrite($fh, $res);
-      fclose($fh);
-
+      if (!($class = Loader::loadClass('OTA_HotelAvailNotifRQ', "modules/POBHotel/pnincludes"))){
+        return LogUtil::registerError ('Unable to load class [OTA_HotelAvailNotifRQ] ...');
+      }
+      $tester = new OTA_HotelAvailNotifRQ();;
+      $tester->sendContent();
     }
   }
 ?>
