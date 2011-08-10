@@ -167,11 +167,11 @@ border-radius: 5px; -moz-border-radius: 5px;}
 
 #bottom_wraper .pn-blockposition-center {}
 
-#bottom_wraper .map h4{ color: white; height: 60px; padding: 0 90px 0 0; margin: 0 -80px 0 0;
+#bottom_wraper .map h4{ color: white; height: 60px; padding: 0 90px 0 0; margin: 0 -90px 0 0;
 background: url(../images/menu_header_full_tran_right_long.png) right top no-repeat;
 text-shadow: 1px 1px 1px #260101;text-align: right;}
 
-#bottom_wraper  .map { width: 705px; height: 245px; margin: 0 12px 0 0; float: right; background: #E1C16E }
+#bottom_wraper  .map { width: 705px; height: 245px; margin: 0 12px 0 0;padding: 0 10px 0 0;  float: right; background: #E1C16E }
 
 #footer_wraper { height:63px; width: 990px; background: #e1c16e url(../images/footer.png)
 0 0 no-repeat}
