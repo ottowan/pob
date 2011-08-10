@@ -29,9 +29,11 @@
 // ----------------------------------------------------------------------
 
 
-//user_list_topics Definitions
-  define('_INNOADVERT_USER_TOPIC_LIST_CATEGORY','Cetegory');
-  define('_INNOADVERT_USER_TOPIC_LIST_LASTNEWS','Last News');
-
+//POBHOTEL USER BLOCK FOURIMAGE (block_fourimage.html)
+  define('_POBHOTEL_USER_BLOCK_FOURIMAGE_PLEASEUPLOADYOURHOTELIMAGE','Please upload your hotel image.');
+//POBHOTEL USER BLOCK FOURIMAGE MODIFY (block_fourimage_modify.html)
+  define('_POBHOTEL_USER_BLOCK_FOURIMAGE_MODIFY_LIMITDISPLAY','Limit display (rows)');
+//POBHOTEL USER BLOCK HOTELMAP MODIFY (block_hotelmap_modify.html)
+  define('_POBHOTEL_USER_BLOCK_HOTELMAP_MODIFY_LIMITDISPLAY','Limit display (rows)');
 
 ?>
