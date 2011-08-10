@@ -30,10 +30,10 @@
     <div class="navigation_bar_center">
         <ul>
             <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_COCONUT_SEA_HOME"]--></a></li>
-            <li><a href="#"><!--[pnml name="_COCONUT_SEA_ROOM"]--></a></li>
-            <li><a href="#"><!--[pnml name="_COCONUT_SEA_FACILITIES"]--></a></li>
-            <li><a href="#"><!--[pnml name="_COCONUT_SEA_GALLERY"]--></a></li>
-            <li><a href="#"><!--[pnml name="_COCONUT_SEA_CANTACT"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Rate"><!--[pnml name="_COCONUT_SEA_ROOM"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Facility"><!--[pnml name="_COCONUT_SEA_FACILITIES"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Gallery"><!--[pnml name="_COCONUT_SEA_GALLERY"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=view&ctrl=Contact"><!--[pnml name="_COCONUT_SEA_CANTACT"]--></a></li>
             <li style="float:right"><!--[blockposition name=language]--></li>
         </ul>
     </div><!--end navigation_bar_center-->
@@ -50,14 +50,14 @@
 
 <!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
     <div class="left_box">
-        <div class="left_top"><h3>สำหรับสมาชิก</h3></div>
+        <div class="left_top"><h3><!--[pnml name="_COCONUT_SEA_MEMBER"]--></h3></div>
         <div class="left_repeat">
         <ul>
-			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel">ระบบจัดการหลัก</a></li>       	
-        	<li class="selected"><a href="index.php?module=InnoGallery">จัดการรูปสไลด์</a></li>
-			<li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->">เพิ่มข้อมูลและห้องพัก</a></li>
- 			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->">จัดการรูปโรงแรม</a></li>
-			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->">เปลี่ยนแทมเพลท</a></li>
+			<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel"><!--[pnml name="_COCONUT_SEA_ADMIN_PANEL"]--></a></li>       	
+        	<li class="selected"><a href="index.php?module=InnoGallery"><!--[pnml name="_COCONUT_SEA_ADD_SLIDE"]--></a></li>
+			<li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_COCONUT_SEA_ADD_ROOM"]--></a></li>
+ 			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_COCONUT_SEA_ADD_PIC_HOTEL"]--></a></li>
+			<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->"><!--[pnml name="_COCONUT_SEA_CHANGE_TEMPLATE"]--></a></li>
 
         </ul><!--[displaygreeting]--></br><!--[userlinks]--></div>
         <div class="left_buttom"></div></br>

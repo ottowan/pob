@@ -11,7 +11,7 @@ text-align:center;
 color:#303030;
 margin: 0 0 0 0;
 padding: 0 0 0 0;
-background:#e4bc8b url(../images/bg.jpg) top center no-repeat;
+background:#e4bc8b url(../images/bg.jpg) top center no-repeat !important;
 
 }
 
@@ -37,7 +37,7 @@ img.right{float:right; margin:0 0 5px 12px;}
 
 #theme_page_container{
 width:984px;
-margin:0px auto;
+margin:0px auto !important;
 }
 
 #theme_header{
@@ -82,7 +82,13 @@ text-align:left;
 	float:left;
 	background-image:url(../images/menu_center.png);
 	width:916px;
-	height:52px;	
+	height:52px;
+	text-align:left !important;	
+	}
+.navigation_bar_center h4{
+	display:none;
+	
+	
 	}
 .navigation_bar_right{
 	float:left;
@@ -136,6 +142,8 @@ text-decoration:none;
 	height:277px;
 	margin:0 0 0 28px;
 	}
+#map{
+}
 
 #theme_content{
 	float:left;
@@ -206,7 +214,7 @@ background-color:inherit;
 	width:77px;
 	height:38px;
 	border:none;
-	margin:0 7px 0 0px;
+	margin:0 40px 0 0px;
 	}	
 #theme_subcontent #submitButton:hover{
 	opacity:0.8;
@@ -263,10 +271,11 @@ background-color:inherit;
 .jqTransformButton span{ color:#fff !important; font-size:14px;}
 
 #theme_subcontent a{ margin:0 0 0 0px;}
-#theme_subcontent .jqTransformButton:hover{opacity:0.8; cursor:pointer;}
+#theme_subcontent input[type="submit"]:hover{opacity:0.8; cursor:pointer;}
 #theme_subcontent form{ margin:7px 0 0 0px;}
 #theme_subcontent form li{ list-style:none;}
 #theme_subcontent .box{ margin:0 0 0 -20px;}
+#theme_subcontent .box table{ margin:0 0 0 20px;}
 #theme_subcontent input[type="checkbox"]{ width:16px !important; height:16px; margin:0px 0px 0 0px; padding:0 0 0 5px;}
 
 #theme_subcontent h2{
