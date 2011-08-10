@@ -8,14 +8,14 @@ li { padding: 0 0 0 0px; margin: 0 0 0 20px }
 p { padding: 0 0 1em 0}
 
 body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:center; color:#fff; background: black url(../images/bg.jpg ) top center repeat fixed;}
-#page_wraper { width: 980px; height: 720px; margin: 10px auto; background: #fff url(../images/top_wrap_bg.jpg) top left no-repeat;  box-shadow: 0px 0px 70px #000}
+#page_wraper { width: 980px; height: auto; margin: 10px auto; background: #fff url(../images/top_wrap_bg.jpg) top left no-repeat;  box-shadow: 0px 0px 70px #000}
 
 
-#top_wraper { height: 72px; text-align:left; padding: 40px; overflow:hidden;}
+#top_wraper { height: 80px; text-align:left; padding: 10px 0 0 20px; overflow:hidden;}
 #top_wraper h1 { color:#665a52; font-size: 36px; line-height: 40px; font-weight:100; text-shadow: 1px 1px 3px black}
 #top_wraper h2 { color:#e5c050; font-size: 18px; line-height: 20px; font-weight:100; margin: 5px 0 0 0; text-shadow: 1px 1px 3px #ddd;}
 
-#mid_wraper  {height: 460px; margin: 0 auto; background: #000; width:960px; float:left; padding: 0 0 0 20px; text-align: left;}
+#mid_wraper  {height: 460px; width: 710px; margin: 0 auto; background: #000; float:left; padding: 0; text-align: left;}
 #mid_wraper  h1,
 #mid_wraper  h2, 
 #mid_wraper  h3,
@@ -26,46 +26,66 @@ body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:ce
 #mid_wraper  h3 { font-size: 18px}
 #mid_wraper  p {color:#b3b3b3; text-align: left;}
 
-#mid_wraper .menu { width: 210px; height: 460px; float:left; text-align:left;}
-#mid_wraper .menu ul{ margin: 225px 0 0 5px;}
+#mid_wraper .menu { width: 185px; height: 460px; float:left; text-align:left;}
+#mid_wraper .menu ul{ margin: 225px 0 0 0px;}
 #mid_wraper .menu li{height: 35px; padding: 10px 0 0 30px; display: block;}
 #mid_wraper .menu a{ color: #fff; font-size: 20px; text-decoration:none;}
 #mid_wraper .menu li:hover{ background: #000 url(../images/menu_bg.jpg) 0 0 no-repeat;}
 #mid_wraper .menu li:hover a { text-shadow: 1px 1px 3px #ddd;}
 
-#mid_wraper .reservation {float:left; width:298px; margin: 10px; background: #333 url(../images/form_border.png) top left repeat; border: 1px solid #111;}
-#mid_wraper .reservation .reservation_box { text-align:left; margin: 10px; padding: 10px; color: #B3B3B3; line-height:24px;
-								background: #131313 url(../images/mid_content_bg.png) top left repeat; border: 1px solid #555;}
-#mid_wraper .reservation .reservation_box  h4 { color: #f23d3d; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #f21111}
-#mid_wraper .reservation .reservation_box form { padding: 0 15px 0 15px}
-#mid_wraper .reservation .reservation_box select[name="startDay"] ,
-#mid_wraper .reservation .reservation_box select[name="startMonth"] , 
-#mid_wraper .reservation .reservation_box select[name="startYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; float:left}
-#mid_wraper .reservation .reservation_box select[name="endDay"] ,
-#mid_wraper .reservation .reservation_box select[name="endMonth"] , 
-#mid_wraper .reservation .reservation_box select[name="endYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; float:left}
-#mid_wraper .reservation .reservation_box #select2 { background: #333; color: white; border: 1px #D00 solid;}
-#mid_wraper .reservation .reservation_box #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
-#mid_wraper .reservation .reservation_box #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
-#mid_wraper .reservation .reservation_box #submitButton {margin: 10px 0 0 0; position: relative; left: 186px; padding: 3px 10px;background: #333; border: 1px #D00 solid; color: white;}
+#mid_wraper .slide {width: 525px; height: 460px;float:left; background: #fff url(../images/slide/slide_01.jpg) 0 0 no-repeat;}
+
+#mid_wraper_right { width: 250px; float: left}
+
+#mid_wraper_right .reservation {float: left; width:245px; margin:0px; padding: 0px ;border: 1px solid #E5E5E5; background: #F2F2F2; display: inline; }
+#mid_wraper_right .reservation .box { width: 225px; height: 145px; text-align:left; margin: 0px; padding: 0px; color: #555; line-height:24px;
+										background: transparent; border: none;border-radius:0px; -moz-border-radius:0px;}
+#mid_wraper_right .reservation .pn-block {background: #E5E5E5; border: 1px solid #CCC; padding: 10px}
+#mid_wraper_right .reservation h4 { color: #0B9DE5; padding: 0px;font-size: 18px;line-height: 30px;margin: 0px;text-align: left;text-shadow: 1px 1px 3px #AAA;}
+#mid_wraper_right .reservation .reservation_box form { padding: 0 15px 0 15px}
+#mid_wraper_right .reservation .reservation_box select[name="startDay"] ,
+#mid_wraper_right .reservation .reservation_box select[name="startMonth"] , 
+#mid_wraper_right .reservation .reservation_box select[name="startYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; float:left}
+#mid_wraper_right .reservation .reservation_box select[name="endDay"] ,
+#mid_wraper_right .reservation .reservation_box select[name="endMonth"] , 
+#mid_wraper_right .reservation .reservation_box select[name="endYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; float:left}
+#mid_wraper_right .reservation .reservation_box #select2 { background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper_right .reservation .reservation_box #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper_right .reservation .reservation_box #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper_right .reservation .reservation_box #submitButton {margin: 10px 0 0 0; position: relative; left: 186px; padding: 3px 10px;background: #333; border: 1px #D00 solid; color: white;}
 
 
-#mid_wraper .slide {width: 430px; height: 460px; float:left; background: #fff url(../images/slide/slide_01.jpg) 0 0 no-repeat;}
-#mid_wraper .reservation {width: 330px; height: 460px; float:left;}
 
-#mid_wraper .reservation {	width: 300px; padding: 260px 0 0 20px; height: 200px;float: left;width: 300px;background: black url(../images/reservation_bg.jpg) top right no-repeat;
-border: 1px solid #111;border: none;margin: 0px;}
-#mid_wraper .reservation h4 { display: none;}
-#mid_wraper .reservation .box { width: 225px; height: 145px; text-align:left; margin: 10px; padding: 10px; color: #555; line-height:24px;
-								background: #ccc; border:5px solid #555; border-radius:10px; -moz-border-radius:10px;}
-#mid_wraper .reservation .box  p { color: #333; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #111}
-#mid_wraper .reservation .box form { padding: 0}
-#mid_wraper .reservation .box #select { background: #333; color: white; border: 1px #555 solid;}
-#mid_wraper .reservation .box #select2 { background: #333; color: white; border: 1px #555 solid;}
-#mid_wraper .reservation .box #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #555 solid;}
-#mid_wraper .reservation .box #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #555 solid;}
-#mid_wraper .reservation .box #submitButton {margin: 10px 0 0 0; position: relative; left: 0px; padding: 3px 10px;background: #333; border: 1px #555 solid; color: white;}
-#mid_wraper .reservation .box #submitButton:hover {border: 1px #999 solid;}
+#mid_wraper_right .reservation .box  p { color: #333; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #111}
+#mid_wraper_right .reservation .box form { padding: 0}
+#mid_wraper_right .reservation .box #select { background: #333; color: white; border: 1px #555 solid;}
+#mid_wraper_right .reservation .box #select2 { background: #333; color: white; border: 1px #555 solid;}
+#mid_wraper_right .reservation .box #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #555 solid;}
+#mid_wraper_right .reservation .box #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #555 solid;}
+#mid_wraper_right .reservation .box #submitButton {position: relative; height: auto; width: auto; left: 0px; padding: 3px 10px; margin: 10px 0 0 0 ; font-size: 14px;
+background: #6DC6F2; border: 1px #5CB5E1 solid; color: white; box-shadow: 1px 1px 5px #EEE; -webkit-box-shadow: 1px 1px 5px #EEE; border-radius: 5px;-moz-border-radius: 5px;}
+#mid_wraper_right .reservation .box #submitButton:hover {border: 1px #999 solid;}
 
-#footer_wraper { height:108; background: none}
-#footer_wraper p {text-align: right; line-height: 170px; color: #B3B3B3; padding: 0 20px 0 0;}
+#mid_wraper_right {background: #fff; border-bottom: 1px solid #e5e5e5;}
+#mid_wraper_right a {color:#00A1F2}
+#mid_wraper_right .login_form { width:245px; margin: 0px; padding: 0px ;float: left; border: 1px solid #e5e5e5;  background: #f2f2f2; display:inline;}
+#mid_wraper_right .login_form span{ display: block;}
+#mid_wraper_right .login_form .pn-bkey-login { text-align: left; color: #808080; line-height: 24px;
+											 background: #e5e5e5 ; padding:10px; border: 1px solid #ccc;}
+#mid_wraper_right .login_form .pn-bkey-login form {padding: 0;}
+											 
+#mid_wraper_right .login_form .pn-bkey-login #loginblock_username,
+#mid_wraper_right .login_form .pn-bkey-login #loginblock_password {background: #fff; color: #808080; border: 1px #ccc solid; width:220px;}
+#mid_wraper_right .login_form .pn-bkey-login h4 { color: #0B9DE5; padding: 0px; font-size: 18px; line-height: 30px; margin: 0px; text-align:left; text-shadow: 1px 1px 3px #aaa}
+
+#mid_wraper_right .login_form .pn-bkey-login #loginblock_rememberme { }
+#mid_wraper_right .login_form .pn-bkey-login  label[for="loginblock_rememberme"] {position: absolute; left: 25px; top: 94px;}
+#mid_wraper_right .login_form .pn-bkey-login  input[type="submit"]{ position: relative; left: 165px; padding: 3px 10px; background: #6DC6F2; border: 1px #5CB5E1 solid; color: white;
+																	box-shadow: 1px 1px 5px #EEE; -webkit-box-shadow: 1px 1px 5px #EEE; 
+																	border-radius: 5px; -moz-border-radius: 5px;}
+#mid_wraper_right .login_form .pn-bkey-login  input[type="submit"]:hover {border:1px #3983b0 solid}																	
+#mid_wraper_right .login_form .pn-bkey-login li { list-style: none;}																	
+#mid_wraper_right .login_form .pn-bkey-login li a {color: #808080; line-height: 24px;}
+
+#mid_wraper_right {height: 452px;padding: 8px 10px 0; background: black;}
+#footer_wraper p {text-align: right; line-height: 60px; color: #555; padding: 0 20px 0 0;}
