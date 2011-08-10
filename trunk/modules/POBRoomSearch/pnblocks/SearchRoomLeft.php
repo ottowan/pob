@@ -59,6 +59,14 @@ function POBRoomSearch_SearchRoomLeftblock_display($blockinfo)
     //load render
     $render = pnRender::getInstance($modname);
 
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBRoomSearch/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/' . $lang );
+    }else if (file_exists('modules/POBRoomSearch/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/eng' );
+    }
+
 	//Loader::loadClass('POBReader',"modules/POBRoomSearch/pnincludes");
     //$getter = new POBReader("http://localhost/");
     $search['list'] = "1,2,3,4";
