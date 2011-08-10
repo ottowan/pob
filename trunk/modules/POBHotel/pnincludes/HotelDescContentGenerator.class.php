@@ -192,34 +192,34 @@ Class HotelDescContentGenerator {
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
 
+    if($this->imageObject){
+      // Image
+      $MultimediaDescription = $xml->createElement("MultimediaDescription");
+      $ImageItems = $xml->createElement("ImageItems");
 
-    // Image
-    $MultimediaDescription = $xml->createElement("MultimediaDescription");
-    $ImageItems = $xml->createElement("ImageItems");
-
-    // Original
-    foreach($this->imageObject AS $key=>$value){
-      $ImageItem = $xml->createElement("ImageItem");
-      $ImageItem->setAttribute("Category",6);
-      $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
-      $ImageFormat->appendChild($Url);
-      $ImageItem->appendChild($ImageFormat);
+      // Original
+      foreach($this->imageObject AS $key=>$value){
+        $ImageItem = $xml->createElement("ImageItem");
+        $ImageItem->setAttribute("Category",6);
+        $ImageFormat = $xml->createElement("ImageFormat");
+        $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
+        $ImageFormat->appendChild($Url);
+        $ImageItem->appendChild($ImageFormat);
+      }
+      $ImageItems->appendChild($ImageItem);
+      // Thumbnail
+      foreach($this->imageObject AS $key=>$value){
+        $ImageItem = $xml->createElement("ImageItem");
+        $ImageItem->setAttribute("Category",1);
+        $ImageFormat = $xml->createElement("ImageFormat");
+        $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
+        $ImageFormat->appendChild($Url);
+        $ImageItem->appendChild($ImageFormat);
+      }
+      $ImageItems->appendChild($ImageItem);
+      $MultimediaDescription->appendChild($ImageItems);
+      $MultimediaDescriptions->appendChild($MultimediaDescription);
     }
-    $ImageItems->appendChild($ImageItem);
-    // Thumbnail
-    foreach($this->imageObject AS $key=>$value){
-      $ImageItem = $xml->createElement("ImageItem");
-      $ImageItem->setAttribute("Category",1);
-      $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
-      $ImageFormat->appendChild($Url);
-      $ImageItem->appendChild($ImageFormat);
-    }
-    $ImageItems->appendChild($ImageItem);
-    $MultimediaDescription->appendChild($ImageItems);
-    $MultimediaDescriptions->appendChild($MultimediaDescription);
-
 
     $Descriptions->appendChild($MultimediaDescriptions);
 
@@ -248,29 +248,29 @@ Class HotelDescContentGenerator {
       $StateProv = $xml->createElement("StateProv");
       $StateProv->setAttribute("StateCode",$this->hotelObject["state_province"]);
       $CountryName = $xml->createElement("CountryName",$this->hotelObject["country"]);
-      
+
       $Email = $xml->createElement("e-mail",$this->hotelObject["email"]);
-      
-      
+
+
       //Phone Section
       $Phones = $xml->createElement("Phones");
-      
+
       $Phone = $xml->createElement("Phone");
       $Phone->setAttribute("PhoneNumber",$this->hotelObject["phone_number"]);
       $Phone->setAttribute("PhoneTechType",1);
-      
+
       $Mobile = $xml->createElement("Phone");
       $Mobile->setAttribute("PhoneNumber",$this->hotelObject["mobile_number"]);
       $Mobile->setAttribute("PhoneTechType",5);
-      
+
       $Fax = $xml->createElement("Phone");
       $Fax->setAttribute("PhoneNumber",$this->hotelObject["fax_number"]);
       $Fax->setAttribute("PhoneTechType",3);
-      
+
       $Phones->appendChild($Phone);
       $Phones->appendChild($Mobile);
       $Phones->appendChild($Fax);
-      
+
       $Address->appendChild($AddressLine);
       $Address->appendChild($CityName);
       $Address->appendChild($PostalCode);
