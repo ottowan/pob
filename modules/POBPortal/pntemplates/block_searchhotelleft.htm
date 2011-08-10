@@ -59,26 +59,34 @@ border-right: 1px solid #D8D8D8;
 	}
 </style>
 <div class="box">
-<p>ค้นหาโรงแรมในภูเก็ต</p>
+<p><!--[pnml name="_POBPORTAL_USER_SEARCH_HOTEL_IN_PHUKET"]--></p>
 <FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBPortal' type='search' func='searchResult']-->">
 
 <TABLE width="100%">
   <TR>
-    <TD colspan="2"><INPUT TYPE="text" class="search" NAME="form[search]" value="<!--[$form.search]-->" placeholder="เช่น ชื่อหาดหรือเมือง"  ></TD>
+    <TD colspan="2">
+      <INPUT 
+        TYPE="text" 
+        class="search" 
+        NAME="form[search]" 
+        value="<!--[$form.search]-->" 
+        placeholder="<!--[pnml name='_POBPORTAL_USER_SEARCH_SUGGESSTION']-->" 
+       >
+    </TD>
   </TR>
   <TR>
     <TD colspan="2"></TD>
   <td colspan="2"></TD>
   </TR>
   <TR>
-    <TD colspan="2">วันที่เช็คอิน</TD>
+    <TD colspan="2"><!--[pnml name='_POBPORTAL_USER_CHECK_IN_DATE']--></TD>
     <td colspan="2" rowspan="8">
   </TR>
   <TR>
     <TD colspan="2"><!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]--></TD>
   </TR>
   <TR>
-    <TD colspan="2">วันที่เช็คเอ้าท์ </TD>
+    <TD colspan="2"><!--[pnml name='_POBPORTAL_USER_CHECK_OUT_DATE']--></TD>
   </TR>
   <TR>
     <TD colspan="2"><!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]--></TD>
@@ -91,7 +99,7 @@ border-right: 1px solid #D8D8D8;
     <TD colspan="2">&nbsp;</TD>
     </TR>
   <TR>
-    <TD colspan="2"><button id="submitButton" type="submit">ค้นหา</button>  </TD>
+    <TD colspan="2"><button id="submitButton" type="submit"><!--[pnml name="_POBPORTAL_USER_SAERCH_BUTTON"]--></button>  </TD>
   </TR>
   </TABLE>
 </FORM>

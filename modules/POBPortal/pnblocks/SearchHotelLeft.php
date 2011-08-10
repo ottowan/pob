@@ -56,6 +56,16 @@ function POBPortal_SearchHotelLeftblock_display($blockinfo)
     $modinfo = pnModGetInfo(pnModGetIDFromName($modname));
     $directory = $modinfo['directory'];
     pnModDBInfoLoad($modname, $directory);
+
+
+  //Load language
+  $lang = pnUserGetLang();
+  if (file_exists('modules/POBPortal/pnlang/' . $lang . '/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/' . $lang );
+  }else if (file_exists('modules/POBPortal/pnlang/eng/user.php')){
+    Loader::loadFile('user.php', 'modules/POBPortal/pnlang/eng' );
+  }
+
     //load render
     $render = pnRender::getInstance($modname);
 
