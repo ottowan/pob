@@ -51,13 +51,14 @@ function POBHotel_FourImageblock_display($blockinfo)
     //get setting
     $render = pnRender::getInstance($modname);
     $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
+
     if((int)$imageRows > 0){
       if (!($class = Loader::loadClassFromModule ('POBHotel',$class, true)))
         return LogUtil::registerError ("Unable to load class [$ctrl] ...");
       //var_dump($class); exit;
       $objectArray = new $class ();
 
-      $objectArray->get ($where, 'ORDER BY hotel_image_id DESC' , $offset, 4);
+      $objectArray->get ($where, ' ORDER BY hotel_image_id DESC ' , $offset, 4);
 
       $render = pnRender::getInstance($modname);
 
