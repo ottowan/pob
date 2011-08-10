@@ -21,7 +21,7 @@
 	});
 </script>
 
-<legend>Add Guest Room Type</legend>
+<legend><!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM"]--></legend>
 <FORM id="formGuestRoom" name="formGuestRoom" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='GuestRoom']-->" enctype="multipart/form-data>">
 						<!--[get_all_guest_room_type]-->
 						<!--[get_all_season]-->
@@ -29,19 +29,19 @@
 							<TABLE width="600">
 								<tr>
 								<td>
-									Name
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_NAME"]-->
 									<INPUT TYPE="text" NAME="form[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
 								</td>
 								</tr>
 								<tr>
 								<td>
-									Description
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_DESCRIPTION"]-->
 									<INPUT TYPE="text" NAME="form[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
 								</td>
 								</tr>
 								<tr>
 								<td>
-									Type
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_TYPE"]-->
 									<select name="form[type_id]">
 										<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
 										  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
@@ -55,13 +55,13 @@
 								</tr>
 								<tr>
 								<td>
-									Quantity
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_QUANTITY"]-->
 									<INPUT TYPE="text" NAME="form[limit]" ROWS="10" COLS="40" size="10" value="<!--[$item.limit]-->">
 								</td>
 								</tr>
 								<tr>
 								<td>
-									Season
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_SEASON"]-->
 									<select name="form[season_id]">
 										<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
 										  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
@@ -75,19 +75,19 @@
 								</tr>
 								<tr>
 								<td>
-									Price
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_PRICE"]-->
 									<INPUT TYPE="text" NAME="form[price]" ROWS="10" COLS="40" size="30" value="<!--[$item.price]-->">
 								</td>
 								</tr>
 								<tr>
 								<td>
-									Capacity
+									<!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_CAPACITY"]-->
 									<INPUT TYPE="text" NAME="form[capacity]" ROWS="10" COLS="40" size="30" value="<!--[$item.capacity]-->">
 								</td>
 								</tr>
 							<tr>
 							<td>
-							<button id="registerButton" type="submit">Submit</button> <button id="resetButton" type="reset">Cancel</button>
+							<button id="registerButton" type="submit"><!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_SUBMIT"]--></button> <button id="resetButton" type="reset"><!-- [pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_CANCEL"]--></button>
 							</td>
 							</tr>
 							</TABLE>
