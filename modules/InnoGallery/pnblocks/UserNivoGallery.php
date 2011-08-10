@@ -59,6 +59,7 @@ function InnoGallery_UserNivoGalleryblock_display($blockinfo)
 
     $minAlbumId = DBUtil::selectFieldMax( 'innogallery_albums', 'id', 'MIN', '');
 
+
     $imagesArray = pnModAPIFunc('InnoGallery', 
                                                     'user', 
                                                     'getImage',
@@ -66,8 +67,9 @@ function InnoGallery_UserNivoGalleryblock_display($blockinfo)
                                                            'path'  => IMAGE_LARGE_PATH
                                                      )
                                         );
-
+	//var_dump($imagesArray); exit;
     //var_dump($objectArray); exit;
+    $render->assign('albumid', $minAlbumId);
     $render->assign('imagesArray', $imagesArray);
 
     $blockinfo['content'] = $render->fetch('block_usernivogallery.htm');
