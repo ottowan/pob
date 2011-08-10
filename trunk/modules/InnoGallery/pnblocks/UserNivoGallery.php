@@ -57,26 +57,6 @@ function InnoGallery_UserNivoGalleryblock_display($blockinfo)
     $render->assign('modulepath', 'modules/' . $modname);
     $render->assign('vars',$vars);
 
-    /*
-      //Check exist user & topic
-      $pntables = pnDBGetTables();
-      $table  = $pntables['pobhotel_hotel_image'];
-      $column = $pntables['pobhotel_hotel_image_column'];
-
-      $sql = "SELECT
-                $table.$column[name]  
-              FROM
-                $table 
-              WHERE
-                $table.$column[id] = ".$id;
-
-      $column = array("name");
-      $result = DBUtil::executeSQL($sql);
-      $objectArray = DBUtil::marshallObjects ($result, $column);
-      $carproperty = $objectArray['0']['name'];
-*/
-  
-
     $minAlbumId = DBUtil::selectFieldMax( 'innogallery_albums', 'id', 'MIN', '');
 
     $imagesArray = pnModAPIFunc('InnoGallery', 
