@@ -80,7 +80,7 @@
     }
 
     if(!validate) {
-      alert("โปรดเลือกจำนวนห้องพักที่ต้องการ");
+      alert(<!--[pnml name='_POBROOMSEARCH_ERROR_SELECT_ROOM']-->);
       return false;
     }
   }
@@ -151,10 +151,10 @@
         <td>
             <table width="100%">
               <tr>
-                <th width="40%" align="left">ประเภทห้องที่ว่าง</th>
-                <th width="15%" align="center">จำนวนห้องที่เหลือ</th>
-                <th width="15%" align="center">จำนวนห้องพัก</th>
-                <th width="30%" align="right">ราคา</th>
+                <th width="40%" align="left"><!--[pnml name="_POBROOMSEARCH_AVAILABLE_ROOM_TYPE"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBROOMSEARCH_AVAILABLE_ROOM_AMOUNT"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBROOMSEARCH_ROOM_AMOUNT"]--></th>
+                <th width="30%" align="right"><!--[pnml name="_POBROOMSEARCH_ROOM_RATE"]--></th>
               </tr>
 
               <!--[group_availabilities_array avail=$view.Availabilities]-->
@@ -192,19 +192,19 @@
         </td>
       </tr>
       <tr align="right">
-        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();">ทำการจอง</button></td>
+        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();"><!--[pnml name="_POBROOMSEARCH_BOOKING_BUTTON"]--></button></td>
       </tr>
       <!--[else]-->
       <tr align="center">
-        <td><font color="#cc0066"><b>ไม่มีห้องว่างเหลือ</b></font></td>
+        <td><font color="#cc0066"><b><!--[pnml name="_POBROOMSEARCH_NO_ROOM_LEFT"]--></b></font></td>
       </tr>
       <!--[/if]-->
   </table>
 </form>
 <!--[else]-->
-  <div class="recommend">
-      <p>
-        <h1>ไม่มีข้อมูล</h1>
-      </p>
-  </div>
+<div class="recommend">
+    <p>
+      <h1><!--[pnml name="_POBROOMSEARCH_USER_NO_RESULT"]--></h1>
+    </p>
+</div>
 <!--[/if]-->

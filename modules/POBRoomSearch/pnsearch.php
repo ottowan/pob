@@ -1,5 +1,17 @@
 <?php
 
+
+function _preRender(&$render){
+  $lang    = FormUtil::getPassedValue ('lang', false , 'GET');
+
+  if ($lang){
+    $render->assign('lang', $lang);
+  }else{
+    $render->assign('lang', pnUserGetLang());
+  }
+
+}
+
 function POBRoomSearch_search_view(){
 
   $render = pnRender::getInstance('POBRoomSearch');
@@ -14,6 +26,16 @@ function POBRoomSearch_search_view(){
   $endYear = FormUtil::getPassedValue ('endYear', FALSE, 'POST');
 
 
+
+  //Load language
+  $lang = pnUserGetLang();
+  if (file_exists('modules/POBRoomSearch/pnlang/' . $lang . '/user.php')){
+    Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/' . $lang );
+  }else if (file_exists('modules/POBRoomSearch/pnlang/eng/user.php')){
+    Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/eng' );
+  }
+
+
   $startDate = $startYear."-".$startMonth."-".$startDay;
   $endDate   = $endYear."-".$endMonth."-".$endDay;
 
@@ -22,10 +44,6 @@ function POBRoomSearch_search_view(){
   $latitude  = $latlonArray["latitude"];
   $longitude = $latlonArray["longitude"];
 
-  //$latitude  = "7.771828058680014";
-  //$longitude = "98.3205502599717";
-
-  //var_dump($longitude); exit;
 
   if($latitude && $longitude){
     $distance  = "0.001";
@@ -64,6 +82,9 @@ function POBRoomSearch_search_view(){
     $issetArray = false;
   }
     
+
+    _preRender($render);
+
   if($issetArray == true){
     $render->assign("view", $repackArray );
     return $render->fetch('user_view_room.htm');

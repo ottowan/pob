@@ -15,6 +15,21 @@
  * @author Simon Birtwistle
  * @return string HTML string
  */
+
+function _preRender(&$render){
+  $lang    = FormUtil::getPassedValue ('lang', false , 'GET');
+
+  if ($lang){
+    $render->assign('lang', $lang);
+  }else{
+    $render->assign('lang', pnUserGetLang());
+  }
+
+}
+
+
+
+
 function POBRoomSearch_user_main() {
     return POBRoomSearch_user_display();
 }
