@@ -57,7 +57,6 @@ function POBBooking_userform_submit ()
           $room_count++;
                     
         }
-
         $object1 = array('amount_room'   => $amount_room);
         //$object1->getDataFromInput ('form',null,'POST');
         pnModAPIFunc('iHotel', 'user', 'updateRoomReserv',array('form' => $object1));

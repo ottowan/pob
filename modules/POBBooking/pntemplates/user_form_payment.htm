@@ -27,7 +27,7 @@
       <input type="hidden" name="form[email]" value="<!--[$smarty.post.guset.email]-->">
       <input type="hidden" name="form[addition_request]" value="<!--[$smarty.post.guset.addition_request]-->">
       <input type="hidden" name="form[profiletype]" value="1">
-      <input type="hidden" name="form[totalall]" value="<!--[$_POST.booking.totalall]-->">
+      <input type="hidden" name="form[total_price]" value="<!--[$_POST.booking.totalall]-->">
 
       <input type="hidden" name="form[cardcode]" value="<!--[$smarty.post.guset.cardtype]-->">
       <input type="hidden" name="form[cardnumber]" value="<!--[$smarty.post.guset.card1]--><!--[$smarty.post.guset.card2]--><!--[$smarty.post.guset.card3]--><!--[$smarty.post.guset.card4]-->">
@@ -40,6 +40,7 @@
       
       <input type="hidden" name="form[chaincode]" value="<!--[$smarty.post.booking.chaincode]-->">
       <input type="hidden" name="form[hotelcode]" value="<!--[$smarty.post.booking.hotelcode]-->">
+      <input type="hidden" name="form[hotelname]" value="<!--[$smarty.post.booking.hotelname]-->">
 
 
 
@@ -55,7 +56,10 @@
           <tr>
             <td colspan="3" bgcolor="#DCF5FA"><h6>โรงแรม&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
           </tr>
+          
           <!--[foreach from=$smarty.post.booking.roomstays item=item name="foo"]-->
+
+
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunits]" value="<!--[$item.numberofunit]-->">
@@ -65,7 +69,7 @@
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="<!--[$item.child]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$item.night]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][room_rate_total]" value="<!--[$item.room_rate_total]-->">
-              <input type="hidden" name="form[guests]" value="2">
+              <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][guests]" value="2">
           <tr>
             <td width="80">ห้อง</td>
             <td><!--[$item.invcode]--></td>

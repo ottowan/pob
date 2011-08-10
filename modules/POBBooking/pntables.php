@@ -28,6 +28,7 @@
       $pntable['pobbooking_customer_column'] = array(
                                                   'id'                  => 'cus_id',
                                                   'refid'               => 'cus_refid',
+                                                  'status_id'           => 'cus_status_id',
                                                   'identificational'    => 'cus_identificational',
                                                   'nameprefix'          => 'cus_nameprefix',
                                                   'givenname'           => 'cus_givenname',
@@ -40,6 +41,8 @@
                                                   'mobile'              => 'cus_mobile',
                                                   'phone'               => 'cus_phone',
                                                   'email'               => 'cus_email',
+                                                  'total_rooms'               => 'cus_total_rooms',
+                                                  'total_price'         => 'cus_total_price',
                                                   'cardcode'            => 'cus_cardcode',
                                                   'cardnumber'          => 'cus_cardnumber',
                                                   'cardholdername'      => 'cus_cardholdernamer',
@@ -49,6 +52,7 @@
       $pntable['pobbooking_customer_column_def'] = array(
                                                   'id'                  => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
                                                   'refid'               => 'TEXT',
+                                                  'status_id'           => 'INT(2) DEFAULT 2',
                                                   'identificational'    => 'VARCHAR(50) DEFUALT NULL',
                                                   'nameprefix'          => 'VARCHAR(50) DEFUALT NULL',
                                                   'givenname'           => 'TEXT',
@@ -61,6 +65,8 @@
                                                   'mobile'              => 'VARCHAR(255) DEFUALT NULL',
                                                   'phone'               => 'VARCHAR(255) DEFUALT NULL',
                                                   'email'               => 'TEXT',
+                                                  'email'               => 'TEXT',
+                                                  'total_rooms'         => 'int(11)',
                                                   'cardcode'            => 'VARCHAR(255)',
                                                   'cardnumber'          => 'TEXT',
                                                   'cardholdername'      => 'TEXT',
@@ -83,8 +89,11 @@
 
       $pntable['pobbooking_booking_column'] = array(
                                                   'id'                  => 'boo_id',
+                                                  'cus_id'              => 'boo_cus_id',
                                                   'customer_refid'      => 'boo_customer_refid',
+                                                  'status_id'           => 'boo_status_id',
                                                   'chaincode'           => 'boo_chaincode',
+                                                  'hotelname'           => 'boo_hotelname',
                                                   'isocurrency'         => 'boo_isocurrency',
                                                   'checkin_date'        => 'boo_checkin_date',
                                                   'checkout_date'       => 'boo_checkout_date',
@@ -93,7 +102,7 @@
                                                   'roomtype'            => 'boo_roomtype',
                                                   'adult'               => 'boo_adult',
                                                   'child'               => 'boo_child',
-                                                  'room_rate'               => 'boo_room_rate',
+                                                  'room_rate'           => 'boo_room_rate',
                                                   'room_rate_total'     => 'boo_room_rate_total',
                                                   'identificational'    => 'boo_identificational',
                                                   'nameprefix'          => 'boo_nameprefix',
@@ -110,15 +119,18 @@
                                                   'addition_request'    => 'boo_addition_request',
                                                   'cardcode'            => 'boo_cardcode',
                                                   'cardnumber'          => 'boo_cardnumber',
-                                                  'cardholdername'      => 'cus_cardholdernamer',
-                                                  'cardexpire'          => 'cus_cardexpire',
-                                                  'issue_date'          => 'cus_issue_date'
+                                                  'cardholdername'      => 'boo_cardholdernamer',
+                                                  'cardexpire'          => 'boo_cardexpire',
+                                                  'issue_date'          => 'boo_issue_date'
                                           ); 
 
       $pntable['pobbooking_booking_column_def'] = array(
                                                   'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY', 
+                                                  'cus_id'           => 'INT(11)', 
                                                   'customer_refid'   => 'TEXT',
+                                                  'status_id'        => 'INT(2) default 2',
                                                   'chaincode'        => 'VARCHAR(10)',
+                                                  'hotelname'        => 'VARCHAR(255)',
                                                   'isocurrency'      => 'VARCHAR(10)',
                                                   'checkin_date'     => 'DATE',
                                                   'checkout_date'    => 'DATE',
@@ -127,26 +139,26 @@
                                                   'roomtype'         => 'VARCHAR(255)',
                                                   'adult'            => 'int(2)',
                                                   'child'            => 'int(2)',
-                                                  'room_rate'            => 'double',
-                                                  'room_rate_total'      => 'double',
-                                                  'identificational'    => 'VARCHAR(50) DEFUALT NULL',
-                                                  'nameprefix'           => 'VARCHAR(50) DEFUALT NULL',
-                                                  'givenname'           => 'TEXT',
-                                                  'surname'            => 'TEXT',
-                                                  'addressline'             => 'TEXT',
-                                                  'stateprov'                => 'VARCHAR(255) DEFUALT NULL',
-                                                  'cityname'                => 'VARCHAR(255) DEFUALT NULL',
-                                                  'countryname'             => 'VARCHAR(255) DEFUALT NULL',
-                                                  'postalcode'             => 'VARCHAR(50)  DEFUALT NULL',
-                                                  'mobile'              => 'VARCHAR(255) DEFUALT NULL',
-                                                  'phone'               => 'VARCHAR(255) DEFUALT NULL',
-                                                  'email'               => 'TEXT',
-                                                  'addition_request'    => 'TEXT',
-                                                  'cardcode'           => 'VARCHAR(255)',
-                                                  'cardnumber'         => 'TEXT',
-                                                  'cardholdername'      => 'TEXT',
-                                                  'cardexpire'            => 'VARCHAR(10)',
-                                                  'issue_date'          => 'DATETIME'
+                                                  'room_rate'        => 'double',
+                                                  'room_rate_total'  => 'double',
+                                                  'identificational' => 'VARCHAR(50) DEFUALT NULL',
+                                                  'nameprefix'       => 'VARCHAR(50) DEFUALT NULL',
+                                                  'givenname'        => 'TEXT',
+                                                  'surname'          => 'TEXT',
+                                                  'addressline'      => 'TEXT',
+                                                  'stateprov'        => 'VARCHAR(255) DEFUALT NULL',
+                                                  'cityname'         => 'VARCHAR(255) DEFUALT NULL',
+                                                  'countryname'      => 'VARCHAR(255) DEFUALT NULL',
+                                                  'postalcode'       => 'VARCHAR(50)  DEFUALT NULL',
+                                                  'mobile'           => 'VARCHAR(255) DEFUALT NULL',
+                                                  'phone'            => 'VARCHAR(255) DEFUALT NULL',
+                                                  'email'            => 'TEXT',
+                                                  'addition_request' => 'TEXT',
+                                                  'cardcode'         => 'VARCHAR(255)',
+                                                  'cardnumber'       => 'TEXT',
+                                                  'cardholdername'   => 'TEXT',
+                                                  'cardexpire'       => 'VARCHAR(10)',
+                                                  'issue_date'       => 'DATETIME'
                                                                       );
       $pntable['pobbooking_booking_primary_key_column'] = 'id';
 
@@ -165,13 +177,13 @@
       //table definition booking customr
       $pntable['pobbooking_status'] = DBUtil::getLimitedTablename('pobbooking_status');
       $pntable['pobbooking_status_column'] = array(
-                                                  'id'                  => 'sta_id',
-                                                  'name'                => 'sta_name'
+                                                  'id'               => 'sta_id',
+                                                  'name'             => 'sta_name'
                                              );
 
       $pntable['pobbooking_status_column_def'] = array(
-                                                      'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
-                                                      'name'             => 'VARCHAR(50)'
+                                                      'id'           => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
+                                                      'name'         => 'VARCHAR(50)'
                                                   );
       $pntable['pobbooking_status_primary_key_column'] = 'id';
 
