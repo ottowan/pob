@@ -109,7 +109,7 @@ function POBHotel_FourImageblock_display($blockinfo)
               LIMIT 0,4
             ";
 
-      $column = array("filepath", "filename");
+      $column = array("id","filepath", "filename");
       $result = DBUtil::executeSQL($sql);
       $objectArray = DBUtil::marshallObjects ($result, $column);
       
