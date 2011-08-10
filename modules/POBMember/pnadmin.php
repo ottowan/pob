@@ -376,8 +376,8 @@
 
     //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
     $subject = "Your account has been activated.";
-    $message = "Your account has been activated.//n
-                You login at http:////".$subdomain.".phuketcity.com//n
+    $message = "Your account has been activated.\n
+                You can login at http://".$subdomain.".phuketcity.com\n
               ";
     $fromname = "phuketcity";
     $fromaddress = "info@phuketcity.com";
@@ -401,10 +401,10 @@
 
     //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
     $adminSubject = "Admin has activated email.";
-    $adminMessage = "phuketcity has activated customer account./n
-                     Domain : http:\/\/".$subdomain."phuketcity.com/n
-                     Username : $username/n
-                     Password : $email/n
+    $adminMessage = "phuketcity has activated customer account.\n
+                     Domain : http://".$subdomain."phuketcity.com\n
+                     Username : $username\n
+                     Password : $email\n
                   ";
     $fromAdminname = "Admin phuketcity";
     $fromAdminAddress = "info@phuketcity.com";
