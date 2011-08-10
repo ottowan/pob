@@ -58,9 +58,11 @@ function POBHotel_FourImageblock_display($blockinfo)
     $objectArray->get ($where, $sort , $offset, 4);
 
     $render = pnRender::getInstance($modname);
-    //assign to view
-    $render->assign('objectArray', $objectArray->_objData);
 
+    if(count($objectArray->_objData) > 0){
+      //assign to view
+      $render->assign('objectArray', $objectArray->_objData);
+    }
     // Populate block info and pass to theme
     $blockinfo['content'] = $render->fetch('block_fourimage.htm');
     return themesideblock($blockinfo);
