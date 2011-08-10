@@ -79,7 +79,7 @@ Class HotelDescContentGenerator {
     // Set the attributes.
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xmlns", "http://www.opentravel.org/OTA/2003/05");
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd");x
+    $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd");
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("Version", "2.001");
 
     $HotelDescriptiveContents = $xml->createElement("HotelDescriptiveContents");
@@ -182,6 +182,17 @@ Class HotelDescContentGenerator {
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
 
+    $MultimediaDescription = $xml->createElement("MultimediaDescription");
+    $TextItems = $xml->createElement("TextItems");
+    $TextItem = $xml->createElement("TextItem");
+    $TextItem->setAttribute("Title","Rating");
+    $Description = $xml->createElement("Description",htmlentities($this->hotelObject["rating"]));
+    $TextItem->appendChild($Description);
+    $TextItems->appendChild($TextItem);
+    $MultimediaDescription->appendChild($TextItems);
+    $MultimediaDescriptions->appendChild($MultimediaDescription);
+
+
     // Image
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
     $ImageItems = $xml->createElement("ImageItems");
@@ -191,7 +202,7 @@ Class HotelDescContentGenerator {
       $ImageItem = $xml->createElement("ImageItem");
       $ImageItem->setAttribute("Category",6);
       $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("Url",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
+      $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
       $ImageFormat->appendChild($Url);
       $ImageItem->appendChild($ImageFormat);
     }
@@ -201,7 +212,7 @@ Class HotelDescContentGenerator {
       $ImageItem = $xml->createElement("ImageItem");
       $ImageItem->setAttribute("Category",1);
       $ImageFormat = $xml->createElement("ImageFormat");
-      $Url = $xml->createElement("Url",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
+      $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
       $ImageFormat->appendChild($Url);
       $ImageItem->appendChild($ImageFormat);
     }
@@ -237,12 +248,35 @@ Class HotelDescContentGenerator {
       $StateProv = $xml->createElement("StateProv");
       $StateProv->setAttribute("StateCode",$this->hotelObject["state_province"]);
       $CountryName = $xml->createElement("CountryName",$this->hotelObject["country"]);
-
+      
+      $Email = $xml->createElement("e-mail",$this->hotelObject["email"]);
+      
+      
+      //Phone Section
+      $Phones = $xml->createElement("Phones");
+      
+      $Phone = $xml->createElement("Phone");
+      $Phone->setAttribute("PhoneNumber",$this->hotelObject["phone_number"]);
+      $Phone->setAttribute("PhoneTechType",1);
+      
+      $Mobile = $xml->createElement("Phone");
+      $Mobile->setAttribute("PhoneNumber",$this->hotelObject["mobile_number"]);
+      $Mobile->setAttribute("PhoneTechType",5);
+      
+      $Fax = $xml->createElement("Phone");
+      $Fax->setAttribute("PhoneNumber",$this->hotelObject["fax_number"]);
+      $Fax->setAttribute("PhoneTechType",3);
+      
+      $Phones->appendChild($Phone);
+      $Phones->appendChild($Mobile);
+      $Phones->appendChild($Fax);
+      
       $Address->appendChild($AddressLine);
       $Address->appendChild($CityName);
       $Address->appendChild($PostalCode);
       $Address->appendChild($StateProv);
       $Address->appendChild($CountryName);
+      $Address->appendChild($Email);
       $Addresses->appendChild($Address);
       $ContractInfo->appendChild($Addresses);
       $xml->appendChild($ContractInfo);
