@@ -11,7 +11,7 @@ text-align:center;
 color:#303030;
 margin: 0 0 0 0;
 padding: 0 0 0 0;
-background:#e4bc8b url(../images/bg.jpg) top center no-repeat !important;
+background:#e4bc8b url(../images/bg.jpg) top center no-repeat;
 
 }
 
@@ -37,7 +37,7 @@ img.right{float:right; margin:0 0 5px 12px;}
 
 #theme_page_container{
 width:984px;
-margin:0px auto !important;
+margin:0px auto;
 }
 
 #theme_header{
@@ -82,13 +82,7 @@ text-align:left;
 	float:left;
 	background-image:url(../images/menu_center.png);
 	width:916px;
-	height:52px;
-	text-align:left !important;	
-	}
-.navigation_bar_center h4{
-	display:none;
-	
-	
+	height:52px;	
 	}
 .navigation_bar_right{
 	float:left;
@@ -142,8 +136,6 @@ text-decoration:none;
 	height:277px;
 	margin:0 0 0 28px;
 	}
-#map{
-}
 
 #theme_content{
 	float:left;
@@ -201,10 +193,6 @@ background-color:inherit;
 	width:250px;
 	background-color:transparent;
 	}
-#theme_subcontent dl{
-	color:#6BCCF6;
-	}
-
 
 #theme_subcontent .search{
 	display:none;
@@ -214,7 +202,7 @@ background-color:inherit;
 	width:77px;
 	height:38px;
 	border:none;
-	margin:0 40px 0 0px;
+	margin:0 7px 0 0px;
 	}	
 #theme_subcontent #submitButton:hover{
 	opacity:0.8;
@@ -238,7 +226,7 @@ background-color:inherit;
 	padding:0px 0px 0px 0;
 	margin:0 0 0 35px;
 }
-#theme_subcontent label, #theme_subcontent span{margin:0 0 0 0px; color:#000;}
+#theme_subcontent label, #theme_subcontent span{margin:0 0 0 0px;}
 #theme_subcontent input{
 	margin:0 100px 10px 0px;
 	padding: 5px;
@@ -263,19 +251,16 @@ background-color:inherit;
 	width:77px !important;
 	height:38px;
 	border:none !important;
-	margin:0px 0 0 138px;
+	margin:0px 0 0 135px;
 	box-shadow:none;
 	color:#fff;
-	font-size:14px;
 	}
-.jqTransformButton span{ color:#fff !important; font-size:14px;}
 
 #theme_subcontent a{ margin:0 0 0 0px;}
-#theme_subcontent input[type="submit"]:hover{opacity:0.8; cursor:pointer;}
-#theme_subcontent form{ margin:7px 0 0 0px;}
+#theme_subcontent .jqTransformButton:hover{opacity:0.8; cursor:pointer;}
+#theme_subcontent form{ margin:20px 0 0 0px;}
 #theme_subcontent form li{ list-style:none;}
 #theme_subcontent .box{ margin:0 0 0 -20px;}
-#theme_subcontent .box table{ margin:0 0 0 20px;}
 #theme_subcontent input[type="checkbox"]{ width:16px !important; height:16px; margin:0px 0px 0 0px; padding:0 0 0 5px;}
 
 #theme_subcontent h2{
@@ -625,3 +610,6 @@ ul.gallery li a {text-decoration: none; color: #777; display: block;}
 	left: auto !important;
 	margin:0 20px 0 0px !important;
 	}
+#theme_subcontent .box h2{ color:#64C9F3; font-size:16px; margin:5px 0 0 0px;}
+#theme_subcontent .box td{ color:#666;}
+	
