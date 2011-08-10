@@ -1,8 +1,17 @@
-<!--[foreach from=$objectArray item=item name=foo]-->
-  <div id="4image">
-    <img src="<!--[$item.filepath]--><!--[$item.filename]-->" />
-  </div>
-<!--[/foreach]-->
+
+<!--[if $objectArray]-->
+  <!--[foreach from=$objectArray item=item name=foo]-->
+    <div id="4image">
+      <img src="<!--[$item.filepath]--><!--[$item.filename]-->" />
+    </div>
+  <!--[/foreach]-->
+<!--[else]-->
+  <table width="100%">
+    <tr>
+      <td align="center">Please upload your hotel image.</td>
+    </tr>
+  </table>
+<!--[/if]-->
 
 
 
