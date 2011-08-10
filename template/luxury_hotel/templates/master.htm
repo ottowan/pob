@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+</head>
+<body>
+<div id="page_wraper">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr><td>
+		<div id="sitename_wraper"></div><!--sitename_wraper-->
+	</td></tr><tr><td>
+		<div id="menu_wraper">
+			<div class="mainmenu_left"></div><!--mainmenu_left-->
+			<div class="mainmenu_right"></div><!--mainmenu_left-->
+			<div class="mainmenu">
+				<ul>
+					<li class="selected"><a href="<!--[pngetbaseurl]-->">Home</a></li>
+					<li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Rate">Rate</a></li>
+					<li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Facility">Facility</a></li>
+					<li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Gallery">Gallery</a></li>
+					<li><a href="index.php?module=POBHotel&type=user&func=view&ctrl=Contact">Contact</a></li>
+				</ul>
+			</div><!-- mainmenu-->
+			<div class="clear"></div><!-- clear-->
+		</div><!--menu_wraper-->
+	</td></tr><tr><td>
+		<div id="top_wraper">
+			<div class="slide_wraper">
+				<div id="slide_top"></div><!--slide_top-->
+				<div id="slide_left"></div><!--slide_left-->
+				<div id="slide_body"></div><!--slide_body-->
+				<div id="slide_right"></div><!--slide_left-->
+				<div class="clear"></div><!--clear-->
+				<div id="slide_bottom"></div><!--slide_top-->
+				<div class="clear"></div><!-- clear-->
+			</div><!--slide-->
+		</div><!--top_wraper-->
+	</td></tr><tr><td>
+		<div id="mid_wraper_bg">
+			<div id="mid_wraper">
+				<div class="welcome_content">
+					<!--[$maincontent]-->
+					<div class="clear"></div><!-- clear-->
+				</div><!--welcome_content-->
+				<div class="reservation">
+					<div class="reservation_top"><div class="clear"></div></div><!--reservation_top-->
+					<div class="reservation_body">
+						<!--[blockposition name=hotel_search]-->
+						<div class="clear"></div>
+					</div><!--reservation_body-->
+					<div class="reservation_bottom"></div><div class="clear"></div><!--reservation_bottom-->
+					<div class="clear"></div><!-- clear-->
+				</div><!--reservation-->
+				<div class="clear"></div><!-- clear-->
+				</div><!--mid_wraper_r-->
+			<div class="clear"></div><!-- clear-->
+		</div><!--mid_wraper_l-->
+	</td></tr><tr><td>
+		<div id="bottom_wraper_bg">
+			<div id="bottom_wraper">
+				<div class="login_form"><!--[blockposition name=login]--><!--[displaygreeting]--><!--[userlinks]--></div><!--login_form-->
+				<div class="map"><!--[blockposition name=map]--></div><!--map-->
+				<div class="clear"></div><!-- clear-->
+			</div><!--bottom_wraper-->
+		<div class="clear"></div><!-- clear-->
+	</td></tr><tr><td>
+	<div id="footer_wraper">
+		<p>© 2011 by Pob Hotel co., ltd. all right reserved. Powered by Phuketinnova co., ltd.</p>
+		<div class="clear"></div><!-- clear-->
+	</div><!--bottom_wraper-->
+	</td></tr>
+	</table>
+</div><!--page_wraper-->
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+</head>
+<body>
+<div id="page_wraper">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr><td>
+		<div id="sitename_wraper">
+			<h1><!--[sitename]--></h1>
+			<h2><!--[slogan]--></h2>
+		</div><!--sitename_wraper-->
+	</td></tr><tr><td>
+		<div id="menu_wraper">
+			<div class="mainmenu"><!--[blockposition name=mainmenu]--></div><!-- mainmenu-->
+			<div class="search"></div><!--search-->
+			<div class="clear"></div><!-- clear-->
+		</div><!--menu_wraper-->
+	</td></tr><tr><td>
+		<div id="top_wraper">
+			<div class="slide">
+				<div class="left_arrow"></div><!--left_arrow-->
+				<div class="slidebody">
+					<h3>The Patong Hotel, located in the heart of Patong on Phuket Road.</h3>
+				</div><!--slidebody-->
+				<div class="right_arrow"></div><!--right_arrow-->
+				<div class="clear"></div><!-- clear-->
+			</div><!--slide-->
+		</div><!--top_wraper-->
+	</td></tr><tr><td>
+		<div id="mid_wraper">
+			<div class="welcome_content">
+				<!--[$maincontent]-->
+			</div><!--welcome_content-->
+			<div class="reservation">
+				<div class="reservation_box"><!--[blockposition name=hotel_search]--></div><!-- box -->
+			</div><!--welcome_content-->
+			<div class="clear"></div><!-- clear-->
+		</div><!--mid_wraper-->
+	</td></tr><tr><td>
+		<div id="bottom_wraper">
+			<div class="login_form"><!--[blockposition name=right]--><!--[displaygreeting]--><!--[userlogin]--><!--[userlinks]--></div><!--login_form-->
+			<div class="map"><!--[blockposition name=center]--></div><!--map-->
+			<div class="clear"></div><!-- clear-->
+		</div><!--bottom_wraper-->
+	</td></tr><tr><td>
+		<div id="thumslice_wraper">
+			<div class="thumbslice"><!--[blockposition name=thumb_slice]--></div>
+			<div class="clear"></div><!-- clear-->
+		</div><!--bottom_wraper-->
+	</td></tr><tr><td>
+		<div id="footer_wraper">
+			<p>© 2011 by Pob Hotel co., ltd. all right reserved. Powered by Phuketinnova co., ltd.</p>
+			<div class="clear"></div><!-- clear-->
+		</div><!--bottom_wraper-->
+	</td></tr>
+	</table>
+</div><!--page_wraper-->
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style_admin.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+</head>
+<body>
+<div id="theme_page_container">
+
+<div id="theme_header">
+<h1><!--[sitename]--></h1>
+<h2><!--[slogan]--></h2>
+</div>
+
+<div id="theme_navigation_bar">
+<ul>
+<li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_ANDREAS08_HOME"]--></a></li>
+<li<!--[if $module eq 'Search']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Search]-->"><!--[pnml name="_SEARCH"]--></a></li>
+<li<!--[if $module eq 'Profile']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Profile]-->"><!--[pnml name="_YOURACCOUNT"]--></a></li>
+</ul>
+</div>
+
+<div id="theme_content" style="width:95%">
+<!--[$maincontent]-->
+</div>
+
+<div id="theme_footer">
+<p><!--[pnml name=_CMSHOMELINK html=true]--></p>
+<!--[nocache]--><!--[pagerendertime]--><!--[/nocache]-->
+<!--[nocache]--><!--[sqldebug]--><!--[/nocache]-->
+</div>
+
+</div>
+</body>
+</html>
