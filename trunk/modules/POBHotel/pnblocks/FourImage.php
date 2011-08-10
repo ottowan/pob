@@ -50,16 +50,17 @@ function POBHotel_FourImageblock_display($blockinfo)
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
 
-    if (!($class = Loader::loadClassFromModule ('POBHotel',$class, true)))
-      return LogUtil::registerError ("Unable to load class [$ctrl] ...");
-    //var_dump($class); exit;
-    $objectArray = new $class ();
+    $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
+    if((int)$imageRows > 0){
+      if (!($class = Loader::loadClassFromModule ('POBHotel',$class, true)))
+        return LogUtil::registerError ("Unable to load class [$ctrl] ...");
+      //var_dump($class); exit;
+      $objectArray = new $class ();
 
-    $objectArray->get ($where, $sort , $offset, 4);
+      $objectArray->get ($where, $sort , $offset, 4);
 
-    $render = pnRender::getInstance($modname);
+      $render = pnRender::getInstance($modname);
 
-    if(count($objectArray->_objData) > 0){
       //assign to view
       $render->assign('objectArray', $objectArray->_objData);
     }
