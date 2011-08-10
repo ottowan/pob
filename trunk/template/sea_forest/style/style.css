@@ -1,0 +1,128 @@
+@charset "utf-8";
+*{margin:0; padding:0; position: relative;}
+span { display: inline}
+.clear { clear:both;}
+a { color: #D00;}
+p { padding: 0 0 1em 0}
+li { padding: 0 0 0 0px; margin: 0 0 0 20px }
+
+body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:center; color:#fff; background: black url(../images/bg.jpg ) top center no-repeat fixed;}
+#page_wraper { width: 960px; margin: 0 auto;}
+#sitename_wraper { margin: 40px 0 10px 0;}
+#sitename_wraper h1 { color:#cc1414; font-size: 36px; line-height: 40px;  text-shadow: 1px 1px 3px black}
+#sitename_wraper h2 { color:#000; font-size: 18px; line-height: 20px; margin: 5px 0 0 0; text-shadow: 1px 1px 3px gray}
+
+#menu_wraper { height: 62px; background: #0d0d0d url(../images/menu_bg.png) top left repeat-x;}
+#menu_wraper .mainmenu { height: 62px; width: 720px; float:left; overflow: hidden;}
+#menu_wraper .mainmenu ul { height: 62px; margin: 0 0 0 0px;}
+#menu_wraper .mainmenu li { height: 62px; float:left; display:block; padding: 0 20px 0 0; list-style: outside decimal;
+							background: transparent url(../images/menu_bg_space.png) top right no-repeat;}
+#menu_wraper .mainmenu li.selected a{color: #fff;}
+#menu_wraper .mainmenu li a{ line-height: 66px; color: #ff4c4c; text-decoration: none ; font-weight:bold; font-size:14px;}
+#menu_wraper .mainmenu li:hover a{ color: #fff;}
+#menu_wraper .search { height: 62px; width: 240px;float:left; overflow: hidden;}
+
+#top_wraper { height: 418px; background: transparent url(../images/slide.jpg) top left no-repeat;}
+#top_wraper .slide { height: 60px; width: 960px; position:absolute;  bottom: 0px; left: 0px; background: black; opacity:0.4; filter:Alpha(opacity=40);}
+#top_wraper .slide .slidebody { height: 60px; width: 880px; float:left;}
+#top_wraper .slide .slidebody h3{ color: #fff; font-size: 18px; line-height: 60px;}
+#top_wraper .slide .left_arrow { height: 60px; width: 40px; background: transparent url(../images/arrow.png) top left no-repeat ; float:left; }
+#top_wraper .slide .right_arrow { height: 60px; width: 40px; background: transparent url(../images/arrow.png) top right no-repeat ; float:left; }
+
+#mid_wraper { border-top: 1px solid black; border-bottom: 1px solid black; background: #131313 url(../images/mid_content_bg.png) repeat}
+#mid_wraper .welcome_content {width:620px; float:left; padding: 0 0 0 20px; text-align: left;}
+#mid_wraper .welcome_content h1,
+#mid_wraper .welcome_content h2, 
+#mid_wraper .welcome_content h3,
+#mid_wraper .welcome_content h4{ 	color:#e33; font-size: 18px; text-align:left; line-height: 40px; font-weight:100; 
+									display:block; width: 100%; border-bottom : 2px solid #555; margin: 0 0 0.5em 0; text-shadow: 1px 1px 3px #211}	
+#mid_wraper .welcome_content h1 { font-size: 22px}
+#mid_wraper .welcome_content h2 { font-size: 17px}
+#mid_wraper .welcome_content h3 { font-size: 14px}
+#mid_wraper .welcome_content p {color:#b3b3b3; text-align: left;}
+
+#mid_wraper .welcome_content ul { margin: 0 0 0 10px}
+#mid_wraper .welcome_content li {}
+#mid_wraper .welcome_content li a {}
+#mid_wraper .welcome_content li a:hover { color: #ddd;}
+#mid_wraper .welcome_content li a:hover > li {color:red}
+
+#mid_wraper .welcome_content strong, #mid_wraper .welcome_content b { color: #ddd;}
+#mid_wraper .welcome_content a:hover { color: #eee; text-decoration: none;}
+#mid_wraper .welcome_content em { color: #eee;}
+
+#mid_wraper .reservation {float:left; width:298px; margin: 10px; background: #333 url(../images/form_border.png) top left repeat; border: 1px solid #111;}
+#mid_wraper .reservation .reservation_box { text-align:left; margin: 10px; padding: 10px; color: #B3B3B3; line-height:24px;
+								background: #131313 url(../images/mid_content_bg.png) top left repeat; border: 1px solid #555;}
+#mid_wraper .reservation .reservation_box  h4 { color: #f23d3d; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #f21111}
+#mid_wraper .reservation .reservation_box form { padding: 0 }
+#mid_wraper .reservation .reservation_box select[name="startDay"] ,
+#mid_wraper .reservation .reservation_box select[name="startMonth"] , 
+#mid_wraper .reservation .reservation_box select[name="startYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; display: inline}
+#mid_wraper .reservation .reservation_box select[name="endDay"] ,
+#mid_wraper .reservation .reservation_box select[name="endMonth"] , 
+#mid_wraper .reservation .reservation_box select[name="endYear"]{ background: #333; color: white; border: 1px #D00 solid; margin: 0 10px 0 0; display: block; display: inline}
+#mid_wraper .reservation .reservation_box #select2 { background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper .reservation .reservation_box #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper .reservation .reservation_box #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #333; color: white; border: 1px #D00 solid;}
+#mid_wraper .reservation .reservation_box #submitButton {margin: 10px 10px 0 0; position: relative; left: 0px; padding: 3px 10px;background: #333; border: 1px #D00 solid; color: white;}
+#mid_wraper .reservation .reservation_box #submitButton:hover { cursor: pointer}
+
+#mid_wraper .reservation h4 { color: #0B9DE5; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #aaa}
+
+#mid_wraper .reservation .box { width: 260px; height: 134px; margin: 0px; padding: 0px; color: #555;
+font-size: 14px; text-shadow: none; border: none; background-color: transparent;
+webkit-border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; border-radius: 0 0 10px 10px;}
+
+#mid_wraper .reservation form { padding: 0 10px;}
+#mid_wraper .reservation form dl{}
+#mid_wraper .reservation form dd{}
+#mid_wraper .reservation form dd select{}
+#mid_wraper .reservation form dd option{}
+#mid_wraper .reservation #select { background: #fff; color: #808080	; border: 1px #e5e5e5 solid;}
+#mid_wraper .reservation #select2 { background: #fff; color: #808080; border: 1px #e5e5e5 solid;}
+#mid_wraper .reservation #checkin_year_month { position: absolute; left: 80px; top: -20px; background: #fff; color: #808080; border: 1px #e5e5e5 solid;}
+#mid_wraper .reservation #checkin_year_month2 { position: absolute; left: 80px; top: -20px; background: #fff; color: #808080; border: 1px #e5e5e5 solid;}
+#mid_wraper .reservation #submitButton {margin: 10px 0 0 0; position: relative; width: auto; height: auto; left: 0px; padding: 5px 15px; font-size: 14px;
+background: #6DC6F2 ; border: 1px #5CB5E1 solid; color: white; box-shadow: 1px 1px 5px #933;-webkit-box-shadow: 1px 1px 5px #933; 
+border-radius: 5px; -moz-border-radius: 5px;}
+
+
+
+#bottom_wraper { background: #333 url(../images/bottom_content_bg.png) top left repeat; border-bottom: 1px solid black; overflow:hidden;}
+#bottom_wraper  .login_form { width:288px; height: 320px; margin: 10px;float: left;border: 1px solid #555;  background: #333 url(../images/login_bg2.png) top left repeat;}
+#bottom_wraper  .login_form .pn-bkey-login { text-align: left; color: #B3B3B3; line-height: 24px;
+											 background: #333 url(../images/login_bg.png) top left repeat; padding:10px; margin: 10px; border: 1px solid #555;}
+#bottom_wraper  .login_form .pn-bkey-login form {padding: 0 10px;}
+											 
+#bottom_wraper  .login_form .pn-bkey-login #loginblock_username,
+#bottom_wraper  .login_form .pn-bkey-login #loginblock_password {background: #333; color: white; border: 1px #D00 solid; width:220px;}
+#bottom_wraper  .login_form .pn-bkey-login h4 { color: #f23d3d; padding: 0px; font-size: 18px; text-align:left; text-shadow: 1px 1px 3px #f21111}
+
+#bottom_wraper  .login_form .pn-bkey-login #loginblock_rememberme { margin: 10px 0 0 0; }
+#bottom_wraper  .login_form .pn-bkey-login  label[for="loginblock_rememberme"] {position: absolute; left: 25px; top: 100px;}
+#bottom_wraper  .login_form .pn-bkey-login  input[type="submit"]{	margin: 10px 0 0 0; position: relative; left: 165px; padding: 3px 10px;
+																	background: #333; border: 1px #D00 solid; color: white;}
+#bottom_wraper  .login_form .pn-bkey-login li { list-style: none;}
+#bottom_wraper  .login_form .pn-bkey-login li a {color: #B3B3B3; line-height: 24px;}
+
+#bottom_wraper  .login_form span { display: block}
+#bottom_wraper  .login_form a {}
+
+
+
+#bottom_wraper  .map { width: 617px; height: 245px; margin: 10px 0 0 0;float: left; border: 1px solid #555; padding: 10px;
+						background: #333 url(../images/login_bg2.png) top left repeat; overflow: hidden;}
+#bottom_wraper  .map h4 {display: none}
+#bottom_wraper  .map .pn-block { overflow:hidden;}
+#thumslice_wraper .thumbslice { height: 170px; padding: 10px 0 0 0; background: #333 url(../images/bottom_content_bg.png) top left repeat; border-bottom: 1px solid black;}
+#thumslice_wraper .thumbslice h4 { display: none;}
+#thumslice_wraper .thumbslice ul{ padding: 10px; margin: 0 0 0 55px;}
+#thumslice_wraper .thumbslice li{   border: 1px solid #555; padding: 10px; float:left; margin: 0 10px 0 0; display:block;
+									box-shadow: 1px 1px 5px #000;-webkit-box-shadow: 1px 1px 5px #000;}
+#thumslice_wraper .thumbslice li:hover {border: 1px solid #999; }
+#thumslice_wraper .thumbslice img{}
+
+#footer_wraper { height:63px; background: #333 url(../images/footer_bg.png) left top repeat-x;}
+#footer_wraper p { text-align:center; line-height: 55px; color: #b3b3b3;}
+
