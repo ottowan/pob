@@ -9,11 +9,11 @@
  * March 2010
  */
 
-(function($) {
+(function(jQuery ) {
 
     var NivoSlider = function(element, options){
 		//Defaults are below
-		var settings = $.extend({}, $.fn.nivoSlider.defaults, options);
+		var settings = jQuery .extend({}, jQuery .fn.nivoSlider.defaults, options);
 
         //Useful variables. Play carefully.
         var vars = {
@@ -27,7 +27,7 @@
         };
     
         //Get this slider
-        var slider = $(element);
+        var slider = jQuery (element);
         slider.data('nivo:vars', vars);
         slider.css('position','relative');
         slider.addClass('nivoSlider');
@@ -35,7 +35,7 @@
         //Find our slider children
         var kids = slider.children();
         kids.each(function() {
-            var child = $(this);
+            var child = jQuery (this);
             var link = '';
             if(!child.is('img')){
                 if(child.is('a')){
@@ -70,15 +70,15 @@
         }
         
         //Get initial image
-        if($(kids[vars.currentSlide]).is('img')){
-            vars.currentImage = $(kids[vars.currentSlide]);
+        if(jQuery (kids[vars.currentSlide]).is('img')){
+            vars.currentImage = jQuery (kids[vars.currentSlide]);
         } else {
-            vars.currentImage = $(kids[vars.currentSlide]).find('img:first');
+            vars.currentImage = jQuery (kids[vars.currentSlide]).find('img:first');
         }
         
         //Show initial link
-        if($(kids[vars.currentSlide]).is('a')){
-            $(kids[vars.currentSlide]).css('display','block');
+        if(jQuery (kids[vars.currentSlide]).is('a')){
+            jQuery (kids[vars.currentSlide]).css('display','block');
         }
         
         //Set first background
@@ -86,20 +86,20 @@
 
         //Create caption
         slider.append(
-            $('<div class="nivo-caption"><p></p></div>').css({ display:'none', opacity:settings.captionOpacity })
+            jQuery ('<div class="nivo-caption"><p></p></div>').css({ display:'none', opacity:settings.captionOpacity })
         );			
 		
 		// Process caption function
 		var processCaption = function(settings){
-			var nivoCaption = $('.nivo-caption', slider);
+			var nivoCaption = jQuery ('.nivo-caption', slider);
 			if(vars.currentImage.attr('title') != '' && vars.currentImage.attr('title') != undefined){
 				var title = vars.currentImage.attr('title');
-				if(title.substr(0,1) == '#') title = $(title).html();	
+				if(title.substr(0,1) == '#') title = jQuery (title).html();	
 
 				if(nivoCaption.css('display') == 'block'){
 					nivoCaption.find('p').fadeOut(settings.animSpeed, function(){
-						$(this).html(title);
-						$(this).fadeIn(settings.animSpeed);
+						jQuery (this).html(title);
+						jQuery (this).fadeIn(settings.animSpeed);
 					});
 				} else {
 					nivoCaption.find('p').html(title);
@@ -125,15 +125,15 @@
             
             //Hide Direction nav
             if(settings.directionNavHide){
-                $('.nivo-directionNav', slider).hide();
+                jQuery ('.nivo-directionNav', slider).hide();
                 slider.hover(function(){
-                    $('.nivo-directionNav', slider).show();
+                    jQuery ('.nivo-directionNav', slider).show();
                 }, function(){
-                    $('.nivo-directionNav', slider).hide();
+                    jQuery ('.nivo-directionNav', slider).hide();
                 });
             }
             
-            $('a.nivo-prevNav', slider).live('click', function(){
+            jQuery ('a.nivo-prevNav', slider).live('click', function(){
                 if(vars.running) return false;
                 clearInterval(timer);
                 timer = '';
@@ -141,7 +141,7 @@
                 nivoRun(slider, kids, settings, 'prev');
             });
             
-            $('a.nivo-nextNav', slider).live('click', function(){
+            jQuery ('a.nivo-nextNav', slider).live('click', function(){
                 if(vars.running) return false;
                 clearInterval(timer);
                 timer = '';
@@ -151,7 +151,7 @@
         
         //Add Control nav
         if(settings.controlNav){
-            var nivoControl = $('<div class="nivo-controlNav"></div>');
+            var nivoControl = jQuery ('<div class="nivo-controlNav"></div>');
             slider.append(nivoControl);
             for(var i = 0; i < kids.length; i++){
                 if(settings.controlNavThumbs){
@@ -170,22 +170,22 @@
                 
             }
             //Set initial active link
-            $('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
+            jQuery ('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
             
-            $('.nivo-controlNav a', slider).live('click', function(){
+            jQuery ('.nivo-controlNav a', slider).live('click', function(){
                 if(vars.running) return false;
-                if($(this).hasClass('active')) return false;
+                if(jQuery (this).hasClass('active')) return false;
                 clearInterval(timer);
                 timer = '';
                 slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
-                vars.currentSlide = $(this).attr('rel') - 1;
+                vars.currentSlide = jQuery (this).attr('rel') - 1;
                 nivoRun(slider, kids, settings, 'control');
             });
         }
         
         //Keyboard Navigation
         if(settings.keyboardNav){
-            $(window).keypress(function(event){
+            jQuery (window).keypress(function(event){
                 //Left
                 if(event.keyCode == '37'){
                     if(vars.running) return false;
@@ -223,14 +223,14 @@
         slider.bind('nivo:animFinished', function(){ 
             vars.running = false; 
             //Hide child links
-            $(kids).each(function(){
-                if($(this).is('a')){
-                    $(this).css('display','none');
+            jQuery (kids).each(function(){
+                if(jQuery (this).is('a')){
+                    jQuery (this).css('display','none');
                 }
             });
             //Show current link
-            if($(kids[vars.currentSlide]).is('a')){
-                $(kids[vars.currentSlide]).css('display','block');
+            if(jQuery (kids[vars.currentSlide]).is('a')){
+                jQuery (kids[vars.currentSlide]).css('display','block');
             }
             //Restart the timer
             if(timer == '' && !vars.paused && !settings.manualAdvance){
@@ -246,7 +246,7 @@
 				var sliceWidth = Math.round(slider.width()/settings.slices);
 				if(i == settings.slices-1){
 					slider.append(
-						$('<div class="nivo-slice"></div>').css({ 
+						jQuery ('<div class="nivo-slice"></div>').css({ 
 							left:(sliceWidth*i)+'px', width:(slider.width()-(sliceWidth*i))+'px',
 							height:'0px', 
 							opacity:'0', 
@@ -255,7 +255,7 @@
 					);
 				} else {
 					slider.append(
-						$('<div class="nivo-slice"></div>').css({ 
+						jQuery ('<div class="nivo-slice"></div>').css({ 
 							left:(sliceWidth*i)+'px', width:sliceWidth+'px',
 							height:'0px', 
 							opacity:'0', 
@@ -275,7 +275,7 @@
 				for(var cols = 0; cols < settings.boxCols; cols++){
 					if(cols == settings.boxCols-1){
 						slider.append(
-							$('<div class="nivo-box"></div>').css({ 
+							jQuery ('<div class="nivo-box"></div>').css({ 
 								opacity:0,
 								left:(boxWidth*cols)+'px', 
 								top:(boxHeight*rows)+'px',
@@ -286,7 +286,7 @@
 						);
 					} else {
 						slider.append(
-							$('<div class="nivo-box"></div>').css({ 
+							jQuery ('<div class="nivo-box"></div>').css({ 
 								opacity:0,
 								left:(boxWidth*cols)+'px', 
 								top:(boxHeight*rows)+'px',
@@ -335,26 +335,26 @@
 			}
 			if(vars.currentSlide < 0) vars.currentSlide = (vars.totalSlides - 1);
 			//Set vars.currentImage
-			if($(kids[vars.currentSlide]).is('img')){
-				vars.currentImage = $(kids[vars.currentSlide]);
+			if(jQuery (kids[vars.currentSlide]).is('img')){
+				vars.currentImage = jQuery (kids[vars.currentSlide]);
 			} else {
-				vars.currentImage = $(kids[vars.currentSlide]).find('img:first');
+				vars.currentImage = jQuery (kids[vars.currentSlide]).find('img:first');
 			}
 			
 			//Set active links
 			if(settings.controlNav){
-				$('.nivo-controlNav a', slider).removeClass('active');
-				$('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
+				jQuery ('.nivo-controlNav a', slider).removeClass('active');
+				jQuery ('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
 			}
 			
 			//Process caption
 			processCaption(settings);
 			
 			// Remove any slices from last transition
-			$('.nivo-slice', slider).remove();
+			jQuery ('.nivo-slice', slider).remove();
 			
 			// Remove any boxes from last transition
-			$('.nivo-box', slider).remove();
+			jQuery ('.nivo-box', slider).remove();
 			
 			if(settings.effect == 'random'){
 				var anims = new Array('sliceDownRight','sliceDownLeft','sliceUpRight','sliceUpLeft','sliceUpDown','sliceUpDownLeft','fold','fade',
@@ -377,11 +377,11 @@
 				createSlices(slider, settings, vars);
 				var timeBuff = 0;
 				var i = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceDownLeft' || vars.randAnim == 'sliceDownLeft') slices = $('.nivo-slice', slider)._reverse();
+				var slices = jQuery ('.nivo-slice', slider);
+				if(settings.effect == 'sliceDownLeft' || vars.randAnim == 'sliceDownLeft') slices = jQuery ('.nivo-slice', slider)._reverse();
 				
 				slices.each(function(){
-					var slice = $(this);
+					var slice = jQuery (this);
 					slice.css({ 'top': '0px' });
 					if(i == settings.slices-1){
 						setTimeout(function(){
@@ -401,11 +401,11 @@
 				createSlices(slider, settings, vars);
 				var timeBuff = 0;
 				var i = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceUpLeft' || vars.randAnim == 'sliceUpLeft') slices = $('.nivo-slice', slider)._reverse();
+				var slices = jQuery ('.nivo-slice', slider);
+				if(settings.effect == 'sliceUpLeft' || vars.randAnim == 'sliceUpLeft') slices = jQuery ('.nivo-slice', slider)._reverse();
 				
 				slices.each(function(){
-					var slice = $(this);
+					var slice = jQuery (this);
 					slice.css({ 'bottom': '0px' });
 					if(i == settings.slices-1){
 						setTimeout(function(){
@@ -426,11 +426,11 @@
 				var timeBuff = 0;
 				var i = 0;
 				var v = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceUpDownLeft' || vars.randAnim == 'sliceUpDownLeft') slices = $('.nivo-slice', slider)._reverse();
+				var slices = jQuery ('.nivo-slice', slider);
+				if(settings.effect == 'sliceUpDownLeft' || vars.randAnim == 'sliceUpDownLeft') slices = jQuery ('.nivo-slice', slider)._reverse();
 				
 				slices.each(function(){
-					var slice = $(this);
+					var slice = jQuery (this);
 					if(i == 0){
 						slice.css('top','0px');
 						i++;
@@ -457,8 +457,8 @@
 				var timeBuff = 0;
 				var i = 0;
 				
-				$('.nivo-slice', slider).each(function(){
-					var slice = $(this);
+				jQuery ('.nivo-slice', slider).each(function(){
+					var slice = jQuery (this);
 					var origWidth = slice.width();
 					slice.css({ top:'0px', height:'100%', width:'0px' });
 					if(i == settings.slices-1){
@@ -477,7 +477,7 @@
 			else if(settings.effect == 'fade' || vars.randAnim == 'fade'){
 				createSlices(slider, settings, vars);
 				
-				var firstSlice = $('.nivo-slice:first', slider);
+				var firstSlice = jQuery ('.nivo-slice:first', slider);
                 firstSlice.css({
                     'height': '100%',
                     'width': slider.width() + 'px'
@@ -488,7 +488,7 @@
             else if(settings.effect == 'slideInRight' || vars.randAnim == 'slideInRight'){
 				createSlices(slider, settings, vars);
 				
-                var firstSlice = $('.nivo-slice:first', slider);
+                var firstSlice = jQuery ('.nivo-slice:first', slider);
                 firstSlice.css({
                     'height': '100%',
                     'width': '0px',
@@ -500,7 +500,7 @@
             else if(settings.effect == 'slideInLeft' || vars.randAnim == 'slideInLeft'){
 				createSlices(slider, settings, vars);
 				
-                var firstSlice = $('.nivo-slice:first', slider);
+                var firstSlice = jQuery ('.nivo-slice:first', slider);
                 firstSlice.css({
                     'height': '100%',
                     'width': '0px',
@@ -525,9 +525,9 @@
 				var i = 0;
 				var timeBuff = 0;
 				
-				var boxes = shuffle($('.nivo-box', slider));
+				var boxes = shuffle(jQuery ('.nivo-box', slider));
 				boxes.each(function(){
-					var box = $(this);
+					var box = jQuery (this);
 					if(i == totalBoxes-1){
 						setTimeout(function(){
 							box.animate({ opacity:'1' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
@@ -554,13 +554,13 @@
 				var colIndex = 0;
 				var box2Darr = new Array();
 				box2Darr[rowIndex] = new Array();
-				var boxes = $('.nivo-box', slider);
+				var boxes = jQuery ('.nivo-box', slider);
 				if(settings.effect == 'boxRainReverse' || vars.randAnim == 'boxRainReverse' ||
                    settings.effect == 'boxRainGrowReverse' || vars.randAnim == 'boxRainGrowReverse'){
-					boxes = $('.nivo-box', slider)._reverse();
+					boxes = jQuery ('.nivo-box', slider)._reverse();
 				}
 				boxes.each(function(){
-					box2Darr[rowIndex][colIndex] = $(this);
+					box2Darr[rowIndex][colIndex] = jQuery (this);
 					colIndex++;
 					if(colIndex == settings.boxCols){
 						rowIndex++;
@@ -578,7 +578,7 @@
 							being used in setTimeout, this is wrapped
 							with an anonymous function call */
 							(function(row, col, time, i, totalBoxes) {
-								var box = $(box2Darr[row][col]);
+								var box = jQuery (box2Darr[row][col]);
                                 var w = box.width();
                                 var h = box.height();
                                 if(settings.effect == 'boxRainGrow' || vars.randAnim == 'boxRainGrow' ||
@@ -618,15 +618,15 @@
         
         // Start / Stop
         this.stop = function(){
-            if(!$(element).data('nivo:vars').stop){
-                $(element).data('nivo:vars').stop = true;
+            if(!jQuery (element).data('nivo:vars').stop){
+                jQuery (element).data('nivo:vars').stop = true;
                 trace('Stop Slider');
             }
         }
         
         this.start = function(){
-            if($(element).data('nivo:vars').stop){
-                $(element).data('nivo:vars').stop = false;
+            if(jQuery (element).data('nivo:vars').stop){
+                jQuery (element).data('nivo:vars').stop = false;
                 trace('Start Slider');
             }
         }
@@ -637,10 +637,10 @@
 		return this;
     };
         
-    $.fn.nivoSlider = function(options) {
+    jQuery .fn.nivoSlider = function(options) {
     
         return this.each(function(key, value){
-            var element = $(this);
+            var element = jQuery (this);
             // Return early if this element already has a plugin instance
             if (element.data('nivoslider')) return element.data('nivoslider');
             // Pass options to plugin constructor
@@ -652,7 +652,7 @@
 	};
 	
 	//Default settings
-	$.fn.nivoSlider.defaults = {
+	jQuery .fn.nivoSlider.defaults = {
 		effect: 'random',
 		slices: 15,
 		boxCols: 8,
@@ -680,6 +680,6 @@
         afterLoad: function(){}
 	};
 	
-	$.fn._reverse = [].reverse;
+	jQuery .fn._reverse = [].reverse;
 	
 })(jQuery);
