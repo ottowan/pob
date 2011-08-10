@@ -57,7 +57,7 @@ function POBHotel_FourImageblock_display($blockinfo)
       //var_dump($class); exit;
       $objectArray = new $class ();
 
-      $objectArray->get ($where, $sort , $offset, 4);
+      $objectArray->get ($where, 'ORDER BY hotel_image_id DESC' , $offset, 4);
 
       $render = pnRender::getInstance($modname);
 
