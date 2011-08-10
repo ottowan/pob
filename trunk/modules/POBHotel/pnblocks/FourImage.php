@@ -50,21 +50,76 @@ function POBHotel_FourImageblock_display($blockinfo)
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
     $render = pnRender::getInstance($modname);
-    $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
+    $module    = FormUtil::getPassedValue ('module', false , 'REQUEST');
+
+
+//    if($module == $modname){
+
+//      $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
+
+//    }else{
+      $pntables = pnDBGetTables();
+      $table  = $pntables['innogallery_albums'];
+      $prefix = explode("_", $table);
+
+      $tableImage = $prefix[0]."_"."pobhotel_hotel_image";
+      $column = "hotel_image_id";
+
+      $sql = "SELECT
+                count($tableImage.$column)  
+              FROM
+                $tableImage ";
+
+      $column = array("row");
+      $result = DBUtil::executeSQL($sql);
+      $objectArray = DBUtil::marshallObjects ($result, $column);
+      $imageRows = $objectArray['0']['row'];
+//    }
+
+
+
+    $pntables = pnDBGetTables();
+    $table  = $pntables['innogallery_albums'];
+    $prefix = explode("_", $table);
+
+    $tableImage = $prefix[0]."_"."pobhotel_hotel_image";
+    $columnImageId = "hotel_image_id";
+
+    $sql = "SELECT
+              count($tableImage.$columnImageId)  
+            FROM
+              $tableImage ";
+
+    $column = array("row");
+    $result = DBUtil::executeSQL($sql);
+    $objectArray = DBUtil::marshallObjects ($result, $column);
+    $imageRows = $objectArray['0']['row'];
 
     if((int)$imageRows > 0){
-      if (!($class = Loader::loadClassFromModule ('POBHotel',$class, true)))
-        return LogUtil::registerError ("Unable to load class [$ctrl] ...");
-      //var_dump($class); exit;
-      $objectArray = new $class ();
+      $columnImagePath = "hotel_image_filepath";
+      $columnImageName = "hotel_image_filename";
+      $sql = "SELECT
+                $tableImage.$columnImageId,
+                $tableImage.$columnImagePath,
+                $tableImage.$columnImageName
+              FROM
+                $tableImage 
+              ORDER BY 
+                $tableImage.$columnImageId DESC
+              LIMIT 0,4
+            ";
 
-      $objectArray->get ($where, ' ORDER BY hotel_image_id DESC ' , $offset, 4);
-
+      $column = array("filepath", "filename");
+      $result = DBUtil::executeSQL($sql);
+      $objectArray = DBUtil::marshallObjects ($result, $column);
+      
       $render = pnRender::getInstance($modname);
 
       //assign to view
-      $render->assign('objectArray', $objectArray->_objData);
+      $render->assign('objectArray', $objectArray);
     }
+
+
     // Populate block info and pass to theme
     $blockinfo['content'] = $render->fetch('block_fourimage.htm');
     return themesideblock($blockinfo);
