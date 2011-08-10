@@ -9,7 +9,7 @@
 
 
           <!--[foreach from=$imagesArray item=image]-->
-            <img src="<!--[const name='IMAGE_LARGE_PATH']-->/1/<!--[$image]-->"  title="#htmlcaption" >
+            <img src="<!--[const name='IMAGE_LARGE_PATH']-->/<!--[$albumid]-->/<!--[$image]-->"  title="#htmlcaption" >
           <!--[/foreach]-->
 
         </div>
@@ -18,7 +18,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="modules/InnoGallery/pnjavascript/nivo-slider/scripts/jquery-1.6.1.min.js"></script>
 <script type="text/javascript" src="modules/InnoGallery/pnjavascript/nivo-slider/jquery.nivo.slider.pack.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
