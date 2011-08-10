@@ -131,11 +131,17 @@ class PNCustomer extends PNObject {
         $datenow = date("Y-m-d H:i:s");
 		//var_dump($datenow);
         //exit;
+		$roomstays = $form['roomstays'];
+        $total_rooms = 0;
+        foreach($roomstays as $item) {
+        $total_rooms+=$item[numberofunits];
+        }
 
         //$roomstays = $form['roomstays'];
         //insert
         $this->_objData['cardexpire'] = $cardexpiredate;
         $this->_objData['cr_date'] = $datenow;
+        $this->_objData['total_rooms'] = $total_rooms;
         return true;
     }
 
@@ -176,8 +182,10 @@ class PNCustomer extends PNObject {
             }
             $objects = array(
                     'id'                  => $current_booking_id,
+                    'cus_id'              => $id,
                     'customer_refid'      => $refid,
                     'chaincode'           => $form['chaincode'],
+                    'hotelname'           => $form['hotelname'],
                     'isocurrency'         => $form['isocurrency'],
                     'checkin_date'        => $item[startdate],
                     'checkout_date'       => $item[enddate],
@@ -228,7 +236,7 @@ class PNCustomer extends PNObject {
 
         $this->sendXML();
 
-
+		$aaa = "a";
         //Call sendEmail method
         //$this->sendEmail();
 
@@ -446,42 +454,57 @@ class PNCustomer extends PNObject {
                             $CountryName = $xml->createElement("CountryName", $form['countryname']);
                             $Address->appendChild($CountryName);
 
-    //$xml->saveXML();
-    print $xml->saveXML();
-	//echo $xml->asXML();
-	exit;
-    $xml->save("OTA_HotelResRQ1.xml");
+        //$xml->saveXML();
+        //print $xml->saveXML();
+        //echo $xml->asXML();
+        //exit;
+        //$xml->save("OTA_HotelResRQ1.xml");
 
-////send xml
-/*    $url = 'http://pob-ws.heroku.com/api/hotel_res';
-    $data = $xml->saveXML();
-    //$data = $data->saveXML();
-    print $data;
-    //$data = $data->saveXML();
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    /*////send xml
+        $url = 'http://pob-ws.heroku.com/api/hotel_res';
+        $data = $xml->saveXML();
+        //$data = $data->saveXML();
+        print $data;
+        //$data = $data->saveXML();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-    $response = curl_exec($ch);
+        $response = curl_exec($ch);
 
-    $mystring = $response;
-    $findme   = 'Success';
-    $pos = strpos($mystring, $findme);
-    if($pos > 0){
-      echo "Booking Success.";
-    }else{
-      echo "Booking NOT Success.";
-    }
+        $mystring = $response;
+        $findme   = 'Success';
+        $pos = strpos($mystring, $findme);
+        if($pos > 0){
+          echo "Booking Success.";
+        }else{
+          echo "Booking NOT Success.";
+        }
 
-    curl_close($ch);
-*/
-    //print $response;
-    //exit;
+        curl_close($ch);
+    */
+        //print $response;
+        //exit;
+
+        //test success
+        $mystring = $response;
+        $findme   = "Success";
+        $pos = strpos($mystring, $findme);
+        if($pos > 0){
+        $forwardurl = pnModURL('POBBooking');
+        return $forwardurl;
 
 
-    
+        }else{
+          //Unsuccess page
+          $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
+          pnRedirect($url);
+          //return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
+          exit;
+        }
+        
     }
 
 

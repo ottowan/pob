@@ -12,12 +12,12 @@
             <!--[foreach from=$objectArray item=item]-->
             
               <TR>
-                <TD>  <!--[$item.refid]--></TD>
-                <TD><!--[get_total_price_by_refid refid=$item.refid]--></TD>
+                <TD><!--[$item.refid]--></TD>
+                <TD><!-- [get_total_price_by_refid refid=$item.refid] --><!--[$item.total_price]--></TD>
                 <TD> 
                   <A HREF="<!--[pnmodurl  modname='POBBooking' 
                                                 type='admin' 
-                                                func='form' 
+                                                func='view' 
                                                 ctrl='Customer'
                                                 id=$item.id
                                      ]-->"

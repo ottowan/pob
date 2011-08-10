@@ -57,6 +57,7 @@ function POBBooking_admin_view() {
     $lang    = FormUtil::getPassedValue ('lang', null , 'GET');
     //$id the id no if edit form
     $id      = FormUtil::getPassedValue ('id', null , 'GET');
+
     //pagnigation variable
     $filter  = FormUtil::getPassedValue ('filter', 0);
     $offset  = FormUtil::getPassedValue ('startnum', 0);

@@ -11,6 +11,14 @@ class PNBookingArray extends PNObjectArray {
     $this->_init($init, $where);
   }
 
+  function genFilter(){
+    $status_id = FormUtil::getPassedValue ('status_id', false);
+    $where = " ";
+    if($status_id){
+      $where = " boo_status_id = $status_id";
+    }
 
+    return $where;
+  }
 
 }

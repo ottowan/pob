@@ -6,13 +6,15 @@ count field by where clause
 function smarty_function_get_total_price_by_refid ($params, &$smarty) {
     //Query data
     $pntables = pnDBGetTables();
+    $bookingtable  = $pntables['pobbooking_booking'];
+    $bookingcolumn = $pntables['pobbooking_booking_column'];
       $sql = "
               SELECT 
-                DISTINCT  boo_total_price as total_price
-            FROM 
-              $pntables[pobbooking_booking]
-            WHERE 
-                boo_refid = '$params[refid]' ";
+                  DISTINCT  $bookingcolumn[room_rate_total] as total_price
+              FROM 
+                  $bookingtable
+              WHERE 
+                  $bookingcolumn[customer_refid] = '$params[refid]' ";
 
       $column = array("total_price");
       $result = DBUtil::executeSQL($sql);

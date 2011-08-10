@@ -6,13 +6,15 @@ count field by where clause
 function smarty_function_count_order_new ($params, &$smarty) {
     //Query data
     $pntables = pnDBGetTables();
-      $sql = "
-              SELECT 
-                COUNT( DISTINCT  boo_refid) as booking_count
+    $custable  = $pntables['pobbooking_customer'];
+    $cuscolumn = $pntables['pobbooking_customer_column'];
+    $sql = "
+            SELECT 
+              COUNT( DISTINCT  $cuscolumn[id] ) as booking_count
             FROM 
-              $pntables[pobbooking_booking]
+              $custable
             WHERE 
-                boo_status_id = 2 ";
+              $cuscolumn[status_id] = 2 ";
 
       $column = array("booking_count");
       $result = DBUtil::executeSQL($sql);

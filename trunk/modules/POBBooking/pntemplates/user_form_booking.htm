@@ -77,7 +77,11 @@
             <TH bgcolor="#DCF5FA" width="5%">Child</TH>
             <TH bgcolor="#DCF5FA" width="15%">Total(THB)</TH>
           </TR>
+          <!--[assign var="total_rooms" value=0]-->
           <!--[foreach from=$smarty.post.transaction.roomstays item=item name="foo"]-->
+          
+          <!--[assign var="rooms" value=$item.numberofunit]-->
+            <!--[math equation=x+y x=$total_rooms y=$rooms assign="total_rooms"]-->
             <!--[if $item.numberofunit > 0]-->
             <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">

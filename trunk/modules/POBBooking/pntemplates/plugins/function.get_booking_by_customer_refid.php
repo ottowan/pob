@@ -6,51 +6,51 @@ count field by where clause
 function smarty_function_get_booking_by_customer_refid ($params, &$smarty) {
     //Query data
     $pntables = pnDBGetTables();
+    $bookingtable  = $pntables['pobbooking_booking'];
+    $bookingcolumn = $pntables['pobbooking_booking_column'];
       $sql = "
               SELECT 
-              boo_id, 
-              boo_cus_id, 
-              boo_status_id, 
-              boo_refid, 
-              boo_checkin_date, 
-              boo_checkout_date, 
-              boo_night, 
-              boo_amount_room, 
-              boo_roomtype, 
-              boo_bedtype, 
-              boo_breakfast, 
-              boo_adult, 
-              boo_child_age, 
-              boo_price, 
-              boo_total_price
+              $bookingcolumn[id], 
+              $bookingcolumn[customer_refid], 
+              $bookingcolumn[status_id], 
+              $bookingcolumn[hotelname], 
+              $bookingcolumn[checkin_date], 
+              $bookingcolumn[checkout_date], 
+              $bookingcolumn[night], 
+              $bookingcolumn[amount_room], 
+              $bookingcolumn[roomtype], 
+              $bookingcolumn[adult], 
+              $bookingcolumn[child], 
+              $bookingcolumn[room_rate], 
+              $bookingcolumn[room_rate_total]
             FROM 
-              $pntables[pobbooking_booking]
+              $bookingtable
             WHERE 
-                boo_cus_id = $params[cus_refid]";
+              $bookingcolumn[customer_refid] = '$params[cus_refid]'";
 
       $column = array('id', 
-                      'cus_id', 
+                      'customer_refid', 
                       'status_id', 
-                      'refid', 
+                      'hotelname', 
                       'checkin_date', 
                       'checkout_date', 
                       'night', 
                       'amount_room', 
                       'roomtype', 
-                      'bedtype', 
-                      'breakfast', 
                       'adult', 
-                      'child_age', 
-                      'price', 
-                      'total_price');
+                      'child', 
+                      'room_rate', 
+                      'room_rate_total');
       $result = DBUtil::executeSQL($sql);
+      //var_dump($sql);
+      //exit;
 
       //Initial data to Array
       $bookingArray = DBUtil::marshallObjects ($result, $column);
 
       $smarty->assign("bookingArray", $bookingArray);
       $smarty->assign("booking_id", $bookingArray[0]['id']);
-      $smarty->assign("refid", $bookingArray[0]['refid']);
+      $smarty->assign("refid", $bookingArray[0]['customer_refid']);
 
       $smarty->assign("book_status_id", $bookingArray[0]['status_id']);
       $smarty->assign("checkin_date", $bookingArray[0]['checkin_date']);

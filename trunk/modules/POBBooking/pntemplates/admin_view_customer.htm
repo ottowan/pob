@@ -35,31 +35,35 @@
     </TR>
     <TR>
       <TD align="right">Title  : </TD>
-      <TD align="left" ><!--[$view.titlename]--></TD>
+      <TD align="left" ><!--[$view.nameprefix]--></TD>
     </TR>
     <TR>
       <TD align="right">First Name : </TD>
-      <TD align="left" ><!--[$view.firstname]--></TD>
+      <TD align="left" ><!--[$view.givenname]--></TD>
     </TR>
     <TR>
       <TD align="right">Last Name/Surname : </TD>
-      <TD align="left" ><!--[$view.lastname]--></TD>
+      <TD align="left" ><!--[$view.surname]--></TD>
     </TR>
     <TR>
       <TD align="right">Address : </TD>
-      <TD align="left" ><!--[$view.address]--></TD>
+      <TD align="left" ><!--[$view.addressline]--></TD>
     </TR>
     <TR>
       <TD align="right">Town/City :</TD>
-      <TD align="left" ><!--[$view.city]--></TD>
+      <TD align="left" ><!--[$view.cityname]--></TD>
+    </TR>
+    <TR>
+      <TD align="right">State/Province:</TD>
+      <TD align="left" ><!--[$view.stateprov]--></TD>
     </TR>
     <TR>
       <TD align="right">Country : </TD>
-      <TD align="left" ><!--[$view.country]--></TD>
+      <TD align="left" ><!--[$view.countryname]--></TD>
     </TR>
     <TR>
       <TD align="right">Zipcode : </TD>
-      <TD align="left" ><!--[$view.zipcode]--></TD>
+      <TD align="left" ><!--[$view.postalcode]--></TD>
     </TR>
     <TR>
       <TD align="right">Mobile Phone : </TD>
@@ -96,15 +100,15 @@
     <TR>
       <TD align="right" width="30%">Card Type: 
       </TD>
-      <TD align="left"  width="70%"><!--[$view.card_type]--></TD>
+      <TD align="left"  width="70%"><!--[$view.cardcode]--></TD>
     </TR>
     <TR>
       <TD align="right">Card Bank Name : </TD>
-      <TD align="left" ><!--[$view.card_bank_name]--></TD>
+      <TD align="left" ><!--[$view.cardbankname]--></TD>
     </TR>
     <TR>
       <TD align="right">Card Issuing Country : </TD>
-      <TD align="left" ><!--[$view.card_issuing_country]--></TD>
+      <TD align="left" ><!--[$view.cardissuingcountry]--></TD>
     </TR>
     <TR>
       <TD>&nbsp;</TD>
@@ -112,85 +116,60 @@
   </TABLE>
 </div><BR>
 
-<div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
-  <TABLE width="100%" border="0">
-    <TR>
-      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);">Reservation Details :</TH>
-    </TR>
-    <TR>
-      <TD colspan="2">&nbsp;</TD>
-    </TR>
-    <TR>
-      <TD colspan="2" align="left">
-        <TABLE>
-        <TR>
-          <TD<B>Check-in Date :</B></TD>
-          <TD><!--[$checkin_date]--></TD>
-          <TD>&nbsp;&nbsp;</TD>
-          <TD><B>Night(s) of stay :</B></TD>
-          <TD><!--[$night]--></TD>
-        </TR>
-        <TR>
-          <TD><B>Check-out Date :</B></TD>
-          <TD><!--[$checkout_date]--></TD>
-          <TD>&nbsp;&nbsp;</TD>
-          <TD><B>No. of Room(s) :</B></TD>
-          <TD><!--[$amount_room]--></TD>
-        </TR>
-        </TABLE>
-      </TD>
-    </TR>
-    <TR>
-      <TD colspan="2">
-        <TABLE width="100%" border="0" >
-          <TR bgcolor="#f9fbf1">
-            <TH width="25%">Room Type</TH>
-            <TH width="25%">Type of Bed</TH>
-            <TH width="10%">Breakfast</TH>
-            <TH width="5%">Night<BR>(s)</TH>
-            <TH width="5%">Adult<BR>(s)</TH>
-            <TH width="5%">Child<BR>(yrs.)</TH>
-            <TH width="15%">Total(THB)</TH>
-          </TR>
+
+<div align="right" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
+<TABLE align="center" width="100%">
+  <TR>
+    <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);">Reservation Details :</TH>
+  </TR>
+  <TR>
+    <TD>
+      <table width="100%" style="border: 1px dashed rgb(0, 245, 255);">
           <!--[foreach from=$bookingArray item=item name="foo"]-->
-          <TR>
-            <TD align="left" style="padding:2px;">
-              <!--[$item.roomtype]-->
-            </TD>
-            <TD align="left" style="padding:2px;"><!--[$item.bedtype]--></TD>
-            <TD align="center" style="padding:2px;"><!--[$item.breakfast]--></TD>
-            <TD align="center" style="padding:2px;"><!--[$item.night]--></TD>
-            <TD align="center" style="padding:2px;"><!--[$item.adult]--></TD>
-            <TD align="center" style="padding:2px;"><!--[if $item.child]--><!--[$item.child]--><!--[else]-->-<!--[/if]--></TD>
-            <TD align="right" bgcolor="#FFFFFF" style="padding-right:5px; "><div align="right"><b style="font-size:12px; color:#000000;  padding-right:5px; ">
-                <!--[$item.price]-->
-                <!--[php]-->
-                    $item = $this->get_template_vars("item");
-                    $total_price += $item['price'];
-                <!--[/php]-->
-            </TD>
-          </TR>
-         <!--[/foreach]-->
-          <TR>
-            <TD>&nbsp;</TD>
-          </TR>
-          <TR>
-            <TD colspan="7" align="center">
-              <div align="center" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#f0f2e6; padding:3px; width:80%; border: #99bf00 1px  dotted;">
-                <b>Total Price :</b>&nbsp;<b style="color:#dc0e01;">
-                  <!--[php]-->
-                    echo $total_price;
-                  <!--[/php]-->
-                  <!--[pnsessiongetvar name="total_price"|pnvarprepfordisplay assign="total_price"]-->
-                  &nbsp;THB
-                </b>
-              </div>
-          </TR>
-        </TABLE>
-      </TD>
-    </TR>
+          <tr>
+            <td width="10%">ห้อง</td>
+            <td><!--[$item.roomtype]-->&nbsp;โรงแรม&nbsp;<!--[$item.hotelname]--></td>
+            <td align="right">&nbsp;<!--[$item.room_rate|number_format:2:".":","]--> ฿</td>
+          </tr>
+          <tr>
+            <td width="10%"></td>
+            <td><!--[$item.amount_room]-->&nbsp;ห้อง</td>
+            <td align="right">รวมเป็น&nbsp;<!--[$item.room_rate_total|number_format:2:".":","]--> ฿</td>
+          </tr>
+          <tr>
+            <td width="10%">เช็คอิน</td>
+            <td colspan="2"><!--[$item.checkin_date]-->&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="10%">เช็คเอ้าท์&nbsp;</td>
+            <td colspan="2"><!--[$item.checkout_date]-->&nbsp;</td>
+          </tr>
+           <tr>
+            <td align="center" colspan="3"><hr></td>
+          </tr>
+          <!--[/foreach]-->
+      </table>
+     </TD>
+  </TR>
+
   </TABLE>
-</div><BR>
+  <div align="right" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#f0f2e6; padding:3px; width:50%; border: #99bf00 1px  dotted;">
+  		<table width="100%" >
+          <tr>
+            <td width="50%" align="right">ค่าห้อง</td>
+            <td align="right"><!--[math equation="x-(x*y)" x=$view.total_price y=0.07 assign="net"]--><!--[$net|number_format:2:".":","]-->&nbsp;บาท</td>
+          </tr>
+          <tr>
+            <td width="50%" align="right">ภาษี 7%</td>
+            <td align="right"><!--[math equation="x*y" x=$view.total_price y=0.07 assign="interest"]--><!--[$interest|number_format:2:".":","]-->&nbsp;บาท</td>
+          </tr>
+          <tr>
+            <td width="50%" align="right"><font color="#FF3300"><b>รวมค่าใช้จ่ายทั้งสิ้น</b></font></td>
+            <td align="right"><font color="#FF3300"><b><!--[$view.total_price|number_format:2:".":","]-->&nbsp; บาท</b></font></td>
+          </tr>
+    </table>
+    </div>
+</div>
 
 <!--[include file='admin_menu_footer.htm']-->
 

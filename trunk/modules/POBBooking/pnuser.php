@@ -15,7 +15,15 @@ function POBBooking_user_main() {
     header("HTTP/1.0 404 Not Found");
   }
 */
-  return pobbooking_user_form();
+  
+  if(!empty($_POST)){
+    return pobbooking_user_form();
+  }else{
+    //Redirect page
+    $portal_url = pnModURL('POBPortal', 'user');
+    pnRedirect($portal_url);
+    return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
+  }
 }
 
 
