@@ -120,7 +120,7 @@ function InnoGallery_userapi_uploadImage($args)
       //get image size
       list($w,$h) = getimagesize($full_photo_dir);
       //echo "size $w , $h";
-      if ($w > $image_size){
+/*      if ($w > $image_size){
         //echo "resize";
         $photo=new thumbnail($full_photo_dir);			// generate image_file, set filename to resize
         $photo->size_auto($image_size);					// set the biggest width or height for thumbnail
@@ -128,6 +128,7 @@ function InnoGallery_userapi_uploadImage($args)
         $photo->save($full_photo_dir);
         $photo = null;
       }
+*/
       //create thumb.jpg
       if ($img_count == 1 && $is_createfirstimage){
         $mini=new thumbnail($full_photo_dir);			// generate image_file, set filename to resize
