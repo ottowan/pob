@@ -52,19 +52,29 @@
 			<div class="clear"></div><!-- clear-->
 		</div><!--bottom_wraper-->
 	</td></tr><tr><td>
-	
 		<div id="mid_wraper">
-			<div class="welcome_content">
-				<!--[$maincontent]-->
-			</div><!--welcome_content-->
-			<div class="reservation">
-				<!--[blockposition name=hotel_search]-->
-			</div><!--reservation-->
+			<div class="welcome_content"><!--[$maincontent]--></div><!--welcome_content-->
+			<div class="reservation"><!--[blockposition name=hotel_search]--></div><!--reservation-->
 			<div class="clear"></div><!-- clear-->
 		</div><!--mid_wraper-->
 	</td></tr><tr><td>
 		<div id="bottom_wraper">
-			<div class="login_form"><!--[blockposition name=login]--><!--[displaygreeting]--><!--[userlinks]--></div><!--login_form-->
+			<div class="login_form">
+				<!--[blockposition name=login]-->
+				<!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+				<div class="member_box">
+					<h4><!--[pnml name="_BLUE_HOTEL_MEMBER"]--></h4>
+						<ul>
+							<li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel"><!--[pnml name="_BLUE_HOTEL_ADMIN_PANEL"]--></a></li>       	
+							<li class="selected"><a href="index.php?module=InnoGallery"><!--[pnml name="_BLUE_HOTEL_ADD_SLIDE"]--></a></li>
+							<li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_BLUE_HOTEL_ADD_ROOM"]--></a></li>
+							<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_BLUE_HOTEL_ADD_PIC_HOTEL"]--></a></li>
+							<li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->"><!--[pnml name="_BLUE_HOTEL_CHANGE_TEMPLATE"]--></a></li>
+						</ul>
+					<!--[displaygreeting]--><!--[userlinks]-->
+				</div><!--member_box-->
+				<!--[/securityutil_checkpermission_block]-->
+			</div><!--login_form-->
 			<div class="map"><!--[blockposition name=map]--></div><!--map-->
 			<div class="clear"></div><!-- clear-->
 		</div><!--bottom_wraper-->

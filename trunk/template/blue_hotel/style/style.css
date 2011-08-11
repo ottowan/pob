@@ -52,11 +52,13 @@ body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:ce
 #mid_wraper .welcome_content h4 { font-size: 18px; line-height: 40px; }
 
 #mid_wraper .welcome_content p {color:#808080; text-align: left;}
-#mid_wraper .welcome_content ul {}
+#mid_wraper .welcome_content ul { margin: 10px 0 10px 5px}
 #mid_wraper .welcome_content li { margin: 5px 0 0 20px}
 #mid_wraper .welcome_content li > a { color:#00A1F2}
 
-#mid_wraper .welcome_content a {color:#00A1F2}
+#mid_wraper .welcome_content a {color:#00A1F2;text-decoration: none}
+#mid_wraper .welcome_content a:hover {color:#7777BB;text-decoration:underline;}
+
 #mid_wraper .welcome_content .pn-menu { margin: 0 0 0 10px }
 
 
@@ -100,7 +102,7 @@ body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:ce
 										border-radius:5px; -moz-border-radius:5px;}
 #mid_wraper .reservation #submitButton:hover {  border: 1px #3983b0 solid;}
 
-#mid_wraper .reservation .box { width: 260px; height: 134px; margin: 0px; padding: 0px; color: #555;
+#mid_wraper .reservation .box { width: 260px; height: auto; margin: 0px; padding: 0px; color: #555;
 font-size: 14px; text-shadow: none; border: none; background-color: transparent;
 webkit-border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; border-radius: 0 0 10px 10px;}
 
@@ -119,7 +121,8 @@ border-radius: 5px; -moz-border-radius: 5px;}
 
 
 #bottom_wraper {background: #fff; border-bottom: 1px solid #e5e5e5;}
-#bottom_wraper  a {color:#00A1F2}
+#bottom_wraper  a {color:#00A1F2;text-decoration: none}
+#bottom_wraper  a:hover {color:#7777BB;text-decoration:underline;}
 #bottom_wraper  .login_form { width:248px; margin: 10px; padding: 10px ;float: left; border: 1px solid #e5e5e5;  background: #f2f2f2; display:inline;}
 #bottom_wraper  .login_form span{ display: block;}
 #bottom_wraper  .login_form .pn-bkey-login { text-align: left; color: #808080; line-height: 24px;
@@ -128,7 +131,7 @@ border-radius: 5px; -moz-border-radius: 5px;}
 											 
 #bottom_wraper  .login_form .pn-bkey-login #loginblock_username,
 #bottom_wraper  .login_form .pn-bkey-login #loginblock_password {background: #fff; color: #808080; border: 1px #ccc solid; width:220px;}
-#bottom_wraper  .login_form .pn-bkey-login h4 { color: #0B9DE5; padding: 0px; font-size: 18px; line-height: 30px; margin: 0px; text-align:left; text-shadow: 1px 1px 3px #aaa}
+#bottom_wraper  .login_form .pn-bkey-login h4 { color: #0B9DE5; padding: 0 0 10px; font-size: 18px; line-height: 30px; margin: 0px; text-align:left; text-shadow: 1px 1px 3px #aaa}
 
 #bottom_wraper  .login_form .pn-bkey-login #loginblock_rememberme { }
 #bottom_wraper  .login_form .pn-bkey-login  label[for="loginblock_rememberme"] {position: absolute; left: 25px; top: 94px;}
@@ -137,7 +140,19 @@ border-radius: 5px; -moz-border-radius: 5px;}
 																	border-radius: 5px; -moz-border-radius: 5px;}
 #bottom_wraper  .login_form .pn-bkey-login  input[type="submit"]:hover {border:1px #3983b0 solid}																	
 #bottom_wraper  .login_form .pn-bkey-login li { list-style: none;}																	
-#bottom_wraper  .login_form .pn-bkey-login li a {color: #808080; line-height: 24px;}
+#bottom_wraper  .login_form .pn-bkey-login li a {color: #00A1F2; line-height: 24px;}
+#bottom_wraper  .login_form .pn-bkey-login li a:hover {color: #7777BB;}
+
+#bottom_wraper .member_box {text-align: left; color: #B3B3B3; line-height: 24px; padding:10px; margin: 0px; 
+ background: #E5E5E5 url(../images/login_bg.png) top left repeat; border: 1px solid #ccc;}
+#bottom_wraper .member_box h4 { color: #0B9DE5; padding: 0px 0 10px 0; font-size: 18px; text-align: left; 
+										text-shadow: 1px 1px 1px #77B; line-height: 26px; margin: 0 0 5px 0; border-bottom: 1px dotted #CCC;}
+
+#bottom_wraper .member_box ul {margin: 8px 0 8px 10px;}
+#bottom_wraper .member_box li {margin: 0 10px 0 20px; padding: 0;}
+#bottom_wraper .member_box li a { text-decoration: none}
+#bottom_wraper .member_box li a:hover { color: #7777BB; text-decoration:underline;}
+#bottom_wraper .member_box span { color:#555}
 
 
 #bottom_wraper  .map { width: 617px; height: 245px; margin: 10px 0 0 0;float: left; border: 1px solid #e5e5e5; padding: 10px;
