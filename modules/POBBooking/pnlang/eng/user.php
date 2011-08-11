@@ -100,9 +100,12 @@
   define('_POBBOOKING_USER_CUSTOMER_CENTER','Customer Center:');
 
 
-//POBHOTEL USER BLOCK FOURIMAGE MODIFY (block_fourimage_modify.html)
-  define('_POBBOOKING_USER_BLOCK_FOURIMAGE_MODIFY_LIMITDISPLAY','Limit display (rows)');
-  define('_POBBOOKING_USER_BLOCK_FOURIMAGE_MODIFY_LIMITDISPLAY','Limit display (rows)');
+//POBHOTEL BOOKING PAYMENT FORM (user_form_payment.htm)
+  define('_POBBOOKING_USER_PAYMENT_SUMMARY_CONFIRMATION','Summary and Confirmation');
+
+
+
+
 //POBHOTEL USER BLOCK HOTELMAP MODIFY (block_hotelmap_modify.html)
   define('_POBBOOKING_USER_BLOCK_HOTELMAP_MODIFY_LIMITDISPLAY','Limit display (rows)');
 

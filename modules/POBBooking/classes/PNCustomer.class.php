@@ -460,7 +460,7 @@ class PNCustomer extends PNObject {
         //exit;
         //$xml->save("OTA_HotelResRQ1.xml");
 
-    /*////send xml
+    ////send xml
         $url = 'http://pob-ws.heroku.com/api/hotel_res';
         $data = $xml->saveXML();
         //$data = $data->saveXML();
@@ -478,25 +478,8 @@ class PNCustomer extends PNObject {
         $findme   = 'Success';
         $pos = strpos($mystring, $findme);
         if($pos > 0){
-          echo "Booking Success.";
-        }else{
-          echo "Booking NOT Success.";
-        }
-
-        curl_close($ch);
-    */
-        //print $response;
-        //exit;
-
-        //test success
-        $mystring = $response;
-        $findme   = "Success";
-        $pos = strpos($mystring, $findme);
-        if($pos > 0){
-        $forwardurl = pnModURL('POBBooking');
+          $forwardurl = pnModURL('POBBooking');
         return $forwardurl;
-
-
         }else{
           //Unsuccess page
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
@@ -504,6 +487,26 @@ class PNCustomer extends PNObject {
           //return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
           exit;
         }
+
+        curl_close($ch);
+    
+        //print $response;
+        //exit;
+
+/*        //test success
+        $mystring = $response;
+        $findme   = "Success";
+        $pos = strpos($mystring, $findme);
+        if($pos > 0){
+        $forwardurl = pnModURL('POBBooking');
+        return $forwardurl;
+        }else{
+           //Unsuccess page
+          $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
+          pnRedirect($url);
+          //return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
+          exit;
+        }*/
         
     }
 

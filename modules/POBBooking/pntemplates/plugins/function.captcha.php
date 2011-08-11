@@ -3,11 +3,8 @@
 * return image of captcha code
 *
 */
-
-
 function smarty_function_captcha ($params, &$smarty) 
 {
-
   $possible = '23456789bcdfghjkmnpqrstvwxyz';
   $code = '';
   $i = 0;
