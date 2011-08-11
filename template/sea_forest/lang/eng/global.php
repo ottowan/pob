@@ -11,4 +11,14 @@
  * @subpackage   andreas08
  */
 
-define('_ANDREAS08_HOME', 'Home');
+define('_SEA_FOREST_HOME', 'Home');
+define('_SEA_FOREST_ROOM', 'Room');
+define('_SEA_FOREST_FACILITIES', 'Faccilities');
+define('_SEA_FOREST_GALLERY', 'Gallery');
+define('_SEA_FORESTCANTACT', 'Contact');
+define('_SEA_FOREST_MEMBER', 'Members');
+define('_SEA_FOREST_ADMIN_PANEL', 'Admim Panel');
+define('_SEA_FOREST_ADD_SLIDE', 'Slide Management ');
+define('_SEA_FOREST_ADD_ROOM', 'Add Room');
+define('_SEA_FOREST_ADD_PIC_HOTEL', 'Add rooms');
+define('_SEA_FOREST_CHANGE_TEMPLATE', 'Change Template');
