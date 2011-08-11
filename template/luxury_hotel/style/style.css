@@ -70,12 +70,13 @@ body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:ce
 #mid_wraper .welcome_content h1 { color: #fff; height: 60px; padding: 0 0 0 18px; background: url(../images/menu_header_full_long.png) left top no-repeat;text-shadow: 1px 1px 1px #260101}
 
 
-#mid_wraper .welcome_content p {color:#4f0005; text-align: left; padding: 0 0 1em 90px;}
+#mid_wraper .welcome_content p {color:#7e0607; text-align: left; padding: 0 0 1em 90px;}
 #mid_wraper .welcome_content ul {}
-#mid_wraper .welcome_content li { margin: 5px 0 0 20px; color:#4f0005}
-#mid_wraper .welcome_content li > a { color:#4f0005}
+#mid_wraper .welcome_content li { margin: 5px 0 0 20px; color:#7e0607}
+#mid_wraper .welcome_content li > a { color:bf000d}
 
-#mid_wraper .welcome_content a {color:#4f0005}
+#mid_wraper .welcome_content a {color:#bf000d; text-decoration: none}
+#mid_wraper .welcome_content a:hover {color:#7e0607; text-decoration: underline}
 #mid_wraper .welcome_content .pn-menu { margin: 0 0 0 10px }
 
 
@@ -91,6 +92,7 @@ body {font:76% Verdana,Tahoma,Arial,sans-serif; line-height:1.4em; text-align:ce
 #mid_wraper .welcome_content #pn-maincontent form input { background: #fff;}
 #mid_wraper .welcome_content #pn-maincontent form input[type="submit"] {margin: 10px 0 0 0; padding: 3px 10px; background: #6DC6F2; border: 1px #5CB5E1 solid; color: white;}
 
+#mid_wraper .welcome_content #pn-maincontent .pn-menu { padding-bottom: 10px;}
 /*--- profilelink---*/ 
 #mid_wraper .welcome_content #pn-maincontent .pn-profilelink { text-align: left;}
 
@@ -108,7 +110,7 @@ background: #F2DA92 url(../images/reservation_body.png) left top repeat-y;}
 										text-shadow: 1px 1px 1px #260101; line-height: 26px; margin: 0 0 5px 0; border-bottom: 1px dotted #4F0005;}
 #mid_wraper .reservation .pn-block p,
 #mid_wraper .reservation .pn-block td { color: #555;}
-#mid_wraper .reservation .pn-block form { padding: 0 15px 0 15px}
+#mid_wraper .reservation .pn-block form { padding: 0 }
 #mid_wraper .reservation .pn-block select[name="startDay"] ,
 #mid_wraper .reservation .pn-block select[name="startMonth"] , 
 #mid_wraper .reservation .pn-block select[name="startYear"],
@@ -125,7 +127,7 @@ background: #F2DA92 url(../images/reservation_body.png) left top repeat-y;}
 										border-radius:5px; -moz-border-radius:5px;}
 #mid_wraper .reservation #submitButton:hover {  border: 1px #923033 solid;}
 
-#mid_wraper .reservation .box { width: 260px; height: 134px; margin: 0px; padding: 0px; color: #555;
+#mid_wraper .reservation .box { width: 260px; height: auto; margin: 0px; padding: 0px; color: #555;
 font-size: 14px; text-shadow: none; border: none; background-color: transparent;
 webkit-border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; border-radius: 0 0 10px 10px;}
 
@@ -149,14 +151,14 @@ border-radius: 5px; -moz-border-radius: 5px;}
 
 #bottom_wraper .login_form h4 {color: #fff; height: 60px; padding: 0 0 0 80px; margin: 0 0 0 -90px; background:url(../images/menu_header_full_tran.png) left top no-repeat;text-shadow: 1px 1px 1px #260101}
 
-#bottom_wraper form {text-align: left; padding: 10px; margin: 0 10px 0 0; line-height: 24px; border: 2px #C8AD66 solid; border-radius: 10px; -moz-border-radius: 5px;}
+#bottom_wraper form {text-align: left; padding: 10px; margin: 0 10px 0 0; line-height: 24px; border: 2px #C8AD66 solid; border-radius: 10px; -moz-border-radius: 10px;}
 
 #bottom_wraper  .login_form .pn-bkey-login #loginblock_rememberme { }
 #bottom_wraper  .login_form .pn-bkey-login  label[for="loginblock_rememberme"] {position: absolute; left: 25px; top: 94px;}
 #bottom_wraper  .login_form .pn-bkey-login  input[type="submit"]{padding: 3px 10px; background: #670003; border: 1px #510205 solid; color: white;
 																	box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black;
 																	border-radius: 5px; -moz-border-radius: 5px;
-																	left: 140px;}
+																	left: 155px;}
 #bottom_wraper  .login_form .pn-bkey-login  input[type="submit"]:hover {border: 1px #923033 solid;}									
 #bottom_wraper  .login_form .pn-bkey-login ul { margin: 5px 0 0 0} 								
 #bottom_wraper  .login_form .pn-bkey-login li { list-style: none}																	
@@ -164,6 +166,19 @@ border-radius: 5px; -moz-border-radius: 5px;}
 #bottom_wraper  .login_form .pn-bkey-login li:hover a { text-decoration: none;}
 #bottom_wraper  .login_form  span { display: block; margin: 5px 0 0 0}
 
+#bottom_wraper .member_box { text-align:left; color: #4F0005; }
+#bottom_wraper .member_box h4 { }
+
+#bottom_wraper .member_box ul {margin: 5px 0 10px 5px;}
+#bottom_wraper .member_box li {margin: 0 10px 0 20px; padding: 0; color: #7e0607; }
+#bottom_wraper .member_box li a { text-decoration: none; color: #bf000d;}
+#bottom_wraper .member_box li a:hover { color: #7e0607; text-decoration:underline;}
+#bottom_wraper .member_box li a:hover > li {color:7e0607}
+#bottom_wraper .member_box span { color:#7e0607}
+#bottom_wraper .member_box a { color:#bf000d}
+#bottom_wraper .member_box a:hover { color:#7e0607; text-decoration:none;}
+
+#bottom_wraper .member_box .member_box_border {margin: 0 10px 0 0; padding: 10px; line-height: 24px; border: 2px #C8AD66 solid;border-radius: 10px; }
 
 #bottom_wraper .pn-blockposition-center {}
 
@@ -171,7 +186,7 @@ border-radius: 5px; -moz-border-radius: 5px;}
 background: url(../images/menu_header_full_tran_right_long.png) right top no-repeat;
 text-shadow: 1px 1px 1px #260101;text-align: right;}
 
-#bottom_wraper  .map { width: 705px; height: 245px; margin: 0 12px 0 0;padding: 0 10px 0 0;  float: right; background: #E1C16E }
+#bottom_wraper  .map { width: 695px; height: 245px; margin: 0 12px 0 0;padding: 0 10px 0 0;  float: right; background: #E1C16E }
 
 #footer_wraper { height:63px; width: 990px; background: #e1c16e url(../images/footer.png)
 0 0 no-repeat}
