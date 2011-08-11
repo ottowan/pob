@@ -88,8 +88,8 @@
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]" value="<!--[$item.numberofunit]-->">
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$item.startdate]-->">
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$item.enddate]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][adult]" value="<!--[$item.adult]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="<!--[$item.child]-->">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][adult]" value="2">
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="0">
               <TR>
                 <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
                 <TD align="center"><!--[$item.numberofunit]--></TD>
@@ -700,26 +700,13 @@
         <textarea name="guset[addition_request]" id="addition_request" value="addition_request" rows="4" cols="40" wrap="soft" class="text"></textarea>
       </td>
     </tr>
-    <tr>
-      <td class="text" align="right" valign="top">&nbsp; </td>
-      <td align="left" >
-        <table align="left" valign="top" border="0">
-          <tr>
-            <td rowspan="2"><!--[captcha]--></td>
-            <td><!--[pnml name="_POBBOOKING_USER_CONTACT_CAPCHA"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
-          </tr>
-          <tr>
-            <td><input name="guset[captcha]" id="captcha" type="text"></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
+    
 
     <TR>
       <TD>&nbsp;</TD>
     </TR>
   </TABLE>
-</div><BR><BR>
+</div><BR>
 
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
@@ -1336,49 +1323,60 @@
       <TD>&nbsp;</TD>
     </TR>
     <TR>
-<TD>
-    <div style="padding-top: 10px; font-family: 
-Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
-    <div style="font-family: Arial,Helvetica,sans-serif; font-size: 
-12px; padding-left: 30px; padding-right: 30px;" align="left">
-    <strong><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_1"]--></strong><br>
-    <br>
-      <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_1"]--> <a href="" 
-target="_blank"><b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_2"]--></b></a> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_3"]--></li>
-    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_3"]--></li>
+      <TD>
+          <div style="padding-top: 10px; font-family: 
+      Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
+          <div style="font-family: Arial,Helvetica,sans-serif; font-size: 
+      12px; padding-left: 30px; padding-right: 30px;" align="left">
+          <strong><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_1"]--></strong><br>
+          <br>
+            <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_1"]--> <a href="" 
+      target="_blank"><b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_2"]--></b></a> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_3"]--></li>
+          <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_3"]--></li>
 
-    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_1"]--> <b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_2"]--> </b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_3"]--></li>
-    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_5"]--></li>
-  </div>
-      <br>
-      <input name="agree" value="y" id="agree" type="checkbox"> 
-        <font style="text-decoration: underline; font-size: 12px; color:
- rgb(238, 0, 0);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_1"]--></i></b></font>
- <a href="https://ido24.com/secure/cancel_policy.html" target="_blank"><font
- style="text-decoration: underline; font-size: 12px; color: rgb(5, 94, 
-185);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_2"]--></i></b></font></a>   </div>
+          <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_1"]--> <b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_2"]--> </b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_3"]--></li>
+          <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_5"]--></li>
+        </div>
+            <br>
+            <input name="agree" value="y" id="agree" type="checkbox"> 
+              <font style="text-decoration: underline; font-size: 12px; color:
+       rgb(238, 0, 0);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_1"]--></i></b></font>
+       <a href="https://ido24.com/secure/cancel_policy.html" target="_blank"><font
+       style="text-decoration: underline; font-size: 12px; color: rgb(5, 94, 
+      185);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_2"]--></i></b></font></a>   </div>
 
-    <div style="padding-top: 15px; padding-bottom: 2px;" align="center">
+<div align="center">
 
-      <input name="bbSubmit" id="bbSubmit" class="searchButton" 
-style="font-weight: bold; font-size: 11pt; width: 210px; cursor: 
-pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" 
-value="Process Your Reservation" type="submit"></div>
- 
-    <div style="padding-top: 3px; font-family: 
-Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
-       <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>“<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>”</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
-       <p><img src="booking_form.php_files/line.gif" height="1"></p>
 
-       <p>
-        <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
-          <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
-          Tel. +66x xxx xxxx &nbsp; 
-          Fax. +66x xxx xxxx&nbsp; 
-          Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
-      </p>
+       <table width="100%">
+          <tr>
+            <td><div style="padding-top: 15px; padding-bottom: 2px;" align="center">
+                <input  name="bbSubmit" id="bbSubmit" class="searchButton" 
+                    style="font-weight: bold; font-size: 11pt; width: 210px; cursor: 
+                    pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" 
+                    value="Process Your Reservation" type="submit">
+              </div></td>
+          </tr>
+          <tr>
+            <td><div style="padding-top: 3px; font-family: Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
+               <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>“<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>”</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
+               <p><img src="booking_form.php_files/line.gif" height="1"></p>
+               <p>
+                <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
+                  <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
+                  Tel. +66x xxx xxxx &nbsp; 
+                  Fax. +66x xxx xxxx&nbsp; 
+                  Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
+               </p>
+             </div></td>
+          </tr>
+        </table>
 
-    </div>
+        
+</div><BR>
+              
+
+          
 
       </TD>
     </TR>

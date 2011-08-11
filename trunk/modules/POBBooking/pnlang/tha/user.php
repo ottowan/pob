@@ -75,6 +75,7 @@
   define('_POBBOOKING_USER_PAYMENT_CARD_CVV','CVV/CID Number');
   define('_POBBOOKING_USER_PAYMENT_CARD_EXAMPLE','Example');
   define('_POBBOOKING_USER_PAYMENT_CARD_HOLDER_NAME','Card Holder Name');
+  define('_POBBOOKING_USER_PAYMENT_CARD_EXPIRE','Card Expire');
   define('_POBBOOKING_USER_PAYMENT_CARD_BANK','Card Bank Name');
   define('_POBBOOKING_USER_PAYMENT_CARD_ISSUING_COUNTRY','Card Issuing Country');
   define('_POBBOOKING_USER_MONTH','Month');

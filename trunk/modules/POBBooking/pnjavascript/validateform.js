@@ -1,5 +1,5 @@
   function validateForm(form) {
- /*
+ 
     //Check identificational
     var identificational = document.getElementById("identificational");
     if (trimString(identificational.value) == '' || !check_number(trimString(identificational.value))) {
@@ -424,7 +424,7 @@
     }
 
 
-    //Check cardType
+    //Check card 
     var card_holder_number = document.getElementById("card_holder_number");
     if (trimString(card_holder_number.value) == '' ) {
 
@@ -442,6 +442,28 @@
       card_holder_number.style.borderWidth = "1px";
       //document.getElementById('error-country').innerHTML = "<IMG SRC='modules/Booking/pnimages/right.gif' WIDTH='10' HEIGHT='10'>";
     }
+
+
+    //Check card CVV
+    var cardid = document.getElementById("cardid");
+    if (trimString(cardid.value) == '' ) {
+
+         alert("Please enter card secure code(CVV).");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        cardid.style.borderStyle = "solid";
+        cardid.style.borderColor = "#FF0000";
+        cardid.style.borderWidth = "1px";
+        cardid.focus();
+        return false;
+    } else{
+      cardid.style.borderStyle = "solid";
+      cardid.style.borderColor = "#00CC00";
+      cardid.style.borderWidth = "1px";
+      //document.getElementById('error-country').innerHTML = "<IMG SRC='modules/Booking/pnimages/right.gif' WIDTH='10' HEIGHT='10'>";
+    }
+
+
 
     //Check card expire month
     var card_expire_month = document.getElementById("card_expire_month");
@@ -531,7 +553,7 @@
       agree.focus();
       return false;
     }
-*/
+
 }
 
     function trimString (str) {

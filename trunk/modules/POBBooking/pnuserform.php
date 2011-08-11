@@ -3,16 +3,39 @@ function POBBooking_userform_submit ()
 {
     $forward  = FormUtil::getPassedValue ('forward', null);
     $ctrl     = FormUtil::getPassedValue ('ctrl', 'Booking');
+    $reserv_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>'Payment'));
     $validate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
     $invalidate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>'Booking'));
     $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
     $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
     //$success_url = pnModURL('iHotel', 'user', 'page', array('ctrl'=>'redirect'));
     $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
+    $form = FormUtil::getPassedValue ('form', null);
 
     if (count($forward)){
       $forward_url = generateUrl($forward);
     }
+
+    //////////////////////// Add innocaptcha//////////////////////
+      //$object->getDataFromInput ('form',null,'POST');
+
+      $is_validate = true;
+      //var_dump($form['captcha']);
+      //exit;
+      if(isset($form['captcha'])) {
+        $is_validate = pnModAPIFunc('InnoCaptcha', 'user', 'checkCaptchaCode',array('code' => $form['captcha']));
+      } else {
+        $is_validate = true;
+      }
+
+      if($is_validate) {
+          SessionUtil::delVar('YLERROR');
+          $is_validate = true;
+      }else{
+        $error = "Invalid security code.";
+        SessionUtil::setVar('YLERROR', $error, '/', true, true);
+        $is_validate = false;
+      }
 
     if ($_POST['button_cancel'] || $_POST['button_cancel_x']){
       pnRedirect($list_url);
@@ -35,7 +58,7 @@ function POBBooking_userform_submit ()
       {
           pnRedirect($invalidate_form_url);
           return true;
-      } else {
+      } else  {
         $object->save ();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -65,7 +88,6 @@ function POBBooking_userform_submit ()
         pnRedirect($success_url);
       }
     }
-
     return true;
 }
 
