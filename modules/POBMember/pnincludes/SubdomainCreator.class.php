@@ -1,8 +1,8 @@
 <?php
   /**
-  * 
-  * 
-  * 
+  *
+  *
+  *
   */
 Class SubdomainCreator {
   private $proceed = NULL;
@@ -26,7 +26,7 @@ Class SubdomainCreator {
     $this->dbtype = $dbtype;
     $this->dbhost = $dbhost;
     $this->prefix = $GLOBALS['PNConfig']['System']['prefix'];
-    
+
     if(is_null($this->dbpassword)){
       $this->dbpassword = $GLOBALS['PNConfig']['DBInfo']['default']['dbpass'];
     }
@@ -42,7 +42,7 @@ Class SubdomainCreator {
     $this->form = FormUtil::getPassedValue('form', null, 'REQUEST');
 
   }
-  
+
     /**
    * Creates the DB on new install
    *
@@ -53,7 +53,7 @@ Class SubdomainCreator {
    */
   function makedb($hotelcode, $sitename, $dbname, $username, $password, $email)
   {
-    
+
     //echo "DB Name : ".$dbname;
     //echo "<BR>DB Username : ".$this->dbusername;
     //echo "<BR>DB Password : ".$this->dbpassword;
@@ -62,7 +62,7 @@ Class SubdomainCreator {
 
 
     $this->sitename = $sitename;
-    $this->dbname = $dbname;
+    $this->dbname = strtolower($dbname);
     $this->username = $username;
     $this->password = $password;
     $this->email = $email;
@@ -94,15 +94,15 @@ Class SubdomainCreator {
       } else {
           $sql = false;
       }
-  
+
       $dict = NewDataDictionary($dbconn);
       $sql = (!$sql ? $dict->CreateDatabase($dbname) : $sql);
       $return = $dict->ExecuteSQLArray($sql);
-      
+
       if($return!=FALSE){
         $this->proceed = TRUE;
       }
-      
+
       return $return;
     }
     $this->_error = "Database is exist!";
@@ -110,15 +110,15 @@ Class SubdomainCreator {
     echo "<br>Make Db : ".$this->_error;
     return FALSE;
   }
-  
+
   public function sqlDump(){
-    
+
     if(!$this->exist){
       $backUpDB = $GLOBALS['PNConfig']['DBInfo']['default']['dbname'];
-    
+
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $this->dbname;
       pnDBInit();
-      
+
       if($this->proceed){
         // create the database
         // set sql dump file path
@@ -139,10 +139,11 @@ Class SubdomainCreator {
               $exec .= $line;
               if (strrpos($line, ';') === strlen($line) - 1) {
 
-                $strReplace = str_replace('z_', $this->prefix. '_', $exec);
+                $strReplace = str_replace('zk_', $this->prefix. '_', $exec);
                 $strReplace = str_replace('Site name', $this->sitename, $strReplace);
                 $strReplace = str_replace('_HOTELCODE_', $this->hotelcode, $strReplace);
                 $strReplace = str_replace('_HOTELNAME_', $this->sitename, $strReplace);
+                $strReplace = str_replace('Site description', $this->sitename, $strReplace);
 
                   if (!DBUtil::executeSQL($strReplace)) {
                       $installed = false;
@@ -170,7 +171,7 @@ Class SubdomainCreator {
       }else{
          echo "<BR>Module [$moduleName] is exists.";
       }
-      
+
       */
       $this->createuser($this->username,$this->password,$this->email);
       $GLOBALS['PNConfig']['DBInfo']['default']['dbname'] = $backUpDB;
@@ -186,15 +187,15 @@ Class SubdomainCreator {
       pnModDBInfoLoad('Modules', 'Modules');
       $dbconn = pnDBGetConn(true);
       $pntable = pnDBGetTables();
-  
+
       // create the password hash
       //$password = DataUtil::hash($password, pnModGetVar('Users', 'hash_method'));
-  
+
       // prepare the data
       $username = DataUtil::formatForStore($username);
       $password = DataUtil::formatForStore($password);
       $email = DataUtil::formatForStore($email);
-  
+
       // create the admin user
       $sql = "UPDATE $pntable[users]
               SET    pn_uname        = '$username',
@@ -204,21 +205,21 @@ Class SubdomainCreator {
                      pn_user_regdate = '" . date("Y-m-d H:i:s", time()) . "',
                      pn_lastlogin    = '" . date("Y-m-d H:i:s", time()) . "'
               WHERE  pn_uid   = 2";
-  
+
       $result = $dbconn->Execute($sql);
-  	
+
       return ($result) ? true : false;
   }
-  
+
   function installmodules($moduleName=''){
-  
+
     if($moduleName!=''){
         if(file_exists("modules/$moduleName")){
         $sql = "insert  into `z_modules`(`pn_name`,`pn_type`,`pn_displayname`,`pn_url`,`pn_description`,`pn_regid`,`pn_directory`,`pn_version`,`pn_official`,`pn_author`,`pn_contact`,`pn_admin_capable`,`pn_user_capable`,`pn_profile_capable`,`pn_message_capable`,`pn_state`,`pn_credits`,`pn_changelog`,`pn_help`,`pn_license`,`pn_securityschema`)
       values
       ('Modules',2,'Modules','Modules','Modules API.',0,'Modules','1.0',1,'Thapakorn Tantirattanapong','http://www.phuketinnova.com',1,1,0,0,1,'pndocs/credits.txt','pndocs/changelog.txt','pndocs/install.txt','pndocs/license.txt','a:0:{}')";
-      
-        $sql = str_replace("Modules",$moduleName,$sql);  
+
+        $sql = str_replace("Modules",$moduleName,$sql);
         $sql = str_replace('z_', $this->prefix. '_', $sql);
         //echo $sql."<BR>";
         DBUtil::executeSQL($sql);
@@ -229,7 +230,7 @@ Class SubdomainCreator {
         if(isset($sql[0]["pn_id"])){
           $this->modules_initialise($sql[0]["pn_id"],true);
         }
-        
+
         return true;
       }
     }
@@ -247,7 +248,7 @@ Class SubdomainCreator {
       if ($objectid) {
           $id = $objectid;
       }
-  
+
       // assign any dependencies - filtering out non-active module dependents
       // when getting here without a valid id we are in interactive init mode and then
       // the dependencies checks have been done before already
@@ -268,7 +269,7 @@ Class SubdomainCreator {
                       $modulenotfound = true;
                   }
               }
-  
+
               // we have some dependencies so let's warn the user about these
               if (!empty($dependencies)) {
                   $pnRender = & pnRender::getInstance('Modules', false);
@@ -281,7 +282,7 @@ Class SubdomainCreator {
               $dependencies = (array) FormUtil::getPassedValue('dependencies', array(), 'POST');
           }
       }
-  
+
       $interactive_init = SessionUtil::getVar('interactive_init');
       $interactive_init = (empty($interactive_init)) ? false : true;
       if ($interactive_init == false) {
@@ -297,11 +298,11 @@ Class SubdomainCreator {
           $state = SessionUtil::getVar('modules_state');
           $activate = (bool) FormUtil::getPassedValue('activate');
       }
-  
+
       if (empty($id) || !is_numeric($id)) {
           return LogUtil::registerError(__('Error! No module ID provided.'), 404, pnModURL('Modules', 'admin', 'view'));
       }
-  
+
       // initialise and activate any dependencies
       if (isset($dependencies) && is_array($dependencies)) {
           foreach ($dependencies as $dependency) {
@@ -322,7 +323,7 @@ Class SubdomainCreator {
               }
           }
       }
-  
+
       // Now we've initialised the dependencies initialise the main module
       $res = pnModAPIFunc('Modules', 'admin', 'initialise', array(
           'id' => $id,
@@ -335,7 +336,7 @@ Class SubdomainCreator {
           SessionUtil::delVar('modules_state');
           SessionUtil::delVar('interactive_init');
           LogUtil::registerStatus(__('Done! Installed module.'));
-  
+
           if ($activate == true) {
               if (pnModAPIFunc('Modules', 'admin', 'setstate', array(
                   'id' => $id,
