@@ -25,7 +25,7 @@
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
   <TABLE width="100%">
     <TR>
-      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);">Reservation Details</TH>
+      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"><!--[pnml name="_POBBOOKING_USER_RESERVATION_DETAILS"]--></TH>
     </TR>
     <TR>
       <TD colspan="2" align="left">
@@ -37,7 +37,7 @@
                     <td colspan="2"><h4><!--[$smarty.post.transaction.hotelname]-->&nbsp;</h4></td>
                     </tr>
                   <tr>
-                    <td width="100">contact : <!--[$smarty.post.transaction.caontactinfo]--></td>
+                    <td width="100"><!--[pnml name="_POBBOOKING_USER_CONTACT"]--> : <!--[$smarty.post.transaction.caontactinfo]--></td>
                   </tr>
                   <tr>
                     <td colspan="2">&nbsp;&nbsp;<!--[$smarty.post.transaction.description]--></td>
@@ -69,13 +69,13 @@
       <TD colspan="2">
         <TABLE width="100%" style="border: 2px dashed rgb(0, 245, 255);">
           <TR>
-            <TH bgcolor="#DCF5FA" width="25%">Room Type</TH>
-            <TH bgcolor="#DCF5FA" width="5%">Room(s)</TH>
-            <TH bgcolor="#DCF5FA" width="30%">Stay Date(s)</TH>
-            <TH bgcolor="#DCF5FA" width="5%">Night(s)</TH>
-            <TH bgcolor="#DCF5FA" width="5%">Adult(s)</TH>
-            <TH bgcolor="#DCF5FA" width="5%">Child</TH>
-            <TH bgcolor="#DCF5FA" width="15%">Total(THB)</TH>
+            <TH bgcolor="#DCF5FA" width="25%"><!--[pnml name="_POBBOOKING_USER_ROOM_TYPE"]--></TH>
+            <TH bgcolor="#DCF5FA" width="5%"><!--[pnml name="_POBBOOKING_USER_ROOMS"]--></TH>
+            <TH bgcolor="#DCF5FA" width="30%"><!--[pnml name="_POBBOOKING_USER_STAY_DATE"]--></TH>
+            <TH bgcolor="#DCF5FA" width="5%"><!--[pnml name="_POBBOOKING_USER_NIGHT"]--></TH>
+            <TH bgcolor="#DCF5FA" width="5%"><!--[pnml name="_POBBOOKING_USER_ADULT"]--></TH>
+            <TH bgcolor="#DCF5FA" width="5%"><!--[pnml name="_POBBOOKING_USER_CHILD"]--></TH>
+            <TH bgcolor="#DCF5FA" width="15%"><!--[pnml name="_POBBOOKING_USER_TOTAL"]--></TH>
           </TR>
           <!--[assign var="total_rooms" value=0]-->
           <!--[foreach from=$smarty.post.transaction.roomstays item=item name="foo"]-->
@@ -93,7 +93,7 @@
               <TR>
                 <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
                 <TD align="center"><!--[$item.numberofunit]--></TD>
-                <TD align="center"><!--[$item.startdate]--> to <!--[$item.enddate]--></TD>
+                <TD align="center"><!--[$item.startdate]--> <!--[pnml name="_POBBOOKING_USER_TO"]--> <!--[$item.enddate]--></TD>
                 <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]-->
                    <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
                 </TD>
@@ -108,7 +108,7 @@
                 <TD align="right">
                   <!--[math equation="a*b" a=$item.numberofunit b=$item.rate assign="total"]-->
                   <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][room_rate_total]" value="<!--[$total]-->">
-                  THB <!--[$total|number_format:2:".":","]-->
+                  <!--[pnml name="_POBBOOKING_USER_THB"]--> <!--[$total|number_format:2:".":","]-->
                   <!--[php]-->
                       $total = $this->get_template_vars("total");
                       $totalAll += $total;
@@ -122,10 +122,10 @@
           <TR>
             <TD colspan="7" align="center">
               <div align="center" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#FDF5E6; padding:3px; width:80%; border: #99bf00 1px  dotted;">
-                <b>Total Price :</b>&nbsp;<b style="color:#dc0e01;">
+                <b><!--[pnml name="_POBBOOKING_USER_TOTAL_PRICE"]--> :</b>&nbsp;<b style="color:#dc0e01;">
                   <!--[$totalAll|number_format:2:".":","]-->
                   <input type="hidden" name="booking[totalall]" value="<!--[$totalAll]-->" />
-                  &nbsp;THB</b>
+                  &nbsp;<!--[pnml name="_POBBOOKING_USER_THB"]--></b>
               </div>
             </TD>
           </TR>
@@ -137,7 +137,7 @@
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
   <TABLE width="100%" >
     <TR>
-      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);">Contact details :</TH>
+      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"><!--[pnml name="_POBBOOKING_USER_CONTACT_DETAILS"]--> :</TH>
     </TR>
 
     <TR>
@@ -145,50 +145,49 @@
     </TR>
 
     <TR>
-      <TD align="right">Identificational/Passport no. <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_IDENTIFICATIONAL"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input id="identificational" type="text" name="guset[identificational]"><span id="error-identificational"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Title <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
         <select class="text" name="guset[titlename]" id="titlename" size="1">
           <option selected="selected" value=""></option>
-          <option value="Mr.">Mr.</option>
-          <option value="Mrs.">Mrs.</option>
-          <option value="Miss">Miss</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Khun">Khun</option>
-          <option value="Dr.">Dr.</option>
-          <option value="Prof.">Prof.</option>
-          <option value="Sir">Sir</option>
-          <option value="Lord">Lord</option>
-          <option value="Lady">Lady</option>
+          <option value="Mr."><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_MR"]--></option>
+          <option value="Mrs."><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_MRS"]--></option>
+          <option value="Miss"><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_MISS"]--></option>
+          <option value="Ms."><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_MS"]--></option>
+          <option value="Dr."><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_DR"]--></option>
+          <option value="Prof."><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_PROF"]--></option>
+          <option value="Sir"><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_SIR"]--></option>
+          <option value="Lord"><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_LORD"]--></option>
+          <option value="Lady"><!--[pnml name="_POBBOOKING_USER_CONTACT_TITLE_LADY"]--></option>
         </select>
         <span id="error-titlename"></span>
       </TD>
     </TR>
     <TR>
-      <TD align="right">First Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_FIRST_NAME"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[firstname]" id="firstname" size="20" type="text"><span id="error-firstname"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Last Name/Surname <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_LAST_NAME"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[lastname]"  id="lastname" size="20" type="text"><span id="error-lastname"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Address <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_ADDRESS"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><TEXTAREA name="guset[address]" id="address" ROWS="4" COLS="30"></TEXTAREA><span id="error-address"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Town/City <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_CITY"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
       <TD align="left" ><input class="text" name="guset[city]"  id="city" size="20" type="text"><span id="error-city"></span></TD>
     </TR>
     <TR>
-      <TD align="right">State/Province <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_STATE"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT></TD>
       <TD align="left" ><input class="text" name="guset[province]"  id="province" size="20" type="text"><span id="error-province"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Country <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_COUNTRY"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
         <select name="guset[country]"  id="country" class="whuge" tabindex="112">
           <option value=""  selected="selected"> </option>
@@ -302,51 +301,51 @@
           </option>
           <option value="Cuba">Cuba
           </option>
-          <option value="Cyprus">
+          <option value="Cyprus">Cyprus
           </option>
-          <option value="Czech Republic">
+          <option value="Czech Republic">Czech Republic
           </option>
-          <option value="Denmark">
+          <option value="Denmark">Denmark
           </option>
-          <option value="Djibouti">
+          <option value="Djibouti">Djibouti
           </option>
-          <option value="Dominica">
+          <option value="Dominica">Dominica
           </option>
-          <option value="Dominican Republic">
+          <option value="Dominican Republic">Dominican Republic
           </option>
-          <option value="East Timor">
+          <option value="East Timor">East Timor
           </option>
-          <option value="Ecuador">
+          <option value="Ecuador">Ecuador
           </option>
-          <option value="Egypt">
+          <option value="Egypt">Egypt
           </option>
-          <option value="El Salvador">
+          <option value="El Salvador">El Salvador
           </option>
-          <option value="Equatorial Guinea">
+          <option value="Equatorial Guinea">Equatorial Guinea
           </option>
-          <option value="Eritrea">
+          <option value="Eritrea">Eritrea
           </option>
-          <option value="Estonia">
+          <option value="Estonia">Estonia
           </option>
-          <option value="Ethiopia">
+          <option value="Ethiopia">Ethiopia
           </option>
-          <option value="Falkland Islands (Malvinas)">
+          <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)
           </option>
-          <option value="Faroe Islands">
+          <option value="Faroe Islands">Faroe Islands
           </option>
-          <option value="Fiji">
+          <option value="Fiji">Fiji
           </option>
-          <option value="Finland">
+          <option value="Finland">Finland
           </option>
-          <option value="France">
+          <option value="France">France
           </option>
-          <option value="France, Metropolitan">
+          <option value="France, Metropolitan">France, Metropolitan
           </option>
-          <option value="French Guiana">
+          <option value="French Guiana">French Guiana
           </option>
-          <option value="French Polynesia">
+          <option value="French Polynesia">French Polynesia
           </option>
-          <option value="French Southern Territories">
+          <option value="French Southern Territories">French Southern Territories
           </option>
           <option value="Gabon">Gabon
           </option>
@@ -681,22 +680,22 @@
       </TD>
     </TR>
     <TR>
-      <TD align="right">Zipcode <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_ZIPCODE"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[zipcode]"  id="zipcode" size="20" type="text"><span id="error-zipcode"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Mobile Phone <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_MOBILE"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[mobile]"  id="mobile" size="20" type="text"><span id="error-mobile"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Home Phone <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_TEL"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[phone]"  id="phone" size="20" type="text"><span id="error-phone"></span></TD>
     </TR>
     <TR>
-      <TD align="right">Email <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_CONTACT_EMAIL"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[email]" id="email" size="60" type="text"><span id="error-email"></span></TD>
     </TR>
-      <td class="text" align="right" valign="top">Additional Request </td>
+      <td class="text" align="right" valign="top"><!--[pnml name="_POBBOOKING_USER_CONTACT_REQUEST"]--> </td>
       <td align="left" > 
         <textarea name="guset[addition_request]" id="addition_request" value="addition_request" rows="4" cols="40" wrap="soft" class="text"></textarea>
       </td>
@@ -707,7 +706,7 @@
         <table align="left" valign="top" border="0">
           <tr>
             <td rowspan="2"><!--[captcha]--></td>
-            <td>Verification text. <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
+            <td><!--[pnml name="_POBBOOKING_USER_CONTACT_CAPCHA"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
           </tr>
           <tr>
             <td><input name="guset[captcha]" id="captcha" type="text"></td>
@@ -728,25 +727,25 @@
   <TABLE  width="100%">
 
     <TR>
-      <TH align="left" colspan="2" align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"> PAYMENT :</TH>
+      <TH align="left" colspan="2" align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"> <!--[pnml name="_POBBOOKING_USER_PAYMENT"]--> :</TH>
     </TR>
     <TR>
       <TD>&nbsp;</TD>
     </TR>
     <TR>
-      <TD align="right">Card Type<FONT SIZE="" COLOR="#FF0000">*</FONT> 
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_TYPE"]--><FONT SIZE="" COLOR="#FF0000">*</FONT> 
       </TD>
       <TD align="left" >
         <select id="cardType" name="guset[cardtype]" onchange="" id="" class="whuge" tabindex="112">
-          <option value="">[Card Type]</option>
-          <option value="MC">Master Card</option>
-          <option value="VC">Visa Card</option>
-          <option value="AC">Amex Card</option>
+          <option value="">[<!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_TYPE"]-->]</option>
+          <option value="MC"><!--[pnml name="_POBBOOKING_USER_PAYMENT_MASTER_CARD"]--></option>
+          <option value="VC"><!--[pnml name="_POBBOOKING_USER_PAYMENT_VISA_CARD"]--></option>
+          <option value="AC"><!--[pnml name="_POBBOOKING_USER_PAYMENT_AMEX_CARD"]--></option>
         </select>
       </TD>
     </TR>
     <TR>
-      <TD align="right">Card Number<FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_NUMBER"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
         <input name="guset[card1]" id="card1" size="4" maxlength="4" type="text"
               onkeyup="if(this.value.length==4) document.formBook.elements['card2'].focus();" >-
@@ -760,7 +759,7 @@
       </TD>
     </TR>
     <tr>
-      <td align="right">CVV/CID Number <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
+      <td align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_CVV"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT></td>
       <td align="left" >
         <input type="text" 
                maxlength="4" size="4" id="cardid"
@@ -770,7 +769,7 @@
              onmouseover="document.getElementById('digit').style.display='block'"
              href="javascript:"
           >
-          Example
+          <!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_EXAMPLE"]-->
           </a>
         <span id="digit" style="display: none; position: absolute; margin-right: 5px;" align="left">
           <img style="border: 1px double rgb(204, 204, 204); background-color: rgb(255, 255, 255);" src="modules/POBBooking/pnimages/digitimg.gif">
@@ -778,15 +777,15 @@
       </td>
     </tr>
     <TR>
-      <TD align="right">Card Holder Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_HOLDER_NAME"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[card_holder_number]" id="card_holder_number" size="20" type="text"></TD>
     </TR>
     
     <TR>
-      <TD align="right">Expire Date <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_EXPIRE"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
         <select name="guset[card_expire_month]" id="card_expire_month" tabindex="112">
-          <option value="">Month</option>
+          <option value=""><!--[pnml name="_POBBOOKING_USER_MONTH"]--></option>
             <option value="01">01</option>
             <option value="02">02</option>
             <option value="03">03</option>
@@ -819,11 +818,11 @@
       ></TD>
     </TR>
     <TR>
-      <TD align="right">Card Bank Name <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_BANK"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" ><input class="text" name="guset[card_bank_name]" id="card_bank_name" size="20" type="text"></TD>
     </TR>
     <TR>
-      <TD align="right">Card Issuing Country <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
+      <TD align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CARD_ISSUING_COUNTRY"]--> <FONT SIZE="" COLOR="#FF0000">*</FONT> </TD>
       <TD align="left" >
         <select name="guset[card_issuing_country]"  id="card_issuing_country">
           <option value=""  selected="selected"> </option>
@@ -1331,7 +1330,7 @@
   <TABLE  width="100%">
 
     <TR>
-      <TH align="left" colspan="2" align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"> Process Booking : </TH>
+      <TH align="left" colspan="2" align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING"]--> : </TH>
     </TR>
     <TR>
       <TD>&nbsp;</TD>
@@ -1342,30 +1341,22 @@
 Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
     <div style="font-family: Arial,Helvetica,sans-serif; font-size: 
 12px; padding-left: 30px; padding-right: 30px;" align="left">
-    <strong>Please pay attention to the following paragraph concerning 
-terms and conditions of our agreements.</strong><br>
+    <strong><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_1"]--></strong><br>
     <br>
-      <li>Please <a href="" 
-target="_blank"><b>click here</b></a> to see the whole terms of booking 
-conditions.</li>
-    <li>All information provided by the customer must be correct. It is 
-the customer’s responsibility to advise phuketcity.com if any error was 
-submitted on the reservation form. phuketcity.com takes no responsibility for
- any incorrect information submitted.</li>
+      <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_1"]--> <a href="" 
+target="_blank"><b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_2"]--></b></a> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_2_3"]--></li>
+    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_3"]--></li>
 
-    <li>All information provided are confidential, they are requested 
-only for offering the best service. We will <b>Never Ever </b>sell or 
-exchange them with any other company.</li>
-    <li>As soon as your reservation is confirmed, we will process the 
-payment through your credit card. You will be notified by email.</li>
+    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_1"]--> <b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_2"]--> </b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_4_3"]--></li>
+    <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_5"]--></li>
   </div>
       <br>
       <input name="agree" value="y" id="agree" type="checkbox"> 
         <font style="text-decoration: underline; font-size: 12px; color:
- rgb(238, 0, 0);"><b><i>I have read and agreed to all the terms of the</i></b></font>
+ rgb(238, 0, 0);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_1"]--></i></b></font>
  <a href="https://ido24.com/secure/cancel_policy.html" target="_blank"><font
  style="text-decoration: underline; font-size: 12px; color: rgb(5, 94, 
-185);"><b><i>Terms & Conditions</i></b></font></a>   </div>
+185);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_2"]--></i></b></font></a>   </div>
 
     <div style="padding-top: 15px; padding-bottom: 2px;" align="center">
 
@@ -1376,13 +1367,12 @@ value="Process Your Reservation" type="submit"></div>
  
     <div style="padding-top: 3px; font-family: 
 Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
-       Please click <i>“<b>Process Your Reservation</b>”</i> button only 
-once and wait until the page is completely loaded.
+       <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>“<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>”</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
        <p><img src="booking_form.php_files/line.gif" height="1"></p>
 
        <p>
         <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
-          Customer Center:</b>&nbsp; 
+          <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
           Tel. +66x xxx xxxx &nbsp; 
           Fax. +66x xxx xxxx&nbsp; 
           Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
