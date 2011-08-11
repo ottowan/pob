@@ -47,19 +47,22 @@ function POBHotel_FourImageblock_display($blockinfo)
     $class    = 'FourImage';
 
 
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
+
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
     $render = pnRender::getInstance($modname);
     $module    = FormUtil::getPassedValue ('module', false , 'REQUEST');
 
 
-//    if($module == $modname){
-
-//      $imageRows = DBUtil::selectObjectCount( "pobhotel_hotel_image");
-
-//    }else{
       $pntables = pnDBGetTables();
-      $table  = $pntables['innogallery_albums'];
+      $table  = $pntables['users'];
       $prefix = explode("_", $table);
 
       $tableImage = $prefix[0]."_"."pobhotel_hotel_image";
@@ -74,26 +77,6 @@ function POBHotel_FourImageblock_display($blockinfo)
       $result = DBUtil::executeSQL($sql);
       $objectArray = DBUtil::marshallObjects ($result, $column);
       $imageRows = $objectArray['0']['row'];
-//    }
-
-
-
-    $pntables = pnDBGetTables();
-    $table  = $pntables['innogallery_albums'];
-    $prefix = explode("_", $table);
-
-    $tableImage = $prefix[0]."_"."pobhotel_hotel_image";
-    $columnImageId = "hotel_image_id";
-
-    $sql = "SELECT
-              count($tableImage.$columnImageId)  
-            FROM
-              $tableImage ";
-
-    $column = array("row");
-    $result = DBUtil::executeSQL($sql);
-    $objectArray = DBUtil::marshallObjects ($result, $column);
-    $imageRows = $objectArray['0']['row'];
 
     if((int)$imageRows > 0){
       $columnImagePath = "hotel_image_filepath";

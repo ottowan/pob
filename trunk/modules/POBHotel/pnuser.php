@@ -99,7 +99,15 @@ function POBHotel_user_view() {
 
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 10;
     $render = pnRender::getInstance('POBHotel');
-    
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
+
     if ($id){
       //load class
       if (!($class = Loader::loadClassFromModule ('POBHotel',$ctrl, false)))
@@ -138,6 +146,14 @@ function POBHotel_user_list() {
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
        
     $render = pnRender::getInstance('POBHotel');
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
 
     if (!($class = Loader::loadClassFromModule ('POBHotel',$ctrl, true)))
       return LogUtil::registerError ("Unable to load class [$ctrl] ...");
@@ -215,6 +231,14 @@ function POBHotel_user_form() {
       $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
       $render = pnRender::getInstance('POBHotel');
       $mode = null;
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
 
       //load class
       if (!($class = Loader::loadClassFromModule ('POBHotel',ucfirst($ctrl), false)))

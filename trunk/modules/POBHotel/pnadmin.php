@@ -62,6 +62,15 @@
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
 
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
+
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
 
@@ -99,6 +108,15 @@
     $sort    = FormUtil::getPassedValue ('sort', '');
     $where   = '';
     $step    = FormUtil::getPassedValue ('step', null , 'GET');
+
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
 
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
@@ -138,6 +156,14 @@
 
     $pagesize = pnModGetVar ('POBHotel', 'pagesize') ? pnModGetVar ('POBHotel', 'pagesize') : 100;
     $render = pnRender::getInstance('POBHotel');
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
 
     //check is export
     $export = FormUtil::getPassedValue ('export', false);
@@ -241,6 +267,15 @@
     $one_bed    = FormUtil::getPassedValue ('one_bed', false);
     $two_bed    = FormUtil::getPassedValue ('two_bed', false);
     $single_bed = FormUtil::getPassedValue ('single_bed', false);
+
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+    }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+    }
 
 
     if($form){
