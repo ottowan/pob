@@ -398,11 +398,10 @@
                 );
     }
 
-
     //Message to Customerhttp://www.youtube.com/watch?v=KwD5N3oYgvE
     $adminSubject = "Admin has activated email.";
     $adminMessage = "phuketcity has activated customer account.\n
-                     Domain : http://".$subdomain."phuketcity.com\n
+                     Domain : http://".$subdomain.".phuketcity.com\n
                      Username : $username\n
                      Password : $email\n
                   ";
