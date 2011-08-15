@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<!--[modulestylesheet xhtml=true]-->
+<!--[if $pagetype eq 'admin']--><!--[modulestylesheet stylesheet=admin.css modname=admin xhtml=true]--><!--[/if]-->
+<script type="text/javascript" src="themes/redroom/js/jquery-1.6.1.min.js" ></script>
+<script type="text/javascript" src="themes/redroom/js/jquery.tools.min.js" ></script>
+</head>
+<body>
+<div id="theme_page_container">
+
+    <div id="theme_header"></div>
+    <div id="theme_navigation_bar">
+       <ul>
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_HOME"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Rate"><!--[pnml name="_ROOM"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Facility"><!--[pnml name="_FACILITIES"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Gallery"><!--[pnml name="_GALLERY"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=view&ctrl=Contact"><!--[pnml name="_CANTACT"]--></a></li>
+        </ul>
+        <span style="float:left;"><!--[blockposition name=language]--></span>
+    </div>
+    <div id="slideshow">
+    <!--[blockposition name=slide]-->
+                  <div id="theme_content" style=" height:600px"><!--[$maincontent]--></div>
+            
+    </div><!--slideshow-->
+    <div id="theme_footer">
+        <a id="login">login</a> 
+        <div class="tooltip"> 
+            <div class="top"></div>
+            <div class="center"><!--[blockposition name=login]--></div>
+            <div class="foot"></div>
+        </div> 
+        <a id="search">search</a> 
+        <div class="tooltip"> 
+            <div class="top"></div>
+            <div class="center"><!--[blockposition name=hotel_search]--></div>
+            <div class="foot"></div>
+        </div> 
+
+    </div><!--theme_footer-->
+</div><!--theme_page_container-->
+<script> 
+$(document).ready(function() {
+	$("#login").tooltip({ effect: 'slide'});
+});
+
+$(document).ready(function() {
+	$("#search").tooltip({ effect: 'slide'});
+});
+</script> 
+
+</body>
+</html>
