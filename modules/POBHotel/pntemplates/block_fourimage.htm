@@ -1,4 +1,48 @@
+<style type="text/css">
+#four_image li{ 
+	float:left;
+	list-style:none;
+	padding:0 0 0 30px
+  }
+#four_image li img{
+	border:8px solid #fff;
+    -webkit-box-shadow: 0px 1px 5px 0px #4a4a4a;
+    -moz-box-shadow: 0px 1px 5px 0px #4a4a4a;
+    box-shadow: 0px 1px 10px 0px #4a4a4a;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+#four_image li img:hover{
+	opacity:0.8;
+	}
+  
+</style>
 
+<<<<<<< .mine
+<link rel="stylesheet" type="text/css" href="modules/POBHotel/pnjavascript/lightbox/javascript/lightbox/themes/default/jquery.lightbox.css" />
+<script type="text/javascript" src="modules/POBHotel/pnjavascript/lightbox/javascript/lightbox/jquery.lightbox.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+	  jQuery('.lightbox').lightbox();
+	});
+</script>
+<div id="four_image">
+    <ul>
+        <!--[if $objectArray]-->
+          <!--[foreach from=$objectArray item=item name=foo]-->
+          	<li><a href="<!--[$item.filepath]--><!--[$item.filename]-->" class="lightbox"><img src="<!--[$item.filepath]--><!--[$item.filename]-->" width="170" height="129" heigth="129" /></a></li>
+          <!--[/foreach]-->
+        <!--[else]-->
+          <table width="100%">
+            <tr>
+              <td align="center">Please upload your hotel image.</td>
+            </tr>
+          </table>
+        <!--[/if]-->
+    </ul>
+</div>
+=======
 <!--[if $objectArray]-->
   <!--[foreach from=$objectArray item=item name=foo]-->
     <div id="4image">
@@ -12,7 +56,7 @@
     </tr>
   </table>
 <!--[/if]-->
-
+>>>>>>> .r248
 
 
 
