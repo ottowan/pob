@@ -96,7 +96,7 @@ function callback_refresh(){
                     </ul>
                 </div>
                 <div id="steps">
-                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data>">
+                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data">
 				  <input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
                         <fieldset class="step">
                            	<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_INTRO_LEGEND"]--></legend>
@@ -776,9 +776,6 @@ function callback_refresh(){
 							<TABLE width="900">
 							<!--[foreach from=$extendResult.hotelGuestRoom item=item]-->
 								<tr>
-								<td width="186">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_NAME"]-->
-								</td>
 								<td width="95">
 									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_QUANTITY"]-->
 								</td>
@@ -835,23 +832,6 @@ function callback_refresh(){
 								</td>
 								<td>
 									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_DESCRIPTION"]-->
-								</td>
-                                <td>
-								</td>
-                                <td>
-								</td>
-                                <td>
-								</td>
-                                <td>
-								</td>
-                                <td>
-								</td>
-                                <td>
 								</td>
 							</tr>
 							<tr>
