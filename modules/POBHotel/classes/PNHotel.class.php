@@ -199,8 +199,8 @@
     }
 
   function uploadFiles($id){
-    if ($id && in_array(0,$_FILES['images']['error'])){
-      $images = $_FILES['images'];
+    if ($id && ((in_array(0,$_FILES['images']['error'])))){
+        $images = $_FILES['images'];
 
       //Set directory to store image path
       if($id % 10000 == 0){
