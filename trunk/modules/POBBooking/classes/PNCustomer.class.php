@@ -236,9 +236,8 @@ class PNCustomer extends PNObject {
 
         $this->sendXML();
 
-		$aaa = "a";
         //Call sendEmail method
-        //$this->sendEmail();
+        $this->sendEmail();
 
 
     }
@@ -285,7 +284,7 @@ class PNCustomer extends PNObject {
         $body.= "Request type: Make a booking\n";
         foreach($booking  as $item) {
             $body.= "           Room Type:".$item[invcode]."\n";
-            $body.= "           Room:".$item[numberofunit]."\n";
+            $body.= "           Room:".$item[numberofunits]."\n";
             $body.= "           Night:".$item[night]."\n";
             $body.= "           Adult:".$item[adult]."\n";
             if($item[child]){
@@ -365,21 +364,17 @@ class PNCustomer extends PNObject {
                     $Inv->setAttribute("InvCode", $item[invcode]);
                     $GuestCounts = $xml->createElement("GuestCounts");
                     $RoomStay->appendChild($GuestCounts);
-                    if($form['adult'] != ""){
+                    if($item[adult] > 0){
                       $GuestCount = $xml->createElement("GuestCount");
                       $GuestCounts->appendChild($GuestCount);
                       $GuestCount->setAttribute("AgeQualifyingCode", "10");
-                      $GuestCount->setAttribute("Count", $form['adult']);
-                    }elseif($form['child'] != ""){
+                      $GuestCount->setAttribute("Count", $item[adult]);
+                    }elseif($item[child] > 0){
                       $GuestCount = $xml->createElement("GuestCount");
                       $GuestCounts->appendChild($GuestCount);
                       $GuestCount->setAttribute("AgeQualifyingCode", "8");
-                      $GuestCount->setAttribute("Count", $form['child']);
+                      $GuestCount->setAttribute("Count", $item[child]);
                     }
-                      $GuestCount = $xml->createElement("GuestCount");
-                      $GuestCounts->appendChild($GuestCount);
-                      $GuestCount->setAttribute("AgeQualifyingCode", "10");
-                      $GuestCount->setAttribute("Count", $form['guests']);
                     $TimeSpan = $xml->createElement("TimeSpan");
                     $RoomStay->appendChild($TimeSpan);
                     $TimeSpan->setAttribute("End", $item['enddate']);
@@ -454,8 +449,8 @@ class PNCustomer extends PNObject {
                             $CountryName = $xml->createElement("CountryName", $form['countryname']);
                             $Address->appendChild($CountryName);
 
-        //$xml->saveXML();
-        //print $xml->saveXML();
+        $xml->saveXML();
+        print $xml->saveXML();
         //echo $xml->asXML();
         //exit;
         //$xml->save("OTA_HotelResRQ1.xml");
@@ -464,7 +459,7 @@ class PNCustomer extends PNObject {
         $url = 'http://pob-ws.heroku.com/api/hotel_res';
         $data = $xml->saveXML();
         //$data = $data->saveXML();
-        print $data;
+        //print $data;
         //$data = $data->saveXML();
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

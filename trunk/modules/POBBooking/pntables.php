@@ -41,12 +41,12 @@
                                                   'mobile'              => 'cus_mobile',
                                                   'phone'               => 'cus_phone',
                                                   'email'               => 'cus_email',
-                                                  'total_rooms'               => 'cus_total_rooms',
+                                                  'total_rooms'         => 'cus_total_rooms',
                                                   'total_price'         => 'cus_total_price',
                                                   'cardcode'            => 'cus_cardcode',
                                                   'cardnumber'          => 'cus_cardnumber',
                                                   'cardholdername'      => 'cus_cardholdernamer',
-                                                  'cardexpire'            => 'cus_cardexpire'
+                                                  'cardexpire'          => 'cus_cardexpire'
                                                   );
 
       $pntable['pobbooking_customer_column_def'] = array(
@@ -57,7 +57,7 @@
                                                   'nameprefix'          => 'VARCHAR(50) DEFUALT NULL',
                                                   'givenname'           => 'TEXT',
                                                   'surname'             => 'TEXT',
-                                                  'addressline'             => 'TEXT',
+                                                  'addressline'         => 'TEXT',
                                                   'stateprov'           => 'VARCHAR(255) DEFUALT NULL',
                                                   'cityname'            => 'VARCHAR(255) DEFUALT NULL',
                                                   'countryname'         => 'VARCHAR(255) DEFUALT NULL',
@@ -66,11 +66,12 @@
                                                   'phone'               => 'VARCHAR(255) DEFUALT NULL',
                                                   'email'               => 'TEXT',
                                                   'email'               => 'TEXT',
-                                                  'total_rooms'         => 'int(11)',
+                                                  'total_rooms'         => 'INT(11)',
+                                                  'total_price'         => 'DOUBLE',
                                                   'cardcode'            => 'VARCHAR(255)',
                                                   'cardnumber'          => 'TEXT',
                                                   'cardholdername'      => 'TEXT',
-                                                  'cardexpire'            => 'VARCHAR(10)'
+                                                  'cardexpire'          => 'VARCHAR(10)'
                                                   );
       $pntable['pobbooking_customer_primary_key_column'] = 'id';
       // add standard data fields
@@ -134,13 +135,13 @@
                                                   'isocurrency'      => 'VARCHAR(10)',
                                                   'checkin_date'     => 'DATE',
                                                   'checkout_date'    => 'DATE',
-                                                  'night'            => 'int(2)',
-                                                  'amount_room'      => 'int(2)',
+                                                  'night'            => 'INT(2)',
+                                                  'amount_room'      => 'INT(2)',
                                                   'roomtype'         => 'VARCHAR(255)',
-                                                  'adult'            => 'int(2)',
-                                                  'child'            => 'int(2)',
-                                                  'room_rate'        => 'double',
-                                                  'room_rate_total'  => 'double',
+                                                  'adult'            => 'INT(2)',
+                                                  'child'            => 'INT(2)',
+                                                  'room_rate'        => 'DOUBLE',
+                                                  'room_rate_total'  => 'DOUBLE',
                                                   'identificational' => 'VARCHAR(50) DEFUALT NULL',
                                                   'nameprefix'       => 'VARCHAR(50) DEFUALT NULL',
                                                   'givenname'        => 'TEXT',
