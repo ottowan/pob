@@ -12,7 +12,7 @@ function _preRender(&$render){
 
 }
 
-function POBRoomSearch_search_view(){
+function POBRoomSearch_search_viewold(){
 
   $render = pnRender::getInstance('POBRoomSearch');
 
@@ -50,13 +50,13 @@ function POBRoomSearch_search_view(){
 
 
     //$distance  = "0";
-    //Send param to HotelSearch service 
-    Loader::loadClass('HotelSearchEndpoint',"modules/POBRoomSearch/pnincludes");
-    $hotelSearch = new HotelSearchEndpoint();
-    $hotelSearch->setHotelSearchXML( $location, $distance, $latitude, $longitude, $startDate, $endDate);
+    //Send param to RoomSearch service 
+    Loader::loadClass('RoomSearchEndpoint',"modules/POBRoomSearch/pnincludes");
+    $roomSearch = new RoomSearchEndpoint();
+    $roomSearch->setRoomSearchXML( $location, $distance, $latitude, $longitude, $startDate, $endDate);
 
     //XML Response
-    $response = $hotelSearch->getHotelSearchXML();
+    $response = $roomSearch->getRoomSearchXML();
     //var_dump($response); exit;
 
     //Convert xml response to array
@@ -68,7 +68,7 @@ function POBRoomSearch_search_view(){
     $arrayResponse["endDate"] = $endDate;
     //var_dump($arrayResponse); exit;
     $repackArray = array();
-    $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
+    $repackArray = $roomSearch->repackArrayForDisplay($arrayResponse);
 
     //echo ((int)$repackArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
     
@@ -93,5 +93,96 @@ function POBRoomSearch_search_view(){
     return $render->fetch('user_view_room.htm');
   }
 }
+
+function POBRoomSearch_search_view(){
+
+  $render = pnRender::getInstance('POBRoomSearch');
+
+  //Load language
+  $lang = pnUserGetLang();
+  if (file_exists('modules/POBRoomSearch/pnlang/' . $lang . '/user.php')){
+    Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/' . $lang );
+  }else if (file_exists('modules/POBRoomSearch/pnlang/eng/user.php')){
+    Loader::loadFile('user.php', 'modules/POBRoomSearch/pnlang/eng' );
+  }
+  
+  $startDay = FormUtil::getPassedValue ('startDay', FALSE, 'POST');
+  $startMonth = FormUtil::getPassedValue ('startMonth', FALSE, 'POST');
+  $startYear = FormUtil::getPassedValue ('startYear', FALSE, 'POST');
+
+  $endDay = FormUtil::getPassedValue ('endDay', FALSE, 'POST');
+  $endMonth = FormUtil::getPassedValue ('endMonth', FALSE, 'POST');
+  $endYear = FormUtil::getPassedValue ('endYear', FALSE, 'POST');
+
+  //Change thai yeasr to US year
+  if(($startYear-543) == date("Y")){
+    $startYear = date("Y");
+  }else if(($startYear-543) == date("Y")+1){
+    $startYear = date("Y")+1;
+  }
+  if(($endYear-543) == date("Y")){
+    $endYear = date("Y");
+  }else if(($endYear-543) == date("Y")+1){
+    $endYear = date("Y")+1;
+  }
+
+
+
+
+  $startDate = $startYear."-".$startMonth."-".$startDay;
+  $endDate   = $endYear."-".$endMonth."-".$endDay;
+
+  $hotelArray = pnModAPIFunc('POBHotel', 'user', 'getHotelCode');
+  //var_dump($latlonArray); exit;
+  $hotelCode  = $hotelArray["hotelcode"];
+
+
+
+  if($hotelCode){
+    //$distance  = "0";
+    //Send param to RoomSearch service 
+    Loader::loadClass('RoomSearchEndpoint',"modules/POBRoomSearch/pnincludes");
+    $roomSearch = new RoomSearchEndpoint();
+    $roomSearch->setRoomSearchXML( $hotelCode, $startDate, $endDate );
+
+    //XML Response
+    $response = $roomSearch->getRoomSearchXML();
+    //var_dump($response); exit;
+
+    //Convert xml response to array
+    Loader::loadClass('POBReader',"modules/POBRoomSearch/pnincludes");
+    $reader = new POBReader();
+    $arrayResponse = $reader->xmlToArray($response);
+
+    $arrayResponse["startDate"] = $startDate;
+    $arrayResponse["endDate"] = $endDate;
+    //var_dump($arrayResponse); exit;
+    $repackArray = array();
+    $repackArray = $roomSearch->repackArrayForDisplay($arrayResponse);
+
+    //echo ((int)$repackArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
+    
+    if($repackArray){
+      $issetArray  = true;
+    }else{
+      $issetArray  = false;
+    }
+
+  }else{
+    $issetArray = false;
+  }
+    
+
+    _preRender($render);
+
+  if($issetArray == true){
+    $render->assign("view", $repackArray );
+    return $render->fetch('user_view_room.htm');
+  }else{
+    $render->assign("view", null );
+    return $render->fetch('user_view_room.htm');
+  }
+}
+
 
 ?>
