@@ -230,7 +230,7 @@ class PNCustomer extends PNObject {
             $where    = "WHERE $column[name]='$item[roomtype]'";
 
             DBUTil::updateObject ($obj, 'customers', $where);
- */
+*/
 
         }
 
@@ -271,6 +271,7 @@ class PNCustomer extends PNObject {
 
         //Config email
         $adminEmail = "admin@phuketcity.com";
+        $hotelEmail = "";
         $toEmail = $form[email].",".$adminEmail;
 
         //Config email body
@@ -283,25 +284,23 @@ class PNCustomer extends PNObject {
         $body.= "[BOOKING DETAILS]\n";
         $body.= "Request type: Make a booking\n";
         foreach($booking  as $item) {
-            $body.= "           Room Type:".$item[invcode]."\n";
-            $body.= "           Room:".$item[numberofunits]."\n";
-            $body.= "           Night:".$item[night]."\n";
-            $body.= "           Adult:".$item[adult]."\n";
+            $body.= "           Room Type :".$item[invcode]."\n";
+            $body.= "           Room(s) :".$item[numberofunits]."\n";
+            $body.= "           Night(s) :".$item[night]."\n";
+            $body.= "           Adult :".$item[adult]."\n";
             if($item[child]){
               $body.= "           Children :".$item[child]."\n";
             }
             $body.= "           Price / One room / One night:".$item[rate]."\n";
+            $body.= "Checkin Date :".$item[startdate]."\n";
+            $body.= "Checkout Date :".$item[enddate]."\n";			
         }
         $body.= "Addition requests:".$form[addition_request]."\n";
         $body.= "[CUSTOMER INFORMATION]\n";
         $body.= "name : ".$form[nameprefix]."".$form[givenname]."\t".$form[surname]."\t\n";
         $body.= "email : ".$form[email]."\n";
         $body.= "[OTHERS]\n";
-        foreach($booking  as $item) {
-          $body.= "Checkin Date :".$item[startdate]."\n";
-          $body.= "Checkout Date :".$item[enddate]."\n";
-        }
-        $body.= "--------BOOKING PRICE:".$form[totalall]." BAHT--------\n\n\n\n";
+        $body.= "--------BOOKING PRICE:".$form[total_price]." BAHT--------\n\n\n\n";
         $body.= "phuketcity.com Client Service\n";
         $body.= "info@phuketcity.com";
         $body.= "             ";
