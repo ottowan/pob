@@ -135,7 +135,7 @@ function POBRoomSearch_search_view(){
   $hotelArray = pnModAPIFunc('POBHotel', 'user', 'getHotelCode');
   //var_dump($latlonArray); exit;
   $hotelCode  = $hotelArray["hotelcode"];
-
+  //var_dump($hotelCode); exit;
 
 
   if($hotelCode){

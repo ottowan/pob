@@ -162,8 +162,8 @@
 
               <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
               <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$smarty.get.startDate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$smarty.get.endDate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$smarty.request.startDate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$smarty.request.endDate]-->">
               <tr>
                 <td align="left">
                   <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
