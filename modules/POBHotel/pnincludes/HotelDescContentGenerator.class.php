@@ -249,7 +249,7 @@ Class HotelDescContentGenerator {
       $StateProv->setAttribute("StateCode",$this->hotelObject["state_province"]);
       $CountryName = $xml->createElement("CountryName",$this->hotelObject["country"]);
 
-      $Email = $xml->createElement("e-mail",$this->hotelObject["email"]);
+      $Email = $xml->createElement("Email",$this->hotelObject["email"]);
 
 
       //Phone Section
