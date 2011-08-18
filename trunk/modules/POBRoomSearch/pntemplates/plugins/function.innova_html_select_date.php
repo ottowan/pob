@@ -38,7 +38,7 @@
 function smarty_function_innova_html_select_date($params, &$smarty)
 {
 
-    //include_once("modules/POBRoomSearch/pntemplates/plugins/function.innova_html_option.php");
+    //include_once("modules/POBPortal/pntemplates/plugins/function.innova_html_option.php");
     require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
     require_once $smarty->_get_plugin_filepath('shared','make_timestamp');
     require_once $smarty->_get_plugin_filepath('function','innova_html_option');
@@ -291,7 +291,7 @@ function smarty_function_innova_html_select_date($params, &$smarty)
 
             /*
             if($lang == "th"){
-              $years = range((int)$start_year+543, (int)$end_year+543);
+              $years = range((int)$start_year-543, (int)$end_year-543);
             }else{
               $years = range((int)$start_year, (int)$end_year);
             }

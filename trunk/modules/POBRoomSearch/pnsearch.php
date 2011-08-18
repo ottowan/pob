@@ -126,9 +126,6 @@ function POBRoomSearch_search_view(){
     $endYear = date("Y")+1;
   }
 
-
-
-
   $startDate = $startYear."-".$startMonth."-".$startDay;
   $endDate   = $endYear."-".$endMonth."-".$endDay;
 
