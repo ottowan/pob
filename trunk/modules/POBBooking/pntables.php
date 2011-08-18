@@ -123,11 +123,11 @@
                                                   'cardholdername'      => 'boo_cardholdernamer',
                                                   'cardexpire'          => 'boo_cardexpire',
                                                   'issue_date'          => 'boo_issue_date'
-                                          ); 
+                                          );
 
       $pntable['pobbooking_booking_column_def'] = array(
-                                                  'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY', 
-                                                  'cus_id'           => 'INT(11)', 
+                                                  'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
+                                                  'cus_id'           => 'INT(11)',
                                                   'customer_refid'   => 'TEXT',
                                                   'status_id'        => 'INT(2) default 2',
                                                   'chaincode'        => 'VARCHAR(10)',
@@ -171,7 +171,7 @@
    * This function is create booking table.
    * It use for adds in the information of bookings.
    */
- 
+
   function &createPOBBookingStatusTable() {
 
       //create level 2
