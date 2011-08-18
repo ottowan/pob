@@ -1,32 +1,4 @@
 <?php
-// $Id: user.php,v 1.1 2009/12/24 03:41:10 puum Exp $
-// ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Everyone
-// Purpose of file: Translation files
-// Translation team: Read credits in /docs/CREDITS.txt
-// ----------------------------------------------------------------------
 
 
 //POBHOTEL BOOKING FORM (user_form_booking.htm)
@@ -98,6 +70,27 @@
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3','button only once and wait until the page is completely loaded.');
 
   define('_POBBOOKING_USER_CUSTOMER_CENTER','Customer Center:');
+
+//POBHOTEL BOOKING PAYMENT FORM (user_form_payment.htm)
+  define('_POBBOOKING_USER_PAYMENT_SUMMARY_CONFIRMATION','Summary and Confirmation');
+  define('_POBBOOKING_USER_PAYMENT_HOTEL','Hotel');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_TYPE','ห้อง');
+  define('_POBBOOKING_USER_PAYMENT_BAHT','บาท');
+  define('_POBBOOKING_USER_PAYMENT_ROOM','ห้อง');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_PRICE_TOTAL','รวมเป็น');
+  define('_POBBOOKING_USER_PAYMENT_CHECKIN','เช็คอิน');
+  define('_POBBOOKING_USER_PAYMENT_CHECKOUT','เช็คเอ้าท์');
+  define('_POBBOOKING_USER_PAYMENT_CUSTOMER','ผู้จอง');
+  define('_POBBOOKING_USER_PAYMENT_CREDITCARD','บัตรเครดิต');
+  define('_POBBOOKING_USER_PAYMENT_ISSUE_DATE','วันที่ทำรายการ');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_NET_PRICE','ค่าห้อง');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_INTEREST','ภาษี 7%');
+  define('_POBBOOKING_USER_PAYMENT_FIRST_NAME','ชื่อ');
+  define('_POBBOOKING_USER_PAYMENT_LAST_NAME','สกุล');
+
+
+
+
 
 
 // user_std_footer

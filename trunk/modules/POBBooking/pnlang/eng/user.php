@@ -102,6 +102,24 @@
 
 //POBHOTEL BOOKING PAYMENT FORM (user_form_payment.htm)
   define('_POBBOOKING_USER_PAYMENT_SUMMARY_CONFIRMATION','Summary and Confirmation');
+  define('_POBBOOKING_USER_PAYMENT_HOTEL','Hotel');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_TYPE','Room Type');
+  define('_POBBOOKING_USER_PAYMENT_BAHT','BAHT');
+  define('_POBBOOKING_USER_PAYMENT_ROOM','');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_PRICE_TOTAL','');
+  define('_POBBOOKING_USER_PAYMENT_CHECKIN','Check In');
+  define('_POBBOOKING_USER_PAYMENT_CHECKOUT','Check Out');
+  define('_POBBOOKING_USER_PAYMENT_CUSTOMER','Customer detail');
+  define('_POBBOOKING_USER_PAYMENT_CREDITCARD','Credit card');
+  define('_POBBOOKING_USER_PAYMENT_ISSUE_DATE','Reservation date');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_NET_PRICE','Room price');
+  define('_POBBOOKING_USER_PAYMENT_ROOM_INTEREST','vat 7%');
+  define('_POBBOOKING_USER_PAYMENT_FIRST_NAME','First Name');
+  define('_POBBOOKING_USER_PAYMENT_LAST_NAME','Last Name');
+
+
+
+
 
 
 
