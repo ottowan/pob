@@ -341,4 +341,71 @@
     $obj->sqlDump();
     exit;
   }
+
+
+  function POBHotel_admin_report(){
+
+    $startDay = FormUtil::getPassedValue ('startDay', FALSE, 'POST');
+    $startMonth = FormUtil::getPassedValue ('startMonth', FALSE, 'POST');
+    $startYear = FormUtil::getPassedValue ('startYear', FALSE, 'POST');
+
+    $endDay = FormUtil::getPassedValue ('endDay', FALSE, 'POST');
+    $endMonth = FormUtil::getPassedValue ('endMonth', FALSE, 'POST');
+    $endYear = FormUtil::getPassedValue ('endYear', FALSE, 'POST');
+
+    //Change thai yeasr to US year
+    if(($startYear-543) == date("Y")){
+      $startYear = date("Y");
+    }else if(($startYear-543) == date("Y")+1){
+      $startYear = date("Y")+1;
+    }
+    if(($endYear-543) == date("Y")){
+      $endYear = date("Y");
+    }else if(($endYear-543) == date("Y")+1){
+      $endYear = date("Y")+1;
+    }
+
+    $startDate = $startYear."-".$startMonth."-".$startDay;
+    $endDate   = $endYear."-".$endMonth."-".$endDay;
+
+    $hotelArray = pnModAPIFunc('POBHotel', 'user', 'getHotelCode');
+    //var_dump($latlonArray); exit;
+    $hotelCode  = $hotelArray["hotelcode"];
+    //var_dump($hotelCode); exit;
+
+
+
+      $render = pnRender::getInstance('POBHotel');
+
+      //Load language
+      $lang = pnUserGetLang();
+      if (file_exists('modules/POBHotel/pnlang/' . $lang . '/user.php')){
+        Loader::loadFile('user.php', 'modules/POBHotel/pnlang/' . $lang );
+      }else if (file_exists('modules/POBHotel/pnlang/eng/user.php')){
+        Loader::loadFile('user.php', 'modules/POBHotel/pnlang/eng' );
+      }
+      
+    if($hotelCode && $startDay && $endDay){
+      Loader::loadClass('BookingReportEndpoint',"modules/POBHotel/pnincludes");
+      $roomSearch = new BookingReportEndpoint();
+      $roomSearch->setBookingReportXML( $hotelCode, $startDate, $endDate );
+
+      //XML Response
+      $response = $roomSearch->getBookingReportXML();
+      header("Content-type: text/xml");
+      echo ($response); exit;
+
+      //Convert xml response to array
+      Loader::loadClass('POBReader',"modules/POBHotel/pnincludes");
+      $reader = new POBReader();
+      $arrayResponse = $reader->xmlToArray($response);
+      $render->assign("openFirst", 2 );
+      $render->assign("objectArray", $repackArray );
+      return $render->fetch('admin_list_report.htm');
+    }else{
+      $render->assign("openFirst", 1 );
+      return $render->fetch('admin_list_report.htm');
+    }
+    
+  }
 ?>
