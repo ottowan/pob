@@ -1,0 +1,51 @@
+
+<fieldset>
+  <legend>&nbsp;Book Report&nbsp;</legend>
+  <table>
+    <tr>
+      <td>
+        <form method="post" action="index.php?module=POBHotel&type=admin&func=report">
+          Start Date : <!--[innova_html_select_date end_year=+1 field_order="DMY" prefix="start"]-->&nbsp;&nbsp;&nbsp;
+          End Date : <!--[innova_html_select_date next_day=1 end_year=+1 field_order="DMY" prefix="end"]-->
+          <input type="submit" value="submit">
+        </form>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+<!--[if $openFirst == 2]-->
+  <!--[if $objectArray ]-->
+    <fieldset>
+      <legend>&nbsp;Book Result&nbsp;</legend>
+      <TABLE border="1">
+        <TR>
+           <TH>Status</TH>
+           <TH>Name</TH>
+           <TH>Descriptions</TH>
+           <TH>More</TH>
+           <TH>Add Room</TH>
+           <TH>Edit</TH>
+        </TR>
+        <!--[foreach from=$objectArray item=item]-->
+          <TR>
+             <TD><!--[$item.status_name]--></TD>
+             <TD><!--[$item.name]--></TD>
+             <TD><!--[$item.descriptions]--></TD>
+             <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD>
+             <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Room&hotel_id=<!--[$item.id]-->">เพิ่มห้อง</A></TH>
+             <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Hotel&id=<!--[$item.id]-->">แก้ไข</A></TH>
+          </TR>
+        <!--[/foreach]-->
+      </TABLE>
+    </fieldset>
+  <!--[else]-->
+    <table width="100%">
+    <tr>
+      <td><b><font color="#ff0000">There is no reserve on the date selected.</font></b></td>
+    </tr>
+    </table><br>
+  <!--[/if]-->
+<!--[else]-->
+<br>
+<!--[/if]-->
+
