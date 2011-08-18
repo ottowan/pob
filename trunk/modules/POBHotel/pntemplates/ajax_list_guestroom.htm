@@ -35,9 +35,6 @@ jQuery(document).ready(function($) {
 								
 								<tr>
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
-								</td>
-								<td>
 									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
 								</td>
 								<td>
@@ -72,11 +69,6 @@ jQuery(document).ready(function($) {
 									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="7">
-									<textarea name="itemGuestRoom[description]" ROWS="3" COLS="50"><!--[$item.description]--></textarea>
-                                </td>
-                            </tr> 
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->

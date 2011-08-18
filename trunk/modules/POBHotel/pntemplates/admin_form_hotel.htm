@@ -8,6 +8,7 @@
 <script src="modules/POBHotel/pnjavascript/facebox/facebox.js" type="text/javascript"></script>
 <link href="modules/POBHotel/pnjavascript/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/demos.css" />
+<link href="modules/POBHotel/pnjavascript/style.css" rel="stylesheet" type="text/css" media="all" /> 
 
 <link rel="stylesheet" href="modules/POBHotel/pnjavascript/form/css/style.css" type="text/css" media="screen"/>
 
@@ -582,19 +583,55 @@ function callback_refresh(){
                       reader.readAsDataURL(input.files[0]);
                   }
               }
-          </script>
 
+		$('#cbox a').colorbox();
+
+          </script>
+<!--[get_all_hotel_images]-->
+<!--[if isset($imagesArray)]-->
+<div>
+	<ul id="cbox" class="thumbs">
+		<!--[foreach from=$imagesArray item=imageItem]-->
+		<li>
+			<a rel="colorbox" href="<!--[$imageItem.images_filepath]--><!--[$imageItem.images_filename]-->" class="cboxElement"><img src="<!--[$imageItem.images_thumbpath]--><!--[$imageItem.images_thumbname]-->"></a>
+			<a style="float:right;" href="#Delete">Delete</a>
+		</li>
+		<!--[/foreach]-->
+	</ul>
+</div>
+<!--[/if]-->
           <div class="upload">
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL2(this);"><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL3(this);"><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL4(this);"><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL5(this);"><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL6(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL7(this);"><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL8(this);"><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL9(this);"><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
-              <INPUT TYPE="file" NAME="images[]" onChange="readURL10(this);"><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" /><br/ >
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL2(this);"><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL3(this);"><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL4(this);"><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL5(this);"><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL6(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL7(this);"><img id="blah2" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL8(this);"><img id="blah3" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL9(this);"><img id="blah4" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			<div class="upload_box">
+              <INPUT TYPE="file" NAME="images[]" onChange="readURL10(this);"><img id="blah5" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+			</div>
+			
           </div><!-- end upload -->
 
           <div class="upload_ie" style="display:none;">
@@ -797,9 +834,6 @@ function callback_refresh(){
 								
 								<tr>
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
-								</td>
-								<td>
 									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
 								</td>
 								<td>
@@ -836,9 +870,21 @@ function callback_refresh(){
 							</tr>
 							<tr>
 								<td colspan="7">
-									<textarea name="itemGuestRoom[description]" ROWS="3" COLS="50"><!--[$item.description]--></textarea>
-                                </td>
-                            </tr> 
+								<!--[get_all_hotel_images]-->
+								<!--[if isset($imagesArray)]-->
+								<div>
+									<ul id="cbox" class="thumbs">
+										<!--[foreach from=$imagesArray item=imageItem]-->
+										<li>
+											<a rel="colorbox" href="<!--[$imageItem.images_filepath]--><!--[$imageItem.images_filename]-->" class="cboxElement"><img src="<!--[$imageItem.images_thumbpath]--><!--[$imageItem.images_thumbname]-->"></a>
+											<a style="float:right;" href="#Delete">Delete</a>
+										</li>
+										<!--[/foreach]-->
+									</ul>
+								</div>
+								<!--[/if]-->
+								<td>
+							</tr>
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->
