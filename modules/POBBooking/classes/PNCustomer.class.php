@@ -234,7 +234,7 @@ class PNCustomer extends PNObject {
 
         }
 
-        $this->sendXML();
+        //$this->sendXML();
 
         //Call sendEmail method
         $this->sendEmail();
@@ -267,15 +267,13 @@ class PNCustomer extends PNObject {
 
         $booking = $form['roomstays'];
 
-
-
         //Config email
         $adminEmail = "admin@phuketcity.com";
-        $hotelEmail = "";
         $toEmail = $form[email].",".$adminEmail;
+        $subject = "Your Room Reservation in ".$form['hotelname'].".";
 
         //Config email body
-        $body = "Dear ".$form['nameprefix'] .' ' .$form['givenname'].",\n";
+        $body = "Dear ".$form[nameprefix] .' ' .$form[givenname].",\n";
         $body.= "\tThank you for your enquiry. Your request as\n";
         $body.= "detailed below has been sent to one of our client\n";
         $body.= "service who will respond to you within 1-2 business day.\n";
@@ -293,7 +291,7 @@ class PNCustomer extends PNObject {
             }
             $body.= "           Price / One room / One night:".$item[rate]."\n";
             $body.= "Checkin Date :".$item[startdate]."\n";
-            $body.= "Checkout Date :".$item[enddate]."\n";			
+            $body.= "Checkout Date :".$item[enddate]."\n";
         }
         $body.= "Addition requests:".$form[addition_request]."\n";
         $body.= "[CUSTOMER INFORMATION]\n";
@@ -306,6 +304,7 @@ class PNCustomer extends PNObject {
         $body.= "             ";
 
         mail($toEmail,$subject,$body,$header);
+
     }
 
     function sendXML() {
