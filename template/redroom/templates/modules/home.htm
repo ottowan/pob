@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<script type="text/javascript" src="themes/redroom/js/jquery-1.6.1.min.js" ></script>
+<script type="text/javascript" src="themes/redroom/js/jquery.tools.min.js" ></script>
+</head>
+<body>
+<div id="theme_page_container">
+
+    <div id="theme_header"></div>
+    <div id="theme_navigation_bar">
+       <ul>
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_HOME"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Rate"><!--[pnml name="_ROOM"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Facility"><!--[pnml name="_FACILITIES"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Gallery"><!--[pnml name="_GALLERY"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=view&ctrl=Contact"><!--[pnml name="_CANTACT"]--></a></li>
+        </ul>
+    </div>
+    <div id="slideshow">
+    <!--[blockposition name=slide]-->
+                  <div id="theme_content"><!--[$maincontent]--></div>
+            
+    </div><!--slideshow-->
+    <div id="theme_footer">
+        <a id="login">login</a> 
+        <div class="tooltip"> 
+            <div class="top"></div>
+            <div class="center"><!--[blockposition name=login]-->
+            	<!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->
+                    <div class="left_box">
+                        <div class="left_top"><h3><!--[pnml name="_MEMBER"]--></h3></div>
+                        <div class="left_repeat">
+                        <ul>
+                            <li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel"><!--[pnml name="_ADMIN_PANEL"]--></a></li>       	
+                            <li class="selected"><a href="index.php?module=InnoGallery"><!--[pnml name="_ADD_SLIDE"]--></a></li>
+                            <li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_ADD_ROOM"]--></a></li>
+                            <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_ADD_PIC_HOTEL"]--></a></li>
+                            <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->"><!--[pnml name="_CHANGE_TEMPLATE"]--></a></li>
+                            <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="index.php?module=POBHotel&type=admin&func=report"</a>รายงานการจอง</li>
+                
+                        </ul><!--[displaygreeting]--></br><!--[userlinks]--></div>
+                        <div class="left_buttom"></div></br>
+                    </div>
+				<!--[/securityutil_checkpermission_block]-->
+            </div><!--center-->
+            <div class="foot"></div>
+        </div> 
+        <a id="search">search</a> 
+        <div class="tooltip"> 
+            <div class="top"></div>
+            <div class="center"><!--[blockposition name=hotel_search]--></div>
+            <div class="foot"></div>
+        </div> 
+
+    </div><!--theme_footer-->
+</div><!--theme_page_container-->
+<script> 
+$(document).ready(function() {
+	$("#login").tooltip({ effect: 'slide'});
+});
+
+$(document).ready(function() {
+	$("#search").tooltip({ effect: 'slide'});
+});
+</script> 
+
+</body>
+</html>

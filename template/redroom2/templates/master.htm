@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<!--[lang]-->">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--[charset]-->" />
+<title><!--[title]--></title>
+<meta name="description" content="<!--[slogan]-->" />
+<meta name="keywords" content="<!--[keywords]-->" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/style.css" media="print,projection,screen" />
+<link rel="stylesheet" type="text/css" href="<!--[$stylepath]-->/print.css" media="print" />
+<script type="text/javascript" src="themes/redroom2/js/jquery-1.6.1.min.js" ></script>
+<link rel="stylesheet" href="themes/redroom2/js/jqtransform/jqtransformplugin/jqtransform.css" type="text/css" media="all" />
+<script type="text/javascript" src="themes/redroom2/js/jqtransform/jqtransformplugin/jquery.jqtransform.js" ></script>
+<script language="javascript">
+    $(function(){
+        $('form').jqTransform({imgPath:'themes/redroom2/js/jqtransform/jqtransformplugin/img/'});
+		});
+</script>
+</head>
+<body>
+<div id="theme_page_container">
+
+    <div id="theme_header">
+    <div class="logo">
+        <h1><!--[sitename]--></h1>
+        <h2><!--[slogan]--></h2>
+    </div><!--end logo-->
+    <div id="theme_navigation_bar">
+        <ul class="menu">
+            <li><a href="<!--[pngetbaseurl]-->"><!--[pnml name="_HOME"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Rate"><!--[pnml name="_ROOM"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Facility"><!--[pnml name="_FACILITIES"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=list&ctrl=Gallery"><!--[pnml name="_GALLERY"]--></a></li>
+            <li><a href="index.php?module=POBHotel&type=user&func=view&ctrl=Contact"><!--[pnml name="_CANTACT"]--></a></li>
+        </ul>
+        <span style="float:right;"><!--[blockposition name=language]--></span>
+    </div><!--theme_navigation_bar-->
+    </div><!--theme_header-->
+    <div id="slideshow">
+    	<!--[blockposition name=slide]-->
+    </div><!--slideshow-->
+    <div id="theme_content">
+        <div id="theme_content_left"><!--[$maincontent]--></div>
+        <div id="theme_content_right"><!--[blockposition name=hotel_search]--></div>
+    </div><!--theme_content-->
+</div><!--theme_page_container-->
+<div id="theme_footer">
+	<span class="specter"></span>
+        <div class="theme_footer_content">
+            <div class="left"><!--[blockposition name=login]-->
+			<!--[securityutil_checkpermission_block component='MyModule::' instance='::' level=ACCESS_ADMIN]-->            
+                <div class="all">
+                    <h3>สำหรับสมาชิก</h3>
+                    <ul>
+                        <li class="selected"><a href="index.php?module=admin&type=admin&func=adminpanel"><!--[pnml name="_ADMIN_PANEL"]--></a></li>       	
+                        <li class="selected"><a href="index.php?module=InnoGallery"><!--[pnml name="_ADD_SLIDE"]--></a></li>
+                        <li class="selected"><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_ADD_ROOM"]--></a></li>
+                        <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=pobhotel type=admin]-->"><!--[pnml name="_ADD_PIC_HOTEL"]--></a></li>
+                        <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="<!--[pnmodurl modname=Theme type=admin]-->"><!--[pnml name="_CHANGE_TEMPLATE"]--></a></li>
+                        <li<!--[if $module eq 'Theme']--> class="selected"<!--[/if]-->><a href="index.php?module=POBHotel&type=admin&func=report"</a>รายงานการจอง</li>
+        			</ul>
+                    <!--[displaygreeting]--></br><!--[userlinks]-->
+                </div>
+             <!--[/securityutil_checkpermission_block]-->
+             </div><!-- end left-->
+            <div class="right"><!--[blockposition name=four_image]--><!--[blockposition name=four_image]--></div>
+			<div class="description">PhuketCity.com องค์การบริหารส่วนจังหวัดภูเก็</div>
+        </div><!--theme_footer_content-->
+</div><!--theme_footer-->
+</body>
+</html>
