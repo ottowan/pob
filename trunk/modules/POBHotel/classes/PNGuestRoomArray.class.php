@@ -6,7 +6,7 @@
       $this->_objType       = 'pobhotel_guest_room';
       $this->_objField      = 'id';
       $this->_objPath       = 'form';
-      
+
 
       $this->_objJoin[] = array ( 'join_table' => 'pobhotel_season',
                                   'compare_field_table' => 'season_id',
@@ -16,8 +16,8 @@
       $this->_objJoin[] = array ( 'join_table' => 'pobhotel_guest_room_type',
                                   'compare_field_table' => 'type_id',
                                   'compare_field_join' => 'id',
-                                  'join_field' => array('id','name'),
-                                  'object_field_name' => array('type_id','type_name'));                     
+                                  'join_field' => array('id','name','description'),
+                                  'object_field_name' => array('type_id','type_name','type_description'));
       $this->_init($init, $where);
     }
 

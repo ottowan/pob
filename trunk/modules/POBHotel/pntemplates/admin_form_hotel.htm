@@ -42,6 +42,9 @@ function callback_refresh(){
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoom', function(data) {
 	  $('#HotelGuestRoom').html(data);
 	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelImage', function(data) {
+	  $('#hotelImages').html(data);
+	});
 }
 </script>
 <!--[literal]--><!--[if IE]><!--[/literal]-->
@@ -587,9 +590,10 @@ function callback_refresh(){
 		$('#cbox a').colorbox();
 
           </script>
+<div id="hotelImages">
 <!--[get_all_hotel_images]-->
 <!--[if isset($imagesArray)]-->
-<div>
+
 	<ul id="cbox" class="thumbs">
 		<!--[foreach from=$imagesArray item=imageItem]-->
 		<li>
@@ -598,8 +602,8 @@ function callback_refresh(){
 		</li>
 		<!--[/foreach]-->
 	</ul>
-</div>
 <!--[/if]-->
+</div>
           <div class="upload">
 			<div class="upload_box">
               <INPUT TYPE="file" NAME="images[]" onChange="readURL1(this);"><img id="blah1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />

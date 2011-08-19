@@ -75,22 +75,22 @@ Class OTA_HotelAvailNotifRQ {
       $StatusApplicationControl->setAttribute("InvCode",$guestRoom["type_name"]);
       $StatusApplicationControl->setAttribute("Rate",$guestRoom["price"]);
       $StatusApplicationControl->setAttribute("MaxCapacity",$guestRoom["capacity"]);
-      
+
       $MultimediaDescriptions = $xml->createElement("MultimediaDescriptions");
       $MultimediaDescription = $xml->createElement("MultimediaDescription");
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title","Description");
-      $Description = $xml->createElement("Description",htmlentities($guestRoom["descriptions"]));
+      $Description = $xml->createElement("Description",htmlentities($guestRoom["type_description"]));
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
       $MultimediaDescription->appendChild($TextItems);
       $MultimediaDescriptions->appendChild($MultimediaDescription);
-      
+
       $UniqueID  = $xml->createElement("UniqueID");
       $UniqueID->setAttribute("Type",16);
       $UniqueID->setAttribute("ID",1);
-      
+
       $StatusApplicationControl->appendChild($MultimediaDescriptions);
       $AvailStatusMessage->appendChild($StatusApplicationControl);
       $AvailStatusMessage->appendChild($UniqueID);
