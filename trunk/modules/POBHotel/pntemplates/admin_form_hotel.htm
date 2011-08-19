@@ -598,7 +598,7 @@ function callback_refresh(){
 		<!--[foreach from=$imagesArray item=imageItem]-->
 		<li>
 			<a rel="colorbox" href="<!--[$imageItem.images_filepath]--><!--[$imageItem.images_filename]-->" class="cboxElement"><img src="<!--[$imageItem.images_thumbpath]--><!--[$imageItem.images_thumbname]-->"></a>
-			<a style="float:right;" href="#Delete">Delete</a>
+			<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelImage&id=<!--[$imageItem.images_id]-->" rel="facebox">Delete</a
 		</li>
 		<!--[/foreach]-->
 	</ul>
@@ -872,23 +872,7 @@ function callback_refresh(){
 									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="7">
-								<!--[get_all_hotel_images]-->
-								<!--[if isset($imagesArray)]-->
-								<div>
-									<ul id="cbox" class="thumbs">
-										<!--[foreach from=$imagesArray item=imageItem]-->
-										<li>
-											<a rel="colorbox" href="<!--[$imageItem.images_filepath]--><!--[$imageItem.images_filename]-->" class="cboxElement"><img src="<!--[$imageItem.images_thumbpath]--><!--[$imageItem.images_thumbname]-->"></a>
-											<a style="float:right;" href="#Delete">Delete</a>
-										</li>
-										<!--[/foreach]-->
-									</ul>
-								</div>
-								<!--[/if]-->
-								<td>
-							</tr>
+
 							<!--[/foreach]-->
 							</TABLE>
 							<!--[/if]-->
