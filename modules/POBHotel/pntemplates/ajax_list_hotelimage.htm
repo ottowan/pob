@@ -1,0 +1,14 @@
+<link href="modules/POBHotel/pnjavascript/style.css" rel="stylesheet" type="text/css" media="all" /> 
+
+<!--[if isset($objectArray)]-->
+<div>
+	<ul id="cbox" class="thumbs">
+		<!--[foreach from=$objectArray item=imageItem]-->
+		<li>
+			<a rel="colorbox" href="<!--[$imageItem.filepath]--><!--[$imageItem.filename]-->" class="cboxElement"><img src="<!--[$imageItem.thumbpath]--><!--[$imageItem.thumbname]-->"></a>
+			<a style="float:right;" href="#Delete">Delete</a>
+		</li>
+		<!--[/foreach]-->
+	</ul>
+</div>
+<!--[/if]-->

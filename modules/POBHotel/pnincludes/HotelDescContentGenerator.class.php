@@ -57,8 +57,9 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
-    //header("Content-type: text/xml");
-    //print $data;
+    header("Content-type: text/xml");
+    print $data;
+    exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -202,21 +203,23 @@ Class HotelDescContentGenerator {
         $ImageItem = $xml->createElement("ImageItem");
         $ImageItem->setAttribute("Category",6);
         $ImageFormat = $xml->createElement("ImageFormat");
-        $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["filepath"].$value["filename"]));
+        $Url = $xml->createElement("URL",htmlentities("http://images.phuketcity.com/".$value["filepath"].$value["filename"]));
         $ImageFormat->appendChild($Url);
         $ImageItem->appendChild($ImageFormat);
+        $ImageItems->appendChild($ImageItem);
       }
-      $ImageItems->appendChild($ImageItem);
+
       // Thumbnail
       foreach($this->imageObject AS $key=>$value){
         $ImageItem = $xml->createElement("ImageItem");
         $ImageItem->setAttribute("Category",1);
         $ImageFormat = $xml->createElement("ImageFormat");
-        $Url = $xml->createElement("URL",htmlentities("http://phuketcity.com/".$value["thumbpath"].$value["filename"]));
+        $Url = $xml->createElement("URL",htmlentities("http://images.phuketcity.com/".$value["thumbpath"].$value["thumbname"]));
         $ImageFormat->appendChild($Url);
         $ImageItem->appendChild($ImageFormat);
+        $ImageItems->appendChild($ImageItem);
       }
-      $ImageItems->appendChild($ImageItem);
+
       $MultimediaDescription->appendChild($ImageItems);
       $MultimediaDescriptions->appendChild($MultimediaDescription);
     }
