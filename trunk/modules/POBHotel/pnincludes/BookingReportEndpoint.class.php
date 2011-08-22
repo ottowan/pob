@@ -61,8 +61,8 @@ Class BookingReportEndpoint {
 
   public function sendBookingReportXML(){
     $url = 'http://pob-ws.heroku.com/api/hotel_book';
-    //$data = $this->genBookingReportXML();
-    $data = $this->sampleBookingReportXML();
+    $data = $this->genBookingReportXML();
+    //$data = $this->sampleBookingReportXML();
 
     //$data = $data->saveXML();
     $ch = curl_init();

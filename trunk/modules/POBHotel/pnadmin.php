@@ -396,8 +396,8 @@
       //echo ($roomSearch->sampleBookingReportXML()); exit;
       
       //XML Response
-      $response = $roomSearch->requestSampleBookingReportXML();
-      //$response = $roomSearch->getBookingReportXML();
+      //$response = $roomSearch->requestSampleBookingReportXML();
+      $response = $roomSearch->getBookingReportXML();
       //header("Content-type: text/xml");
       //echo ($response); exit;
 
@@ -413,7 +413,6 @@
       //Repack array for smarty display
       $repackArray = $roomSearch->repackArrayForDisplay($extractArray);
       //print_r($repackArray); exit;
-
 
       $render->assign("openFirst", 2 );
       $render->assign("objectArray", $repackArray );
