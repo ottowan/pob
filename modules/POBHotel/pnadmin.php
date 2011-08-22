@@ -390,17 +390,33 @@
       $roomSearch = new BookingReportEndpoint();
       $roomSearch->setBookingReportXML( $hotelCode, $startDate, $endDate );
 
+
+      //Get XML for report response
+      //header("Content-type: text/xml");
+      //echo ($roomSearch->sampleBookingReportXML()); exit;
+      
       //XML Response
-      $response = $roomSearch->getBookingReportXML();
-      header("Content-type: text/xml");
-      echo ($response); exit;
+      $response = $roomSearch->requestSampleBookingReportXML();
+      //$response = $roomSearch->getBookingReportXML();
+      //header("Content-type: text/xml");
+      //echo ($response); exit;
 
       //Convert xml response to array
       Loader::loadClass('POBReader',"modules/POBHotel/pnincludes");
       $reader = new POBReader();
       $arrayResponse = $reader->xmlToArray($response);
+      //print_r($arrayResponse); exit;
+
+      //Extract array for smarty display
+      $extractArray = $roomSearch->extractArrayForDisplay($arrayResponse);
+
+      //Repack array for smarty display
+      $repackArray = $roomSearch->repackArrayForDisplay($extractArray);
+      print_r($repackArray); exit;
+
+
       $render->assign("openFirst", 2 );
-      $render->assign("objectArray", $repackArray );
+      $render->assign("objectArray", $extractArray );
       return $render->fetch('admin_list_report.htm');
     }else{
       $render->assign("openFirst", 1 );
