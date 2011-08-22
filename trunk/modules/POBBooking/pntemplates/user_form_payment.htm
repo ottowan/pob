@@ -52,7 +52,7 @@
     </TR>
     <TR>
       <TD width="50%" valign="top" align="right">
-        <table width="90%" style="border: 1px dashed rgb(0, 245, 255);">
+        <table width="95%" style="border: 1px dashed rgb(0, 245, 255);">
           <tr>
             <td colspan="3" bgcolor="#DCF5FA"><h6><!--[pnml name="_POBBOOKING_USER_PAYMENT_HOTEL"]-->&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
           </tr>
@@ -78,7 +78,7 @@
           <tr>
             <td width="80"></td>
             <td><!--[$item.numberofunit]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM"]--></td>
-            <td align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_PRICE_TOTAL"]-->&nbsp;<!--[math equation="x*y" x=$item.rate y=$item.numberofunit assign="room_rate_total"]--><!--[$room_rate_total|number_format:2:".":","]--> <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
+            <td align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_PRICE_TOTAL"]-->&nbsp;<!--[math equation="x*y" x=$item.rate y=$item.numberofunit assign="rooms_rate_total"]--><!--[$rooms_rate_total|number_format:2:".":","]--> <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
           </tr>
           <tr>
             <td width="80"><!--[pnml name="_POBBOOKING_USER_PAYMENT_CHECKIN"]--></td>
@@ -95,7 +95,7 @@
         </table>
      </TD>
      <TD width="50%" valign="top" align="left">
-        <table width="90%" style="border: 1px dashed rgb(0, 245, 255);">
+        <table width="95%" style="border: 1px dashed rgb(0, 245, 255);">
           <tr>
             <td colspan="2" bgcolor="#DCF5FA"><h6><!--[pnml name="_POBBOOKING_USER_PAYMENT_CUSTOMER"]--></h6></td>
             </tr>

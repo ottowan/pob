@@ -10,117 +10,7 @@ class PNCustomer extends PNObject {
         $this->_init($init, $where);
     }
 
-
-    /*
-  function validate(){
-    $form = FormUtil::getPassedValue ('form', false);
-    $is_validate = true;
-    $error = array();
-
-    if (empty($form['identificational'])){
-      $error[] = "Please enter your identificational/passport no.";
-    }
-
-    if (empty($form['titlename'])){
-      $error[] = "Please select Titlename.";
-    }
-
-    if (empty($form['firstname'])){
-      $error[] = "Please enter your First name.";
-    }
-
-    if (empty($form['lastname'])){
-      $error[] = "Please enter your Last name/Surname.";
-    }
-
-
-    if (empty($form['address'])){
-      $error[] = "Please enter your Address.";
-    }
-
-
-    if (empty($form['city'])){
-      $error[] = "Please enter your Town/City.";
-    }
-
-    if (empty($form['country'])){
-      $error[] = "Please select your Country.";
-    }
-
-    if (empty($form['zipcode'])){
-      $error[] = "Please enter your Zipcode.";
-    }
-
-    if (empty($form['mobile'])){
-      $error[] = "Please enter your Mobile Phone.";
-    }
-
-    if (empty($form['phone'])){
-      $error[] = "Please enter your  ome Phone.";
-    }
-
-    if (empty($form['email'])){
-      $error[] = "Please enter your Email.";
-    }
-
-    $session_captcha = SessionUtil::getVar('SECURITY_CAPTCHA');
-    if (empty($form['captcha'])){
-      $error[] = "Please enter Verification text.";
-    }else if( $session_captcha != md5(base64_encode($form['captcha']))){
-      //$error[] = "Verification text is not correct.";
-      $error[] = "Captcha failed.";
-    }
-
-    if (empty($form['cardType'])){
-      $error[] = "Please select your card type.";
-    }
-
-    if (empty($form['card1']) || empty($form['card2']) || empty($form['card3']) || empty($form['card4'])){
-      $error[] = "Please enter your card number.";
-    }
-
-    if (empty($form['cardid'])){
-      $error[] = "Please enter your card type.";
-    }
-
-    if (empty($form['card_holder_number'])){
-      $error[] = "Please enter your holder number.";
-    }
-
-    if (empty($form['card_expire_month'])){
-      $error[] = "Please select expire month.";
-    }
-
-    if (empty($form['card_expire_year'])){
-      $error[] = "Please select expire year.";
-    }
-
-    if (empty($form['card_bank_name'])){
-      $error[] = "Please enter your bank name.";
-    }
-
-
-    if (empty($form['card_issuing_country'])){
-      $error[] = "Please select issuing country.";
-    }
-
-    //Conclude the result
-    if($error){
-      $is_validate = false;
-      SessionUtil::setVar('ERROR_MESSAGE', $error, '/', true, true);
-    }else{
-      $is_validate = true;
-    }
-
-
-    //$is_validate = false;
-
-    /*
-    return $is_validate;
-  }
-    */
-
-
+/*
     function insertPreProcess() {
         //get
         $form = FormUtil::getPassedValue ('form', false );
@@ -140,20 +30,34 @@ class PNCustomer extends PNObject {
         //$roomstays = $form['roomstays'];
         //insert
         $this->_objData['cardexpire'] = $cardexpiredate;
-        $this->_objData['cr_date'] = $datenow;
+        //$this->_objData['cr_date'] = $datenow;
         $this->_objData['total_rooms'] = $total_rooms;
-        return true;
+        //return true;
     }
-
+*/
 
     function insertPostProcess() {
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
 
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $refid = "B".($id+1000);
-        //var_dump($refid);
-        //exit;
-        $object = array('refid'=>$refid);
+		$card_exp_month = $this->_objData['card_exp_month'];
+        $card_exp_year = substr($this->_objData['card_exp_month'], -2);
+        $cardexpiredate = $card_exp_month.$card_exp_year;
+		$roomstays = $this->_objData['roomstays'];
+        $total_rooms = 0;
+        foreach($roomstays as $item) {
+        $total_rooms+=$item[numberofunits];
+        }
+        var_dump($cardexpiredate);
+		var_dump($roomstays);
+		var_dump($total_rooms);
+        exit;
+		
+        $object = array('refid'=>$refid,
+						'cardexpire'=>$cardexpiredate,
+						'total_rooms'=>$total_rooms
+						);
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
 
@@ -237,7 +141,7 @@ class PNCustomer extends PNObject {
         $this->sendXML();
 
         //Call sendEmail method
-        $this->sendEmail();
+        //$this->sendEmail();
 
 
     }
@@ -448,12 +352,13 @@ class PNCustomer extends PNObject {
                             $CountryName = $xml->createElement("CountryName", $form['countryname']);
                             $Address->appendChild($CountryName);
 
-        //$xml->saveXML();
-        //print $xml->saveXML();
-        echo $xml->saveXML();
-        exit;
+        $xml->saveXML();
+        print $xml->saveXML();
+        //echo $xml->asXML();
+        //exit;
+        //$xml->save("OTA_HotelResRQ1.xml");
 
-////////send xml
+    ////send xml
         $url = 'http://pob-ws.heroku.com/api/hotel_res';
         $data = $xml->saveXML();
         //$data = $data->saveXML();
@@ -466,9 +371,15 @@ class PNCustomer extends PNObject {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
         $response = curl_exec($ch);
+		
+		
+		//var_dump($ch);
+		//var_dump($response);
+		
+		//exit;
 
         $mystring = $response;
-        $findme   = '<Success/>';
+        $findme   = '<Success>';
         $pos = strpos($mystring, $findme);
         if($pos > 0){
           $forwardurl = pnModURL('POBBooking');
