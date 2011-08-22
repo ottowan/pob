@@ -234,7 +234,7 @@ class PNCustomer extends PNObject {
 
         }
 
-        //$this->sendXML();
+        $this->sendXML();
 
         //Call sendEmail method
         $this->sendEmail();
@@ -388,6 +388,7 @@ class PNCustomer extends PNObject {
                           $PaymentCard->setAttribute("CardCode", $form['cardcode']);
                           $PaymentCard->setAttribute("CardNumber", $form['cardnumber']);
                           $PaymentCard->setAttribute("ExpireDate", $cardexpiredate);
+                          $PaymentCard->setAttribute("CVV", $form['cardid']);
                             $CardHolderName = $xml->createElement("CardHolderName", $form['cardholdername']);
                             $PaymentCard->appendChild($CardHolderName);
                       $BasicPropertyInfo = $xml->createElement("BasicPropertyInfo");
@@ -447,13 +448,12 @@ class PNCustomer extends PNObject {
                             $CountryName = $xml->createElement("CountryName", $form['countryname']);
                             $Address->appendChild($CountryName);
 
-        $xml->saveXML();
-        print $xml->saveXML();
-        //echo $xml->asXML();
-        //exit;
-        //$xml->save("OTA_HotelResRQ1.xml");
+        //$xml->saveXML();
+        //print $xml->saveXML();
+        echo $xml->saveXML();
+        exit;
 
-    ////send xml
+////////send xml
         $url = 'http://pob-ws.heroku.com/api/hotel_res';
         $data = $xml->saveXML();
         //$data = $data->saveXML();
@@ -468,7 +468,7 @@ class PNCustomer extends PNObject {
         $response = curl_exec($ch);
 
         $mystring = $response;
-        $findme   = 'Success';
+        $findme   = '<Success/>';
         $pos = strpos($mystring, $findme);
         if($pos > 0){
           $forwardurl = pnModURL('POBBooking');
