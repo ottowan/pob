@@ -412,7 +412,7 @@
 
       //Repack array for smarty display
       $repackArray = $roomSearch->repackArrayForDisplay($extractArray);
-      print_r($repackArray); exit;
+      //print_r($repackArray); exit;
 
 
       $render->assign("openFirst", 2 );

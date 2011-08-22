@@ -26,9 +26,11 @@
            <TH>Add Room</TH>
            <TH>Edit</TH>
         </TR>
-        <!--[foreach from=$objectArray item=item]-->
+
+        <!--[$objectArray.HotelCode]-->
+        <!--[foreach from=$objectArray.HotelReservations item=item]-->
           <TR>
-             <TD><!--[$item.status_name]--></TD>
+             <TD><!--[$item.HotelCode]--></TD>
              <TD><!--[$item.name]--></TD>
              <TD><!--[$item.descriptions]--></TD>
              <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD>
