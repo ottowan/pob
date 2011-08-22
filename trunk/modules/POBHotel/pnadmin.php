@@ -426,7 +426,7 @@
       $CSVName = $hotelCSVPath."/".mktime().".csv";
       $fh = fopen($CSVName, "w+") or die("can't open file");
       if($fh){
-        $stringData = "\"Name\",\"Phone Number\",\"E-Mail\",\"Address\",\"CheckIn Date\",\"CheckOut Date\",\"Comment\"\n";
+        $stringData = "\"Name\",\"Phone Number\",\"E-Mail\",\"Address\",\"RoomType\",\"CheckIn Date\",\"CheckOut Date\",\"Comment\"\n";
         fwrite($fh, $stringData);
         foreach($repackArray['HotelReservations'] AS $item){
           foreach($item['RoomStays'] AS $RoomStaysItem){
@@ -435,18 +435,16 @@
             }else{
               $Comment = "";
             }
-            $stringData = "\"".$item['Customer']['PersonName']['NamePrefix'].$item['Customer']['PersonName']['GivenName']." ".$item['Customer']['PersonName']['Surname']."\",\"".$item['Customer']['Telephone']['Telephone']['PhoneNumber']."\",\"".$item['Customer']['Email']."\",\"".$item['Customer']['Address']['AddressLine']." ".$item['Customer']['Address']['CityName']." ".$item['Customer']['Address']['StateProv']." ".$item['Customer']['Address']['CountryName']." ".$item['Customer']['Address']['PostalCode']."\",\"".$RoomStaysItem['CheckInDate']."\",\"".$RoomStaysItem['CheckOutDate']."\"$Comment\n";
+            $stringData = "\"".$item['Customer']['PersonName']['NamePrefix'].$item['Customer']['PersonName']['GivenName']." ".$item['Customer']['PersonName']['Surname']."\",\"".$item['Customer']['Telephone']['Telephone']['PhoneNumber']."\",\"".$item['Customer']['Email']."\",\"".$item['Customer']['Address']['AddressLine']." ".$item['Customer']['Address']['CityName']." ".$item['Customer']['Address']['StateProv']." ".$item['Customer']['Address']['CountryName']." ".$item['Customer']['Address']['PostalCode']."\",\"".$RoomStaysItem['InvCode']."\",\"".$RoomStaysItem['CheckInDate']."\",\"".$RoomStaysItem['CheckOutDate']."\"$Comment\n";
             fwrite($fh, $stringData);
           }
         }
       }
-      
-      
-      
-      downloadFile($CSVName);
+      $CSVName = "http://files.phuketcity.com/".$CSVName;
       fclose($fh);
       $render->assign("openFirst", 2 );
       $render->assign("objectArray", $repackArray );
+      $render->assign("filePath",$CSVName);
       return $render->fetch('admin_list_report.htm');
     }else{
       $render->assign("openFirst", 1 );
