@@ -409,10 +409,16 @@
 
       //Extract array for smarty display
       $extractArray = $roomSearch->extractArrayForDisplay($arrayResponse);
+      //print_r($extractArray); exit;
 
       //Repack array for smarty display
       $repackArray = $roomSearch->repackArrayForDisplay($extractArray);
-      
+      //print_r($repackArray); exit;
+
+
+      /////////////////////////////////////////////////
+      //Export to CSV file
+      /////////////////////////////////////////////////
       $rootCSVPath = "pnTemp/pobhotel_upload/csvfile";
       //Make root csv directory
       if (!is_dir($rootCSVPath)) {
@@ -442,6 +448,10 @@
       }
       $CSVName = "http://files.phuketcity.com/".$CSVName;
       fclose($fh);
+      /////////////////////////////////////////////////
+      //End save data to CSV file
+      /////////////////////////////////////////////////
+
       $render->assign("openFirst", 2 );
       $render->assign("objectArray", $repackArray );
       $render->assign("filePath",$CSVName);
