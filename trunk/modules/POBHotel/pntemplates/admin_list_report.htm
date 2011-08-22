@@ -21,14 +21,15 @@
         <TR align="center">
            <TH>Customer Info</TH>
            <TH>
-              <table width= "100%">
+              <table width= "100%" border="0">
                 <tr>
                   <td colspan="3" align="center">Room Info</td>
                 </tr>
                 <tr>
-                  <td width="30%">RoomType</td>
-                  <td width="60%">Check-in Check-out</td>
-                  <td width="10%">Guest</td>
+                  <td width="30%" align="center">RoomType</td>
+                  <td width="50%">Check-in Check-out</td>
+                  <td width="10%" align="left">Room</td>
+                  <td width="10%" align="center">Guest</td>
                 </tr>
               </table>
           </TH>
@@ -46,8 +47,9 @@
                 <table width="100%" border="0">
               <!--[foreach from=$item.RoomStays item=itemRoomStays]-->
                   <tr>
-                    <td width="30%" valign="top"><!--[$itemRoomStays.InvCode]--> : </td>
-                    <td width="60%" valign="top"><!--[$itemRoomStays.CheckInDate]--> - <!--[$itemRoomStays.CheckOutDate]--></td>
+                    <td width="30%" valign="top" align="center"><!--[$itemRoomStays.InvCode]--> </td>
+                    <td width="50%" valign="top"><!--[$itemRoomStays.CheckInDate]--> - <!--[$itemRoomStays.CheckOutDate]--></td>
+                    <td width="10%" valign="top" align="center"><!--[$itemRoomStays.NumberOfUnits]--></td>
                     <td width="10%" valign="top" align="center"><!--[$itemRoomStays.GuestCount.Count]--></td>
                   </tr>
               <!--[/foreach]-->
