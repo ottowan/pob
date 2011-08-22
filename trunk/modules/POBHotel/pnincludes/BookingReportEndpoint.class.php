@@ -54,17 +54,15 @@ Class BookingReportEndpoint {
   }
 
   public function sampleBookingReportXML(){
-    $temp = '<POB_HotelBookRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelAvailRQ.xsd" Version="1.003">
-<HotelRef ChainCode="MC" HotelCode="SONGRIT"/>
-<TimeSpan Start="2011-08-18" End="2011-08-19"/>
-</POB_HotelBookRQ>';
-    return $temp;
+    
   }
+
+
 
   public function sendBookingReportXML(){
     $url = 'http://pob-ws.heroku.com/api/hotel_book';
-    $data = $this->genBookingReportXML();
-    //$data = $this->sampleBookingReportXML();
+    //$data = $this->genBookingReportXML();
+    $data = $this->sampleBookingReportXML();
 
     //$data = $data->saveXML();
     $ch = curl_init();
@@ -100,92 +98,73 @@ Class BookingReportEndpoint {
 
 
 
-function repackArrayForDisplay($originalArray){
-  $distanceValidate = floor($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]);
-  $repackArray = array();
-  if($distanceValidate == 0 && $originalArray["Properties"]["Property"]){
-    if(!is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]) || !is_null($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"])){
-      //var_dump($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
-      //////////////////////////////////////////
-      //Display one item (page view)
-      //////////////////////////////////////////
-      //Repack Hotel information
-      $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
-      $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
-      $repackArray["Description"]   = $originalArray["Properties"]["Property"]["@attributes"]["Description"];
+function extractArrayForDisplay($originalArray){
 
-      //Repack Relative position
-      $repackArray["Direction"]        = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Direction"];
-      $repackArray["DistanceUnitName"] = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["DistanceUnitName"];
-      $repackArray["Distance"]         = number_format($this->mileToKilometre($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]), 2);
-      $repackArray["Latitude"]         = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Latitude"];
-      $repackArray["Longitude"]        = $originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Longitude"];
+  $extractArray = array();
+  $extractArray[HotelCode] = $originalArray[HotelRef][HotelRef][HotelCode];
+  if($originalArray[HotelReservations][HotelReservation]){
+    $extractArray[HotelReservations][HotelReservations][0] = $originalArray[HotelReservations][HotelReservation];
 
-      //Repack ContactInfo
-      $repackArray["AddressLine"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["AddressLine"];
-      $repackArray["CityName"]    = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["CityName"];
-      $repackArray["CountryName"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["CountryName"];
-      $repackArray["PhoneNumber"] = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["PhoneNumber"];
-      $repackArray["PostalCode"]  = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["PostalCode"];
-      $repackArray["StateProv"]   = $originalArray["Properties"]["Property"]["ContactInfo"]["ContactInfo"]["StateProv"];
+    if($extractArray[HotelReservations][HotelReservations][0][RoomStays][RoomStay]){
+      $extractArray[HotelReservations][HotelReservations][0][RoomStays][RoomStays][0] = $extractArray[HotelReservations][HotelReservations][0][RoomStays][RoomStay];
+      unset($extractArray[HotelReservations][HotelReservations][0][RoomStays][RoomStay]);
+    }
+  }else{
+    $extractArray[HotelReservations][HotelReservations] = $originalArray[HotelReservations][HotelReservations];
 
-      if($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]){
-          for($j=0; $j<count($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]); $j++){
-            $repackArray["Availabilities"][$j]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Date"];
-            $repackArray["Availabilities"][$j]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["InvCode"];
-            $repackArray["Availabilities"][$j]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Limit"];
-            $repackArray["Availabilities"][$j]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Rate"];
-            $repackArray["Availabilities"][$j]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["RatePlanCode"];
-          }
-      //}else if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]){
-      }else{
-        //var_dump($originalArray["Properties"]["Property"]["Availabilities"]); exit;
-        $repackArray["Availabilities"][0]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Date"];
-        $repackArray["Availabilities"][0]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["InvCode"];
-        $repackArray["Availabilities"][0]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Limit"];
-        $repackArray["Availabilities"][0]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Rate"];
-        $repackArray["Availabilities"][0]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["RatePlanCode"];
+    for($i=0; $i<count($extractArray[HotelReservations][HotelReservations]) ; $i++){
+      if($extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStay]){
+        $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][0] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStay];
+        unset($extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStay]);
       }
+    }
+  }
+  unset($originalArray);
+  //$extractArray = $originalArray;
 
-      if($originalArray["Properties"]["Property"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"]){
-        $repackArray[$i]["ImageItems"][0]["url"] = $originalArray["Properties"]["Property"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"];
-      } //End check image
+  //print_r($extractArray); exit;
+  return $extractArray;
 
-    $ImageItems = array();
-    $ImageItems = $originalArray["Properties"]["Property"]["MultimediaDescriptions"]["MultimediaDescriptions"][5]["ImageItems"]["ImageItems"];
-    for($k=0; $k<count($ImageItems); $k++){
-      $repackArray["ImageItems"][$k]["category"] = $ImageItems[$k]["@attributes"]["Category"];
-      $ImageItem = $ImageItems[$k]["ImageFormat"];
-      for($l=0; $l<count($ImageItem); $l++){
+}
 
-        if($repackArray["ImageItems"][$k]["category"] == 6){
-          $repackArray["ImageItems"][$k]["ImageItem"][$l]["URL"] = $ImageItem[$l]["URL"];
-        }
 
-        if($repackArray["ImageItems"][$k]["category"] == 1){
-          $repackArray["ImageItems"][$k]["ThumbItem"][$l]["URL"] = $ImageItem[$l]["URL"];
-        }
 
-    }//End loop ImageItem
 
-      //var_dump($repackArray["ImageItems"][$k]["ImageItem"]); exit;
+public function repackArrayForDisplay($extractArray){
 
-    }//End loop ImageItems
 
-    }// End check price
+  //print_r($extractArray); exit;
+  $repackArray = array();
+
+
+  for($i=0; $i < count($extractArray[HotelReservations][HotelReservations]);$i++){
+    $repackArray[HotelCode] = $extractArray[HotelCode];
+    $repackArray[HotelReservations][$i] = $extractArray[HotelReservations][HotelReservations][$i];
+    $repackArray[HotelReservations][$i][RoomStays] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays];
+//    $repackArray[HotelReservations][$i][RoomStays][NumberOfUnits] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][RoomTypes][RoomType][RoomType];
+    unset($repackArray[HotelReservations][$i][RoomStays][RoomStays]);
   }
 
-  //var_dump($originalArray["Properties"]["Properties"][4]["MultimediaDescriptions"]["MultimediaDescriptions"][3]["ImageItems"]["ImageItems"][0]["ImageFormat"][0]["URL"]); exit;
 
+  unset($extractArray);
 
+  print_r($repackArray); exit;
   return $repackArray;
 
 }
 
+  public function requestSampleBookingReportXML(){
+    //$data = file_get_contents('http://localhost/php/pob/hotel_book_rs.xml');
+    //$data = file_get_contents('http://localhost/php/pob/hotel_book_rs2.xml');
+    //$data = file_get_contents('http://localhost/php/pob/hotel_book_rs3.xml');
+    $data = file_get_contents('http://localhost/php/pob/hotel_book_rs4.xml');
 
-function mileToKilometre($mile){
-  return ($mile * 1.609344);
-}
+    return $data;
+  }
+
+  function mileToKilometre($mile){
+    return ($mile * 1.609344);
+  }
 
 }
 
