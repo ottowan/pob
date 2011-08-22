@@ -19,27 +19,40 @@
       <legend>&nbsp;Book Result&nbsp;</legend>
       <TABLE border="1" width="100%">
         <TR align="center">
-           <TH>Customer</TH>
-           <TH>Tel.</TH>
-           <TH>RoomType : Check in - Check out </TH>
-           <TH>More</TH>
+           <TH>Customer Info</TH>
+           <TH>
+              <table width= "100%">
+                <tr>
+                  <td colspan="3" align="center">Room Info</td>
+                </tr>
+                <tr>
+                  <td width="30%">RoomType</td>
+                  <td width="60%">Check-in Check-out</td>
+                  <td width="10%">Guest</td>
+                </tr>
+              </table>
+          </TH>
         </TR>
-        Hotel<!--[$objectArray.HotelCode]-->
-        <!--[foreach from=$objectArray.HotelReservations item=item]-->
+         <!--[foreach from=$objectArray.HotelReservations item=item]-->
           <TR>
-             <TD><!--[$item.Customer.PersonName.NamePrefix]--><!--[$item.Customer.PersonName.GivenName]-->&nbsp;<!--[$item.Customer.PersonName.Surname]--></TD>
-             <TD><!--[$item.Customer.Telephone.Telephone.PhoneNumber]--></TD>
              <TD>
-                <table width="100%">
+                <b>Name</b> : <!--[$item.Customer.PersonName.NamePrefix]--><!--[$item.Customer.PersonName.GivenName]-->&nbsp;<!--[$item.Customer.PersonName.Surname]--><br>
+                <b>Email</b> : <!--[$item.Customer.Email]--><br>
+                <b>Address</b> : <!--[$item.Customer.Address.AddressLine]-->, <!--[$item.Customer.Address.CityName]-->, 
+                <!--[$item.Customer.Address.StateProv]-->, <!--[$item.Customer.Address.CountryName]-->, <!--[$item.Customer.Address.PostalCode]--><br>
+                <b>Telephone</b> : <!--[$item.Customer.Telephone.Telephone.PhoneNumber]--><br>
+            </TD>
+             <TD valign="top">
+                <table width="100%" border="0">
               <!--[foreach from=$item.RoomStays item=itemRoomStays]-->
                   <tr>
-                    <td><!--[$itemRoomStays.InvCode]--> : </td>
-                    <td><!--[$itemRoomStays.CheckInDate]--> - <!--[$itemRoomStays.CheckOutDate]--></td>
+                    <td width="30%" valign="top"><!--[$itemRoomStays.InvCode]--> : </td>
+                    <td width="60%" valign="top"><!--[$itemRoomStays.CheckInDate]--> - <!--[$itemRoomStays.CheckOutDate]--></td>
+                    <td width="10%" valign="top" align="center"><!--[$itemRoomStays.GuestCount.Count]--></td>
                   </tr>
               <!--[/foreach]-->
                 </table>
             </TD>
-             <!-- <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD> -->
           </TR>
         <!--[/foreach]-->
       </TABLE>
