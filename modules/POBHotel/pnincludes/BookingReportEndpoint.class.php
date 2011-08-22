@@ -141,14 +141,69 @@ public function repackArrayForDisplay($extractArray){
     $repackArray[HotelCode] = $extractArray[HotelCode];
     $repackArray[HotelReservations][$i] = $extractArray[HotelReservations][HotelReservations][$i];
     $repackArray[HotelReservations][$i][RoomStays] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays];
-//    $repackArray[HotelReservations][$i][RoomStays][NumberOfUnits] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][RoomTypes][RoomType][RoomType];
-    unset($repackArray[HotelReservations][$i][RoomStays][RoomStays]);
-  }
 
+    for($j=0; $j<count($extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays]);$j++){
+
+      //Store new NumberOfUnits array & clean up NumberOfUnits
+      $repackArray[HotelReservations][$i][RoomStays][$j][NumberOfUnits] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][RoomTypes][RoomType][RoomType][NumberOfUnits];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][RoomTypes]);
+
+      //Store new InvCode array & clean up InvCode
+      $repackArray[HotelReservations][$i][RoomStays][$j][InvCode] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Inv][Inv][InvCode];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][Inv]);
+
+      //Store new GuestCount array & clean up GuestCount
+      $repackArray[HotelReservations][$i][RoomStays][$j][GuestCount] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][GuestCounts][GuestCount][GuestCount];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][GuestCounts]);
+
+      //Store new CheckInDate array & clean up CheckInDate
+      $repackArray[HotelReservations][$i][RoomStays][$j][CheckInDate] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][TimeSpan][TimeSpan][Start];
+
+      //Store new CheckInDate array & clean up CheckInDate
+      $repackArray[HotelReservations][$i][RoomStays][$j][CheckOutDate] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][TimeSpan][TimeSpan][End];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][TimeSpan]);
+
+      //Store new CardCode array & clean up CardCode
+      $repackArray[HotelReservations][$i][RoomStays][$j][PaymentCard][CardCode] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][@attributes][CardCode];
+
+      //Store new CardNumber array & clean up CardNumber
+      $repackArray[HotelReservations][$i][RoomStays][$j][PaymentCard][CardNumber] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][@attributes][CardNumber];
+
+      //Store new ExpireDate array & clean up ExpireDate
+      $repackArray[HotelReservations][$i][RoomStays][$j][PaymentCard][ExpireDate] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][@attributes][ExpireDate];
+
+      //Store new CardHolderName array & clean up CardHolderName
+      $repackArray[HotelReservations][$i][RoomStays][$j][PaymentCard][CardHolderName] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][CardHolderName];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][Guarantee]);
+
+
+      //Store new ChainCode array & clean up ChainCode
+      $repackArray[HotelReservations][$i][RoomStays][$j][BasicPropertyInfo][ChainCode] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][BasicPropertyInfo][BasicPropertyInfo][ChainCode];
+
+      //Store new HotelCode array & clean up HotelCode
+      $repackArray[HotelReservations][$i][RoomStays][$j][BasicPropertyInfo][HotelCode] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][BasicPropertyInfo][BasicPropertyInfo][HotelCode];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][BasicPropertyInfo]);
+
+
+      //Store new HotelCode array & clean up HotelCode
+      $repackArray[HotelReservations][$i][RoomStays][$j][Comment] = $extractArray[HotelReservations][HotelReservations][$i][RoomStays][RoomStays][$j][Comments][Comment][Text];
+      unset($repackArray[HotelReservations][$i][RoomStays][$j][Comments]);
+    }
+
+
+
+        
+      //////////////////////////////////////////////
+      //RestGuest
+      //////////////////////////////////////////////
+      $repackArray[HotelReservations][$i][Customer] = $extractArray[HotelReservations][HotelReservations][$i][ResGuests][ResGuest][Profiles][ProfileInfo][Profile][Customer];
+      unset($repackArray[HotelReservations][$i][ResGuests]);
+
+  }
 
   unset($extractArray);
 
-  print_r($repackArray); exit;
+  //print_r($repackArray); exit;
   return $repackArray;
 
 }
