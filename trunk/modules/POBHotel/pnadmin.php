@@ -416,7 +416,7 @@
 
 
       $render->assign("openFirst", 2 );
-      $render->assign("objectArray", $extractArray );
+      $render->assign("objectArray", $repackArray );
       return $render->fetch('admin_list_report.htm');
     }else{
       $render->assign("openFirst", 1 );
