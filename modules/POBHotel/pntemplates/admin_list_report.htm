@@ -17,25 +17,29 @@
   <!--[if $objectArray ]-->
     <fieldset>
       <legend>&nbsp;Book Result&nbsp;</legend>
-      <TABLE border="1">
-        <TR>
-           <TH>Status</TH>
-           <TH>Name</TH>
-           <TH>Descriptions</TH>
+      <TABLE border="1" width="100%">
+        <TR align="center">
+           <TH>Customer</TH>
+           <TH>Tel.</TH>
+           <TH>RoomType : Check in - Check out </TH>
            <TH>More</TH>
-           <TH>Add Room</TH>
-           <TH>Edit</TH>
         </TR>
-
-        <!--[$objectArray.HotelCode]-->
+        Hotel<!--[$objectArray.HotelCode]-->
         <!--[foreach from=$objectArray.HotelReservations item=item]-->
           <TR>
-             <TD><!--[$item.HotelCode]--></TD>
-             <TD><!--[$item.name]--></TD>
-             <TD><!--[$item.descriptions]--></TD>
-             <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD>
-             <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Room&hotel_id=<!--[$item.id]-->">เพิ่มห้อง</A></TH>
-             <TH><A HREF="index.php?module=POBhotel&type=admin&func=form&ctrl=Hotel&id=<!--[$item.id]-->">แก้ไข</A></TH>
+             <TD><!--[$item.Customer.PersonName.NamePrefix]--><!--[$item.Customer.PersonName.GivenName]-->&nbsp;<!--[$item.Customer.PersonName.Surname]--></TD>
+             <TD><!--[$item.Customer.Telephone.Telephone.PhoneNumber]--></TD>
+             <TD>
+                <table width="100%">
+              <!--[foreach from=$item.RoomStays item=itemRoomStays]-->
+                  <tr>
+                    <td><!--[$itemRoomStays.InvCode]--> : </td>
+                    <td><!--[$itemRoomStays.CheckInDate]--> - <!--[$itemRoomStays.CheckOutDate]--></td>
+                  </tr>
+              <!--[/foreach]-->
+                </table>
+            </TD>
+             <!-- <TD><A HREF="index.php?module=POBhotel&type=admin&func=view&ctrl=Hotel&id=<!--[$item.id]-->">รายละเอียดเพิ่มเติม</A></TD> -->
           </TR>
         <!--[/foreach]-->
       </TABLE>
