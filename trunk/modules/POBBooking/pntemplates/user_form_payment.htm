@@ -73,11 +73,11 @@
           <tr>
             <td width="80"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_TYPE"]--></td>
             <td><!--[$item.invcode]--></td>
-            <td align="right">&nbsp;<!--[$item.rate|number_format:2:".":","]--> <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
+            <td align="right">&nbsp;<!--[math equation="x/y" x=$item.rate y=$item.night assign="oneroomrate"]--><!--[$oneroomrate|number_format:2:".":","]--> <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
           </tr>
           <tr>
             <td width="80"></td>
-            <td><!--[$item.numberofunit]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM"]--></td>
+            <td><!--[$item.numberofunit]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM"]-->,<!--[$item.night]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_NIGHT"]--></td>
             <td align="right"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_PRICE_TOTAL"]-->&nbsp;<!--[math equation="x*y" x=$item.rate y=$item.numberofunit assign="rooms_rate_total"]--><!--[$rooms_rate_total|number_format:2:".":","]--> <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
           </tr>
           <tr>
