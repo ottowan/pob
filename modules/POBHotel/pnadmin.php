@@ -422,17 +422,19 @@
       $rootCSVPath = "pnTemp/pobhotel_upload/csvfile";
       //Make root csv directory
       if (!is_dir($rootCSVPath)) {
-        var_dump(mkdir($rootCSVPath, 0755));
+        mkdir($rootCSVPath, 0755);
       }
       $hotelCSVPath = $rootCSVPath."/".$hotelCode;
       //Make hotel directory
       if (!is_dir($hotelCSVPath)) {
-        var_dump(mkdir($hotelCSVPath, 0755));
+        mkdir($hotelCSVPath, 0755);
       }
       $CSVName = $hotelCSVPath."/".mktime().".csv";
+      $CSVFileName = str_replace($hotelCSVPath."/","",$CSVName);
+      $CSVFileName = str_replace(".csv","",$CSVFileName);
       $fh = fopen($CSVName, "w+") or die("can't open file");
       if($fh){
-        $stringData = "\"Name\",\"Phone Number\",\"E-Mail\",\"Address\",\"RoomType\",\"CheckIn Date\",\"CheckOut Date\",\"Comment\"\n";
+        $stringData = "\"Booking ID\",\"Name\",\"Phone Number\",\"E-Mail\",\"Address\",\"RoomType\",\"CheckIn Date\",\"CheckOut Date\",\"Comment\"\n";
         fwrite($fh, $stringData);
         foreach($repackArray['HotelReservations'] AS $item){
           foreach($item['RoomStays'] AS $RoomStaysItem){
@@ -441,12 +443,11 @@
             }else{
               $Comment = "";
             }
-            $stringData = "\"".$item['Customer']['PersonName']['NamePrefix'].$item['Customer']['PersonName']['GivenName']." ".$item['Customer']['PersonName']['Surname']."\",\"".$item['Customer']['Telephone']['Telephone']['PhoneNumber']."\",\"".$item['Customer']['Email']."\",\"".$item['Customer']['Address']['AddressLine']." ".$item['Customer']['Address']['CityName']." ".$item['Customer']['Address']['StateProv']." ".$item['Customer']['Address']['CountryName']." ".$item['Customer']['Address']['PostalCode']."\",\"".$RoomStaysItem['InvCode']."\",\"".$RoomStaysItem['CheckInDate']."\",\"".$RoomStaysItem['CheckOutDate']."\"$Comment\n";
+            $stringData = "\"".$item['BookingID']."\",\"".$item['Customer']['PersonName']['NamePrefix'].$item['Customer']['PersonName']['GivenName']." ".$item['Customer']['PersonName']['Surname']."\",\"".$item['Customer']['Telephone']['Telephone']['PhoneNumber']."\",\"".$item['Customer']['Email']."\",\"".$item['Customer']['Address']['AddressLine']." ".$item['Customer']['Address']['CityName']." ".$item['Customer']['Address']['StateProv']." ".$item['Customer']['Address']['CountryName']." ".$item['Customer']['Address']['PostalCode']."\",\"".$RoomStaysItem['InvCode']."\",\"".$RoomStaysItem['CheckInDate']."\",\"".$RoomStaysItem['CheckOutDate']."\"$Comment\n";
             fwrite($fh, $stringData);
           }
         }
       }
-      $CSVName = "http://files.phuketcity.com/".$CSVName;
       fclose($fh);
       /////////////////////////////////////////////////
       //End save data to CSV file
@@ -455,6 +456,8 @@
       $render->assign("openFirst", 2 );
       $render->assign("objectArray", $repackArray );
       $render->assign("filePath",$CSVName);
+      $render->assign("fileName",$CSVFileName);
+      $render->assign("hotelCode",$hotelCode);
       return $render->fetch('admin_list_report.htm');
     }else{
       $render->assign("openFirst", 1 );
@@ -462,6 +465,12 @@
     }
     
   }
+function POBHotel_admin_getReport(){
+  $fileName = FormUtil::getPassedValue ('filename', FALSE, 'REQUEST');
+  $hotelCode = FormUtil::getPassedValue ('hotelcode', FALSE, 'REQUEST');
+  downloadFile("pnTemp/pobhotel_upload/csvfile/".$hotelCode."/".$fileName.".csv");
+  exit;
+}
 function downloadFile( $fullPath ){ 
 
   // Must be fresh start 
@@ -483,6 +492,7 @@ function downloadFile( $fullPath ){
     // Determine Content Type 
     switch ($ext) { 
       case "pdf": $ctype="application/pdf"; break; 
+      case "csv": $ctype="text/csv"; break; 
       case "exe": $ctype="application/octet-stream"; break; 
       case "zip": $ctype="application/zip"; break; 
       case "doc": $ctype="application/msword"; break; 
