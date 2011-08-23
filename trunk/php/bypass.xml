@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<OTA_HotelDescriptiveContentNotifRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd" Version="2.001"> 
+  <HotelDescriptiveContents> 
+    <HotelDescriptiveContent BrandCode="BYP" BrandName="BYP" CurrencyCode="THB" HotelCode="POBHT003" HotelName="Bypass Hotel and SPA" LanguageCode="TH"> 
+      <HotelInfo HotelStatus="Open" LastUpdated="2011-07-27T07:42:26" Start="0000-00-00" WhenBuilt="0000"> 
+        <CategoryCodes> 
+          <LocationCategory Code="3" CodeDetail="Location Type: City"/> 
+        </CategoryCodes> 
+        <Descriptions> 
+          <MultimediaDescriptions> 
+            <MultimediaDescription> 
+              <TextItems> 
+                <TextItem Title="Description"> 
+                  <Description>The Bypass Hotel Resort is located along Patong Beach, a 10-minute walk from Jungceylon Shopping Mall. The resort offers free Wi-Fi, 2 outdoor pools and a restaurant.
+
+Burasari Resort is a 10-minute walk from nightlife district Bangla Road. The resort is a 40-minute drive from Phuket International Airport. Upon request, the hotel provides airport shuttle service at a fee.
+
+Resort Burasari's rooms are air conditioned and come with private balconies or terraces. Satellite TV, a minibar and tea/coffee maker are provided in all rooms. Selected rooms feature direct pool access.
+
+Guests can relax on lounge chairs by the pool, and enjoy the surrounding greenery. Spa by Burasari provides traditional Thai massage and beauty treatments. The hotel also offers a tour desk and car rental.
+
+Kantok Restaurant serves authentic local dishes and a daily breakfast buffet. It offers outdoor dining and evening dance performances. Refreshing drinks are served at Misty Bar, Pool Bar and Juice Bar
+                 </Description> 
+                </TextItem>
+              </TextItems> 
+            </MultimediaDescription> 
+            <MultimediaDescription> 
+              <ImageItems >
+                  <ImageItem Category="1"  > <!-- 1 is exterior view --> 
+                    <ImageFormat Author="Bypass Hotel" CopyrightNotice="Bypass Hotel" IsOriginalIndicator="true " Height="170" Width="300"  UnitOfMeasureCode="9" Format="JPG">
+                    <!-- format is 9 for pixel , this image is the original file and format --> 
+                    <URL>http://q.bstatic.com/images/hotel/max300/103/1031764.jpg</URL>
+                    </ImageFormat>
+                    <ImageFormat Author="HotelImages" CopyrightNotice="HotelImage" IsOriginalIndicator="false " Height="50" Width="70"  UnitOfMeasureCode="9" Format="JPG">
+                    <URL>http://s.bstatic.com/images/hotel/max300/103/1031765.jpg</URL>
+                    </ImageFormat>
+                    <ImageFormat Author="HotelImages" CopyrightNotice="HotelImage" IsOriginalIndicator="false " Height="100" Width="200"  UnitOfMeasureCode="9" Format="JPG">
+                    <URL>http://s.bstatic.com/images/hotel/max300/103/1031769.jpg</URL>
+                    </ImageFormat>
+                    <Description Caption="โรงแรมบายพาส และสปา"  Language="th"/>
+                    <Description Caption="Bypass Hotel"  Language="en"/>
+                  </ImageItem>
+                  <ImageItem Category="6"  > <!-- 6 is Guest room --> 
+                    <ImageFormat Author="Bypass Hotel" CopyrightNotice="Bypass Hotel" IsOriginalIndicator="true " Height="170" Width="300"  UnitOfMeasureCode="9" Format="JPG">
+                    <!-- format is 9 for pixel , this image is the original file and format --> 
+                    <URL>http://r.bstatic.com/images/hotel/square40/103/1031764.jpg</URL>
+                    </ImageFormat>
+                    <ImageFormat Author="HotelImages" CopyrightNotice="HotelImage" IsOriginalIndicator="false " Height="50" Width="70"  UnitOfMeasureCode="9" Format="JPG">
+                    <URL>http://q.bstatic.com/images/hotel/square40/103/1031765.jpg</URL>
+                    </ImageFormat>
+                    <ImageFormat Author="HotelImages" CopyrightNotice="HotelImage" IsOriginalIndicator="false " Height="100" Width="200"  UnitOfMeasureCode="9" Format="JPG">
+                    <URL>http://q.bstatic.com/images/hotel/square40/103/1031769.jpg</URL>
+                    </ImageFormat>
+                    <Description Caption="ห้องสุดยอด"  Language="th"/>
+                    <Description Caption="Supreme Room"  Language="en"/>
+                  </ImageItem>
+                </ImageItems>
+              </MultimediaDescription> 
+          </MultimediaDescriptions> 
+        </Descriptions> 
+        <Position Latitude="7.997187492603452" Longitude="98.41059201660164"/> 
+      </HotelInfo>
+      <ContactInfo ContactProfileType="Property Info"> 
+        <Addresses> 
+          <Address UseType="7"> 
+            <!--Use Type 7 = Physical from OTA Code Table AUT--> 
+            <AddressLine>102 Bypass, patong </AddressLine> 
+            <CityName>thalang</CityName> 
+            <PostalCode>83000</PostalCode> 
+            <StateProv StateCode="PHUKET"/> 
+            <CountryName>thailand</CountryName> 
+          </Address> 
+        </Addresses> 
+        <Phones> 
+          <Phone PhoneLocationType="1" PhoneNumber="076-884-488" PhoneTechType="1" PhoneUseType="6"/> 
+          <!--Phone Location Type 1 = Brand reservations office from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type = 1 Emergency contact from OTA Code Table PUT--> 
+          <Phone AreaCityCode="617" CountryAccessCode="1" PhoneLocationType="4" PhoneNumber="236-5800" PhoneTechType="1" PhoneUseType="5"/> 
+          <!--Phone Location Type 4 = Property direct from OTA Code Table PLT, Phone Tech Type 1 = Voice from OTA Code Table PTT, Phone Use Type 5 = Contact from OTA Code Table PUT--> 
+        </Phones> 
+      </ContactInfo> 
+    </HotelDescriptiveContent> 
+  </HotelDescriptiveContents> 
+</OTA_HotelDescriptiveContentNotifRQ>

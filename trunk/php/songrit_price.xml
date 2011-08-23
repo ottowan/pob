@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTA_HotelAvailNotifRQ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opentravel.org/OTA/2003/05" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05OTA_HotelAvailNotifRQ.xsd" TimeStamp="2004-05-01T06:39:09" Target="Production" Version="1.002">
+	<AvailStatusMessages ChainCode="SONG" BrandCode="SONG" HotelCode="SONGRIT" HotelName="Songrit Hotel">
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-01-01" End="2011-04-30" RatePlanCode="SONG1" InvCode="Supreme Suite" Rate="1000">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-05-01" End="2011-08-31" RatePlanCode="SONG1" InvCode="Supreme Suite" Rate="1200">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-09-01" End="2011-12-31" RatePlanCode="SONG1" InvCode="Supreme Suite" Rate="1400">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="10" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-01-01" End="2011-04-30" RatePlanCode="SONG2" InvCode="Deluxe Suite" Rate="800">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="10" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-05-01" End="2011-08-31" RatePlanCode="SONG2" InvCode="Deluxe Suite" Rate="1000">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="10" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-09-01" End="2011-12-31" RatePlanCode="SONG2" InvCode="Deluxe Suite" Rate="1200">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="20" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-01-01" End="2011-04-30" RatePlanCode="SONG3" InvCode="Swimming Suite" Rate="500">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="20" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-05-01" End="2011-08-31" RatePlanCode="SONG3" InvCode="Swimming Suite" Rate="700">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="20" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-09-01" End="2011-12-31" RatePlanCode="SONG3" InvCode="Swimming Suite" Rate="900">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+	</AvailStatusMessages>
+</OTA_HotelAvailNotifRQ>

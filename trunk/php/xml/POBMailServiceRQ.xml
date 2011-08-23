@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<POBMailServiceRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="1.000" Target="Production" TimeStamp="2010-07-21 21:41:52">
+  <HotelReservation>
+    <HotelInfo HotelCode="SONGRIT"  HotelName="Songrit Hotel" Email="hotelemail@hotelweb.com"/>
+    <RoomStays><!-- RoomStay may have more than one tag(rooms) -->
+      <RoomStay>
+        <RoomTypes>
+          <RoomType NumberOfUnits="1"/>
+        </RoomTypes>
+        <Inv InvCode="STD"/>
+        <GuestCounts>
+          <GuestCount Adult="2" Children="1"/>
+        </GuestCounts>
+        <RoomRates>
+          <RoomRate Date="2011-08-02" Rate="2200" ></RoomRate>
+          <RoomRate Date="2011-08-03" Rate="2200" ></RoomRate>
+        </RoomRates>
+        <Comments>
+          <Comment>
+            <Text>non-smoking room requested,king bed</Text>
+          </Comment>
+        </Comments>
+      </RoomStay>
+    </RoomStays>
+    <Customer>
+      <PersonName>
+        <NamePrefix>Ms.</NamePrefix>
+        <GivenName>Charlotte</GivenName>
+        <Surname>Costello</Surname>
+      </PersonName>
+      <Telephone PhoneNumber="8145556123"/>
+      <Email>charlotte.costello@corp.com</Email>
+      <Address>
+        <AddressLine>123 Locust St.</AddressLine>
+        <CityName>Hyndman</CityName>
+        <PostalCode>15545</PostalCode>
+        <StateProv>PA</StateProv>
+        <CountryName>USA</CountryName>
+      </Address>
+      <PaymentCard CardCode="VS" CardNumber="4111111111111202" ExpireDate="0506">
+        <CardHolderName>Costello</CardHolderName>
+      </PaymentCard>
+    </Customer>
+  </HotelReservation>
+</POBMailServiceRQ>
