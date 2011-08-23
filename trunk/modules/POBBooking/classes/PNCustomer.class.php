@@ -10,7 +10,7 @@ class PNCustomer extends PNObject {
         $this->_init($init, $where);
     }
 
-/*
+
     function insertPreProcess() {
         //get
         $form = FormUtil::getPassedValue ('form', false );
@@ -21,7 +21,7 @@ class PNCustomer extends PNObject {
         $datenow = date("Y-m-d H:i:s");
 		//var_dump($datenow);
         //exit;
-		$roomstays = $form['roomstays'];
+	  	  $roomstays = $form['roomstays'];
         $total_rooms = 0;
         foreach($roomstays as $item) {
         $total_rooms+=$item[numberofunits];
@@ -32,32 +32,26 @@ class PNCustomer extends PNObject {
         $this->_objData['cardexpire'] = $cardexpiredate;
         //$this->_objData['cr_date'] = $datenow;
         $this->_objData['total_rooms'] = $total_rooms;
-        //return true;
+        return true;
     }
-*/
+
 
     function insertPostProcess() {
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
 
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $refid = "B".($id+1000);
-		$card_exp_month = $this->_objData['card_exp_month'];
-        $card_exp_year = substr($this->_objData['card_exp_month'], -2);
-        $cardexpiredate = $card_exp_month.$card_exp_year;
-		$roomstays = $this->_objData['roomstays'];
-        $total_rooms = 0;
-        foreach($roomstays as $item) {
-        $total_rooms+=$item[numberofunits];
-        }
-        var_dump($cardexpiredate);
-		var_dump($roomstays);
-		var_dump($total_rooms);
-        exit;
-		
-        $object = array('refid'=>$refid,
-						'cardexpire'=>$cardexpiredate,
-						'total_rooms'=>$total_rooms
-						);
+//        $card_exp_month = $this->_objData['card_exp_month'];
+//        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
+//        $cardexpiredate = $card_exp_month.$card_exp_year;
+        $roomstays = $this->_objData['roomstays'];
+
+        //var_dump($cardexpiredate);
+        //var_dump($total_rooms);
+        //exit;
+
+        $object = array('refid'=>$refid
+                        );
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
 
@@ -374,9 +368,9 @@ class PNCustomer extends PNObject {
 		
 		
 		//var_dump($ch);
-		//var_dump($response);
-		
+		//var_dump($response);		
 		//exit;
+		
 
         $mystring = $response;
         $findme   = '<Success>';
