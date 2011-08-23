@@ -1,0 +1,37 @@
+
+<?xml version='1.0' encoding='utf-8' ?> 
+<POB_HotelAvailRS SequenceNmbr='1' Target='Test' TimeStamp='2011-08-23T01:27:23' Version='1.001' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://www.opentravel.org/OTA/2003/05' xsi:schemaLocation='http://www.opentravel.org/OTA/2003/05 HotelSearchRS.xsd'> 
+  <Success></Success> 
+  <Properties> 
+    <Property Description='holidayin.phuketcity.comholidayin.phuketcity.comholidayin.phuketcity.comholidayin.phuketcity.comholidayin.phuketcity.com' HotelCode='POBHT000033' HotelName='holidayin'> 
+      <ContactInfo AddressLine='124/577 kathu' CityName='kathu' CountryName='thailand' PostalCode='83000' StateProv='phuket'></ContactInfo> 
+      <Availabilities> 
+        <Availability Date='2011-08-23' InvCode='Deluxe' Limit='20' Rate='1000' RatePlanCode='Deluxe'>
+          <MultimediaDescriptions></MultimediaDescriptions> 
+          <MultimediaDescriptions> 
+            <MultimediaDescription> 
+              <TextItems> 
+                <TextItem Title="Description"> 
+                  <Description>DeluxeDeluxeDeluxe</Description> 
+                </TextItem> 
+              </TextItems> 
+            </MultimediaDescription> 
+          </MultimediaDescriptions> 
+        </Availability> 
+        <Availability Date='2011-08-23' InvCode='Superior' Limit='50' Rate='2500' RatePlanCode='Superior'>
+          <MultimediaDescriptions></MultimediaDescriptions> 
+          <MultimediaDescriptions> 
+            <MultimediaDescription> 
+              <TextItems> 
+                <TextItem Title="Description"> 
+                  <Description>Superior Superior Superior</Description> 
+                </TextItem> 
+              </TextItems> 
+            </MultimediaDescription> 
+          </MultimediaDescriptions>
+        </Availability>  
+      </Availabilities> 
+    </Property> 
+  </Properties> 
+  
+</POB_HotelAvailRS> 

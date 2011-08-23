@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTA_HotelAvailNotifRQ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opentravel.org/OTA/2003/05" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05OTA_HotelAvailNotifRQ.xsd" TimeStamp="2004-05-01T06:39:09" Target="Production" Version="1.002">
+	<AvailStatusMessages ChainCode="BYP" BrandCode="BYP" HotelCode="POBHT003" HotelName="Bypass Hotel & SPA">
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-01-01" End="2011-04-30" RatePlanCode="BYP1" InvCode="Supreme" Rate="2000">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-05-01" End="2011-08-31" RatePlanCode="BYP1" InvCode="Supreme" Rate="2200">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+		<AvailStatusMessage BookingLimit="5" BookingLimitMessageType="SetLimit">
+			<StatusApplicationControl Start="2011-09-01" End="2011-12-31" RatePlanCode="BYP1" InvCode="Supreme" Rate="2400">
+			</StatusApplicationControl>
+			<UniqueID Type="16" ID="1">
+			</UniqueID>
+		</AvailStatusMessage>
+	</AvailStatusMessages>
+</OTA_HotelAvailNotifRQ>

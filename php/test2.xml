@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<OTA_HotelDescriptiveContentNotifRQ xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd" Version="2.001"> 
+  <HotelDescriptiveContents> 
+    <HotelDescriptiveContent BrandCode="Hotel1" BrandName="Hotel1" CurrencyCode="THB" HotelCode="" HotelName="Hotel1" LanguageCode="TH"> 
+      <HotelInfo HotelStatus="Open" LastUpdated="2011-08-02T12:53:33" Start="2011-07-05" WhenBuilt="0000"> 
+        <CategoryCodes> 
+          <LocationCategory Code="1" CodeDetail="Location Type: Airport"/> 
+          <LocationCategory Code="15" CodeDetail="Location Type: Beachfront"/> 
+        </CategoryCodes> 
+        <Descriptions> 
+          <MultimediaDescriptions> 
+            <MultimediaDescription> 
+              <TextItems> 
+                <TextItem Title="Description"> 
+                  <Description>!I'm pretty sure we all get the fact that time warp brought some people here, its a little annoying to see everyone reposting the same comments.</Description> 
+                </TextItem> 
+                <TextItem Title="FacilityInfo" Name="Airport"> 
+                  <Description>wefewfew</Description> 
+                </TextItem> 
+              </TextItems> 
+            </MultimediaDescription> 
+          </MultimediaDescriptions> 
+        </Descriptions> 
+        <Position Latitude="7.963527698918574" Longitude="98.28493588867195"/> 
+        <Services> 
+          <Service Code="9"> 
+            <MultimediaDescriptions> 
+              <MultimediaDescription> 
+                <TextItems> 
+                  <TextItem Title="BBQ/Picnic area"> 
+                    <Description>Best</Description> 
+                  </TextItem> 
+                </TextItems> 
+              </MultimediaDescription> 
+            </MultimediaDescriptions> 
+          </Service> 
+        </Services> 
+      </HotelInfo> 
+      <ContactInfo ContactProfileType="Property Info"> 
+        <Addresses> 
+          <Address UseType="7"> 
+            <AddressLine>123</AddressLine> 
+            <CityName>Muang</CityName> 
+            <PostalCode>83000</PostalCode> 
+            <StateProv StateCode="Phuket"/> 
+            <CountryName>Thailand</CountryName> 
+          </Address> 
+        </Addresses> 
+      </ContactInfo> 
+    </HotelDescriptiveContent> 
+  </HotelDescriptiveContents> 
+</OTA_HotelDescriptiveContentNotifRQ>
