@@ -28,6 +28,7 @@
       $pntable['pobbooking_customer_column'] = array(
                                                   'id'                  => 'cus_id',
                                                   'refid'               => 'cus_refid',
+                                                  'resid'               => 'cus_resid',
                                                   'status_id'           => 'cus_status_id',
                                                   'identificational'    => 'cus_identificational',
                                                   'nameprefix'          => 'cus_nameprefix',
@@ -52,6 +53,7 @@
       $pntable['pobbooking_customer_column_def'] = array(
                                                   'id'                  => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
                                                   'refid'               => 'TEXT',
+                                                  'resid'               => 'TEXT',
                                                   'status_id'           => 'INT(2) DEFAULT 2',
                                                   'identificational'    => 'VARCHAR(50) DEFUALT NULL',
                                                   'nameprefix'          => 'VARCHAR(50) DEFUALT NULL',
