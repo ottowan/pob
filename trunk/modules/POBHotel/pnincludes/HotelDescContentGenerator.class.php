@@ -83,6 +83,15 @@ Class HotelDescContentGenerator {
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd");
     $OTA_HotelDescriptiveContentNotifRQ->setAttribute("Version", "2.001");
 
+    $POS = $xml->createElement("POS");
+    $OTA_HotelDescriptiveContentNotifRQ->appendChild($POS);
+    $Source = $xml->createElement("Source");
+    $POS->appendChild($Source);
+    $RequestorID = $xml->createElement("RequestorID");
+    $RequestorID->setAttribute("Type", "1");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
+    $Source->appendChild($RequestorID);
+
     $HotelDescriptiveContents = $xml->createElement("HotelDescriptiveContents");
     $HotelDescriptiveContent = $xml->createElement("HotelDescriptiveContent");
 

@@ -21,6 +21,7 @@ function POBHotel_ajax_form(){
       $render->assign ('_GET', $_GET);
       $render->assign ('_POST', $_POST);
       $render->assign ('_REQUEST', $_REQUEST);
+      $id      = FormUtil::getPassedValue ('id', FALSE , 'GET');
 
       $render->assign('ctrl', $ctrl);
       if ($lang){
@@ -28,7 +29,21 @@ function POBHotel_ajax_form(){
       }else{
         $render->assign('lang', pnUserGetLang());
       }
+      //load class
+      if (!($class = Loader::loadClassFromModule ('POBHotel', $ctrl, false)))
+        return LogUtil::registerError ('Unable to load class [$ctrl] ...');
+  
+      $object  = new $class ();
+      if ($id && $object){
+        $object->get($id);
+        $mode = 'edit';
 
+        $render->assign ('form', $object->_objData);
+        
+      }else{
+        $mode = 'new';
+      }
+      $render->assign ('mode', $mode);
       echo $render->fetch('ajax_'.$func.'_'.strtolower($ctrl).'.htm');
       return true;
     }
@@ -158,6 +173,7 @@ function POBHotel_ajax_list(){
       $objectArray->get ($where, $sort , $offset, $pagesize);
       //assign to view
       $render->assign('objectArray', $objectArray->_objData);
+      
     }
     echo  $render->fetch('ajax_'.$func.'_'.strtolower($ctrl).'.htm');
     pnShutDown();
