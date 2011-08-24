@@ -20,8 +20,4 @@ function smarty_function_captcha ($params, &$smarty)
   SessionUtil::setVar('SECURITY_CAPTCHA', md5($code));
   return $img;
 }
-
-
-
-
 ?>
