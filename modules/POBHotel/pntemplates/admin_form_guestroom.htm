@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="modules/POBHotel/pnjavascript/datepicker/development-bundle/themes/base/jquery.ui.all.css" />
+
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/jquery-1.5.1.js"></script>
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<script src="modules/POBHotel/pnjavascript/datepicker/development-bundle/ui/jquery.ui.tabs.js"></script>
+<script src="modules/POBHotel/pnjavascript/facebox/facebox.js" type="text/javascript"></script>
+<link href="modules/POBHotel/pnjavascript/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/demos.css" />
+<link href="modules/POBHotel/pnjavascript/style.css" rel="stylesheet" type="text/css" media="all" /> 
+
+<link rel="stylesheet" href="modules/POBHotel/pnjavascript/form/css/style.css" type="text/css" media="screen"/>
+
+<script type="text/javascript" src="modules/POBHotel/pnjavascript/form/sliding.form.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('a[rel*=facebox]').facebox({
+		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png'
+	})
+	callback_refresh();
+})
+function callback_refresh(){
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=Season', function(data) {
+	  $('#HotelSeason').html(data);
+	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoomType', function(data) {
+	  $('#HotelGuestRoomType').html(data);
+	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoom', function(data) {
+	  $('#HotelGuestRoom').html(data);
+	});
+}
+</script>
+<!--[literal]--><!--[if IE]><!--[/literal]-->
+       <style>
+          .upload{
+            display:none;
+          }
+          .upload_ie{
+            display:block !important;
+          }
+          #navigation ul li{
+            width:50px;
+          }
+       </style>
+<!--[literal]--><![endif]--><!--[/literal]-->
+
+<script>
+  $(function() {
+      $( "#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "button",
+        dateFormat: 'yy-mm-dd',
+        buttonImage: "modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/datepicker/images/calendar.gif",
+        buttonImageOnly: true
+    });
+  });
+
+  $(function() {
+      $( "#datepicker2" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "button",
+        dateFormat: 'yy-mm-dd',
+        buttonImage: "modules/POBHotel/pnjavascript/datepicker/development-bundle/demos/datepicker/images/calendar.gif",
+        buttonImageOnly: true
+    });
+  });
+</script>
+           <div id="wrapper">
+                <div id="steps">
+				<FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='adminform' func='submit' ctrl='Hotel']-->" enctype="multipart/form-data">
+					<fieldset class="step">
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON"]--></legend>
+						
+						<div id="HotelSeason">
+						
+						</div>
+						
+<br><br>
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE"]--></legend>
+						<div id="HotelGuestRoomType">
+					
+						</div>
+<br><br>
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM"]--></legend>
+						<div id="HotelGuestRoom">
+
+						</div>
+
+						</fieldset>
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
+						</FORM>
+					</div>
+				</div>
