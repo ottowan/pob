@@ -5,13 +5,13 @@ function POBBooking_userform_submit ()
     $ctrl     = FormUtil::getPassedValue ('ctrl', 'Booking');
     $reserv_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>'Payment'));
     $validate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>$ctrl));
-    $invalidate_form_url = pnModURL('POBBooking', 'user', 'form' , array('ctrl'=>'Booking'));
+
     $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
     $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
     //$success_url = pnModURL('iHotel', 'user', 'page', array('ctrl'=>'redirect'));
     $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
     $form = FormUtil::getPassedValue ('form', null);
-
+    $invalidate_form_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
     if (count($forward)){
       $forward_url = generateUrl($forward);
     }
@@ -60,31 +60,6 @@ function POBBooking_userform_submit ()
           return true;
       } else  {
         $object->save ();
-///////////////////////////////////////////////////////////////////////////////////////////////
-/*
-        $booking = SessionUtil::getVar('booking');
-        $i = 1;
-        $j = 1;
-        $room_name[$i] = '';
-        $room_count = 0;
-        foreach ($booking as $item){
-                   
-          if($item[roomtype] != '$room_name[$i]'){
-              $room_name[$i] = $item[roomtype];
-              
-          }else{
-              $room_count = 0;
-              
-          }
-          $i++;
-          $room_count++;
-                    
-        }
-        $object1 = array('amount_room'   => $amount_room);
-        //$object1->getDataFromInput ('form',null,'POST');
-        pnModAPIFunc('iHotel', 'user', 'updateRoomReserv',array('form' => $object1));
-*/
-///////////////////////////////////////////////////////////////////////////////////////////////
         pnRedirect($success_url);
       }
     }
