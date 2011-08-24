@@ -11,12 +11,13 @@
       
       $this->_init($init, $where);
     }
-/*
+
     function insertPostProcess(){
           $id = $this->_objData['id'];
-          $this->uploadFiles($id);
+          //$this->uploadFiles($id);
+          
     }
-
+/*
   function uploadFiles($id){
     if ($id && in_array(0,$_FILES['images']['error'])){
       $images = $_FILES['images'];

@@ -130,6 +130,7 @@
       $object->get($id);
       $mode = 'edit';
       $render->assign ('form', $object->_objData);
+      
     }else{
       $mode = 'new';
     }

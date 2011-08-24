@@ -95,7 +95,6 @@ function callback_refresh(){
                         <li><a href="#"><!--[pnml name="_POBHOTEL_ADMIN_TAB_BUTTON_PHOTO"]--></a></li>
                         <li><a href="#"><!--[pnml name="_POBHOTEL_ADMIN_TAB_BUTTON_INDEXPOINT"]--></a></li>
                         <li><a href="#"><!--[pnml name="_POBHOTEL_ADMIN_TAB_BUTTON_ATTRACTION"]--></a></li>
-						<li><a href="#"><!--[pnml name="_POBHOTEL_ADMIN_TAB_BUTTON_ROOMANDSEASON"]--></a></li>
                         <li><a href="#"><!--[pnml name="_POBHOTEL_ADMIN_TAB_BUTTON_CONFIRM"]--></a></li>
                     </ul>
                 </div>
@@ -252,6 +251,11 @@ function callback_refresh(){
 									</tr>
 								</TABLE>
 								</div>
+														<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
+
                         </fieldset>
 
                         <fieldset class="step">
@@ -299,6 +303,10 @@ function callback_refresh(){
 								</tr>
 							</TABLE>
                           </div>
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
 
                         </fieldset>
 
@@ -480,6 +488,11 @@ function callback_refresh(){
         </TD>
       </TR>
       </TABLE>
+	  						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
+
                         </fieldset>
                         <fieldset class="step">
                             <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_PHOTO"]--></legend>
@@ -650,6 +663,10 @@ function callback_refresh(){
               <INPUT TYPE="file" NAME="images[]"></br>
               <INPUT TYPE="file" NAME="images[]"></br>
           </div><!-- end upload_ie -->
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
 
                         </fieldset>
 						
@@ -697,6 +714,11 @@ function callback_refresh(){
 								</tr>
 							</TABLE>
 							</div>
+													<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
+
                         </fieldset>
 
                         <fieldset class="step">
@@ -744,142 +766,12 @@ function callback_refresh(){
 								</tr>
 							</TABLE>
 						</div>
+						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+						<p class="submit">
+							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+						</p>
+
                         </fieldset>
-						<fieldset class="step">
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON"]--></legend>
-						<div id="HotelSeason">
-						<!--[if isset($extendResult.hotelSeason)]-->
-							<TABLE width="900">
-								
-								<!--[foreach from=$extendResult.hotelSeason item=item]-->
-							<tr>
-								<td>
-								<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON_NAME"]-->
-								</td>
-								<td>
-								<INPUT TYPE="text" NAME="itemSeason[name]" value="<!--[$item.name]-->" size="40">
-								</td>
-								<td>
-								<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON_START"]-->
-								</td>
-								<td>
-								<INPUT TYPE="text" NAME="itemSeason[start]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_start]-->">
-								</td>
-								<td>
-								<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON_END"]-->
-								</td>
-								<td>
-								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_end]-->">
-								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Season&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
-								</td>
-							</tr>
-								 
-							<!--[/foreach]-->
-							</TABLE>
-							<!--[/if]-->
-							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Season" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
-						</div>
-						
-<br><br>
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE"]--></legend>
-						<div id="HotelGuestRoomType">
-						<!--[if isset($extendResult.hotelGuestRoomType)]-->
-							<TABLE width="900">
-								<tr>
-								<td>
-								<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE_NAME"]-->
-								</td>
-								<td>
-								<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE_DESCRIPTION"]-->
-								</td>
-								</tr>
-								<!--[foreach from=$extendResult.hotelGuestRoomType item=item]-->
-								<tr>
-								<td>
-								<INPUT TYPE="text" NAME="itemGuestRoomType[name]" ROWS="10" COLS="40" size="30" value="<!--[$item.name]-->">
-								</td>
-								<td>
-								<INPUT TYPE="text" NAME="itemGuestRoomType[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
-								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="facebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
-								</td>
-							</tr>
-							<!--[/foreach]-->
-							</TABLE>
-							<!--[/if]-->
-							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
-						</div>
-<br><br>
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM"]--></legend>
-						<div id="HotelGuestRoom">
-						<!--[get_all_guest_room_type]-->
-						<!--[get_all_season]-->
-
-						<!--[if isset($extendResult.hotelGuestRoom)]-->
-							<TABLE width="900">
-							<!--[foreach from=$extendResult.hotelGuestRoom item=item]-->
-								<tr>
-								<td width="95">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_QUANTITY"]-->
-								</td>
-								<td width="125">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_TYPE"]-->
-								</td>
-								<td width="124">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_SEASON"]-->
-								</td>
-								<td width="129">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_PRICE"]-->
-								</td>
-								<td width="111">
-									<!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM_CAPACITY"]-->
-								</td>
-								<td width="98">
-								  </td>
-								</tr>
-								
-								<tr>
-								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
-								</td>
-								<td>
-								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
-									<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
-									  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
-										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
-									  <!--[else]-->
-										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
-									  <!--[/if]-->
-									<!--[/foreach]-->
-								</select>
-								</td>
-								<td>
-								<select name="itemGuestRoom[<!--[$item.id]-->][season_id]">
-									<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
-									  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
-										<option value="<!--[$itemAllSeason.season_id]-->" SELECTED><!--[$itemAllSeason.season_name]--></option>
-									  <!--[else]-->
-										<option value="<!--[$itemAllSeason.season_id]-->"><!--[$itemAllSeason.season_name]--></option>
-									  <!--[/if]-->
-									<!--[/foreach]-->
-								</select>
-								</td>
-								<td>
-									<!--[$item.price]-->
-								</td>
-								<td>
-									<!--[$item.capacity]-->
-								</td>
-								<td>
-									<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
-								</td>
-							</tr>
-
-							<!--[/foreach]-->
-							</TABLE>
-							<!--[/if]-->
-							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom" rel="facebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
-						</div>
-						</fieldset>
                         <fieldset class="step">
                                         <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
                                         <p class="submit">
