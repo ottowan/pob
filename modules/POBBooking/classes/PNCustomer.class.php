@@ -14,7 +14,6 @@ class PNCustomer extends PNObject {
     function insertPreProcess() {
         //get
         $form = FormUtil::getPassedValue ('form', false );
-        
         $card_exp_month = $form['card_exp_month'];//$this->_objData['card_exp_month'];
         $card_exp_year = substr($form['card_exp_month'], -2);
         $cardexpiredate = $card_exp_month.$card_exp_year;
@@ -41,9 +40,6 @@ class PNCustomer extends PNObject {
 
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $refid = "B".($id+1000);
-//        $card_exp_month = $this->_objData['card_exp_month'];
-//        $card_exp_year = substr($this->_objData['card_exp_year'], -2);
-//        $cardexpiredate = $card_exp_month.$card_exp_year;
         $roomstays = $this->_objData['roomstays'];
 
         //var_dump($cardexpiredate);
@@ -54,7 +50,6 @@ class PNCustomer extends PNObject {
                         );
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-
         if ($_POST['forward'] ) {
             $forward  = $_POST['forward'];
             //pnRedirect($list_url);
@@ -62,7 +57,6 @@ class PNCustomer extends PNObject {
         }
 
         //Get form value to insert booking
-
         $form = FormUtil::getPassedValue ('form', false );
         $card_exp_month = $form['card_exp_month'];
         $card_exp_year = substr($form['card_exp_year'], -2);
@@ -115,21 +109,6 @@ class PNCustomer extends PNObject {
             );
             
             DBUtil::insertObject($objects,'pobbooking_booking');
-
-            //count room for each type
-            
-
-/*
-            //update avalible booking room
-            $current_avalible_booking = DBUtil::selectFieldMax( 'ihotel_roomtype', 'id', 'MAX', '');
-            $pntables = pnDBGetTables();
-            $column   = $pntables['ihotel_roomtype'];
-            $obj = array('amount_booking' => '123 Some Street');
-            $where    = "WHERE $column[name]='$item[roomtype]'";
-
-            DBUTil::updateObject ($obj, 'customers', $where);
-*/
-
         }
 
         $this->sendXML();
@@ -214,9 +193,20 @@ class PNCustomer extends PNObject {
     $cardexpiredate = $card_exp_month.$card_exp_year;
     $roomstays = $form['roomstays'];
 
-    /////////////////////////////////////////////////////
-    //////// GEN XML ////////
-    /////////////////////////////////////////////////////
+//////////////////////////////////////
+///// Encryption Payment detail //////
+//////////////////////////////////////
+$cardcode = encrypt($form['cardcode']);
+$cardnumber = encrypt($form['cardnumber']);
+$cardexpire = encrypt($cardexpiredate);
+$cardid = encrypt($form['cardid']);
+$cardholdername = encrypt($form['cardholdername']);
+$rqtype = encrypt('1');
+$rqid = encrypt('638fdJa7vRmkLs5');
+
+////////////////////////////
+//////// GEN XML ///////////
+////////////////////////////
     // Set the content type to be XML, so that the browser will recognise it as XML.
     // "Create" the document.
     $xml = new DOMDocument("1.0", "UTF-8");
@@ -234,11 +224,17 @@ class PNCustomer extends PNObject {
         $xml->appendChild($OTA_HotelResRQ);
 
              //POS
-            $POS = $xml->createElement("POS");
-            $OTA_HotelResRQ->appendChild($POS);
-              $Source = $xml->createElement("Source");
-              $POS->appendChild($Source);
-              $Source->setAttribute("ISOCurrency", $form['isocurrency']);
+        $POS = $xml->createElement("POS");
+        $OTA_HotelResRQ->appendChild($POS);
+          $Source = $xml->createElement("Source");
+          $Source->setAttribute("ISOCurrency", $form['isocurrency']);
+          $POS->appendChild($Source);
+          $RequestorID = $xml->createElement("RequestorID");
+          $RequestorID->setAttribute("Encrypt", "1");
+          $RequestorID->setAttribute("Type", $rqtype);
+          $RequestorID->setAttribute("ID", $rqid);
+          $Source->appendChild($RequestorID);
+          //$POS = $xml->createElement("POS");
 
             //HotelReservations
             $HotelReservations = $xml->createElement("HotelReservations");
@@ -283,12 +279,14 @@ class PNCustomer extends PNObject {
                         $GuaranteesAccepted->appendChild($GuaranteeAccepted);
                           $PaymentCard = $xml->createElement("PaymentCard");
                           $GuaranteeAccepted->appendChild($PaymentCard);
-                          $PaymentCard->setAttribute("CardCode", $form['cardcode']);
-                          $PaymentCard->setAttribute("CardNumber", $form['cardnumber']);
-                          $PaymentCard->setAttribute("ExpireDate", $cardexpiredate);
-                          $PaymentCard->setAttribute("CVV", $form['cardid']);
-                            $CardHolderName = $xml->createElement("CardHolderName", $form['cardholdername']);
+                          $PaymentCard->setAttribute("Encrypt", '1');
+                          $PaymentCard->setAttribute("CardCode", $cardcode);
+                          $PaymentCard->setAttribute("CardNumber", $cardnumber);
+                          $PaymentCard->setAttribute("ExpireDate", $cardexpire);
+                          $PaymentCard->setAttribute("CVV", $cardid);
+                            $CardHolderName = $xml->createElement("CardHolderName", $cardholdername);
                             $PaymentCard->appendChild($CardHolderName);
+                            $CardHolderName->setAttribute("Encrypt", '1');
                       $BasicPropertyInfo = $xml->createElement("BasicPropertyInfo");
                       $RoomStay->appendChild($BasicPropertyInfo);
                       $BasicPropertyInfo->setAttribute("ChainCode", $form['chaincode']);
@@ -352,7 +350,7 @@ class PNCustomer extends PNObject {
         //exit;
         //$xml->save("OTA_HotelResRQ1.xml");
 
-    ////send xml
+////////send xml
         $url = 'http://pob-ws.heroku.com/api/hotel_res';
         $data = $xml->saveXML();
         //$data = $data->saveXML();
@@ -363,14 +361,18 @@ class PNCustomer extends PNObject {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
         $response = curl_exec($ch);
-		
-		
-		//var_dump($ch);
-		//var_dump($response);		
-		//exit;
-		
+////////get booking id
+        $xml = simplexml_load_string($string);
+        $booking_id = $xml->HotelReservations->HotelReservation->ResGlobalInfo->HotelReservationIDs->HotelReservationID->attributes()->BookingID;
+        echo $booking_id;
+////////update booking id to table
+        Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
+        $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
+        $object = array('booking_id'=>$booking_id);
+        $where  = " cus_id = ".$id;
+        DBUtil::updateObject($object,'pobbooking_customer',$where);
+
 
         $mystring = $response;
         $findme   = '<Success>';
@@ -387,25 +389,30 @@ class PNCustomer extends PNObject {
         }
 
         curl_close($ch);
-    
         //print $response;
         //exit;
 
-/*        //test success
-        $mystring = $response;
-        $findme   = "Success";
-        $pos = strpos($mystring, $findme);
-        if($pos > 0){
-        $forwardurl = pnModURL('POBBooking');
-        return $forwardurl;
-        }else{
-           //Unsuccess page
-          $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
-          pnRedirect($url);
-          //return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
-          exit;
-        }*/
-        
+    }
+
+    function encrypt($source){
+
+      $fp=fopen("modules/POBBooking/pnincludes/pob.public.pem","r"); 
+      $pub_key=fread($fp,8192); 
+      fclose($fp); 
+      $key_resource = openssl_get_publickey($pub_key); 
+      if (!$key_resource) {
+        echo "Cannot get public key"; exit;
+      }
+
+      openssl_public_encrypt($source,$crypttext, $key_resource ); 
+
+      if (!empty($crypttext)) {
+        openssl_free_key($key_resource);
+        return base64_encode($crypttext); 
+        //echo "Encryption OK!";
+      }else{
+        echo "Cannot Encrypt"; exit;
+      }
     }
 
 
