@@ -1,0 +1,2 @@
+ALTER TABLE `pobdb`.`zk_pobbooking_customer`     
+ADD COLUMN `cus_booking_id` INT(11) NULL AFTER `cus_refid`;
