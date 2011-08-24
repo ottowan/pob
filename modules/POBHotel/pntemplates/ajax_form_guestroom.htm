@@ -6,33 +6,35 @@
 			url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=GuestRoom",
 			data	: $(this).serializeArray(),
 			success	: function(data) {
-				$.facebox(data)
-				$.facebox.close()
-				callback_refresh()
+				
+				$.facebox(data);
+				$.facebox.close();
+				callback_refresh();
 			}
 		});
 
 		return false;
 	});
 	$("#formGuestRoom").bind("reset", function() {
-				$.facebox.close()
-				callback_refresh()
+				$.facebox.close();
+				callback_refresh();
 		return false;
 	});
 </script>
 
 <legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM"]--></legend>
-<FORM id="formGuestRoom" name="formGuestRoom" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='GuestRoom']-->" enctype="multipart/form-data>">
+<FORM id="formGuestRoom" name="formGuestRoom" METHOD=POST ACTION="" enctype="multipart/form-data>">
+						<input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
 						<!--[get_all_guest_room_type]-->
 						<!--[get_all_season]-->
-
+			
 							<TABLE width="600">
 								<tr>
 								<td>
 									<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_TYPE"]-->
 									<select name="form[type_id]">
 										<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
-										  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+										  <!--[if $form.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
 											<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
 										  <!--[else]-->
 											<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
@@ -44,7 +46,7 @@
 								<tr>
 								<td>
 									<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_QUANTITY"]-->
-									<INPUT TYPE="text" NAME="form[limit]" ROWS="10" COLS="40" size="10" value="<!--[$item.limit]-->">
+									<INPUT TYPE="text" NAME="form[limit]" ROWS="10" COLS="40" size="10" value="<!--[$form.limit]-->">
 								</td>
 								</tr>
 								<tr>
@@ -52,7 +54,7 @@
 									<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_SEASON"]-->
 									<select name="form[season_id]">
 										<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
-										  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
+										  <!--[if $form.season_id eq $itemAllSeason.season_id]-->
 											<option value="<!--[$itemAllSeason.season_id]-->" SELECTED><!--[$itemAllSeason.season_name]--></option>
 										  <!--[else]-->
 											<option value="<!--[$itemAllSeason.season_id]-->"><!--[$itemAllSeason.season_name]--></option>
@@ -64,13 +66,13 @@
 								<tr>
 								<td>
 									<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_PRICE"]-->
-									<INPUT TYPE="text" NAME="form[price]" ROWS="10" COLS="40" size="30" value="<!--[$item.price]-->">
+									<INPUT TYPE="text" NAME="form[price]" ROWS="10" COLS="40" size="30" value="<!--[$form.price]-->">
 								</td>
 								</tr>
 								<tr>
 								<td>
 									<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOM_CAPACITY"]-->
-									<INPUT TYPE="text" NAME="form[capacity]" ROWS="10" COLS="40" size="30" value="<!--[$item.capacity]-->">
+									<INPUT TYPE="text" NAME="form[capacity]" ROWS="10" COLS="40" size="30" value="<!--[$form.capacity]-->">
 								</td>
 								</tr>
 							<tr>

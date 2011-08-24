@@ -377,12 +377,6 @@
         return LogUtil::registerError ('Unable to load class [HotelDescContentGenerator] ...');
       $obj = new HotelDescContentGenerator($this->_objData['id']);
       $res = $obj->sendContent();
-
-      if (!($class = Loader::loadClass('OTA_HotelAvailNotifRQ', "modules/POBHotel/pnincludes"))){
-        return LogUtil::registerError ('Unable to load class [OTA_HotelAvailNotifRQ] ...');
-      }
-      $tester = new OTA_HotelAvailNotifRQ();;
-      $tester->sendContent();
     }
   }
 ?>

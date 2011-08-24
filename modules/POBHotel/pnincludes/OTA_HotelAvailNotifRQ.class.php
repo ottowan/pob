@@ -42,7 +42,9 @@ Class OTA_HotelAvailNotifRQ {
     $response = curl_exec($ch);
 
     curl_close($ch);
-
+    //header ('Content-type: text/xml; charset=utf-8');
+    //echo $response;
+    //exit;
     return $response;
   }
   private function genHotelAvailNotif(){
@@ -56,6 +58,15 @@ Class OTA_HotelAvailNotifRQ {
     $OTA_HotelAvailNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05OTA_HotelAvailNotifRQ.xsd");
     $OTA_HotelAvailNotifRQ->setAttribute("Version", "1.002");
     $OTA_HotelAvailNotifRQ->setAttribute("Target", "Production");
+
+    $POS = $xml->createElement("POS");
+    $OTA_HotelAvailNotifRQ->appendChild($POS);
+    $Source = $xml->createElement("Source");
+    $POS->appendChild($Source);
+    $RequestorID = $xml->createElement("RequestorID");
+    $RequestorID->setAttribute("Type", "1");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
+    $Source->appendChild($RequestorID);
 
     $AvailStatusMessages  = $xml->createElement("AvailStatusMessages");
 

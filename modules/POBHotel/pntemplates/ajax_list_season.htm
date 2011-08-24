@@ -9,7 +9,6 @@ jQuery(document).ready(function($) {
 </script>
 						<!--[if isset($objectArray)]-->
 							<TABLE width="900">
-								
 								<!--[foreach from=$objectArray item=item]-->
 								<tr>
 								<td>
@@ -29,7 +28,7 @@ jQuery(document).ready(function($) {
 								</td>
 								<td>
 								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_end]-->">
-								<a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 							</tr>
 								 

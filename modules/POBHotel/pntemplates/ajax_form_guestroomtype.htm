@@ -23,13 +23,14 @@
 
 <legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE"]--></legend>
 <FORM id="formGuestRoomType" name="formGuestRoomType" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='GuestRoomType']-->" enctype="multipart/form-data>">
+							<input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
 							<TABLE width="400">
 							<tr>
 								<td>
 								<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_NAME"]-->
 								</td>
 								<td>
-								<INPUT TYPE="text" NAME="form[name]" value="" size="40">
+								<INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->" size="40">
 								</td>
 							</tr>
 							<tr>
@@ -37,7 +38,7 @@
 								<!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_DESCRIPTION"]-->
 								</td>
 								<td>
-								<INPUT TYPE="text" NAME="form[description]" ROWS="10" COLS="40">
+								<INPUT TYPE="text" NAME="form[description]" value="<!--[$form.description]-->" ROWS="10" COLS="40">
 								</td>
 							</tr>
 							<tr>

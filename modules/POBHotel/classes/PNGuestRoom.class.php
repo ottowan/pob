@@ -10,14 +10,27 @@
       
       
       $this->_init($init, $where);
+      
     }
-
-    function insertPostProcess(){
+/* 
+    function updatePostProcess(){
           $id = $this->_objData['id'];
           //$this->uploadFiles($id);
           
     }
-/*
+ 
+    function save(){
+      parent::save();
+      $this->sendNotify();
+    }
+    private function sendNotify(){
+      if (!($class = Loader::loadClass('OTA_HotelAvailNotifRQ', "modules/POBHotel/pnincludes"))){
+        return LogUtil::registerError ('Unable to load class [OTA_HotelAvailNotifRQ] ...');
+      }
+      $HotelAvailNotifRQ = new OTA_HotelAvailNotifRQ();;
+      $HotelAvailNotifRQ->sendContent();
+    }
+
   function uploadFiles($id){
     if ($id && in_array(0,$_FILES['images']['error'])){
       $images = $_FILES['images'];

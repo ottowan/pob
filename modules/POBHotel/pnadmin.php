@@ -522,4 +522,18 @@ function downloadFile( $fullPath ){
     die('File Not Found'); 
 
 } 
+function POBHotel_admin_submitNotif(){
+  $ctrl = FormUtil::getPassedValue ('ctrl', 'Hotel', 'REQUEST');
+  
+  if (!($class = Loader::loadClass('OTA_HotelAvailNotifRQ', "modules/POBHotel/pnincludes"))){
+    return LogUtil::registerError ('Unable to load class [OTA_HotelAvailNotifRQ] ...');
+  }
+  $HotelAvailNotifRQ = new OTA_HotelAvailNotifRQ();;
+  $HotelAvailNotifRQ->sendContent();
+  
+  //Forward page and select value
+  $list_url = pnModURL('POBHotel', 'admin', 'form' , array('ctrl'   => $ctrl));
+  pnRedirect($list_url);
+  return true;
+}
 ?>
