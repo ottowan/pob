@@ -9,20 +9,28 @@ jQuery(document).ready(function($) {
 						<!--[if isset($objectArray)]-->
 							<TABLE width="900">
 								<tr>
-								<td>
-								<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOMTYPE_NAME"]-->
-								</td>
-								<td>
-								<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOMTYPE_DESCRIPTION"]-->
-								</td>
+								<th>
+								<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOMTYPE_NAME"]--></h3>
+								</th>
+								<th>
+								<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOMTYPE_DESCRIPTION"]--></h3>
+								</th>
+								<th>
+								</th>
 								</tr>
 								<!--[foreach from=$objectArray item=item]-->
+								<!--[if ($i++%2)==0]-->
+								<tr class="darker">
+								<!--[else]-->
 								<tr>
+								<!--[/if]-->
 								<td>
-								<INPUT TYPE="text" NAME="itemGuestRoomType[name]" value="<!--[$item.name]-->" size="40">
+								<p><!--[$item.name]--></p>
 								</td>
 								<td>
-								<INPUT TYPE="text" NAME="itemGuestRoomType[description]" ROWS="10" COLS="40" size="70" value="<!--[$item.description]-->">
+								<p><!--[$item.description]--></p>
+								</td>
+								<td>
 								<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="guestroomtype"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoomType&id=<!--[$item.id]-->" rel="guestroomtype"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
