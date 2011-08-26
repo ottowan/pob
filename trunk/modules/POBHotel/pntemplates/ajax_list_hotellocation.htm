@@ -12,38 +12,46 @@ jQuery(document).ready(function($) {
 								<!--[get_all_location_category]-->
 								
 									<!--[if isset($objectArray)]-->
-									
-									<!--[foreach from=$objectArray item=item]-->
 									<tr>
-									<td width="18%">
-									<select name="itemLocationCategory[<!--[$item.id]-->][location_category_id]">
+										<th width="20%">
+											<h3>Name</h3>
+										</th>
+										<th width="70%">
+											<h3>Description</h3>
+										</th>
+										<th width="10%">
+										</th>
+									</tr>
+									<!--[foreach from=$objectArray item=item]-->
+									<!--[if ($i++%2)==0]-->
+									<tr class="darker">
+									<!--[else]-->
+									<tr>
+									<!--[/if]-->
+									<td>
 									<!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
-									  <!--[assign var='compare' value='false']-->
-									  <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
-										<!--[if $itemAllLocationCategory.location_category_id eq $itemLocationCategory.location_category_id]-->
-										  <!--[assign var='compare' value='true']-->
-										<!--[/if]-->
-									  <!--[/foreach]-->
 									  <!--[if $item.location_name eq $itemAllLocationCategory.location_category_name]-->
-										<option value="<!--[$itemAllLocationCategory.location_category_id]-->" SELECTED><!--[$itemAllLocationCategory.location_category_name]--></option>
-									  <!--[else]-->
-										<option value="<!--[$itemAllLocationCategory.location_category_id]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
+										<p><!--[$itemAllLocationCategory.location_category_name]--></p>
 									  <!--[/if]-->
 									<!--[/foreach]-->
-									</select>
 									</td>
-									<td width="82%">
-										<INPUT TYPE="text" NAME="itemLocationCategory[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="100"><a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelLocation&id=<!--[$item.id]-->" rel="location_categoryfacebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+									<td>
+										<p><!--[$item.description]--></p>
+									</td>
+									<td>
+										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelLocation&id=<!--[$item.id]-->" rel="location_categoryfacebox"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelLocation&id=<!--[$item.id]-->" rel="location_categoryfacebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 									</td>
 									</tr>
 									<!--[/foreach]-->
 									<!--[/if]-->
 									<tr>
-									<td width="18%">
+									<td>
 										
 										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelLocation" rel="location_categoryfacebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 									</td>
-									<td width="82%">
+									<td>
+									</td>
+									<td>
 									</td>
 									</tr>
 								</TABLE>

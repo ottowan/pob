@@ -11,40 +11,44 @@ jQuery(document).ready(function($) {
 								<!--[get_all_attraction]-->
 							
 								<!--[if isset($objectArray)]-->
-								
-								<!--[foreach from=$objectArray item=item]-->
 								<tr>
-								<td width="18%">
-								<select name="itemAttraction[<!--[$item.id]-->][attraction_id]">
+									<th width="20%">
+										<h3>Name</h3>
+									</th>
+									<th width="70%">
+										<h3>Description</h3>
+									</th>
+									<th width="10%">
+									</th>
+								</tr>
+								<!--[foreach from=$objectArray item=item]-->
+								<!--[if ($i++%2)==0]-->
+									<tr class="darker">
+								<!--[else]-->
+									<tr>
+								<!--[/if]-->
+								<td>
 								<!--[foreach from=$attractionArray item=itemAllAttraction name=foo]-->
-
-                                    <!--[assign var='compare' value='false']-->
-
-                                    <!--[foreach from=$extendResult.hotelAttraction item=itemAttraction]-->
-                                     <!--[if $itemAllAttraction.attraction_id eq $itemAttraction.attraction_id]-->
-                                        <!--[assign var='compare' value='true']-->
-                                      <!--[/if]-->
-                                    <!--[/foreach]-->
-
 								  <!--[if $item.attraction_name eq $itemAllAttraction.attraction_name]-->
-									<option value="<!--[$itemAllAttraction.attraction_id]-->" SELECTED><!--[$itemAllAttraction.attraction_name]--></option>
-								  <!--[else]-->
-									<option value="<!--[$itemAllAttraction.attraction_id]-->"><!--[$itemAllAttraction.attraction_name]--></option>
+									<p><!--[$itemAllAttraction.attraction_name]--></p>
 								  <!--[/if]-->
 								<!--[/foreach]-->
-								</select>
 								</td>
-								<td width="82%">
-									<INPUT TYPE="text" NAME="itemAttraction[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="90"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAttraction&id=<!--[$item.id]-->" rel="hotelattraction"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								<td>
+									<p><!--[$item.description]--></p>
+								<td>
+									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAttraction&id=<!--[$item.id]-->" rel="hotelattraction"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAttraction&id=<!--[$item.id]-->" rel="hotelattraction"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								<!--[/foreach]-->
 								<!--[/if]-->
 								<tr>
-								<td width="18%">
+								<td>
 									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAttraction" rel="hotelattraction"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 								</td>
-								<td width="82%">
+								<td>
+								</td>
+								<td>
 								</td>
 								</tr>
 							</TABLE>

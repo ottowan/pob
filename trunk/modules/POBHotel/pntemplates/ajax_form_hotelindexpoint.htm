@@ -23,19 +23,12 @@ $("#formHotelIndexPoint").bind("reset", function() {
 <legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDINDEXPOINT"]--></legend>
 <div id="mainFacebox">
 <FORM id="formHotelIndexPoint" name="formHotelIndexPoint" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='HotelIndexPoint']-->" enctype="multipart/form-data>">
+<input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
 <!--[get_all_index_point]-->
 
 <select name="form[index_point_id]">
 <!--[foreach from=$index_pointArray item=itemAllIndexPoint name=foo]-->
-	<!--[assign var='compare' value='false']-->
-
-	<!--[foreach from=$extendResult.hotelIndexPoint item=itemIndexPoint]-->
-	 <!--[if $itemAllIndexPoint.index_point_id eq $itemIndexPoint.index_point_id]-->
-		<!--[assign var='compare' value='true']-->
-	  <!--[/if]-->
-	<!--[/foreach]-->
-
-  <!--[if $item.index_point_name eq $itemAllIndexPoint.index_point_name]-->
+  <!--[if $form.index_point_id eq $itemAllIndexPoint.index_point_id]-->
 	<option value="<!--[$itemAllIndexPoint.index_point_id]-->" SELECTED><!--[$itemAllIndexPoint.index_point_name]--></option>
   <!--[else]-->
 	<option value="<!--[$itemAllIndexPoint.index_point_id]-->"><!--[$itemAllIndexPoint.index_point_name]--></option>
@@ -45,6 +38,7 @@ $("#formHotelIndexPoint").bind("reset", function() {
 </select>
 <BR>
 <textarea cols="25" rows="10" name="form[description]">
+<!--[$form.description]-->
 </textarea>
 <hr>
 <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDINDEXPOINT_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDINDEXPOINT_CANCEL"]--></button>

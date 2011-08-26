@@ -11,38 +11,46 @@ jQuery(document).ready(function($) {
 								<!--[get_all_amenity]-->
 							
 								<!--[if isset($objectArray)]-->
-								
-								<!--[foreach from=$objectArray item=item]-->
 								<tr>
-								<td width="18%">
-								<select name="itemAmenity[<!--[$item.id]-->][amenity_id]">
+									<th width="20%">
+										<h3>Name</h3>
+									</th>
+									<th width="70%">
+										<h3>Description</h3>
+									</th>
+									<th width="10%">
+									</th>
+								</tr>
+								<!--[foreach from=$objectArray item=item]-->
+								<!--[if ($i++%2)==0]-->
+									<tr class="darker">
+								<!--[else]-->
+									<tr>
+								<!--[/if]-->
+								<td>
                                 <!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
-                                    <!--[assign var='compare' value='false']-->
-                                    <!--[foreach from=$extendResult.hotelAmenity item=itemAmenity]-->
-                                     <!--[if $itemAllAmenity.amenity_id eq $itemAmenity.amenity_id]-->
-                                        <!--[assign var='compare' value='true']-->
-                                      <!--[/if]-->
-                                    <!--[/foreach]-->
-
 								  <!--[if $item.amenity_name eq $itemAllAmenity.amenity_name]-->
-									<option value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
-								  <!--[else]-->
-									<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
+									<p><!--[$itemAllAmenity.amenity_name]--></p>
 								  <!--[/if]-->
 								<!--[/foreach]-->
-								</select>
 								</td>
-								<td width="82%">
-									<INPUT TYPE="text" NAME="itemAmenity[<!--[$item.id]-->][description]" value="<!--[$item.description]-->" size="80"> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAmenity&id=<!--[$item.id]-->" rel="hotelamenityfacebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+								<td>
+									<p><!--[$item.description]--></p>
+									
+								</td>
+								<td>
+									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAmenity&id=<!--[$item.id]-->" rel="hotelamenityfacebox"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=HotelAmenity&id=<!--[$item.id]-->" rel="hotelamenityfacebox"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
 								</tr>
 								<!--[/foreach]-->
 								<!--[/if]-->
 								<tr>
-								<td width="18%">
+								<td>
 										<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=HotelAmenity" rel="hotelamenityfacebox"><img src="modules/POBHotel/pnimages/add_48.png"></a>
 								</td>
-								<td width="82%">
+								<td>
+								</td>
+								<td>
 								</td>
 								</tr>
 							</TABLE>
