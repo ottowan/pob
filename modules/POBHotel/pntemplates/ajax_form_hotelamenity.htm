@@ -23,25 +23,20 @@ $("#formHotelAmenity").bind("reset", function() {
 <legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDAMENITY"]--></legend>
 <div id="mainFacebox">
 <FORM id="formHotelAmenity" name="formHotelAmenity" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='HotelAmenity']-->" enctype="multipart/form-data>">
+<input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
 <!--[get_all_amenity]-->
 <select name="form[amenity_id]">
 <!--[foreach from=$amenityArray item=itemAllAmenity name=foo]-->
-	<!--[assign var='compare' value='false']-->
-	<!--[foreach from=$extendResult.hotelAmenity item=itemAmenity]-->
-	 <!--[if $itemAllAmenity.amenity_id eq $itemAmenity.amenity_id]-->
-		<!--[assign var='compare' value='true']-->
-	  <!--[/if]-->
-	<!--[/foreach]-->
-
-  <!--[if $item.amenity_name eq $itemAllAmenity.amenity_name]-->
+  <!--[if $form.amenity_id eq $itemAllAmenity.amenity_id]-->
 	<option value="<!--[$itemAllAmenity.amenity_id]-->" SELECTED><!--[$itemAllAmenity.amenity_name]--></option>
   <!--[else]-->
-	<option name="itemAmenity[$itemAllAmenity.amenity_id]" value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
+	<option value="<!--[$itemAllAmenity.amenity_id]-->"><!--[$itemAllAmenity.amenity_name]--></option>
   <!--[/if]-->
 <!--[/foreach]-->
 </select>
 <BR>
 <textarea cols="25" rows="10" name="form[description]">
+<!--[$form.description]-->
 </textarea>
 <hr>
 <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDAMENITY_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDAMENITY_CANCEL"]--></button>
