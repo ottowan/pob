@@ -9,28 +9,39 @@ jQuery(document).ready(function($) {
 </script>
 						<!--[if isset($objectArray)]-->
 							<TABLE width="900">
-								<!--[foreach from=$objectArray item=item]-->
 								<tr>
+								<th>
+								<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_NAME"]--></h3>
+								</th>
+								<th>
+								<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_START"]--></h3>
+								</th>
+								<th>
+								<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_END"]--></h3>
+								</th>
+								<th>	
+								</th>
+								</tr>
+
+								<!--[foreach from=$objectArray item=item]-->
+								<!--[if ($i++%2)==0]-->
+								<tr class="darker">
+								<!--[else]-->
+								<tr>
+								<!--[/if]-->
 								<td>
-								<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_NAME"]-->
+								<p><!--[$item.name]--></p>
 								</td>
 								<td>
-								<INPUT TYPE="text" NAME="itemSeason[name]" value="<!--[$item.name]-->" size="40">
+								<p><!--[$item.date_start]--></p>
 								</td>
 								<td>
-								<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_START"]-->
+								<p><!--[$item.date_end]--></p>
 								</td>
 								<td>
-								<INPUT TYPE="text" NAME="itemSeason[start]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_start]-->">
-								</td>
-								<td>
-								<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDSEASON_END"]-->
-								</td>
-								<td>
-								<INPUT TYPE="text" NAME="itemSeason[end]" ROWS="10" COLS="40" size="30" id="datepicker" value="<!--[$item.date_end]-->">
 								<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Season&id=<!--[$item.id]-->" rel="hotelseason"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
 								</td>
-							</tr>
+								</tr>
 								 
 							<!--[/foreach]-->
 							</TABLE>

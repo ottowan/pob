@@ -12,52 +12,48 @@ jQuery(document).ready(function($) {
 
 						<!--[if isset($objectArray)]-->
 							<TABLE width="900">
-							<!--[foreach from=$objectArray item=item]-->
+							
 								<tr>
-								<td width="95">
-									<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_QUANTITY"]-->
-								</td>
-								<td width="125">
-									<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_TYPE"]-->
-								</td>
-								<td width="124">
-									<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_SEASON"]-->
-								</td>
-								<td width="129">
-									<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_PRICE"]-->
-								</td>
-								<td width="111">
-									<!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_CAPACITY"]-->
-								</td>
-								<td width="98">
-								  </td>
+								<th width="95">
+									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_QUANTITY"]--></h3>
+								</th>
+								<th width="125">
+									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_TYPE"]--></h3>
+								</th>
+								<th width="124">
+									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_SEASON"]--></h3>
+								</th>
+								<th width="129">
+									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_PRICE"]--></h3>
+								</th>
+								<th width="111">
+									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_CAPACITY"]--></h3>
+								</th>
+								<th width="98">
+								  </th>
 								</tr>
-								
+								<!--[foreach from=$objectArray item=item]-->
+								<!--[if ($i++%2)==0]-->
+								<tr class="darker">
+								<!--[else]-->
 								<tr>
+								<!--[/if]-->
 								<td>
-									<INPUT TYPE="text" NAME="itemGuestRoom[limit]" COLS="15" size="15" value="<!--[$item.limit]-->">
+									<p><!--[$item.limit]--></p>
 								</td>
 								<td>
-								<select name="itemGuestRoom[<!--[$item.id]-->][guest_room_type_id]">
 									<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
 									  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
-										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
-									  <!--[else]-->
-										<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+										<p><!--[$itemAllGuestRoomType.guest_room_type_name]--></p>
 									  <!--[/if]-->
 									<!--[/foreach]-->
-								</select>
 								</td>
 								<td>
-								<select name="itemGuestRoom[<!--[$item.id]-->][season_id]">
 									<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
 									  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
-										<option value="<!--[$itemAllSeason.season_id]-->" SELECTED><!--[$itemAllSeason.season_name]--></option>
-									  <!--[else]-->
-										<option value="<!--[$itemAllSeason.season_id]-->"><!--[$itemAllSeason.season_name]--></option>
+										<p><!--[$itemAllSeason.season_name]--></p>
 									  <!--[/if]-->
 									<!--[/foreach]-->
-								</select>
 								</td>
 								<td>
 									<!--[$item.price]-->

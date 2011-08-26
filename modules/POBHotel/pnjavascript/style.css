@@ -5,3 +5,6 @@
 .thumbs li a img { border: none;}
 
 .upload_box { margin: 10px; padding: 0; overflow: hidden; float: left; }
+
+.darker {background: #eee; border: none;}
+table {border: none;}
