@@ -89,17 +89,28 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     $response = $hotelLimitSearch->getHotelLimitSearchXML();
     //print($response); exit;
 
-    //Convert xml response to array
-    Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    $reader = new POBReader();
-    $arrayResponse = $reader->xmlToArray($response);
-    $arrayResponse["startDate"] = $startDate;
-    $arrayResponse["endDate"] = $endDate;
+    $xmlObject = simplexml_load_string($response);
+    //print_r($xmlObject); exit;
 
-    $repackArray = array();
-    $repackArray = $hotelLimitSearch->repackArrayLimitForDisplay($arrayResponse);
+    $repackObjectArray = $hotelLimitSearch->repackObjectArrayForDisplay($xmlObject);
 
-    $render->assign("objectArray",$repackArray);
+    $repackArray = $repackObjectArray["Properties"];
+    //print_r($repackArray); exit;
+
+    //Load language
+    $lang = pnUserGetLang();
+    if (file_exists('modules/POBPortal/pnlang/' . $lang . '/user.php')){
+      Loader::loadFile('user.php', 'modules/POBPortal/pnlang/' . $lang );
+    }else if (file_exists('modules/POBPortal/pnlang/eng/user.php')){
+      Loader::loadFile('user.php', 'modules/POBPortal/pnlang/eng' );
+    }
+
+
+    $render->assign("startDate", $startDate );
+    $render->assign("endDate", $endDate );
+    $render->assign("Latitude", $latitude );
+    $render->assign("Longitude", $longitude );
+    $render->assign("objectArray", $repackArray );
 
     // Populate block info and pass to theme
     $blockinfo['content'] = $render->fetch('block_recommendhotel.htm');

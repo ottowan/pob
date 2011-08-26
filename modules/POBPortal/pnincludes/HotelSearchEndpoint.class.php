@@ -463,133 +463,126 @@ Class HotelSearchEndpoint {
     return $repackArray;
 }
 
-  public function repackObjectArrayForDisplay($xmlObject){
+    public function repackObjectArrayForDisplay($xmlObject){
 
-  //var_dump($xmlObject->getName()); exit;
-  //var_dump($xmlObject->children()); exit;
-  //var_dump($xmlObject->attributes()); exit;
+    //var_dump($xmlObject->getName()); exit;
+    //var_dump($xmlObject->children()); exit;
+    //var_dump($xmlObject->attributes()); exit;
 
-  //<Property>
+    //<Property>
 
-  //print_r($xmlObject->Properties->Property); exit;
+    //print_r($xmlObject->Properties->Property); exit;
 
-  //<Property>
-  $Property = $xmlObject->Properties->Property;
-  for($i=0; $i<count($Property); $i++){
-    $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
-    $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
-    $repackArray["Properties"][$i]["HotelName"] = $this->cleanElementZero($Property[$i]->attributes()->HotelName);
+    //<Property>
+    $Property = $xmlObject->Properties->Property;
+    for($i=0; $i<count($Property); $i++){
+      $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
+      $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
+      $repackArray["Properties"][$i]["HotelName"] = $this->cleanElementZero($Property[$i]->attributes()->HotelName);
 
-    //<ContactInfo>
-    $repackArray["Properties"][$i]["AddressLine"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->AddressLine);
-    $repackArray["Properties"][$i]["CityName"]    = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CityName);
-    $repackArray["Properties"][$i]["CountryName"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CountryName);
-    $repackArray["Properties"][$i]["PostalCode"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->PostalCode);
-    $repackArray["Properties"][$i]["StateProv"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->StateProv);
+      //<ContactInfo>
+      $repackArray["Properties"][$i]["AddressLine"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->AddressLine);
+      $repackArray["Properties"][$i]["CityName"]    = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CityName);
+      $repackArray["Properties"][$i]["CountryName"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CountryName);
+      $repackArray["Properties"][$i]["PostalCode"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->PostalCode);
+      $repackArray["Properties"][$i]["StateProv"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->StateProv);
 
-    $repackArray["Properties"][$i]["Distance"] = $this->mileToKilometre($this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Distance));
-    $repackArray["Properties"][$i]["Direction"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Direction);
-    $repackArray["Properties"][$i]["DistanceUnitName"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->DistanceUnitName);
-    $repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Latitude);
-    $repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Longitude);
+      $repackArray["Properties"][$i]["Distance"] = $this->mileToKilometre($this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Distance));
+      $repackArray["Properties"][$i]["Direction"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Direction);
+      $repackArray["Properties"][$i]["DistanceUnitName"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->DistanceUnitName);
+      $repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Latitude);
+      $repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Longitude);
 
-    //<Availability>
-    $Availabilities = $Property[$i]->Availabilities;
-    $Availability = $Property[$i]->Availabilities->Availability;
-    //print_r($Availabilities); exit;
-    //print_r($Availability[1]); 
-    for($j=0; $j<count($Availability); $j++){
-      
-      //$repackArray["Properties"][$i]["Availabilities"][$j] = $Availability[$j];
-      $repackArray["Properties"][$i]["Availabilities"][$j]["Date"] = $this->cleanElementZero($Availability[$j]->attributes()->Date);
-      $repackArray["Properties"][$i]["Availabilities"][$j]["InvCode"] = $this->cleanElementZero($Availability[$j]->attributes()->InvCode);
-      $repackArray["Properties"][$i]["Availabilities"][$j]["Limit"] = (int)$this->cleanElementZero($Availability[$j]->attributes()->Limit);
-      $repackArray["Properties"][$i]["Availabilities"][$j]["Rate"] = $this->cleanElementZero($Availability[$j]->attributes()->Rate);
-      $repackArray["Properties"][$i]["Availabilities"][$j]["RatePlanCode"] = $this->cleanElementZero($Availability[$j]->attributes()->RatePlanCode);
-
-      //<MultimediaDescriptions>
-      $MultimediaDescriptions = $Availability[$j]->MultimediaDescriptions;
-      //print_r($MultimediaDescriptions); echo "<BR><BR>";
-      for($k=0; $k<count($MultimediaDescriptions); $k++){
-
-
-        if(isset($MultimediaDescriptions[$k]->MultimediaDescription)){
-          if(count($MultimediaDescriptions) == 1){
-            //unset($repackArray["Properties"][$i]["Availabilities"][$j]->MultimediaDescriptions);
-            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = $MultimediaDescriptions[$k];
-          }
-        }else{
-            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = " ";
-        }
-        //print_r($MultimediaDescriptions[$k]); echo "<BR><BR>";
-
-
-        //<TextItems>
-        $TextItems = $MultimediaDescriptions[$k]->MultimediaDescription->TextItems;
-        //print_r($TextItems); echo "<BR><BR>";
-        for($l=0; $l<count($TextItems); $l++){
-            unset($repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]);
-            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Title"] = $this->cleanElementZero($TextItems[$l]->TextItem->attributes()->Title);
-            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Description"] = $this->cleanElementZero($TextItems[$l]->TextItem->Description);
-        }
-
+      //<Availability>
+      $Availabilities = $Property[$i]->Availabilities;
+      $Availability = $Property[$i]->Availabilities->Availability;
+      //print_r($Availabilities); exit;
+      //print_r($Availability[1]); 
+      for($j=0; $j<count($Availability); $j++){
         
-      }//End MultimediaDescriptions loop
-    }//End Availability loop
+        //$repackArray["Properties"][$i]["Availabilities"][$j] = $Availability[$j];
+        $repackArray["Properties"][$i]["Availabilities"][$j]["Date"] = $this->cleanElementZero($Availability[$j]->attributes()->Date);
+        $repackArray["Properties"][$i]["Availabilities"][$j]["InvCode"] = $this->cleanElementZero($Availability[$j]->attributes()->InvCode);
+        $repackArray["Properties"][$i]["Availabilities"][$j]["Limit"] = (int)$this->cleanElementZero($Availability[$j]->attributes()->Limit);
+        $repackArray["Properties"][$i]["Availabilities"][$j]["Rate"] = $this->cleanElementZero($Availability[$j]->attributes()->Rate);
+        $repackArray["Properties"][$i]["Availabilities"][$j]["RatePlanCode"] = $this->cleanElementZero($Availability[$j]->attributes()->RatePlanCode);
+
+        //<MultimediaDescriptions>
+        $MultimediaDescriptions = $Availability[$j]->MultimediaDescriptions;
+        //print_r($MultimediaDescriptions); echo "<BR><BR>";
+        for($k=0; $k<count($MultimediaDescriptions); $k++){
 
 
-  //print_r($Property[$i]->MultimediaDescriptions->MultimediaDescription);
-    $n = 0;
-    for($m=0; $m<count($Property[$i]->MultimediaDescriptions->MultimediaDescription); $m++){
-
-      //echo count($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem);
-      if($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems){
-        for($n=0; $n<count($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem); $n++){
-          $ImageFormat = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem[$n]->ImageFormat;
-          for($p=0; $p<count($ImageFormat); $p++){
-            $category = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem[$n]->attributes()->Category;
-            if($category == 1){
-              $repackArray["Properties"][$i]["ImageItems"][$p]["Thumbs"] = $this->cleanElementZero($ImageFormat[$p]->URL);
-              unset($repackArray["Properties"][$i]["ImageItems"][$n]["@attributes"]);
-            }else if($category == 6){
-              $repackArray["Properties"][$i]["ImageItems"][$p]["Images"] = $this->cleanElementZero($ImageFormat[$p]->URL);
-              unset($repackArray["Properties"][$i]["ImageItems"][$n]["@attributes"]);
+          if(isset($MultimediaDescriptions[$k]->MultimediaDescription)){
+            if(count($MultimediaDescriptions) == 1){
+              //unset($repackArray["Properties"][$i]["Availabilities"][$j]->MultimediaDescriptions);
+              $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = $MultimediaDescriptions[$k];
             }
+          }else{
+              $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = " ";
           }
-        }//End ImageItem loop 
-      }//End Check ImageItem
+          //print_r($MultimediaDescriptions[$k]); echo "<BR><BR>";
 
 
-  
-/*
-      <MultimediaDescription> 
-        <TextItems> 
-          <TextItem Title="Rating"> 
-            <Description>3</Description> 
-          </TextItem> 
-        </TextItems> 
-      </MultimediaDescription> 
+          //<TextItems>
+          $TextItems = $MultimediaDescriptions[$k]->MultimediaDescription->TextItems;
+          //print_r($TextItems); echo "<BR><BR>";
+          for($l=0; $l<count($TextItems); $l++){
+              unset($repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]);
+              $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Title"] = $TextItems[$l]->TextItem->attributes()->Title;
+              $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Description"] = $TextItems[$l]->TextItem->Description;
+          }
 
-*/
+          
+        }//End MultimediaDescriptions loop
+      }//End Availability loop
+
+    //print_r($Property[$i]->MultimediaDescriptions->MultimediaDescription);
+      $n = 0;
+      for($m=0; $m<count($Property[$i]->MultimediaDescriptions->MultimediaDescription); $m++){
+
+        //echo count($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem);
+        if($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems){
+          for($n=0; $n<count($Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem); $n++){
+            $ImageFormat = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem[$n]->ImageFormat;
+            for($p=0; $p<count($ImageFormat); $p++){
+              $category = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->ImageItems->ImageItem[$n]->attributes()->Category;
+              if($category == 1){
+                $repackArray["Properties"][$i]["ImageItems"][$p]["Thumbs"] = $this->cleanElementZero($ImageFormat[$p]->URL);
+                unset($repackArray["Properties"][$i]["ImageItems"][$n]["@attributes"]);
+              }else if($category == 6){
+                $repackArray["Properties"][$i]["ImageItems"][$p]["Images"] = $this->cleanElementZero($ImageFormat[$p]->URL);
+                unset($repackArray["Properties"][$i]["ImageItems"][$n]["@attributes"]);
+              }
+            }
+          }//End ImageItem loop 
+        }//End Check ImageItem
 
 
-/*
-      $Rating = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->TextItems->TextItem->attributes()->Title;
-      if($Rating == "Rating"){
-        $repackArray["Properties"][$i]["Rating"] = $Rating->Description;
-      }
-*/
-    }//End MultimediaDescription loop
-  }//End Property loop
-  //exit;
-  //print_r($repackArray); exit;
-  return $repackArray;
-}
+
+
+
+
+        $TextItem = $Property[$i]->MultimediaDescriptions->MultimediaDescription[$m]->TextItems->TextItem;
+        $Title = isset($TextItem)? $TextItem->attributes()->Title: "";
+
+        //print_r($Title); echo "<br><br><br>";
+        if($Title == "Rating"){
+            $repackArray["Properties"][$i]["Rating"] = $this->cleanElementZero($TextItem->Description);
+        }//End Check ImageItem
+
+      }//End MultimediaDescription loop
+    }//End Property loop
+    //exit;
+    //print_r($repackArray); exit;
+    return $repackArray;
+  }
 
   public function cleanElementZero($array){
     $data = (array)$array;
     return $data[0];
   }
+
   public function mileToKilometre($mile){
     return (doubleval($mile) * 1.609344);
   }
