@@ -34,6 +34,17 @@ Class BookingReportEndpoint {
     $POB_HotelBookRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelAvailRQ.xsd"); 
     $POB_HotelBookRQ->setAttribute("Version", "1.003");
 
+    $POS = $xml->createElement("POS");
+    $POB_HotelBookRQ->appendChild($POS);
+    $Source = $xml->createElement("Source");
+    $POS->appendChild($Source);
+    $RequestorID = $xml->createElement("RequestorID");
+    //$RequestorID->setAttribute("Encrypt", "1");
+    $RequestorID->setAttribute("Type", "1");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
+    $Source->appendChild($RequestorID);
+    $POS = $xml->createElement("POS");
+
     if($this->hotelCode && $this->startDate && $this->endDate){
       $HotelRef = $xml->createElement("HotelRef");
       $HotelRef->setAttribute("ChainCode", "MC");
@@ -60,7 +71,10 @@ Class BookingReportEndpoint {
 
 
   public function sendBookingReportXML(){
-    $url = 'http://pob-ws.heroku.com/api/hotel_book';
+    //$url = 'http://pob-ws.heroku.com/api/hotel_book';
+
+    $url = 'http://api.phuketcity.com/api/hotel_book';
+
     $data = $this->genBookingReportXML();
     //$data = $this->sampleBookingReportXML();
 
@@ -165,7 +179,7 @@ public function repackArrayForDisplay($extractArray){
       //Store new CheckInDate array & clean up CheckInDate
       $repackArray["HotelReservations"][$i]["RoomStays"][$j]["CheckOutDate"] = $extractArray["HotelReservations"]["HotelReservations"][$i]["HotelReservation"]["RoomStays"]["RoomStays"][$j]["TimeSpan"]["TimeSpan"]["End"];
       unset($repackArray["HotelReservations"][$i]["RoomStays"][$j]["TimeSpan"]);
-
+/*
       //Store new CardCode array & clean up CardCode
       $repackArray["HotelReservations"][$i]["RoomStays"][$j]["PaymentCard"]["CardCode"] = $extractArray["HotelReservations"]["HotelReservations"][$i]["HotelReservation"]["RoomStays"]["RoomStays"][$j]["Guarantee"]["GuaranteesAccepted"]["GuaranteeAccepted"]["PaymentCard"]["@attributes"]["CardCode"];
 
@@ -178,7 +192,7 @@ public function repackArrayForDisplay($extractArray){
       //Store new CardHolderName array & clean up CardHolderName
       $repackArray["HotelReservations"][$i]["RoomStays"][$j]["PaymentCard"]["CardHolderName"] = $extractArray["HotelReservations"]["HotelReservations"][$i]["HotelReservation"]["RoomStays"]["RoomStays"][$j]["Guarantee"]["GuaranteesAccepted"]["GuaranteeAccepted"]["PaymentCard"]["CardHolderName"];
       unset($repackArray["HotelReservations"][$i]["RoomStays"][$j]["Guarantee"]);
-
+*/
 
       //Store new ChainCode array & clean up ChainCode
       $repackArray["HotelReservations"][$i]["RoomStays"][$j]["BasicPropertyInfo"]["ChainCode"] = $extractArray["HotelReservations"]["HotelReservations"][$i]["HotelReservation"]["RoomStays"]["RoomStays"][$j]["BasicPropertyInfo"]["BasicPropertyInfo"]["ChainCode"];
