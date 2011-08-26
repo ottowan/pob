@@ -34,6 +34,21 @@ Class RoomSearchEndpoint {
     $POB_HotelAvailRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelAvailRQ.xsd"); 
     $POB_HotelAvailRQ->setAttribute("Version", "1.003");
 
+
+    $POS = $xml->createElement("POS");
+    $POB_HotelAvailRQ->appendChild($POS);
+    $Source = $xml->createElement("Source");
+    $POS->appendChild($Source);
+    $RequestorID = $xml->createElement("RequestorID");
+    //$RequestorID->setAttribute("Encrypt", "1");
+    $RequestorID->setAttribute("Type", "1");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
+    $Source->appendChild($RequestorID);
+    $POS = $xml->createElement("POS");
+
+
+    $AvailRequestSegment = $xml->createElement("AvailRequestSegment");
+
     $AvailRequestSegments = $xml->createElement("AvailRequestSegments");
     $AvailRequestSegment = $xml->createElement("AvailRequestSegment");
 
@@ -43,7 +58,6 @@ Class RoomSearchEndpoint {
       $StayDateRange->setAttribute("End", $this->endDate);
       $AvailRequestSegment->appendChild($StayDateRange);
     }
-
 
     if($this->hotelCode){
       $HotelSearchCriteria = $xml->createElement("HotelSearchCriteria");
@@ -81,7 +95,10 @@ Class RoomSearchEndpoint {
   }
 
   public function sendRoomSearchXML(){
-    $url = 'http://pob-ws.heroku.com/api/hotel_avail';
+    //$url = 'http://pob-ws.heroku.com/api/hotel_avail';
+    $url = 'http://api.phuketcity.com/api/hotel_avail';
+    //$url = 'http://localhost/php/pob/hotel_search.xml';
+
     $data = $this->genRoomSearchXML();
     //$data = $data->saveXML();
 
@@ -103,21 +120,80 @@ Class RoomSearchEndpoint {
 
 
   public function getRoomSearchXML(){
-
-    //Load reader class
-    //Loader::loadClass('POBReader',"modules/POBRoomSearch/pnincludes");
-    //$reader = new POBReader();
     
     //Get data from search
     $response = $this->sendRoomSearchXML();
-    //print $response; exit;
-    //Convert xml to array
-    //$arrayResponse = $reader->xmlToArray($response);
-    //var_dump($arrayResponse); exit;
+
     return $response;
   }
 
+function extractArrayForDisplay($originalArray){
 
+  print_r($originalArray); exit;
+
+  $extractArray = array();
+  //$extractArray["Properties"] = $originalArray["Properties"]["Property"];
+
+
+
+  //Re array Properties
+  if(isset($originalArray["Properties"]["Property"])){
+      $extractArray["Properties"]["Properties"][0] = $originalArray["Properties"]["Property"];
+
+
+
+    //Re array Availabilities
+    if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]){
+      $extractArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"][0] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"];
+      unset($extractArray["Properties"]["Properties"][0]["Availabilities"]["Availability"]);
+    }
+
+
+
+    //Re array MultimediaDescriptions
+    if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["MultimediaDescriptions"]["MultimediaDescription"]){
+      $extractArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"][0]["MultimediaDescriptions"]["MultimediaDescriptions"][0] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["MultimediaDescriptions"]["MultimediaDescription"];
+      unset($extractArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"][0]["MultimediaDescriptions"]["MultimediaDescription"]);
+
+    }
+
+
+    //Re array TextItems
+    if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["MultimediaDescriptions"]["MultimediaDescription"]["TextItems"]["TextItem"]){
+      $extractArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"][0]["MultimediaDescriptions"]["MultimediaDescriptions"][0]["TextItems"]["TextItems"][0] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["MultimediaDescriptions"]["MultimediaDescription"]["TextItems"]["TextItem"];
+      unset($extractArray["Properties"]["Properties"][0]["Availabilities"]["Availabilities"][0]["MultimediaDescriptions"]["MultimediaDescriptions"][0]["TextItems"]["TextItem"]);
+    }
+
+  }else if(isset($originalArray["Properties"]["Properties"])){
+
+    //Re array Properties
+    $extractArray["Properties"]["Properties"] = $originalArray["Properties"]["Properties"];
+
+
+      //Re array Availabilities
+    for($i=0; $i<count($originalArray["Properties"]["Properties"]) ; $i++){
+      if($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]){
+        $extractArray["Properties"]["Properties"][$i]["Availabilities"]["Availabilities"][0] = $originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"];
+        unset($extractArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]);
+
+      //Re array Availabilities
+        for($i=0; $i<count($originalArray["Properties"]["Properties"][$i]["Availabilities"]["Availability"]) ; $i++){
+
+        }
+      }else{
+        
+      }
+    }
+  }else{
+      echo "Worng parameter";
+    }
+  unset($originalArray);
+  //$extractArray = $originalArray;
+
+  print_r($extractArray); exit;
+  return $extractArray;
+
+}
 
 function repackArrayForDisplay($originalArray){
   $distanceValidate = floor($originalArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]);
@@ -201,6 +277,83 @@ function repackArrayForDisplay($originalArray){
 
 }
 
+
+
+  public function repackObjectArrayForDisplay($xmlObject){
+
+  //var_dump($xmlObject->getName()); exit;
+  //var_dump($xmlObject->children()); exit;
+  //var_dump($xmlObject->attributes()); exit;
+
+  //<Property>
+
+  //echo count($xmlObject->Properties->Property); exit;
+
+  //<Property>
+  $Property = $xmlObject->Properties->Property;
+  for($i=0; $i<count($Property); $i++){
+    $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
+    $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
+    $repackArray["Properties"][$i]["HotelName"] = $this->cleanElementZero($Property[$i]->attributes()->HotelName);
+
+    //<ContactInfo>
+    $repackArray["Properties"][$i]["AddressLine"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->AddressLine);
+    $repackArray["Properties"][$i]["CityName"]    = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CityName);
+    $repackArray["Properties"][$i]["CountryName"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CountryName);
+    $repackArray["Properties"][$i]["PostalCode"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->PostalCode);
+    $repackArray["Properties"][$i]["StateProv"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->StateProv);
+
+    //<Availability>
+    $Availabilities = $Property[$i]->Availabilities;
+    $Availability = $Property[$i]->Availabilities->Availability;
+    //print_r($Availabilities); exit;
+    //print_r($Availability[1]); 
+    for($j=0; $j<count($Availability); $j++){
+      
+      //$repackArray["Properties"][$i]["Availabilities"][$j] = $Availability[$j];
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Date"] = $this->cleanElementZero($Availability[$j]->attributes()->Date);
+      $repackArray["Properties"][$i]["Availabilities"][$j]["InvCode"] = $this->cleanElementZero($Availability[$j]->attributes()->InvCode);
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Limit"] = (int)$this->cleanElementZero($Availability[$j]->attributes()->Limit);
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Rate"] = $this->cleanElementZero($Availability[$j]->attributes()->Rate);
+      $repackArray["Properties"][$i]["Availabilities"][$j]["RatePlanCode"] = $this->cleanElementZero($Availability[$j]->attributes()->RatePlanCode);
+
+      //<MultimediaDescriptions>
+      $MultimediaDescriptions = $Availability[$j]->MultimediaDescriptions;
+      //print_r($MultimediaDescriptions);
+      for($k=0; $k<count($MultimediaDescriptions); $k++){
+
+        //print_r($MultimediaDescriptions[$k]); 
+        if(isset($MultimediaDescriptions[$k]->MultimediaDescription)){
+          if(count($MultimediaDescriptions) == 1){
+            //unset($repackArray["Properties"][$i]["Availabilities"][$j]->MultimediaDescriptions);
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = $this->cleanElementZero($MultimediaDescriptions[$k]);
+          }
+        }else{
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = " ";
+        }
+
+        //<TextItems>
+        $TextItems = $MultimediaDescriptions[$k]->MultimediaDescription->TextItems;
+        //print_r($TextItems); echo "<BR><BR>";
+        for($l=0; $l<count($TextItems); $l++){
+            unset($repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]);
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Title"] = $this->cleanElementZero($TextItems[$l]->TextItem->attributes()->Title);
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Description"] = $this->cleanElementZero($TextItems[$l]->TextItem->Description);
+
+        }
+        
+      }//End MultimediaDescriptions loop
+    }//End Availability loop
+  }//End Property loop
+  //exit;
+  //print_r($repackArray); exit;
+  return $repackArray;
+}
+
+  public function cleanElementZero($array){
+    $data = (array)$array;
+    return $data[0];
+  }
 
 function mileToKilometre($mile){
   return ($mile * 1.609344);

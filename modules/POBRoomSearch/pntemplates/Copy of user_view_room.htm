@@ -62,13 +62,12 @@
   }
 
 </style>
-<!--[group_availabilities_array avail=$view.Availabilities]-->
 
 <script type="text/javascript">
   function validateNumberOfRoom(){
 
-    var rows = <!--[$groupAvailabilities|@count]-->;
-    
+    var rows = <!--[$view.Availabilities|@count]-->;
+    //alert(rows);
     var number = 0;
     var validate = false;
     for (i=0;i<rows;i++){
@@ -93,13 +92,17 @@
 <input type="hidden" name="transaction[description]" value="<!--[$view.Description]-->">
 <input type="hidden" name="transaction[contactinfo]" value="<!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]-->">
 
+<!--   [$view|@print_r]   -->
+<br><br>
+
 
   <table width="100%">
+      <!--[foreach from=$view. item=item]-->
       <tr>
         <td valign="top">
           <p>
             <span id="hotelname"><a href="#"><!--[$view.HotelName]--></a></span> 
-            <img src="modules/POBRoomSearch/pnimages/stars<!--[math equation=rand(2,5)]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+            <!-- <img src="modules/POBRoomSearch/pnimages/stars<!--[math equation=rand(2,5)]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/> -->
             <em id="address"><!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]--></em><br>
           </p>
         </td>
@@ -111,8 +114,13 @@
           </p>
         </td>
       </tr>
+
+        <!--[/foreach]-->
+
       <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
       <!--[/foreach]-->
+
+      <!--   [$view.Availabilities|@print_r]   -->
 
       <!--[if $tempAvailabilities.Limit]-->
       <tr>
@@ -124,33 +132,29 @@
                 <th width="15%" align="center"><!--[pnml name="_POBROOMSEARCH_ROOM_AMOUNT"]--></th>
                 <th width="30%" align="right"><!--[pnml name="_POBROOMSEARCH_ROOM_RATE"]--></th>
               </tr>
-
-              <!--[group_availabilities_array avail=$view.Availabilities]-->
-              <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
-
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$view.startDate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$view.endDate]-->">
-              <tr>
-                <td align="left">
-                  <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                    <!--[$itemAvailabilities.InvCode]-->
-                  </a>
-                </td>
-                <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                <td align="left">
-                  <select id="number_<!--[$smarty.foreach.foo.index]-->" 
-                          name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
-                    <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
-                    <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
-
-                      <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
-                    <!--[/section]-->
-                  </select>
-                </td>
-                <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-              </tr>
+              <!--[foreach from=$view.Availabilities item=itemAvailabilities name=foo]-->
+                <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
+                <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
+                <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$view.startDate]-->">
+                <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$view.endDate]-->">
+                <tr>
+                  <td align="left">
+                    <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                      <!--[$itemAvailabilities.InvCode]-->
+                    </a>
+                  </td>
+                  <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                  <td align="left">
+                      <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                    <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                            name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">                     
+                      <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
+                        <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                      <!--[/section]-->
+                    </select>
+                  </td>
+                  <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                </tr>
               <!--[/foreach]-->
             </table>
         </td>
@@ -175,4 +179,4 @@
       <h1><!--[pnml name="_POBROOMSEARCH_USER_NO_RESULT"]--></h1>
     </p>
 </div>
-<!--[/if]-->
+<!--[/if]--><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
