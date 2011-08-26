@@ -59,12 +59,12 @@
     <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
 
       <td valign="top">
-        <!--[if isset($item.ThumbItem.URL)]-->
+        <!--[if isset($item.ImageItems)]-->
           <a class="image_border" target="_blank" href="#" 
-              onmouseover="Tip('&lt;img src=\'<!--[$item.ThumbItem.URL]-->\' width=\'450\'/&gt;')" 
+              onmouseover="Tip('&lt;img src=\'<!--[$item.ImageItems[0].Images]-->\' width=\'450\'/&gt;')" 
               onmouseout="UnTip()
           ">
-              <img width="100" height="100" src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+              <img width="100" height="100" src="<!--[$item.ImageItems[0].Thumbs]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
           </a>
         <!--[else]-->
               <img width="100" height="100" src="modules/POBPortal/pnimages/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
@@ -80,7 +80,7 @@
                     <!--[$item.HotelName]-->
                   </a>
                 </span> 
-                <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+                <img src="modules/POBPortal/pnimages/stars<!--[$item.Rating]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
                 <em id="address">
                   <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
                 </em>
