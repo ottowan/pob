@@ -61,12 +61,12 @@
     <tr class="result" onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
 
       <td valign="top">
-        <!--[if isset($item.ImageItems)]-->
+        <!--[if isset($item.ThumbItem.URL)]-->
           <a class="image_border" target="_blank" href="#" 
-              onmouseover="Tip('&lt;img src=\'<!--[$item.ImageItems[0].Images]-->\' width=\'450\'/&gt;')" 
+              onmouseover="Tip('&lt;img src=\'<!--[$item.ThumbItem.URL]-->\' width=\'450\'/&gt;')" 
               onmouseout="UnTip()
           ">
-              <img  src="<!--[$item.ImageItems[0].Thumbs]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
+              <img  src="<!--[$item.ThumbItem.URL]-->" width="100px" height="75px" alt="<!--[$item.HotelName]-->" class="recthumb">
           </a>
         <!--[else]-->
               <img width="100" height="100" src="modules/POBPortal/pnimages/no_image.gif" alt="<!--[$item.HotelName]-->" class="recthumb">
@@ -78,11 +78,11 @@
             <td>
               <p>
                 <span id="hotelname">
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->">
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">
                     <!--[$item.HotelName]-->
                   </a>
                 </span> 
-                <img src="modules/POBPortal/pnimages/stars<!--[$view.Rating]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+                <img src="modules/POBPortal/pnimages/<!--[math equation=rand(2,5)]-->star.png" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
 
                 <em id="distance"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_AWAY_FROM_YOU"]--> <!--[$item.Distance]--> km.</em><br>
                 <em id="address">
@@ -94,7 +94,7 @@
                 </em><br>
                 <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
                 <em>
-                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]--></a>
+                  <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]--></a>
                 </em>
                 <!-- <button id="showPriceButton" type="submit">แสดงราคา</button> -->
               </p>
@@ -102,26 +102,25 @@
           </tr>
           <tr>
             <td>
+              <!--[$item.Availabilities|@print_r]-->
               <!--[if $item.Availabilities]-->
-                <table width="100%">
+                <table width="100%" border="1">
                   <tr>
                     <th width="60%" align="left"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_TYPE"]--></th>
                     <th width="15%" align="center"><!--[pnml name="_POBPORTAL_AVAILABLE_ROOM_AMOUNT"]--></th>
                     <th width="30%" align="right"><!--[pnml name="_POBPORTAL_ROOM_RATE"]--></th>
                   </tr>
-
-                  <!--[group_availabilities_array avail=$item.Availabilities]-->
-                  <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
+                  <!--[foreach from=$item.Availabilities item=itemAvailabilities name=foo]-->
                   <tr>
-                    <td align="left">
-                      <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                    <td align="left" width="60%">
+                      <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
                         <!--[$itemAvailabilities.InvCode]-->
                       </a>
                     </td>
-                    <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                    <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                    <td align="center" width="15%"><!--[$itemAvailabilities.Limit]--></td>
+                    <td align="right" width="30%">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
                   </tr>
-                  <!--[if ($groupAvailabilities|@count) > 1]-->
+                  <!--[if ($item.Availabilities|@count) > 1]-->
                   <tr>
                     <td colspan="3"><hr style="border: 0; color: #9E9E9E; background-color: #9E9E9E; height: 1px;"></td>
                   </tr>

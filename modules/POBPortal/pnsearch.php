@@ -58,18 +58,13 @@ function POBPortal_search_searchResult(){
   $response = $hotelSearch->getHotelSearchXML();
   //print($response); exit;
 
-  //Convert xml response to array
-  Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-  $reader = new POBReader();
-  $arrayResponse = $reader->xmlToArray($response);
-  $arrayResponse["startDate"] = $startDate;
-  $arrayResponse["endDate"] = $endDate;
-  //print_r($arrayResponse["Properties"]); exit;
-  $repackArray = array();
-  $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
-  //echo count($repackArray); exit;
-  //var_dump($repackArray[3]["ThumbItem"]["URL"]); exit;
+  $xmlObject = simplexml_load_string($response);
+  //print_r($xmlObject); exit;
 
+  $repackObjectArray = $hotelSearch->repackObjectArrayForDisplay($xmlObject);
+
+  $repackArray = $repackObjectArray["Properties"];
+  //print_r($repackArray); exit;
 
   //Load language
   $lang = pnUserGetLang();
@@ -80,6 +75,10 @@ function POBPortal_search_searchResult(){
   }
 
   if($repackArray){
+    $render->assign("startDate", $startDate );
+    $render->assign("endDate", $endDate );
+    $render->assign("Latitude", $latitude );
+    $render->assign("Longitude", $longitude );
     $render->assign("objectArray", $repackArray );
     return $render->fetch('user_list_hotel.htm');
   }else{
@@ -112,27 +111,21 @@ function POBPortal_search_view(){
     $response = $hotelSearch->getHotelSearchXML();
     //print($response); exit;
 
-    //Convert xml response to array
-    Loader::loadClass('POBReader',"modules/POBPortal/pnincludes");
-    $reader = new POBReader();
-    $arrayResponse = $reader->xmlToArray($response);
-    //var_dump($arrayResponse["Properties"]["Property"]["RelativePosition"]); exit;
-    $arrayResponse["startDate"] = $startDate;
-    $arrayResponse["endDate"] = $endDate;
+    $xmlObject = simplexml_load_string($response);
+    //print_r($xmlObject); exit;
 
-    $repackArray = array();
-    $repackArray = $hotelSearch->repackArrayForDisplay($arrayResponse);
-    if($repackArray){
-      $issetArray  = true;
-    }else{
-      $issetArray  = false;
+    $repackObjectArray = $hotelSearch->repackObjectArrayForDisplay($xmlObject);
+    //print_r($repackObjectArray); exit;
+
+    if(count($repackObjectArray["Properties"]) == 1 && $repackObjectArray){
+      $view = $repackObjectArray["Properties"][0];
     }
 
-  }else{
-    $issetArray = false;
+    $view["startDate"] = $startDate;
+    $view["endDate"] = $endDate;
+    //print_r($view);  exit;
   }
-
-
+  //print_r($view);
   //Load language
   $lang = pnUserGetLang();
   if (file_exists('modules/POBPortal/pnlang/' . $lang . '/user.php')){
@@ -141,8 +134,8 @@ function POBPortal_search_view(){
     Loader::loadFile('user.php', 'modules/POBPortal/pnlang/eng' );
   }
     
-  if($issetArray == true){
-    $render->assign("view", $repackArray );
+  if($repackObjectArray){
+    $render->assign("view", $view );
     return $render->fetch('user_view_hotel.htm');
   }else{
     $render->assign("view", null );

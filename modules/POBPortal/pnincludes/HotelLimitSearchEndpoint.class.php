@@ -50,13 +50,13 @@ Class HotelLimitSearchEndpoint {
 
     $POS = $xml->createElement("POS");
     $OTA_HotelSearchRQ->appendChild($POS);
-
     $Source = $xml->createElement("Source");
     $POS->appendChild($Source);
-
     $RequestorID = $xml->createElement("RequestorID");
-    $RequestorID->setAttribute("ID", "8508a7e6ce43e091");
-    $RequestorID->setAttribute("ID_Context", "RZ");
+    $RequestorID->setAttribute("Type", "1");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
+    $Source->appendChild($RequestorID);
+    $POS = $xml->createElement("POS");
 
     $Criteria = $xml->createElement("Criteria");
     $Criterion = $xml->createElement("Criterion");
@@ -144,7 +144,9 @@ Class HotelLimitSearchEndpoint {
   }
 
   public function sendHotelLimitSearchXML(){
-    $url = 'http://pob-ws.heroku.com/api/hotel_search';
+    //$url = 'http://pob-ws.heroku.com/api/hotel_search';
+    $url = 'http://api.phuketcity.com/api/hotel_search';
+
     $data = $this->genHotelLimitSearchXML();
     //$data = $data->saveXML();
 
@@ -357,6 +359,79 @@ Class HotelLimitSearchEndpoint {
     return $repackArray;
 
   }
+
+
+function repackObjectArrayLimitForDisplay($xmlObject){
+
+  //var_dump($xmlObject->getName()); exit;
+  //var_dump($xmlObject->children()); exit;
+  //var_dump($xmlObject->attributes()); exit;
+
+  //<Property>
+
+  //echo count($xmlObject->Properties->Property); exit;
+  print_r($xmlObject); exit;
+  //<Property>
+  $Property = $xmlObject->Properties->Property;
+  for($i=0; $i<count($Property); $i++){
+    $repackArray["Properties"][$i]["Description"] = $Property[$i]->attributes()->Description;
+    $repackArray["Properties"][$i]["HotelCode"] = $Property[$i]->attributes()->HotelCode;
+    $repackArray["Properties"][$i]["HotelName"] = $Property[$i]->attributes()->HotelName;
+
+    //<ContactInfo>
+    $repackArray["Properties"][$i]["AddressLine"] = $Property[$i]->ContactInfo->attributes()->AddressLine;
+    $repackArray["Properties"][$i]["CityName"]    = $Property[$i]->ContactInfo->attributes()->CityName;
+    $repackArray["Properties"][$i]["CountryName"] = $Property[$i]->ContactInfo->attributes()->CountryName;
+    $repackArray["Properties"][$i]["PostalCode"] = $Property[$i]->ContactInfo->attributes()->PostalCode;
+    $repackArray["Properties"][$i]["StateProv"] = $Property[$i]->ContactInfo->attributes()->StateProv;
+
+    //<Availability>
+    $Availabilities = $Property[$i]->Availabilities;
+    $Availability = $Property[$i]->Availabilities->Availability;
+    //print_r($Availabilities); exit;
+    //print_r($Availability[1]); 
+    for($j=0; $j<count($Availability); $j++){
+      
+      //$repackArray["Properties"][$i]["Availabilities"][$j] = $Availability[$j];
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Date"] = $Availability[$j]->attributes()->Date;
+      $repackArray["Properties"][$i]["Availabilities"][$j]["InvCode"] = $Availability[$j]->attributes()->InvCode;
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Limit"] = (int)$Availability[$j]->attributes()->Limit;
+      $repackArray["Properties"][$i]["Availabilities"][$j]["Rate"] = $Availability[$j]->attributes()->Rate;
+      $repackArray["Properties"][$i]["Availabilities"][$j]["RatePlanCode"] = $Availability[$j]->attributes()->RatePlanCode;
+
+      //<MultimediaDescriptions>
+      $MultimediaDescriptions = $Availability[$j]->MultimediaDescriptions;
+      //print_r($MultimediaDescriptions);
+      for($k=0; $k<count($MultimediaDescriptions); $k++){
+
+        //print_r($MultimediaDescriptions[$k]); 
+        if(isset($MultimediaDescriptions[$k]->MultimediaDescription)){
+          if(count($MultimediaDescriptions) == 1){
+            //unset($repackArray["Properties"][$i]["Availabilities"][$j]->MultimediaDescriptions);
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = (array)$MultimediaDescriptions[$k];
+          }
+        }else{
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k] = " ";
+        }
+
+        //<TextItems>
+        $TextItems = $MultimediaDescriptions[$k]->MultimediaDescription->TextItems;
+        //print_r($TextItems); echo "<BR><BR>";
+        for($l=0; $l<count($TextItems); $l++){
+            unset($repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]);
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Title"] = $TextItems[$l]->TextItem->attributes()->Title;
+            $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Description"] = $TextItems[$l]->TextItem->Description;
+
+        }
+        
+      }//End MultimediaDescriptions loop
+    }//End Availability loop
+  }//End Property loop
+  //exit;
+  //print_r($repackArray); exit;
+  return $repackArray;
+}
+
 
 
   public function mileToKilometre($mile){
