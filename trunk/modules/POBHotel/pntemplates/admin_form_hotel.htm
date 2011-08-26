@@ -22,8 +22,9 @@ jQuery(document).ready(function($) {
 	callback_refresh();
 })
 function callback_refresh(){
+	
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelLocation', function(data) {
-	  $('#LocationCategory').html(data);
+		$('#LocationCategory').html(data);
 	});	
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelAmenity', function(data) {
 	  $('#HotelAmenity').html(data);
