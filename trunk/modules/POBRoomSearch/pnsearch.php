@@ -132,7 +132,7 @@ function POBRoomSearch_search_view(){
   $hotelArray = pnModAPIFunc('POBHotel', 'user', 'getHotelCode');
   //var_dump($latlonArray); exit;
   $hotelCode  = $hotelArray["hotelcode"];
-  //var_dump($hotelCode); exit;
+
 
 
   if($hotelCode){
@@ -144,27 +144,22 @@ function POBRoomSearch_search_view(){
 
     //XML Response
     $response = $roomSearch->getRoomSearchXML();
-    //var_dump($response); exit;
+    //echo ($response); exit;
 
-    //Convert xml response to array
-    Loader::loadClass('POBReader',"modules/POBRoomSearch/pnincludes");
-    $reader = new POBReader();
-    $arrayResponse = $reader->xmlToArray($response);
+    $xmlObject = simplexml_load_string($response);
+    //print_r($xmlObject); exit;
 
-    $arrayResponse["startDate"] = $startDate;
-    $arrayResponse["endDate"] = $endDate;
-    //var_dump($arrayResponse); exit;
-    $repackArray = array();
-    $repackArray = $roomSearch->repackArrayForDisplay($arrayResponse);
-
-    //echo ((int)$repackArray["Properties"]["Property"]["RelativePosition"]["RelativePosition"]["Distance"]); exit;
-    
-    if($repackArray){
-      $issetArray  = true;
-    }else{
-      $issetArray  = false;
+    $repackObjectArray = $roomSearch->repackObjectArrayForDisplay($xmlObject);
+  
+    //echo count($repackObjectArray["Properties"]); exit;
+    if(count($repackObjectArray["Properties"]) == 1 && $repackObjectArray){
+      $view = $repackObjectArray["Properties"][0];
     }
 
+    $view["startDate"] = $startDate;
+    $view["endDate"] = $endDate;
+
+    $issetArray  = true;
   }else{
     $issetArray = false;
   }
@@ -173,7 +168,7 @@ function POBRoomSearch_search_view(){
     _preRender($render);
 
   if($issetArray == true){
-    $render->assign("view", $repackArray );
+    $render->assign("view", $view );
     return $render->fetch('user_view_room.htm');
   }else{
     $render->assign("view", null );
