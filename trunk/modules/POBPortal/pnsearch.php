@@ -34,9 +34,9 @@ function POBPortal_search_searchResult(){
     $form['search'] = "phuket";
     $form['page'] = 1;
     $location  = "phuket";
-    $distance  = "10";
-    $latitude  = "7.88806";
-    $longitude = "98.3975";
+    $distance  = "50";
+    $latitude  = "7.970838";
+    $longitude = "98.329697";
     $startDate = $startYear."-".$startMonth."-".$startDay;
     $endDate   = $endYear."-".$endMonth."-".$endDay;
   }else{

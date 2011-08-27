@@ -84,7 +84,7 @@
                 </span> 
                 <img src="modules/POBPortal/pnimages/stars<!--[$item.Rating]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
 
-                <em id="distance"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_AWAY_FROM_YOU"]--> <!--[$item.Distance]--> km.</em><br>
+                <em id="distance"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_AWAY_FROM_YOU"]--> &nbsp;&nbsp;<!--[$item.Distance|number_format:2:".":","]--> km.</em><br>
                 <em id="address">
                   <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
                   <a id="link"
@@ -112,20 +112,22 @@
 
                   <!--[group_availabilities_array avail=$item.Availabilities]-->
                   <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
-                  <tr>
-                    <td align="left">
-                      <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                        <!--[$itemAvailabilities.InvCode]-->
-                      </a>
-                    </td>
-                    <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                    <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-                  </tr>
-                  <!--[if ($groupAvailabilities|@count) > 1]-->
-                  <tr>
-                    <td colspan="3"><hr style="border: 0; color: #9E9E9E; background-color: #9E9E9E; height: 1px;"></td>
-                  </tr>
-                  <!--[/if]-->
+                    <!--[if $itemAvailabilities.Limit > 0]-->
+                      <tr>
+                        <td align="left">
+                          <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                            <!--[$itemAvailabilities.InvCode]-->
+                          </a>
+                        </td>
+                        <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                        <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                      </tr>
+                      <!--[if ($groupAvailabilities|@count) > 1]-->
+                        <tr>
+                          <td colspan="3"><hr style="border: 0; color: #9E9E9E; background-color: #9E9E9E; height: 1px;"></td>
+                        </tr>
+                      <!--[/if]-->
+                    <!--[/if]-->
                   <!--[/foreach]-->
                 </table>
               <!--[/if]-->
