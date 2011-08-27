@@ -47,7 +47,7 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
 {
     $modname  = 'POBPortal';
     $class    = 'RecommendHotel';
-    $itemLimit = 5;
+    $itemLimit = 50;
 
     $vars = pnBlockVarsFromContent($blockinfo['content']);
     //get setting
@@ -76,9 +76,9 @@ function POBPortal_RecommendHotelblock_display($blockinfo)
     //
     ///////////////////////////////////////////////
     $location  = "phuket";
-    $distance  = "10";
-    $latitude  = "7.88806";
-    $longitude = "98.3975";
+    $distance  = "50";
+    $latitude  = "7.970838";
+    $longitude = "98.329697";
 
     //Send param to HotelSearch service 
     Loader::loadClass('HotelLimitSearchEndpoint',"modules/POBPortal/pnincludes");

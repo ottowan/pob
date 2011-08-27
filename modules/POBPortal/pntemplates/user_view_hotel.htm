@@ -1,4 +1,4 @@
-
+<font color="#ff0000">0000</font>
 
   <style>
   img.recthumb{
@@ -165,25 +165,28 @@
                        name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" 
                        value="<!--[$smarty.get.endDate]-->"
                 >
-                <tr>
-                  <td align="left">
-                    <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                      <!--[$itemAvailabilities.InvCode]-->
-                    </a>
-                  </td>
-                  <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                  <td align="center">
-                    <select id="number_<!--[$smarty.foreach.foo.index]-->" 
-                            name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]"
-                    >
-                      <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
-                      <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
-                        <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
-                      <!--[/section]-->
-                    </select>
-                  </td>
-                  <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-                </tr>
+
+                    <!--[if $itemAvailabilities.Limit > 0]-->
+                      <tr>
+                        <td align="left">
+                          <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                            <!--[$itemAvailabilities.InvCode]-->
+                          </a>
+                        </td>
+                        <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                        <td align="center">
+                          <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                                  name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]"
+                          >
+                            <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                            <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
+                              <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                            <!--[/section]-->
+                          </select>
+                        </td>
+                        <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                      </tr>
+                  <!--[/if]-->
               <!--[/foreach]-->
             </table>
         </td>
