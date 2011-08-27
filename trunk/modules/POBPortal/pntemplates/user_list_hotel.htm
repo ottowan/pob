@@ -76,7 +76,6 @@
         <table width="100%">
           <tr>
             <td>
-              <p>
                 <span id="hotelname">
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->">
                     <!--[$item.HotelName]-->
@@ -92,7 +91,7 @@
                      href="index.php?module=POBPortal&type=user&func=page&ctrl=map&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&hotelname=<!--[$item.HotelName]-->"
                   ><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MAP"]--></a>
                 </em><br>
-                <span class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</span>
+                <p class="description"><!--[$item.Description|truncate:250:'&hellip;']-->&nbsp;&nbsp;</p>
                 <em>
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$startDate]-->&endDate=<!--[$endDate]-->"><!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]--></a>
                 </em>
