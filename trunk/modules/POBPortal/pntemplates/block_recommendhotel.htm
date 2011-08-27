@@ -38,6 +38,7 @@
 
   #address{
     color:#ff9900;
+	width:auto;
   }
 
   #link{
@@ -74,23 +75,26 @@
         <table width="100%">
           <tr>
             <td>
-              <p>
                 <span id="hotelname">
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->&startDate=<!--[$item.startDate]-->&endDate=<!--[$item.endDate]-->">
                     <!--[$item.HotelName]-->
                   </a>
                 </span> 
-                <img src="modules/POBPortal/pnimages/stars<!--[$item.Rating]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+				 <!--[if $item.Rating > 0]-->
+                <img src="modules/POBPortal/pnimages/stars<!--[$item.Rating]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"
+				/>
+				<!--[/if]-->
+
                 <em id="address">
                   <!--[$item.AddressLine]-->, <!--[$item.StateProv]-->, <!--[$item.CountryName]-->, <!--[$item.PostalCode]-->&nbsp;&nbsp;
                 </em>
-                <span class="description"><!--[$item.Description|truncate:150:'&hellip;']-->&nbsp;&nbsp;</span>
+                <p class="description4"><!--[$item.Description|truncate:150:'&hellip;']-->&nbsp;&nbsp;
                 <em>
                   <a href="index.php?module=POBPortal&type=search&func=view&lat=<!--[$item.Latitude]-->&lon=<!--[$item.Longitude]-->">
                     <!--[pnml name="_POBPORTAL_USER_LIST_HOTEL_MORE"]-->
                   </a>
                 </em>
-              </p>
+				</p>
             </td>
           </tr>
         </table>
