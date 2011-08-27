@@ -1,0 +1,14 @@
+<!--[*  $Id: postcalendar_event_deleteeventconfirm.htm 383 2009-12-11 01:54:32Z craigh $  *]-->
+<h2><!--[gt text="Delete event"]--></h2>
+
+<!--[pnform]-->
+
+	<div class="row">
+		<b><!--[$loaded_event.title]--></b> (<!--[$loaded_event.eventDate|pc_date_format]-->)
+	</div>
+	
+	<p><!--[gt text="Do you really want to delete this event?"]-->
+	<!--[pnformbutton commandName="delete" __text="Delete"]--><!--[* could include in pnformbutton call __confirmMessage="Delete" *]-->
+	<!--[pnformbutton commandName="cancel" __text="CANCEL"]--></p>
+
+<!--[/pnform]-->
