@@ -92,8 +92,6 @@
 <input type="hidden" name="transaction[hotelcode]" value="<!--[$view.HotelCode]-->">
 <input type="hidden" name="transaction[description]" value="<!--[$view.Description]-->">
 <input type="hidden" name="transaction[contactinfo]" value="<!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]-->">
-
-
   <table width="100%">
       <tr>
         <td valign="top">
@@ -127,30 +125,31 @@
 
               <!--[group_availabilities_array avail=$view.Availabilities]-->
               <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
+                <!--[if $itemAvailabilities.Limit > 0]-->
+                  <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
+                  <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
+                  <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$view.startDate]-->">
+                  <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$view.endDate]-->">
+                  <tr>
+                    <td align="left">
+                      <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                        <!--[$itemAvailabilities.InvCode]-->
+                      </a>
+                    </td>
+                    <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                    <td align="left">
+                      <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                              name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
+                        <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                        <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
 
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$view.startDate]-->">
-              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$view.endDate]-->">
-              <tr>
-                <td align="left">
-                  <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
-                    <!--[$itemAvailabilities.InvCode]-->
-                  </a>
-                </td>
-                <td align="center"><!--[$itemAvailabilities.Limit]--></td>
-                <td align="left">
-                  <select id="number_<!--[$smarty.foreach.foo.index]-->" 
-                          name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
-                    <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
-                    <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
-
-                      <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
-                    <!--[/section]-->
-                  </select>
-                </td>
-                <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
-              </tr>
+                          <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                        <!--[/section]-->
+                      </select>
+                    </td>
+                    <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+                  </tr>
+                <!--[/if]-->
               <!--[/foreach]-->
             </table>
         </td>
