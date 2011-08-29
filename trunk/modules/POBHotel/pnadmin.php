@@ -40,7 +40,7 @@
   */
   function POBHotel_admin_page() {
     POBHotel_permission();
-    return POBHotel_admin_form();
+    return POBHotel_admin_list();
   }
 
   /**
@@ -149,7 +149,7 @@
   function POBHotel_admin_list() {
     POBHotel_permission();
     //$ctrl the class name
-    $ctrl    = FormUtil::getPassedValue ('ctrl', 'room' , 'GET');
+    $ctrl    = FormUtil::getPassedValue ('ctrl', 'Hotel' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
 

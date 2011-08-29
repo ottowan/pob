@@ -29,6 +29,10 @@
 // ----------------------------------------------------------------------
 
 
+//POBHOTEL ADMIN MAIN
+  define('_POBHOTEL_ADMIN_MAIN_BUTTON_EDIT_HOTEL','Edit Hotel Detail.');
+  define('_POBHOTEL_ADMIN_MAIN_BUTTON_EDIT_ROOM','Edit Room Detail.');
+
 //POBHOTEL USER BLOCK FOURIMAGE (block_fourimage.html)
   define('_POBHOTEL_USER_BLOCK_FOURIMAGE_PLEASEUPLOADYOURHOTELIMAGE','Please upload your hotel image.');
 //POBHOTEL USER BLOCK FOURIMAGE MODIFY (block_fourimage_modify.html)
