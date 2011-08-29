@@ -28,7 +28,7 @@ function callback_refresh(){
 	});	
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelAmenity', function(data) {
 	  $('#HotelAmenity').html(data);
-	});
+	});	
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=HotelIndexPoint', function(data) {
 	  $('#HotelIndexPoint').html(data);
 	});

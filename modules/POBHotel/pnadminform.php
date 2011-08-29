@@ -35,7 +35,7 @@
     }
 
     //Forward page and select value
-    $list_url = pnModURL('POBHotel', 'admin', 'form' , array('ctrl'   => $ctrl));
+    $list_url = pnModURL('POBHotel', 'admin', 'list' , array('ctrl'   => $ctrl));
 
     if (isset($_POST['button_cancel']) || isset($_POST['button_cancel_x'])){
         pnRedirect($list_url);
