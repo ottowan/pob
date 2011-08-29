@@ -110,6 +110,9 @@
         </td>
       </tr>
       <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
+          <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.invcode]-->">
+          <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.date]-->">
+          <input type="hidden" name="transaction[availabilities][rate][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Rate]-->">
       <!--[/foreach]-->
 
       <!--[if $tempAvailabilities.Limit]-->
