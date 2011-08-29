@@ -109,6 +109,7 @@
           </p>
         </td>
       </tr>
+      <!--[$view.Availabilities|@print_r]-->
       <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
           <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.InvCode]-->">
           <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Date]-->">
