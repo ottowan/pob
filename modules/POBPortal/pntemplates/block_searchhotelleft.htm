@@ -58,6 +58,71 @@ border-right: 1px solid #D8D8D8;
 	background-color:#3CF;
 	}
 </style>
+<script>
+  function valiadateCheckInCheckOut(){
+    var checkInDay  = document.getElementsByName("startDay")[0];
+    var checkOutDay = document.getElementsByName("endDay")[0];
+    var checkInMonth  = document.getElementsByName("startMonth")[0];
+    var checkOutMonth = document.getElementsByName("endMonth")[0];
+    var checkInYear  = document.getElementsByName("startYear")[0];
+    var checkOutYear = document.getElementsByName("endYear")[0];
+
+    var checkInDayValue  = eval(checkInDay.value);
+    var checkOutDayValue = eval(checkOutDay.value);
+    var checkInMonthValue  = eval(checkInMonth.value);
+    var checkOutMonthValue = eval(checkOutMonth.value);
+    var checkInYearValue  = eval(checkInYear.value);
+    var checkOutYearValue = eval(checkOutYear.value);
+
+    //alert(checkInMonthValue+":"+checkOutMonthValue);
+    if (checkInDayValue == checkOutDayValue && checkInMonthValue == checkOutMonthValue && checkInYearValue == checkOutYearValue ) {
+
+         alert("Please select next night.");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        checkOutDay.style.borderStyle = "solid";
+        checkOutDay.style.borderColor = "#FF0000";
+        checkOutDay.style.borderWidth = "1px";
+        checkOutDay.focus();
+        return false;
+    } else if (checkInDayValue > checkOutDayValue && checkInMonthValue == checkOutMonthValue && checkInYearValue == checkOutYearValue ) {
+
+         alert("Please select checkout day more than checkin day.");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        checkOutDay.style.borderStyle = "solid";
+        checkOutDay.style.borderColor = "#FF0000";
+        checkOutDay.style.borderWidth = "1px";
+        checkOutDay.focus();
+        return false;
+    } else if (checkInMonthValue > checkOutMonthValue && checkInYearValue == checkOutYearValue ) {
+
+         alert("Please select checkout month more than checkin month.");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        checkOutMonth.style.borderStyle = "solid";
+        checkOutMonth.style.borderColor = "#FF0000";
+        checkOutMonth.style.borderWidth = "1px";
+        checkOutMonth.focus();
+        return false;
+    } else if (checkInYearValue > checkOutYearValue ) {
+
+         alert("Please select checkout year more than checkin year.");
+
+        //document.getElementById('error-identificational').innerHTML = "* Identificational.";
+        checkOutYear.style.borderStyle = "solid";
+        checkOutYear.style.borderColor = "#FF0000";
+        checkOutYear.style.borderWidth = "1px";
+        checkOutYear.focus();
+        return false;
+    }  else {
+      checkOutDay.style.borderStyle = "solid";
+      checkOutDay.style.borderColor = "#00CC00";
+      checkOutDay.style.borderWidth = "1px";
+      //document.getElementById('error-country').innerHTML = "<IMG SRC='modules/Booking/pnimages/right.gif' WIDTH='10' HEIGHT='10'>";
+    }
+  }
+</script>
 <div class="box">
 <p><!--[pnml name="_POBPORTAL_USER_SEARCH_HOTEL_IN_PHUKET"]--></p>
 <FORM METHOD=POST ACTION="<!--[pnmodurl modname='POBPortal' type='search' func='searchResult']-->">
@@ -99,7 +164,7 @@ border-right: 1px solid #D8D8D8;
     <TD colspan="2">&nbsp;</TD>
     </TR>
   <TR>
-    <TD colspan="2"><button id="submitButton" type="submit"><!--[pnml name="_POBPORTAL_USER_SAERCH_BUTTON"]--></button>  </TD>
+    <TD colspan="2"><button id="submitButton" type="submit" onclick="return valiadateCheckInCheckOut()"><!--[pnml name="_POBPORTAL_USER_SAERCH_BUTTON"]--></button>  </TD>
   </TR>
   </TABLE>
 </FORM>

@@ -93,6 +93,10 @@
 <input type="hidden" name="transaction[hotelcode]" value="<!--[$view.HotelCode]-->">
 <input type="hidden" name="transaction[description]" value="<!--[$view.Description]-->">
 <input type="hidden" name="transaction[contactinfo]" value="<!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]-->">
+<input type="hidden" name="transaction[hotelname]" value="<!--[$view.HotelName]-->">
+<input type="hidden" name="transaction[image]" value="<!--[$view.ImageItems[0].Images]-->">
+<input type="hidden" name="transaction[thumb]" value="<!--[$view.ImageItems[0].Thumbs]-->">
+
 
 <!--   [$view.ImageItems|@print_r]   -->
   <table width="100%">
@@ -128,7 +132,7 @@
             <p class="description2"><!--[$view.Description]-->&nbsp;&nbsp;</p>
         </td>
       </tr><br><br>
-      <!-- [$view.Availabilities|@print_r] --><br>
+      <!--     [$view.Availabilities|@print_r]     --><br>
       <!--[foreach from=$view.Availabilities item=tempAvailabilities name=foo]-->
           <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.invcode]-->">
           <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.date]-->">
