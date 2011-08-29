@@ -127,8 +127,12 @@
         <td>
             <p class="description2"><!--[$view.Description]-->&nbsp;&nbsp;</p>
         </td>
-      </tr>
-      <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
+      </tr><br><br>
+      <!-- [$view.Availabilities|@print_r] --><br>
+      <!--[foreach from=$view.Availabilities item=tempAvailabilities name=foo]-->
+          <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.invcode]-->">
+          <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.date]-->">
+          <input type="hidden" name="transaction[availabilities][rate][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Rate]-->">
       <!--[/foreach]-->
 
       <!--[if $tempAvailabilities.Limit]-->
