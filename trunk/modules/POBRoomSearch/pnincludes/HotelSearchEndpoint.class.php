@@ -51,7 +51,7 @@ Class HotelSearchEndpoint {
     $POS->appendChild($Source);
 
     $RequestorID = $xml->createElement("RequestorID");
-    $RequestorID->setAttribute("ID", "8508a7e6ce43e091");
+    $RequestorID->setAttribute("ID", "638fdJa7vRmkLs5");
     $RequestorID->setAttribute("ID_Context", "RZ");
 
     $Criteria = $xml->createElement("Criteria");
