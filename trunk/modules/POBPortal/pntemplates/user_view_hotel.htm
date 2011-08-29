@@ -1,6 +1,4 @@
-<font color="#ff0000">0000</font>
-
-  <style>
+<style>
   img.recthumb{
         float:left;
         padding:15px 10px 0px 0px;
@@ -129,6 +127,7 @@
         </td>
       </tr><br><br>
       <br>
+      <!--       [$view.Availabilities|@print_r]        -->
       <!--[foreach from=$view.Availabilities item=tempAvailabilities name=foo]-->
           <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.InvCode]-->">
           <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Date]-->">
