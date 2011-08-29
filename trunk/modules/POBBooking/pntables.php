@@ -5,12 +5,14 @@
 
       $customer = createPOBBookingCustomerTable();
       $booking  = createPOBBookingTable();
+      $daybooking  = createPOBDayBookingTable();
       $status   = createPOBBookingStatusTable();
 
-      $pntable = array_merge($customer, $booking, $status);
+      $pntable = array_merge($customer, $booking, $daybooking, $status);
       //$pntable = array_merge($customer, $booking);
       unset($customer);
       unset($booking);
+      unset($daybooking);
       unset($status);
 
       return $pntable;
@@ -28,7 +30,8 @@
       $pntable['pobbooking_customer_column'] = array(
                                                   'id'                  => 'cus_id',
                                                   'refid'               => 'cus_refid',
-                                                  'resid'               => 'cus_resid',
+                                                  'booking_id'          => 'cus_booking_id',
+                                                  'booking_date'        => 'cus_booking_date',
                                                   'status_id'           => 'cus_status_id',
                                                   'identificational'    => 'cus_identificational',
                                                   'nameprefix'          => 'cus_nameprefix',
@@ -47,13 +50,17 @@
                                                   'cardcode'            => 'cus_cardcode',
                                                   'cardnumber'          => 'cus_cardnumber',
                                                   'cardholdername'      => 'cus_cardholdernamer',
-                                                  'cardexpire'          => 'cus_cardexpire'
+                                                  'cardexpire'          => 'cus_cardexpire',
+                                                  'cardsecurecode'      => 'cus_cardsecurecode',
+                                                  'cardbankname'        => 'cus_cardbankname',
+                                                  'cardissuingcountry'      => 'cus_cardissuingcountry'
                                                   );
 
       $pntable['pobbooking_customer_column_def'] = array(
                                                   'id'                  => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
                                                   'refid'               => 'TEXT',
-                                                  'resid'               => 'TEXT',
+                                                  'booking_id'          => 'TEXT',
+                                                  'booking_date'        => 'DATETIME',
                                                   'status_id'           => 'INT(2) DEFAULT 2',
                                                   'identificational'    => 'VARCHAR(50) DEFUALT NULL',
                                                   'nameprefix'          => 'VARCHAR(50) DEFUALT NULL',
@@ -71,14 +78,14 @@
                                                   'total_rooms'         => 'INT(11)',
                                                   'total_price'         => 'DOUBLE',
                                                   'cardcode'            => 'VARCHAR(255)',
-                                                  'cardnumber'          => 'TEXT',
-                                                  'cardholdername'      => 'TEXT',
-                                                  'cardexpire'          => 'VARCHAR(10)'
+                                                  'cardnumber'          => 'VARCHAR(255)',
+                                                  'cardholdername'      => 'VARCHAR(255)',
+                                                  'cardexpire'          => 'VARCHAR(255)',
+                                                  'cardsecurecode'      => 'VARCHAR(255)',
+                                                  'cardbankname'        => 'VARCHAR(255)',
+                                                  'cardissuingcountry'  => 'VARCHAR(255)'
                                                   );
       $pntable['pobbooking_customer_primary_key_column'] = 'id';
-      // add standard data fields
-      ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobbooking_customer_column'], 'cus_');
-      ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobbooking_customer_column_def']);
 
       return $pntable;
   }
@@ -124,7 +131,10 @@
                                                   'cardnumber'          => 'boo_cardnumber',
                                                   'cardholdername'      => 'boo_cardholdernamer',
                                                   'cardexpire'          => 'boo_cardexpire',
-                                                  'issue_date'          => 'boo_issue_date'
+                                                  'issue_date'          => 'boo_issue_date',
+                                                  'cardsecurecode'      => 'cus_cardsecurecode',
+                                                  'cardbankname'        => 'cus_cardbankname',
+                                                  'cardissuingcountry'  => 'cus_cardissuingcountry'
                                           );
 
       $pntable['pobbooking_booking_column_def'] = array(
@@ -158,21 +168,99 @@
                                                   'email'            => 'TEXT',
                                                   'addition_request' => 'TEXT',
                                                   'cardcode'         => 'VARCHAR(255)',
-                                                  'cardnumber'       => 'TEXT',
-                                                  'cardholdername'   => 'TEXT',
-                                                  'cardexpire'       => 'VARCHAR(10)',
+                                                  'cardnumber'       => 'VARCHAR(255)',
+                                                  'cardholdername'   => 'VARCHAR(255)',
+                                                  'cardexpire'       => 'VARCHAR(255)',
+                                                  'cardsecurecode'   => 'VARCHAR(255)',
+                                                  'cardbankname'       => 'VARCHAR(255)',
+                                                  'cardissuingcountry'  => 'VARCHAR(255)',
                                                   'issue_date'       => 'DATETIME'
+
                                                                       );
       $pntable['pobbooking_booking_primary_key_column'] = 'id';
 
       return $pntable;
-
   }
 
-  /**
-   * This function is create booking table.
-   * It use for adds in the information of bookings.
-   */
+  function &createPOBDayBookingTable() {
+
+      //create level 2
+      //table definition booking
+      $pntable['pobbooking_daybooking'] = DBUtil::getLimitedTablename('pobbooking_daybooking');
+
+      $pntable['pobbooking_daybooking_column'] = array(
+                                                  'id'                  => 'boo_id',
+                                                  'cus_id'              => 'boo_cus_id',
+                                                  'customer_refid'      => 'boo_customer_refid',
+                                                  'status_id'           => 'boo_status_id',
+                                                  'chaincode'           => 'boo_chaincode',
+                                                  'hotelname'           => 'boo_hotelname',
+                                                  'isocurrency'         => 'boo_isocurrency',
+                                                  'date'                => 'boo_date',
+                                                  'invcode'             => 'boo_invcode',
+                                                  'rate'                => 'boo_rate',
+                                                  'identificational'    => 'boo_identificational',
+                                                  'nameprefix'          => 'boo_nameprefix',
+                                                  'givenname'           => 'boo_givenname',
+                                                  'surname'             => 'boo_surname',
+                                                  'addressline'         => 'boo_addressline',
+                                                  'cityname'            => 'boo_cityname',
+                                                  'stateprov'           => 'boo_stateprov',
+                                                  'countryname'         => 'boo_countryname',
+                                                  'postalcode'          => 'boo_postalcode',
+                                                  'mobile'              => 'boo_mobile',
+                                                  'phone'               => 'boo_phone',
+                                                  'email'               => 'boo_email',
+                                                  'addition_request'    => 'boo_addition_request',
+                                                  'cardcode'            => 'boo_cardcode',
+                                                  'cardnumber'          => 'boo_cardnumber',
+                                                  'cardholdername'      => 'boo_cardholdernamer',
+                                                  'cardexpire'          => 'boo_cardexpire',
+                                                  'issue_date'          => 'boo_issue_date',
+                                                  'cardsecurecode'      => 'cus_cardsecurecode',
+                                                  'cardbankname'        => 'cus_cardbankname',
+                                                  'cardissuingcountry'  => 'cus_cardissuingcountry'
+                                          );
+
+      $pntable['pobbooking_daybooking_column_def'] = array(
+                                                  'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
+                                                  'cus_id'           => 'INT(11)',
+                                                  'customer_refid'   => 'TEXT',
+                                                  'status_id'        => 'INT(2) default 2',
+                                                  'chaincode'        => 'VARCHAR(10)',
+                                                  'hotelname'        => 'VARCHAR(255)',
+                                                  'isocurrency'      => 'VARCHAR(10)',
+                                                  'date'             => 'DATE',
+                                                  'checkout_date'    => 'DATE',
+                                                  'date'             => 'DATE',
+                                                  'invcode'          => 'VARCHAR(255)',
+                                                  'rate'             => 'DOUBLE',
+                                                  'identificational' => 'VARCHAR(50) DEFUALT NULL',
+                                                  'nameprefix'       => 'VARCHAR(50) DEFUALT NULL',
+                                                  'givenname'        => 'TEXT',
+                                                  'surname'          => 'TEXT',
+                                                  'addressline'      => 'TEXT',
+                                                  'stateprov'        => 'VARCHAR(255) DEFUALT NULL',
+                                                  'cityname'         => 'VARCHAR(255) DEFUALT NULL',
+                                                  'countryname'      => 'VARCHAR(255) DEFUALT NULL',
+                                                  'postalcode'       => 'VARCHAR(50)  DEFUALT NULL',
+                                                  'mobile'           => 'VARCHAR(255) DEFUALT NULL',
+                                                  'phone'            => 'VARCHAR(255) DEFUALT NULL',
+                                                  'email'            => 'TEXT',
+                                                  'addition_request' => 'TEXT',
+                                                  'cardcode'         => 'VARCHAR(255)',
+                                                  'cardnumber'       => 'VARCHAR(255)',
+                                                  'cardholdername'   => 'VARCHAR(255)',
+                                                  'cardexpire'       => 'VARCHAR(255)',
+                                                  'cardsecurecode'   => 'VARCHAR(255)',
+                                                  'cardbankname'       => 'VARCHAR(255)',
+                                                  'cardissuingcountry'  => 'VARCHAR(255)',
+                                                  'issue_date'       => 'DATETIME'
+                                                  );
+      $pntable['pobbooking_daybooking_primary_key_column'] = 'id';
+
+      return $pntable;
+  }
 
   function &createPOBBookingStatusTable() {
 

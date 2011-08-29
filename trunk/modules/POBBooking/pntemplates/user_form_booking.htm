@@ -8,7 +8,6 @@
             method="post"
             onsubmit="return validateForm(this)"
   >
-
       <input type="hidden" name="forward[modname]" value="POBBooking" />
       <input type="hidden" name="forward[type]" value="user" />
       <input type="hidden" name="forward[func]" value="page" />
@@ -17,10 +16,15 @@
       <input type="hidden" name="booking[hotelname]" value="<!--[$smarty.post.transaction.hotelname]-->" />
       <input type="hidden" name="booking[hotelcode]" value="<!--[$smarty.post.transaction.hotelcode]-->" />
       <input type="hidden" name="booking[hotelcontact]" value="<!--[$smarty.post.transaction.contactinfo]-->" />
-
       <input type="hidden" name="booking[chaincode]" value="HT" />
 
+      <!--[foreach from=$smarty.post.transaction.availabilities item=item name="foo"]-->
+        <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
+        <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][date]" value="<!--[$item.date]-->">
+        <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
+      <!--[/foreach]-->
 
+s
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
   <TABLE width="100%">
@@ -70,9 +74,10 @@
           
           <!--[assign var="rooms" value=$item.numberofunit]-->
             <!--[math equation=x+y x=$total_rooms y=$rooms assign="total_rooms"]-->
+            
             <!--[if $item.numberofunit > 0]-->
             <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
+              
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]" value="<!--[$item.numberofunit]-->">
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$item.startdate]-->">
               <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$item.enddate]-->">
@@ -83,7 +88,9 @@
                 <TD align="center"><!--[$item.numberofunit]--></TD>
                 <TD align="center"><!--[$item.startdate]--> <!--[pnml name="_POBBOOKING_USER_TO"]--> <!--[$item.enddate]--></TD>
                 <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]-->
-                   <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
+                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
+                    <!--[math equation=a/b/c a=$item.rate b=$item.numberofunit c=$datediff assign="roomrate"]-->
+                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
                 </TD>
                 <TD align="center"><!--[math equation="a*b" a=$item.numberofunit b=2]--><!--[$item.adult]--></TD>
                 <TD align="center">

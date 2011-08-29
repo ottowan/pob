@@ -20,7 +20,7 @@ function POBBooking_user_main() {
     return pobbooking_user_form();
   }else{
     //Redirect page
-    $url = $_SERVER['SERVER_NAME'].$_SERVER['PHPSELF'];
+    $url = $_SERVER['PHPSELF'];
     $portal_url = pnModURL('POBPortal', 'user');
     pnRedirect($url);
     return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');

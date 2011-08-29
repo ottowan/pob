@@ -10,6 +10,27 @@ class PNCustomer extends PNObject {
         $this->_init($init, $where);
     }
 
+    private function encrypt($source){
+      $fp=fopen("modules/POBBooking/pnincludes/pob.public.pem","r"); 
+      $pub_key=fread($fp,8192); 
+      fclose($fp); 
+      $key_resource = openssl_get_publickey($pub_key); 
+      if (!$key_resource) {
+        echo "Cannot get public key"; exit;
+      }
+
+      openssl_public_encrypt($source,$crypttext, $key_resource ); 
+
+      if (!empty($crypttext)) {
+        openssl_free_key($key_resource);
+        return base64_encode($crypttext); 
+        //echo "Encryption OK!";
+      }else{
+        echo "Cannot Encrypt"; exit;
+      }
+    }
+
+
 
     function insertPreProcess() {
         //get
@@ -26,21 +47,35 @@ class PNCustomer extends PNObject {
         $total_rooms+=$item[numberofunits];
         }
 
+        ///// Encryption Payment detail //////
+        $cardexpire = $this->encrypt($cardexpiredate);
+        $cardcode = $this->encrypt($form['cardcode']);
+        $cardnumber = $this->encrypt($form['cardnumber']);
+        $cardid = $this->encrypt($form['cardid']);
+        $cardholdername = $this->encrypt($form['cardholdername']);
+
         //$roomstays = $form['roomstays'];
         //insert
-        $this->_objData['cardexpire'] = $cardexpiredate;
-        //$this->_objData['cr_date'] = $datenow;
+//        echo " --> Insert Data"."\n";
+        $this->_objData['cardexpire'] = $cardexpire;
+        $this->_objData['cardcode'] = $cardcode;
+        $this->_objData['cardnumber'] = $cardnumber;
+        $this->_objData['cardsecurecode'] = $cardid;
+        $this->_objData['cardholdername'] = $cardholdername;
+        $this->_objData['booking_date'] = $datenow;
         $this->_objData['total_rooms'] = $total_rooms;
+        
         return true;
     }
 
 
     function insertPostProcess() {
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
-
+//        echo " --> insertPostProcess"."\n";
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $refid = "B".($id+1000);
         $roomstays = $this->_objData['roomstays'];
+        $availabilities = $this->_objData['availabilities'];
 
         //var_dump($cardexpiredate);
         //var_dump($total_rooms);
@@ -64,6 +99,12 @@ class PNCustomer extends PNObject {
         $chaincode = $form['chaincode'];
         $roomstays = $form['roomstays'];
         $datenow = date("Y-m-d H:i:s");
+        ///// Encryption Payment detail //////
+        $cardexpire = $this->encrypt($cardexpire);
+        $cardcode = $this->encrypt($form['cardcode']);
+        $cardnumber = $this->encrypt($form['cardnumber']);
+        $cardid = $this->encrypt($form['cardid']);
+        $cardholdername = $this->encrypt($form['cardholdername']);
         foreach($roomstays as $item) {
             //Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_booking', 'id', 'MAX', '');
@@ -101,16 +142,70 @@ class PNCustomer extends PNObject {
                     'phone'               => $form['phone'],
                     'email'               => $form['email'],
                     'addition_request'    => $form['addition_request'],
-                    'cardcode'            => $form['cardcode'],
-                    'cardnumber'          => $form['cardnumber'],
-                    'cardholdername'      => $form['cardholdername'],
+                    'cardcode'            => $cardcode,
+                    'cardnumber'          => $cardnumber,
+                    'cardholdername'      => $cardholdername,
                     'cardexpire'          => $cardexpire,
+                    'cardsecurecode'      => $cardid,
+                    'cardbankname'        => $form['cardbankname'],
+                    'cardissuingcountry'  => $form['cardissuingcountry'],
                     'issue_date'          => $datenow
             );
             
             DBUtil::insertObject($objects,'pobbooking_booking');
+            //creating CSV
+            $this->array_to_CSV($objects);
         }
 
+        foreach($availabilities as $item) {
+            //Gennerate next id
+            $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_daybooking', 'id', 'MAX', '');
+            if($current_booking_id == null) {
+                $current_booking_id = 1;
+            }else {
+                $booking_id = $current_booking_id+1;
+            }
+            $objects = array(
+                    'id'                  => $booking_id,
+                    'cus_id'              => $id,
+                    'customer_refid'      => $refid,
+                    'chaincode'           => $form['chaincode'],
+                    'hotelname'           => $form['hotelname'],
+                    'isocurrency'         => $form['isocurrency'],
+                    'date'                => $item['date'],
+                    'invcode'             => $item['invcode'],
+                    'room_rate'           => $item['rate'],
+                    'identificational'    => $form['identificational'],
+                    'nameprefix'          => $form['nameprefix'],
+                    'givenname'           => $form['givenname'],
+                    'surname'             => $form['surname'],
+                    'addressline'         => $form['addressline'],
+                    'cityname'            => $form['cityname'],
+                    'stateprov'           => $form['stateprov'],
+                    'countryname'         => $form['countryname'],
+                    'postalcode'          => $form['postalcode'],
+                    'mobile'              => $form['mobile'],
+                    'phone'               => $form['phone'],
+                    'email'               => $form['email'],
+                    'addition_request'    => $form['addition_request'],
+                    'cardcode'            => $cardcode,
+                    'cardnumber'          => $cardnumber,
+                    'cardholdername'      => $cardholdername,
+                    'cardexpire'          => $cardexpire,
+                    'cardsecurecode'      => $cardid,
+                    'cardbankname'        => $form['cardbankname'],
+                    'cardissuingcountry'  => $form['cardissuingcountry'],
+                    'issue_date'          => $datenow
+            );
+            
+            DBUtil::insertObject($objects,'pobbooking_daybooking');
+
+        }
+
+
+
+
+//        echo " --> insertPostProcess sendXML"."\n";
         $this->sendXML();
 
         //Call sendEmail method
@@ -133,59 +228,12 @@ class PNCustomer extends PNObject {
             $where = "WHERE cus_refid = '$refid'";
             DBUtil::updateObject($object,'pobbooking_customer',$where);
         }
-
-
     }
 
 
-    function sendEmail() {
-        //Get value from input
-        $form = FormUtil::getPassedValue ('form', false);
-
-        $booking = $form['roomstays'];
-
-        //Config email
-        $adminEmail = "admin@phuketcity.com";
-        $toEmail = $form[email].",".$adminEmail;
-        $subject = "Your Room Reservation in ".$form['hotelname'].".";
-
-        //Config email body
-        $body = "Dear ".$form[nameprefix] .' ' .$form[givenname].",\n";
-        $body.= "\tThank you for your enquiry. Your request as\n";
-        $body.= "detailed below has been sent to one of our client\n";
-        $body.= "service who will respond to you within 1-2 business day.\n";
-        $body.= "Should you require any assistancen\n";
-        $body.= "please contact us at info@phuketcity.com\n";
-        $body.= "[BOOKING DETAILS]\n";
-        $body.= "Request type: Make a booking\n";
-        foreach($booking  as $item) {
-            $body.= "           Room Type :".$item[invcode]."\n";
-            $body.= "           Room(s) :".$item[numberofunits]."\n";
-            $body.= "           Night(s) :".$item[night]."\n";
-            $body.= "           Adult :".$item[adult]."\n";
-            if($item[child]){
-              $body.= "           Children :".$item[child]."\n";
-            }
-            $body.= "           Price / One room / One night:".$item[rate]."\n";
-            $body.= "Checkin Date :".$item[startdate]."\n";
-            $body.= "Checkout Date :".$item[enddate]."\n";
-        }
-        $body.= "Addition requests:".$form[addition_request]."\n";
-        $body.= "[CUSTOMER INFORMATION]\n";
-        $body.= "name : ".$form[nameprefix]."".$form[givenname]."\t".$form[surname]."\t\n";
-        $body.= "email : ".$form[email]."\n";
-        $body.= "[OTHERS]\n";
-        $body.= "--------BOOKING PRICE:".$form[total_price]." BAHT--------\n\n\n\n";
-        $body.= "phuketcity.com Client Service\n";
-        $body.= "info@phuketcity.com";
-        $body.= "             ";
-
-        mail($toEmail,$subject,$body,$header);
-
-    }
 
     function sendXML() {
-      
+//      echo " --> func sendXML"."\n";
     $form = FormUtil::getPassedValue ('form', false );
     $chaincode = "";
     $card_exp_month = $form['card_exp_month'];
@@ -196,13 +244,16 @@ class PNCustomer extends PNObject {
 //////////////////////////////////////
 ///// Encryption Payment detail //////
 //////////////////////////////////////
-$cardcode = encrypt($form['cardcode']);
-$cardnumber = encrypt($form['cardnumber']);
-$cardexpire = encrypt($cardexpiredate);
-$cardid = encrypt($form['cardid']);
-$cardholdername = encrypt($form['cardholdername']);
-$rqtype = encrypt('1');
-$rqid = encrypt('638fdJa7vRmkLs5');
+//echo " --> func sendXML before Encryption"."\n";
+$cardexpire = $this->encrypt($cardexpiredate);
+$cardcode = $this->encrypt($form['cardcode']);
+$cardnumber = $this->encrypt($form['cardnumber']);
+$cardid = $this->encrypt($form['cardid']);
+$cardholdername = $this->encrypt($form['cardholdername']);
+$rqtype = $this->encrypt('1');
+$rqid = $this->encrypt('638fdJa7vRmkLs5');
+//echo " --> func sendXML ALL Encrypted"."\n";
+
 
 ////////////////////////////
 //////// GEN XML ///////////
@@ -243,9 +294,9 @@ $rqid = encrypt('638fdJa7vRmkLs5');
               $HotelReservations->appendChild($HotelReservation);
                 $RoomStays = $xml->createElement("RoomStays");
                 $HotelReservation->appendChild($RoomStays);
+                foreach($roomstays as $key => $item){
                   $RoomStay = $xml->createElement("RoomStay");
                   $RoomStays->appendChild($RoomStay);
-                  foreach($roomstays as $key => $item){
                     $RoomTypes = $xml->createElement("RoomTypes");
                     $RoomStay->appendChild($RoomTypes);
                       $RoomType= $xml->createElement("RoomType");
@@ -362,16 +413,25 @@ $rqid = encrypt('638fdJa7vRmkLs5');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $response = curl_exec($ch);
+        //echo "\n";
+        //echo "**************Response recieved******************";
+        //echo "\n";
 ////////get booking id
-        $xml = simplexml_load_string($string);
-        $booking_id = $xml->HotelReservations->HotelReservation->ResGlobalInfo->HotelReservationIDs->HotelReservationID->attributes()->BookingID;
-        echo $booking_id;
+        $objxml = simplexml_load_string($response);
+        //print_r($sxml); exit;
+        $bookingid = $objxml->HotelReservations->HotelReservation->ResGlobalInfo->HotelReservationIDs->HotelReservationID->attributes()->BookingID;
+//        echo($BookingID); exit;
+        $render = pnRender::getInstance('POBPortal');
+        $render->assign("bookingid", $bookingid );
+
+        //echo "***BookingID*** : ".$bookingid; exit;
 ////////update booking id to table
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
-        $object = array('booking_id'=>$booking_id);
-        $where  = " cus_id = ".$id;
+        $object = array('booking_id'=>$bookingid);
+        $where  = " id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
+        
 
 
         $mystring = $response;
@@ -394,26 +454,16 @@ $rqid = encrypt('638fdJa7vRmkLs5');
 
     }
 
-    function encrypt($source){
-
-      $fp=fopen("modules/POBBooking/pnincludes/pob.public.pem","r"); 
-      $pub_key=fread($fp,8192); 
-      fclose($fp); 
-      $key_resource = openssl_get_publickey($pub_key); 
-      if (!$key_resource) {
-        echo "Cannot get public key"; exit;
-      }
-
-      openssl_public_encrypt($source,$crypttext, $key_resource ); 
-
-      if (!empty($crypttext)) {
-        openssl_free_key($key_resource);
-        return base64_encode($crypttext); 
-        //echo "Encryption OK!";
-      }else{
-        echo "Cannot Encrypt"; exit;
-      }
+    function array_to_CSV($data)
+    {
+        $outstream = fopen("php://temp", 'r+');
+        fputcsv($outstream, $data, ',', '"');
+        rewind($outstream);
+        $csv = fgets($outstream);
+        fclose($outstream);
+        return $csv;
     }
+
 
 
 }

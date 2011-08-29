@@ -14,6 +14,9 @@ function POBBooking_init() {
       return false;
   }
 
+  if (!DBUtil::createTable('pobbooking_daybooking')) {
+      return false;
+  }
 
   if (!DBUtil::createTable('pobbooking_status')) {
       return false;
@@ -27,6 +30,7 @@ function POBBooking_delete() {
   // drop table
   DBUtil::dropTable('pobbooking_customer');
   DBUtil::dropTable('pobbooking_booking');
+  DBUtil::dropTable('pobbooking_daybooking');
   DBUtil::dropTable('pobbooking_status');
 
   return true;
