@@ -96,9 +96,6 @@
 <input type="hidden" name="transaction[hotelname]" value="<!--[$view.HotelName]-->">
 <input type="hidden" name="transaction[image]" value="<!--[$view.ImageItems[0].Images]-->">
 <input type="hidden" name="transaction[thumb]" value="<!--[$view.ImageItems[0].Thumbs]-->">
-
-
-<!--   [$view.ImageItems|@print_r]   -->
   <table width="100%">
       <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
         <td valign="top">
@@ -109,7 +106,6 @@
       </tr>
       <tr onmouseover="this.bgColor='#ecf5ff'" onmouseout="this.bgColor='#ffffff'">
         <td valign="top">
-<!--    [$view.ImageItems[0].Images|@print_r]   -->
           <!--[if isset($view.ImageItems)]-->
             <!--[foreach from=$view.ImageItems item=image]-->
               <a class="image_border" target="_blank" href="#" 
@@ -132,10 +128,10 @@
             <p class="description2"><!--[$view.Description]-->&nbsp;&nbsp;</p>
         </td>
       </tr><br><br>
-      <!--     [$view.Availabilities|@print_r]     --><br>
+      <br>
       <!--[foreach from=$view.Availabilities item=tempAvailabilities name=foo]-->
-          <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.invcode]-->">
-          <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.date]-->">
+          <input type="hidden" name="transaction[availabilities][invcode][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.InvCode]-->">
+          <input type="hidden" name="transaction[availabilities][date][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Date]-->">
           <input type="hidden" name="transaction[availabilities][rate][<!--[$smarty.foreach.foo.index]-->]" value="<!--[$tempAvailabilities.Rate]-->">
       <!--[/foreach]-->
 
