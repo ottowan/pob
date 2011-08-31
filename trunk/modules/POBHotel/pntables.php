@@ -757,5 +757,29 @@
                                           'idx_r_srvc_r_srvc_detail_room_recreation_srvc_detail_id' => 'recreation_srvc_detail_id'
     );
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+    $pntable['pobhotel_room'] = DBUtil::getLimitedTablename('pobhotel_room');
+    $pntable['pobhotel_room_column'] = array(
+                                          'id' => 'room_id',
+                                          'guest_room_type_id' => 'room_guest_room_type_id',
+                                          'name' =>'room_name',
+                                          'description' => 'room_description'
+    );
+    $pntable['pobhotel_room_column_def'] = array(
+                                          'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
+                                          'guest_room_type_id' =>'INT(11)',
+                                          'name' =>'VARCHAR(255)',
+                                          'description' =>'VARCHAR(255)'
+    );
+    $pntable['pobhotel_room_primary_key_column'] = 'id';
+    //add standard data fields
+    ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_room_column'], 'room_');
+    ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_room_column_def']);
+    $pntable['pobhotel_room_column_idx'] = array(
+                                          'idx_room_guest_room_type_id' => 'room_guest_room_type_id'
+    );
+
+
     return $pntable;
   }

@@ -31,6 +31,9 @@ function callback_refresh(){
 	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=GuestRoom', function(data) {
 	  $('#HotelGuestRoom').html(data);
 	});
+	$.get('index.php?module=POBHotel&type=ajax&func=list&ctrl=Room', function(data) {
+	  $('#HotelRoom').html(data);
+	});
 }
 </script>
 <!--[literal]--><!--[if IE]><!--[/literal]-->
@@ -40,9 +43,6 @@ function callback_refresh(){
           }
           .upload_ie{
             display:block !important;
-          }
-          #navigation ul li{
-            width:50px;
           }
        </style>
 <!--[literal]--><![endif]--><!--[/literal]-->
@@ -71,31 +71,52 @@ function callback_refresh(){
   });
 </script>
            <div id="wrapper">
+                <div id="navigation" style="display:none;">
+                    <ul>
+                        <li class="selected"><a href="#">Room Type</a></li>
+                        <li><a href="#">Room</a></li>
+                    </ul>
+                </div>
                 <div id="steps">
-				<FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='admin' func='submitNotif' ctrl='GuestRoom']-->" enctype="multipart/form-data">
-					<fieldset class="step">
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON"]--></legend>
-						
-						<div id="HotelSeason">
-						
-						</div>
-						
-<br><br>
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE"]--></legend>
-						<div id="HotelGuestRoomType">
-					
-						</div>
-<br><br>
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM"]--></legend>
-						<div id="HotelGuestRoom">
 
-						</div>
+                  <!-- Tab Guest Room -->
+                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='admin' func='submitNotif' ctrl='GuestRoom']-->" enctype="multipart/form-data">
+                    <fieldset class="step">
+                      <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_SEASON"]--></legend>
+                      
+                          <div id="HotelSeason">
+                          
+                          </div>
+                          
+                            <br><br>
+                          <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_RATE"]--></legend>
+                          <div id="HotelGuestRoomType">
+                        
+                          </div>
+                            <br><br>
+                          <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_GUESTROOM"]--></legend>
+                          <div id="HotelGuestRoom">
+                          </div>
 
-						</fieldset>
-						<legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
-						<p class="submit">
-							<button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
-						</p>
-						</FORM>
-					</div>
-				</div>
+                          <legend><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM"]--></legend>
+                          <p class="submit">
+                            <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_ADMIN_LEGEND_CONFIRM_SUBMIT"]--></button>
+                          </p>
+                      
+                    </fieldset>
+                  </FORM>
+
+
+
+                  <!-- Tab Room -->
+                  <FORM id="formElem" name="formElem" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='admin' func='form' ctrl='Room']-->" enctype="multipart/form-data">
+                  <fieldset class="step">
+                    <legend>Room</legend>
+                      
+                          <div id="HotelRoom">
+                          </div>
+                       
+                  </fieldset>
+                  </FORM>
+              </div>
+        </div>

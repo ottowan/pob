@@ -114,6 +114,9 @@
     if (!DBUtil::createTable('pobhotel_r_srvc_r_srvc_detail')) {
       return false;
     }
+    if (!DBUtil::createTable('pobhotel_room')) {
+      return false;
+    }
     $flgCreate1 = mkdir("pnTemp/pobhotel_upload");
     $flgCreate2 = mkdir("pnTemp/pobhotel_upload/image");
     $flgCreate3 = mkdir("pnTemp/pobhotel_upload/image/large");
@@ -163,6 +166,7 @@
     DBUtil::dropTable('pobhotel_m_room_m_room_format');
     DBUtil::dropTable('pobhotel_room_room_amenity');
     DBUtil::dropTable('pobhotel_r_srvc_r_srvc_detail');
+    DBUtil::dropTable('pobhotel_room');
     return true;
   }
 
