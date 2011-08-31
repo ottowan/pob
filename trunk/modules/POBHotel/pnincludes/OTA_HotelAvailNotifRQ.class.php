@@ -55,7 +55,7 @@ Class OTA_HotelAvailNotifRQ {
     // Set the attributes.
     $OTA_HotelAvailNotifRQ->setAttribute("xmlns", "http://www.opentravel.org/OTA/2003/05");
     $OTA_HotelAvailNotifRQ->setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    $OTA_HotelAvailNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05OTA_HotelAvailNotifRQ.xsd");
+    $OTA_HotelAvailNotifRQ->setAttribute("xsi:schemaLocation", "http://www.opentravel.org/OTA/2003/05 OTA_HotelAvailNotifRQ.xsd");
     $OTA_HotelAvailNotifRQ->setAttribute("Version", "1.002");
     $OTA_HotelAvailNotifRQ->setAttribute("Target", "Production");
 

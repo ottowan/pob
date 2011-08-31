@@ -5,8 +5,7 @@ function POBHotel_test_test(){
   }
   
   $tester = new OTA_RoomCheckOut();
-  $tester->checkOut("POBHT000033","2011-08-30","2011-08-30",2);
-  $tester->getBookingReport();
+  $tester->checkOut("POBHT000033","Superior","2011-09-01","2011-09-02",2);
   pnShutDown();
 }
 
