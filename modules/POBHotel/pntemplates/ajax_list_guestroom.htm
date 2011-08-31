@@ -1,71 +1,71 @@
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-	$('a[rel*=hotelguestroom]').facebox({
+	$('a[rel*=room]').facebox({
 		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
 		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png',
 
 	})
 })
 </script>
-						<!--[get_all_guest_room_type]-->
-						<!--[get_all_season]-->
+<!--[get_all_guest_room_type]-->
+<!--[get_all_season]-->
 
-						<!--[if isset($objectArray)]-->
-							<TABLE width="900">
-							
-								<tr>
-								<th width="95">
-									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_QUANTITY"]--></h3>
-								</th>
-								<th width="125">
-									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_TYPE"]--></h3>
-								</th>
-								<th width="124">
-									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_SEASON"]--></h3>
-								</th>
-								<th width="129">
-									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_PRICE"]--></h3>
-								</th>
-								<th width="111">
-									<h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_CAPACITY"]--></h3>
-								</th>
-								<th width="98">
-								  </th>
-								</tr>
-								<!--[foreach from=$objectArray item=item]-->
-								<!--[if ($i++%2)==0]-->
-								<tr class="darker">
-								<!--[else]-->
-								<tr>
-								<!--[/if]-->
-								<td>
-									<p><!--[$item.limit]--></p>
-								</td>
-								<td>
-									<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
-									  <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
-										<p><!--[$itemAllGuestRoomType.guest_room_type_name]--></p>
-									  <!--[/if]-->
-									<!--[/foreach]-->
-								</td>
-								<td>
-									<!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
-									  <!--[if $item.season_id eq $itemAllSeason.season_id]-->
-										<p><!--[$itemAllSeason.season_name]--></p>
-									  <!--[/if]-->
-									<!--[/foreach]-->
-								</td>
-								<td>
-									<!--[$item.price]-->
-								</td>
-								<td>
-									<!--[$item.capacity]-->
-								</td>
-								<td>
-									<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
-								</td>
-							</tr>
-							<!--[/foreach]-->
-							</TABLE>
-							<!--[/if]-->
-							<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom" rel="hotelguestroom"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+<!--[if isset($objectArray)]-->
+<TABLE width="900">
+
+  <tr>
+  <th width="95">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_QUANTITY"]--></h3>
+  </th>
+  <th width="125">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_TYPE"]--></h3>
+  </th>
+  <th width="124">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_SEASON"]--></h3>
+  </th>
+  <th width="129">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_PRICE"]--></h3>
+  </th>
+  <th width="111">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ADDGUESTROOM_CAPACITY"]--></h3>
+  </th>
+  <th width="98">
+    </th>
+  </tr>
+  <!--[foreach from=$objectArray item=item]-->
+  <!--[if ($i++%2)==0]-->
+  <tr class="darker">
+  <!--[else]-->
+  <tr>
+  <!--[/if]-->
+  <td>
+    <p><!--[$item.limit]--></p>
+  </td>
+  <td>
+    <!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
+      <!--[if $item.type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+      <p><!--[$itemAllGuestRoomType.guest_room_type_name]--></p>
+      <!--[/if]-->
+    <!--[/foreach]-->
+  </td>
+  <td>
+    <!--[foreach from=$seasonArray item=itemAllSeason name=foo]-->
+      <!--[if $item.season_id eq $itemAllSeason.season_id]-->
+      <p><!--[$itemAllSeason.season_name]--></p>
+      <!--[/if]-->
+    <!--[/foreach]-->
+  </td>
+  <td>
+    <!--[$item.price]-->
+  </td>
+  <td>
+    <!--[$item.capacity]-->
+  </td>
+  <td>
+    <a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+  </td>
+</tr>
+<!--[/foreach]-->
+</TABLE>
+<!--[/if]-->
+<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room" rel="room"><img src="modules/POBHotel/pnimages/add_48.png"></a>

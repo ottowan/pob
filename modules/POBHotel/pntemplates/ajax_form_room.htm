@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	$("#formRoom").bind("submit", function() {
+		$.ajax({
+			type	: "POST",
+			cache	: false,
+			url		: "index.php?module=POBHotel&type=ajax&func=submit&ctrl=Room",
+			data	: $(this).serializeArray(),
+			success	: function(data) {
+				$.facebox(data)
+				$.facebox.close()
+				callback_refresh()
+			}
+		});
+
+		return false;
+	});
+	$("#formRoom").bind("reset", function() {
+				$.facebox.close()
+				callback_refresh()
+		return false;
+	});
+</script>
+
+<legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE"]--></legend>
+  <FORM id="formRoom" name="formRoom" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='Room']-->" enctype="multipart/form-data>">
+    <input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
+    <TABLE width="400">
+      <tr>
+        <td>
+        Add Room
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->" size="20">
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_DESCRIPTION"]-->
+        </td>
+        <td>
+        <INPUT TYPE="text" NAME="form[description]" value="<!--[$form.description]-->" size="40">
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_CANCEL"]--></button>
+        </td>
+      </tr>
+    </TABLE>
+  </FORM>
