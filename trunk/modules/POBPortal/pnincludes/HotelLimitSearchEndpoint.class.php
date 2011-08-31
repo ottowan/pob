@@ -448,6 +448,9 @@ function repackObjectArrayLimitForDisplay($xmlObject){
       $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
       $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
       $repackArray["Properties"][$i]["HotelName"] = $this->cleanElementZero($Property[$i]->attributes()->HotelName);
+      $repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->attributes()->Latitude);
+      $repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->attributes()->Longitude);
+
 
       //<ContactInfo>
       $repackArray["Properties"][$i]["AddressLine"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->AddressLine);
@@ -459,8 +462,8 @@ function repackObjectArrayLimitForDisplay($xmlObject){
       $repackArray["Properties"][$i]["Distance"] = $this->mileToKilometre($this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Distance));
       $repackArray["Properties"][$i]["Direction"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Direction);
       $repackArray["Properties"][$i]["DistanceUnitName"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->DistanceUnitName);
-      $repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Latitude);
-      $repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Longitude);
+      //$repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Latitude);
+      //$repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Longitude);
 
       //<Availability>
       $Availabilities = $Property[$i]->Availabilities;

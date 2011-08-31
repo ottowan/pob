@@ -30,10 +30,10 @@ function POBPortal_search_searchResult(){
 
   //var_dump($endYear); exit;
 
-  if(!$form['search']){
-    $form['search'] = "phuket";
-    $form['page'] = 1;
-    $location  = "phuket";
+  if(trim($form['search']) == ""){
+    //$form['search'] = "phuket";
+    //$form['page'] = 1;
+    //$location  = "phuket";
     $distance  = "50";
     $latitude  = "7.970838";
     $longitude = "98.329697";
@@ -41,8 +41,10 @@ function POBPortal_search_searchResult(){
     $endDate   = $endYear."-".$endMonth."-".$endDay;
   }else {
     $referencePoint = referencePoint(strtolower($form['search']));
+
+    //print_r($referencePoint); exit;
     if($referencePoint){
-      $location  = $form['search'];
+      //$location  = $form['search'];
       $distance  = "2";
       $latitude  = $referencePoint["latitude"];
       $longitude = $referencePoint["longitude"];
@@ -55,7 +57,7 @@ function POBPortal_search_searchResult(){
       $endDate   = $endYear."-".$endMonth."-".$endDay;
     }
   }
-
+  //echo "Confuseion".$referencePoint; exit;
   //Send param to HotelSearch service 
   Loader::loadClass('HotelSearchEndpoint',"modules/POBPortal/pnincludes");
   $hotelSearch = new HotelSearchEndpoint();
@@ -280,6 +282,8 @@ function POBPortal_search_view(){
 
     if (array_key_exists($key, $reference)) {
       $result = $reference[$key];
+    }else{
+      $result = null;
     }
 
     //var_dump($result); exit;

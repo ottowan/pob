@@ -295,6 +295,9 @@ function repackArrayForDisplay($originalArray){
     $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
     $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
     $repackArray["Properties"][$i]["HotelName"] = $this->cleanElementZero($Property[$i]->attributes()->HotelName);
+    $repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->attributes()->Latitude);
+    $repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->attributes()->Longitude);
+
 
     //<ContactInfo>
     $repackArray["Properties"][$i]["AddressLine"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->AddressLine);
