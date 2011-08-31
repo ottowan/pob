@@ -39,14 +39,21 @@ function POBPortal_search_searchResult(){
     $longitude = "98.329697";
     $startDate = $startYear."-".$startMonth."-".$startDay;
     $endDate   = $endYear."-".$endMonth."-".$endDay;
-  }else{
-    $referencePoint = referencePoint($form['search']);
-    $location  = $form['search'];
-    $distance  = "2";
-    $latitude  = $referencePoint["latitude"];
-    $longitude = $referencePoint["longitude"];
-    $startDate = $startYear."-".$startMonth."-".$startDay;
-    $endDate   = $endYear."-".$endMonth."-".$endDay;
+  }else {
+    $referencePoint = referencePoint(strtolower($form['search']));
+    if($referencePoint){
+      $location  = $form['search'];
+      $distance  = "2";
+      $latitude  = $referencePoint["latitude"];
+      $longitude = $referencePoint["longitude"];
+      $startDate = $startYear."-".$startMonth."-".$startDay;
+      $endDate   = $endYear."-".$endMonth."-".$endDay;
+    }else{
+      $location  = $form['search'];
+      $distance  = "0.001";
+      $startDate = $startYear."-".$startMonth."-".$startDay;
+      $endDate   = $endYear."-".$endMonth."-".$endDay;
+    }
   }
 
   //Send param to HotelSearch service 
@@ -188,11 +195,27 @@ function POBPortal_search_view(){
                                         "latitude"=> "7.911332",
                                         "longitude"=> "98.333473"
                                  ),
-                        "phukettown"=>array(
+                        "phuket town"=>array(
                                         "latitude"=> "7.890248",
                                         "longitude"=> "98.383255"
                                  ),
-                        "ภูเก็ตทาวน์"=>array(
+                        "เมืองภูเก็ต"=>array(
+                                        "latitude"=> "7.890248",
+                                        "longitude"=> "98.383255"
+                                 ),
+                        "phuket"=>array(
+                                        "latitude"=> "7.970838",
+                                        "longitude"=> "98.329697"
+                                 ),
+                        "ภูเก็ต"=>array(
+                                        "latitude"=> "7.970838",
+                                        "longitude"=> "98.329697"
+                                 ),
+                        "town"=>array(
+                                        "latitude"=> "7.890248",
+                                        "longitude"=> "98.383255"
+                                 ),
+                        "เมือง"=>array(
                                         "latitude"=> "7.890248",
                                         "longitude"=> "98.383255"
                                  ),

@@ -6,7 +6,7 @@
   //block_searchhotelleft.htm
   define('_POBPORTAL_USER_SEARCH_HOTEL_IN_PHUKET','Search for hotels in Phuket');
   define('_POBPORTAL_USER_PLACE_NAME','Place names.');
-  define('_POBPORTAL_USER_SEARCH_SUGGESSTION','eg. beach name or city');
+  define('_POBPORTAL_USER_SEARCH_SUGGESSTION','eg. hotel name, beach name or city');
   define('_POBPORTAL_USER_CHECK_IN_DATE','Check-in date');
   define('_POBPORTAL_USER_CHECK_OUT_DATE','Check-out date');
   define('_POBPORTAL_USER_SAERCH_BUTTON','Search');
