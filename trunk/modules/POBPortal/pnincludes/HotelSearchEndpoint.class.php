@@ -56,13 +56,22 @@ Class HotelSearchEndpoint {
 
     $Criteria = $xml->createElement("Criteria");
     $Criterion = $xml->createElement("Criterion");
-    $Position = $xml->createElement("Position");
-    $Position->setAttribute("Latitude", $this->latitude);
-    $Criterion->appendChild($Position);
 
-    $Position = $xml->createElement("Position");
-    $Position->setAttribute("Longitude", $this->longitude);
-    $Criterion->appendChild($Position);
+    if($this->latitude && $this->longitude){
+      $Position = $xml->createElement("Position");
+      $Position->setAttribute("Latitude", $this->latitude);
+      $Criterion->appendChild($Position);
+
+      $Position = $xml->createElement("Position");
+      $Position->setAttribute("Longitude", $this->longitude);
+      $Criterion->appendChild($Position);
+    }
+
+    if($this->location){
+      $HotelRef = $xml->createElement("HotelRef");
+      $HotelRef->setAttribute("HotelName", $this->location);
+      $Criterion->appendChild($HotelRef);
+    }
 
     $Radius = $xml->createElement("Radius");
     $Radius->setAttribute("DistanceMeasure", "MILES");
@@ -87,6 +96,7 @@ Class HotelSearchEndpoint {
     
 
     return $xml->saveXML();
+    //header("Content-type: text/xml");
     //echo  $xml->saveXML(); exit;
   }
 
@@ -135,7 +145,6 @@ Class HotelSearchEndpoint {
     //$url = 'http://pob-ws.heroku.com/api/hotel_search';
     $url = 'http://api.phuketcity.com/api/hotel_search';
 
-
     $data = $this->genHotelSearchXML();
     //$data = $data->saveXML();
 
@@ -167,7 +176,7 @@ Class HotelSearchEndpoint {
     //print $response; exit;
     //Convert xml to array
     //$arrayResponse = $reader->xmlToArray($response);
-    //var_dump($arrayResponse); exit;
+    //print_r($response); exit;
     return $response;
   }
 

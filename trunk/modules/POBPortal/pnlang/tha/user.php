@@ -6,7 +6,7 @@
   //block_searchhotelleft.htm
   define('_POBPORTAL_USER_SEARCH_HOTEL_IN_PHUKET','ค้นหาโรงแรมในภูเก็ต');
   define('_POBPORTAL_USER_PLACE_NAME','ชื่อสถานที่');
-  define('_POBPORTAL_USER_SEARCH_SUGGESSTION','เช่น ชื่อเมืองหรือหาด');
+  define('_POBPORTAL_USER_SEARCH_SUGGESSTION','เช่น ชื่อโรงแรม, ชื่อเมือง หรือชื่อหาด');
   define('_POBPORTAL_USER_CHECK_IN_DATE','วันที่เช็คอิน');
   define('_POBPORTAL_USER_CHECK_OUT_DATE','วันที่เช็คเอ้าท์');
   define('_POBPORTAL_USER_SAERCH_BUTTON','ค้นหา');
