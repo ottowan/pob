@@ -51,6 +51,11 @@ function PostCalendar_init()
     _postcalendar_createinstallevent();
     _postcalendar_registermodulehooks();
 
+    if (!DBUtil::createTable('postcalendar_room')) {
+      return false;
+    }
+
+
     return true;
 }
 
@@ -223,6 +228,8 @@ function PostCalendar_delete()
     pnModDBInfoLoad('Categories');
     DBUtil::deleteWhere('categories_registry', "crg_modname='PostCalendar'");
     DBUtil::deleteWhere('categories_mapobj', "cmo_modname='PostCalendar'");
+
+    DBUtil::dropTable('postcalendar_room');
 
     return $result;
 }
