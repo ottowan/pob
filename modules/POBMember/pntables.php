@@ -7,16 +7,18 @@
     ////////////////////////////////////////////
     $pntable['pobmember_member'] = DBUtil::getLimitedTablename('pobmember_member');
     $pntable['pobmember_member_column'] = array(
-                                          'id'        => 'member_id',
-                                          'uid'       => 'member_uid',
-                                          'hotelcode' => 'member_hotelcode',
-                                          'status'    => 'member_status'
+                                          'id'         => 'member_id',
+                                          'uid'        => 'member_uid',
+                                          'hotelcode'  => 'member_hotelcode',
+                                          'domainname' => 'member_domainname',
+                                          'status'     => 'member_status'
     );
     $pntable['pobmember_member_column_def'] = array(
-                                          'id'        => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
-                                          'uid'       => 'INT(11) NOTNULL ',
-                                          'hotelcode' => 'VARCHAR(255)',
-                                          'status'    => 'INT(11) DEFAULT 2'
+                                          'id'         => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
+                                          'uid'        => 'INT(11) NOTNULL ',
+                                          'hotelcode'  => 'VARCHAR(255)',
+                                          'domainname' => 'VARCHAR(255)',
+                                          'status'     => 'INT(11) DEFAULT 2'
     );
 
     //add standard data fields

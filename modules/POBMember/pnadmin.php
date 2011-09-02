@@ -135,12 +135,14 @@
   * display page with class that extend Object Array
   */
   function POBMember_admin_list() {
+
     POBMember_permission();
     //$ctrl the class name
     $ctrl    = FormUtil::getPassedValue ('ctrl', 'Member' , 'GET');
     //$method the method of request for edit or view enum[ view | form | delete | list | page]
     $func  = FormUtil::getPassedValue ('func', 'list' , 'GET');
-  
+
+
     $is_export = false;
   
     $pagesize = pnModGetVar ('POBMember', 'pagesize') ? pnModGetVar ('POBMember', 'pagesize') : 100;
@@ -297,8 +299,9 @@
     $func = FormUtil::getPassedValue ('func', false, 'REQUEST');
     $status = FormUtil::getPassedValue ('status', false, 'REQUEST');
     $uid = FormUtil::getPassedValue ('uid', false, 'REQUEST');
-
-    if($uid){
+    $domainname  = FormUtil::getPassedValue ('domainname', false , 'REQUEST');
+    //var_dump($domainname);   exit;
+    if($uid && $domainname){
       $pntables = pnDBGetTables();
       //var_dump($pntables); exit;
       //Select member data 
@@ -320,7 +323,9 @@
 
         //echo "status : ".$status;
         //Update statement
-        $obj = array('status' => $status);
+        $obj = array('status' => $status,
+                     'domainname' => $domainname
+        );
         $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
         DBUtil::updateObject ($obj, 'pobmember_member', $where);
 
@@ -329,7 +334,8 @@
         $hotelcode = "POBHT".sprintf("%06d",$uid);
         $obj = array('uid'    => $uid,
                      'status' => $status,
-                     'hotelcode' => $hotelcode
+                     'hotelcode' => $hotelcode,
+                     'domainname' => $domainname
                );
         // do the insert
         DBUtil::insertObject($obj, 'pobmember_member');
