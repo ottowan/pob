@@ -191,6 +191,7 @@
       $pntable['pobbooking_daybooking_column'] = array(
                                                   'id'                  => 'day_id',
                                                   'cus_id'              => 'day_cus_id',
+                                                  'booking_id'          => 'day_booking_id',
                                                   'customer_refid'      => 'day_customer_refid',
                                                   'status_id'           => 'day_status_id',
                                                   'chaincode'           => 'day_chaincode',
@@ -225,6 +226,7 @@
       $pntable['pobbooking_daybooking_column_def'] = array(
                                                   'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
                                                   'cus_id'           => 'INT(11)',
+                                                  'booking_id'          => 'TEXT',
                                                   'customer_refid'   => 'TEXT',
                                                   'status_id'        => 'INT(2) default 2',
                                                   'chaincode'        => 'VARCHAR(10)',
