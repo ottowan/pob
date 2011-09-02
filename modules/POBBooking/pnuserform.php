@@ -16,6 +16,7 @@ function POBBooking_userform_submit ()
       $forward_url = generateUrl($forward);
     }
 
+    
     //////////////////////// Add innocaptcha//////////////////////
       //$object->getDataFromInput ('form',null,'POST');
 
@@ -47,12 +48,14 @@ function POBBooking_userform_submit ()
     }
     $object = new $class ();
     $object->getDataFromInput ('form',null,'POST');
+
+    //print_r($object); exit;
     //prepare multi language support
     if (method_exists($object,'prepareLanguageForInput')){
       $object->prepareLanguageForInput();
     }
 
-
+    
     if (method_exists($object,'validate')){
       if (!$object->validate())
       {
@@ -60,7 +63,7 @@ function POBBooking_userform_submit ()
           return true;
       } else  {
         $object->save ();
-        pnRedirect($success_url);
+        //pnRedirect($success_url);
       }
     }
     return true;

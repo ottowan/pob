@@ -156,8 +156,8 @@ class PNCustomer extends PNObject {
             //creating CSV
             $this->array_to_CSV($objects);
         }
-
-        foreach($availabilities as $item) {
+       //print_r($availabilities);exit;
+        foreach($availabilities as $itemavAilabilities) {
             //Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_daybooking', 'id', 'MAX', '');
             if($current_booking_id == null) {
@@ -174,7 +174,7 @@ class PNCustomer extends PNObject {
                     'isocurrency'         => $form['isocurrency'],
                     'date'                => $item['date'],
                     'invcode'             => $item['invcode'],
-                    'room_rate'           => $item['rate'],
+                    'rate'                => $item['rate'],
                     'identificational'    => $form['identificational'],
                     'nameprefix'          => $form['nameprefix'],
                     'givenname'           => $form['givenname'],
@@ -395,8 +395,8 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
                             $CountryName = $xml->createElement("CountryName", $form['countryname']);
                             $Address->appendChild($CountryName);
 
-        $xml->saveXML();
-        print $xml->saveXML();
+        //$xml->saveXML();
+        //print $xml->saveXML();
         //echo $xml->asXML();
         //exit;
         //$xml->save("OTA_HotelResRQ1.xml");
@@ -413,42 +413,41 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $response = curl_exec($ch);
-        //echo "\n";
+        //header("Content-type: text/xml");
+        //echo $response; exit;
         //echo "**************Response recieved******************";
-        //echo "\n";
+        //echo $response;exit;
 ////////get booking id
         $objxml = simplexml_load_string($response);
         //print_r($sxml); exit;
         $bookingid = $objxml->HotelReservations->HotelReservation->ResGlobalInfo->HotelReservationIDs->HotelReservationID->attributes()->BookingID;
-//        echo($BookingID); exit;
-        $render = pnRender::getInstance('POBPortal');
-        $render->assign("bookingid", $bookingid );
+        //print_r($bookingid); exit;
+        //$render = pnRender::getInstance('POBPortal');
+        //$render->assign("bookingid", $bookingid );
+
 
         //echo "***BookingID*** : ".$bookingid; exit;
 ////////update booking id to table
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $object = array('booking_id'=>$bookingid);
-        $where  = " id = ".$id;
+        $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-        
-
 
         $mystring = $response;
         $findme   = '<Success>';
         $pos = strpos($mystring, $findme);
+        curl_close($ch);
         if($pos > 0){
-          $forwardurl = pnModURL('POBBooking');
-        return $forwardurl;
+          $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'success', 'bid'=>$bookingid));
+          pnRedirect($url);
+          exit;
         }else{
           //Unsuccess page
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
           pnRedirect($url);
-          //return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
           exit;
         }
-
-        curl_close($ch);
         //print $response;
         //exit;
 
