@@ -1,6 +1,6 @@
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-	$('a[rel*=room]').facebox({
+	$('a[rel*=GuestRoom]').facebox({
 		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
 		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png',
 
@@ -62,10 +62,10 @@ jQuery(document).ready(function($) {
     <!--[$item.capacity]-->
   </td>
   <td>
-    <a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+    <a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="GuestRoom"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=GuestRoom&id=<!--[$item.id]-->" rel="GuestRoom"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
   </td>
 </tr>
 <!--[/foreach]-->
 </TABLE>
 <!--[/if]-->
-<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room" rel="room"><img src="modules/POBHotel/pnimages/add_48.png"></a>
+<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=GuestRoom" rel="GuestRoom"><img src="modules/POBHotel/pnimages/add_48.png"></a>
