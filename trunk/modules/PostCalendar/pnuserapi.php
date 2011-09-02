@@ -306,3 +306,69 @@ function postcalendar_userapi_getDate($args)
     $d = substr($Date, 6, 2);
     return DateUtil::strftime($format, mktime(0, 0, 0, $m, $d, $y));
 }
+
+
+//////////////////////////////////////////////////////////////////
+//
+//    $args = array(
+//                  "id" => "001",
+//                  "name" => "101",
+//                  "event" => "insert",
+//    );
+//    pnModAPIFunc('PostCalendar', 'user', 'insertRoom', $args);
+//
+//////////////////////////////////////////////////////////////////
+function PostCalendar_userapi_insertRoom($args) {
+
+/*
+  if($args["id"] && $args["name"] && $args["event"] && (trim($args["event"]) == "insert")){
+
+    //Insert statement
+    $obj = array('uid'    => $args["id"],
+                 'name' => $args["name"]
+           );
+    // do the insert
+    DBUtil::insertObject($obj, 'postcalendar_room');
+
+    return true;
+
+  }else if($args["id"] && $args["name"] && $args["event"] && (trim($args["event"]) == "update")){
+
+    //Update statement
+    $obj = array('name' => $args["name"]);
+    $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
+    DBUtil::updateObject ($obj, 'postcalendar_room', $where);
+    return true;
+  }else{
+    return false;
+  }
+*/
+
+  return true;
+}
+
+/////////////////////////////
+//
+//  $args = array("hotelcode"=>"POBHT000005");
+//  pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $args);
+//
+////////////////////////////
+function PostCalendar_userapi_insertBooking($args) {
+
+/*
+  if($args["id"]){
+    //Insert statement
+    $obj = array('id'    => $args["id"],
+                 'status' => $args["name"]
+           );
+    // do the insert
+    DBUtil::insertObject($obj, 'postcalendar_booking');
+
+    return true;
+  }
+
+*/
+
+  return true;
+
+}
