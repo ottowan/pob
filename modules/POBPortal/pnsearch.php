@@ -136,8 +136,12 @@ function POBPortal_search_view(){
     $args = array("hotelcode"=>$view["HotelCode"]);
     $api = pnModAPIFunc('POBMember', 'user', 'getDomainName', $args);
     //print_r($api); exit;
-    $view["URL"] = $api["domainname"].".phuketcity.com";
 
+    if(isset($api["domainname"])){
+      $view["URL"] = $api["domainname"].".phuketcity.com";
+    }else{
+      $view["URL"] = "false";
+    }
     $view["startDate"] = $startDate;
     $view["endDate"] = $endDate;
     //print_r($view);  exit;
