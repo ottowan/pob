@@ -1,1 +1,54 @@
-aaaaa
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('a[rel*=room]').facebox({
+		loadingImage : 'modules/POBHotel/pnjavascript/facebox/loading.gif',
+		closeImage   : 'modules/POBHotel/pnjavascript/facebox/closelabel.png',
+
+	})
+})
+</script>
+<!--[get_all_guest_room_type]-->
+
+<!--[if isset($objectArray)]-->
+<TABLE width="900">
+
+  <tr>
+  <th width="95">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ROOM_NAME"]--></h3>
+  </th>
+  <th width="125">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ROOM_TYPE"]--></h3>
+  </th>
+  <th width="129">
+    <h3><!--[pnml name="_POBHOTEL_AJAX_LIST_LEGEND_ROOM_DESCRIPTION"]--></h3>
+  </th>
+  <th width="98">
+    </th>
+  </tr>
+  <!--[foreach from=$objectArray item=item]-->
+  <!--[if ($i++%2)==0]-->
+  <tr class="darker">
+  <!--[else]-->
+  <tr>
+  <!--[/if]-->
+  <td>
+    <p><!--[$item.name]--></p>
+  </td>
+  <td>
+    <!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
+      <!--[if $item.guest_room_type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+      <p><!--[$itemAllGuestRoomType.guest_room_type_name]--></p>
+      <!--[/if]-->
+    <!--[/foreach]-->
+  </td>
+  <td>
+    <!--[$item.description]-->
+  </td>
+  <td>
+    <a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/pencil.png"></a> <a href="index.php?module=POBHotel&type=ajax&func=delete&ctrl=Room&id=<!--[$item.id]-->" rel="room"><img src="modules/POBHotel/pnimages/delete_01.png"></a>
+  </td>
+</tr>
+<!--[/foreach]-->
+</TABLE>
+<!--[/if]-->
+<a href="index.php?module=POBHotel&type=ajax&func=form&ctrl=Room" rel="room"><img src="modules/POBHotel/pnimages/add_48.png"></a>

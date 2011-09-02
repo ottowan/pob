@@ -20,14 +20,31 @@
 		return false;
 	});
 </script>
+<!--[get_all_guest_room_type]-->
 
-<legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE"]--></legend>
+<legend><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM"]--></legend>
   <FORM id="formRoom" name="formRoom" METHOD=POST ACTION="<!--[pnmodurl modname='POBHotel' type='ajax' func='submit' ctrl='Room']-->" enctype="multipart/form-data>">
     <input type="hidden" name="form[id]" value="<!--[$form.id]-->" />
     <TABLE width="400">
+	  <tr>
+        <td>
+        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_TYPE"]-->
+        </td>
+        <td>
+        <select name="form[guest_room_type_id]">
+			<!--[foreach from=$guestRoomTypeArray item=itemAllGuestRoomType name=foo]-->
+			  <!--[if $form.guest_room_type_id eq $itemAllGuestRoomType.guest_room_type_id]-->
+				<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->" SELECTED><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+			  <!--[else]-->
+				<option value="<!--[$itemAllGuestRoomType.guest_room_type_id]-->"><!--[$itemAllGuestRoomType.guest_room_type_name]--></option>
+			  <!--[/if]-->
+			<!--[/foreach]-->
+		</select>
+        </td>
+      </tr>
       <tr>
         <td>
-        Add Room
+        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_NAME"]-->
         </td>
         <td>
         <INPUT TYPE="text" NAME="form[name]" value="<!--[$form.name]-->" size="20">
@@ -35,7 +52,7 @@
       </tr>
       <tr>
         <td>
-        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_DESCRIPTION"]-->
+        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_DESCRIPTION"]-->
         </td>
         <td>
         <INPUT TYPE="text" NAME="form[description]" value="<!--[$form.description]-->" size="40">
@@ -43,7 +60,7 @@
       </tr>
       <tr>
         <td>
-        <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ADDGUESTROOMTYPE_CANCEL"]--></button>
+        <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_CANCEL"]--></button>
         </td>
       </tr>
     </TABLE>
