@@ -72,7 +72,7 @@ class PNCustomer extends PNObject {
     function insertPostProcess() {
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
 //        echo " --> insertPostProcess"."\n";
-        $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
+        $cus_id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $refid = "B".($id+1000);
         $roomstays = $this->_objData['roomstays'];
         $availabilities = $this->_objData['availabilities'];
@@ -115,7 +115,7 @@ class PNCustomer extends PNObject {
             }
             $objects = array(
                     'id'                  => $current_booking_id,
-                    'cus_id'              => $id,
+                    'cus_id'              => $cus_id,
                     'customer_refid'      => $refid,
                     'chaincode'           => $form['chaincode'],
                     'hotelname'           => $form['hotelname'],
@@ -163,11 +163,11 @@ class PNCustomer extends PNObject {
             if($current_booking_id == null) {
                 $current_booking_id = 1;
             }else {
-                $booking_id = $current_booking_id+1;
+                $day_id = $current_booking_id+1;
             }
             $objects = array(
-                    'id'                  => $booking_id,
-                    'cus_id'              => $id,
+                    'id'                  => $day_id,
+                    'cus_id'              => $cus_id,
                     'customer_refid'      => $refid,
                     'chaincode'           => $form['chaincode'],
                     'hotelname'           => $form['hotelname'],
@@ -199,15 +199,14 @@ class PNCustomer extends PNObject {
             );
             
             DBUtil::insertObject($objects,'pobbooking_daybooking');
-
+            
         }
 
 
-
-
 //        echo " --> insertPostProcess sendXML"."\n";
+        
         $this->sendXML();
-
+        
         //Call sendEmail method
         //$this->sendEmail();
 
@@ -433,11 +432,17 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         $object = array('booking_id'=>$bookingid);
         $where  = " cus_id = ".$id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-
+        DBUtil::updateObject($object,'pobbooking_daybooking',$where);
+        DBUtil::updateObject($object,'pobbooking_booking',$where);
+        
         $mystring = $response;
         $findme   = '<Success>';
         $pos = strpos($mystring, $findme);
         curl_close($ch);
+        
+        
+        $this->updatePostCalendar($id);
+        
         if($pos > 0){
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'success', 'bid'=>$bookingid));
           pnRedirect($url);
@@ -463,6 +468,15 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         return $csv;
     }
 
+    private function updatePostCalendar($cus_id=''){
+      //load class
+      if (!($class = Loader::loadClassFromModule ('POBHotel', 'DayBookingArray', false)))
+        return LogUtil::registerError ('Unable to load class [DayBookingArray] ...');
 
+      $object = new $class ();
+      $object->get(" cus_id = ".$cus_id);
+      
+      pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $object->_objData);
+    }
 
 }
