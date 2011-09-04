@@ -221,7 +221,7 @@
                                                   'cardsecurecode'      => 'day_cardsecurecode',
                                                   'cardbankname'        => 'day_cardbankname',
                                                   'cardissuingcountry'  => 'day_cardissuingcountry',
-                                                  'issue_date'          => 'DATETIME'
+                                                  'issue_date'          => 'day_issue_date'
                                           );
 
       $pntable['pobbooking_daybooking_column_def'] = array(
