@@ -320,16 +320,20 @@ function postcalendar_userapi_getDate($args)
 //////////////////////////////////////////////////////////////////
 function PostCalendar_userapi_insertRoom($args) {
 
-/*
+
   if($args["id"] && $args["name"] && $args["event"] && (trim($args["event"]) == "insert")){
 
     //Insert statement
-    $obj = array('uid'    => $args["id"],
-                 'name' => $args["name"]
+    $obj = array(
+                 'id'    => $args["id"],
+                 'guest_room_type_id' => $args["guest_room_type_id"],
+                 'guest_room_name' => $args["guest_room_name"],
+                 'name' => $args["name"],
+                 'description' => $args["description"]
            );
+
     // do the insert
     DBUtil::insertObject($obj, 'postcalendar_room');
-
     return true;
 
   }else if($args["id"] && $args["name"] && $args["event"] && (trim($args["event"]) == "update")){
@@ -339,10 +343,17 @@ function PostCalendar_userapi_insertRoom($args) {
     $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
     DBUtil::updateObject ($obj, 'postcalendar_room', $where);
     return true;
+
+  }else if($args["id"] && $args["name"] && $args["event"] && (trim($args["event"]) == "delete")){
+
+    //Delete statement
+    $where    = "WHERE $tableMember.$columnMember[uid]=".$uid;
+    DBUtil::deleteObjectByID($postcalendar_room, $args["id"]);
+    return true;
   }else{
     return false;
   }
-*/
+
 
   return true;
 }
@@ -355,20 +366,121 @@ function PostCalendar_userapi_insertRoom($args) {
 ////////////////////////////
 function PostCalendar_userapi_insertBooking($args) {
 
+  print_r($args);
 /*
   if($args["id"]){
     //Insert statement
-    $obj = array('id'    => $args["id"],
-                 'status' => $args["name"]
+    $obj = array(
+                 'id'                 => $args["id"],
+                 'cus_id'             => $args["cus_id"],
+                 'customer_refid'     => $args["customer_refid"],
+                 'booking_id'         => $args["booking_id"],
+                 'status_id'          => $args["status_id"],
+                 'chaincode'          => $args["chaincode"],
+                 'hotelname'          => $args["hotelname"],
+                 'isocurrency'        => $args["isocurrency"],
+                 'date'               => $args["date"],
+                 'invcode'            => $args["invcode"],
+                 'rate'               => $args["rate"],
+                 'identificational'   => $args["identificational"],
+                 'nameprefix'         => $args["nameprefix"],
+                 'givenname'          => $args["givenname"],
+                 'surname'            => $args["surname"],
+                 'addressline'        => $args["addressline"],
+                 'cityname'           => $args["cityname"],
+                 'stateprov'          => $args["stateprov"],
+                 'countryname'        => $args["countryname"],
+                 'postalcode'         => $args["postalcode"],
+                 'mobile'             => $args["mobile"],
+                 'phone'              => $args["phone"],
+                 'email'              => $args["email"],
+                 'addition_request'   => $args["addition_request"],
+                 'cardcode'           => $args["cardcode"],
+                 'cardnumber'         => $args["cardnumber"],
+                 'cardholdername'     => $args["cardholdername"],
+                 'cardexpire'         => $args["cardexpire"],
+                 'issue_date'         => $args["issue_date"],
+                 'cardsecurecode'     => $args["cardsecurecode"],
+                 'cardbankname'       => $args["cardbankname"],
+                 'cardissuingcountry' => $args["cardissuingcountry"]
            );
+
     // do the insert
-    DBUtil::insertObject($obj, 'postcalendar_booking');
+    DBUtil::insertObject($obj, 'postcalendar_daybooking');
+
+
+
+
+
+  `pc_eid` int(11) unsigned NOT NULL auto_increment,
+  `pc_aid` varchar(30) NOT NULL default '',
+  `pc_title` varchar(150) default '',
+  `pc_time` datetime default NULL,
+  `pc_hometext` text,
+  `pc_informant` varchar(20) NOT NULL default '',
+  `pc_eventDate` date NOT NULL default '0000-00-00',
+  `pc_duration` bigint(20) NOT NULL default '0',
+  `pc_endDate` date NOT NULL default '0000-00-00',
+  `pc_recurrtype` int(1) NOT NULL default '0',
+  `pc_recurrspec` text,
+  `pc_startTime` varchar(8) default '00:00:00',
+  `pc_alldayevent` int(1) NOT NULL default '0',
+  `pc_location` text,
+  `pc_conttel` varchar(50) default '',
+  `pc_contname` varchar(50) default '',
+  `pc_contemail` varchar(255) default '',
+  `pc_website` varchar(255) default '',
+  `pc_fee` varchar(50) default '',
+  `pc_eventstatus` int(11) NOT NULL default '0',
+  `pc_sharing` int(11) NOT NULL default '0',
+  `pc_hooked_modulename` varchar(50) default '',
+  `pc_hooked_objectid` int(11) default '0',
+  `pc_obj_status` varchar(1) NOT NULL default 'A',
+  `pc_cr_date` datetime NOT NULL default '1970-01-01 00:00:00',
+  `pc_cr_uid` int(11) NOT NULL default '0',
+  `pc_lu_date` datetime NOT NULL default '1970-01-01 00:00:00',
+  `pc_lu_uid` int(11) NOT NULL default '0',
+
+
+    $dom = ZLanguage::getModuleDomain('PostCalendar');
+
+    Loader::loadClass('CategoryUtil');
+    $cat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/PostCalendar/Events');
+
+    $event = array(
+        'title'          => __('PostCalendar Installed', $dom),
+        'hometext'       => __(':text:On this date, the PostCalendar module was installed. Thank you for trying PostCalendar! This event can be safely deleted if you wish.', $dom),
+        'aid'            => SessionUtil::getVar('uid'),
+        'time'           => date("Y-m-d H:i:s"),
+        'informant'      => SessionUtil::getVar('uid'),
+        'eventDate'      => date('Y-m-d'),
+        'duration'       => 3600,
+        'recurrtype'     => 0,  //norepeat
+        'recurrspec'     => 'a:5:{s:17:"event_repeat_freq";s:0:"";s:22:"event_repeat_freq_type";s:1:"0";s:19:"event_repeat_on_num";s:1:"1";s:19:"event_repeat_on_day";s:1:"0";s:20:"event_repeat_on_freq";s:0:"";}',
+        'startTime'      => '01:00:00',
+        'alldayevent'    => 1,
+        'location'       => 'a:6:{s:14:"event_location";s:0:"";s:13:"event_street1";s:0:"";s:13:"event_street2";s:0:"";s:10:"event_city";s:0:"";s:11:"event_state";s:0:"";s:12:"event_postal";s:0:"";}',
+        'eventstatus'    => 1,  // approved
+        'sharing'        => 3,  // global
+        'website'        => 'http://code.zikula.org/soundwebdevelopment/wiki/PostCalendar',
+        '__CATEGORIES__' => array(
+            'Main' => $cat['id']),
+        '__META__'       => array(
+            'module' => 'PostCalendar'));
+
+    if (DBUtil::insertObject($event, 'postcalendar_events', 'eid')) {
+        LogUtil::registerStatus(__("PostCalendar: Installation event created.", $dom));
+        return true;
+    }
+
+    return LogUtil::registerError(__('Error! Could not create an installation event.', $dom));
+
 
     return true;
+  } else{
+    return false;
   }
-
 */
 
-  return true;
 
 }
