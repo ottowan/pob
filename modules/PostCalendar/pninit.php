@@ -55,6 +55,9 @@ function PostCalendar_init()
       return false;
     }
 
+    if (!DBUtil::createTable('postcalendar_daybooking')) {
+      return false;
+    }
 
     return true;
 }
@@ -230,6 +233,7 @@ function PostCalendar_delete()
     DBUtil::deleteWhere('categories_mapobj', "cmo_modname='PostCalendar'");
 
     DBUtil::dropTable('postcalendar_room');
+	DBUtil::dropTable('postcalendar_daybooking');
 
     return $result;
 }

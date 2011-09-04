@@ -367,10 +367,6 @@ function PostCalendar_userapi_insertRoom($args) {
 function PostCalendar_userapi_insertBooking($args) {
 
   //print_r($args); exit;
-
-  if($args){
-	foreach($args as $item){
-
 /*
 		//Insert statement
 		$obj = array(
@@ -445,17 +441,21 @@ function PostCalendar_userapi_insertBooking($args) {
 	  `pc_lu_uid` int(11) NOT NULL default '0',
 	*/
 
+
+  if($args){
+	$data = json_decode($args);
+	foreach($data as $item){
 		$dom = ZLanguage::getModuleDomain('PostCalendar');
 
 		Loader::loadClass('CategoryUtil');
 		$cat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/PostCalendar/Events');
 
-		$title = 'Booking ID : '.$item["booking_id"].'';
+		$title = 'Booking ID : '.$item->booking_id.'( '.$item->invcode.')';
 
-		$hometext = ':text:Booking ID : '.$item["booking_id"].' price : '.$item["rate"].' THB';
+		$hometext = ':text:Booking ID : '.$item->booking_id.' price : '.$item->rate.' THB';
 		
 		$location = 
-	'a:7:{s:12:"locations_id";s:2:"-1";s:14:"event_location";s:'.strlen($item["addressline"]).':"'.$item["addressline"].'";s:13:"event_street1";s:6:"patong";s:13:"event_street2";s:0:"";s:10:"event_city";s:'.strlen($item["cityname"]).':"'.$item["cityname"].'";s:11:"event_state";s:'.strlen($item["stateprov"]).':"'.$item["stateprov"].'";s:12:"event_postal";s:'.strlen($item["postalcode"]).':"'.$item["postalcode"].'";}';
+	'a:7:{s:12:"locations_id";s:2:"-1";s:14:"event_location";s:'.strlen($item->addressline).':"'.$item->addressline.'";s:13:"event_street1";s:0:"";s:13:"event_street2";s:0:"";s:10:"event_city";s:'.strlen($item->cityname).':"'.$item->cityname.'";s:11:"event_state";s:'.strlen($item->stateprov).':"'.$item->stateprov.'";s:12:"event_postal";s:'.strlen($item->postalcode).':"'.$item->postalcode.'";}';
 		//echo $location; exit;
 
 		$recurrspec = 
@@ -463,17 +463,17 @@ function PostCalendar_userapi_insertBooking($args) {
 		
 		//echo $hometext; exit;
 
-		if(isset($item["mobile"]) && isset($item["phone"]) ){
-		   $conttel = $item["mobile"].",".$item["phone"];
-		}else if(isset($item["mobile"])){
-		  $conttel = $item["mobile"];
-		}else if(isset($item["phone"])){
-		  $conttel = $item["phone"];
+		if(isset($item->mobile) && isset($item->phone) ){
+		   $conttel = $item->mobile.",".$item->phone;
+		}else if(isset($item->mobile)){
+		  $conttel = $item->mobile;
+		}else if(isset($item->phone)){
+		  $conttel = $item->phone;
 		}else {
 		  $conttel = "";
 		}
 
-		$contname = $item["identificational"]." : ".$item["nameprefix"].$item["givenname"]." ".$item["surname"];
+		$contname = $item->identificational." : ".$item->nameprefix.$item->givenname." ".$item->surname;
 
 		$event = array(
 						'title'          => __($title, $dom),
@@ -481,7 +481,7 @@ function PostCalendar_userapi_insertBooking($args) {
 						'aid'            => SessionUtil::getVar('uid'),
 						'time'           => date("Y-m-d H:i:s"),
 						'informant'      => SessionUtil::getVar('uid'),
-						'eventDate'      => $item["date"],
+						'eventDate'      => $item->date,
 						'duration'       => 3600,
 						'recurrtype'     => 0,  //norepeat
 						'recurrspec'     => $recurrspec,
@@ -494,8 +494,9 @@ function PostCalendar_userapi_insertBooking($args) {
 						'__META__'       => array('module' => 'PostCalendar'),
 						'conttel'        => $conttel,
 						'contname'       => $contname,
-						'contemail'      => $item["email"],
-						'fee'            => $item["rate"]
+						'contemail'      => $item->email,
+						'fee'            => $item->rate,
+						'invcode'        => $item->invcode
 				  );
 
 		if (DBUtil::insertObject($event, 'postcalendar_events', 'eid')) {
