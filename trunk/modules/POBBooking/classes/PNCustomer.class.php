@@ -428,14 +428,16 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         //echo "***BookingID*** : ".$bookingid; exit;
 ////////update booking id to table
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
-        $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
+        //$id = DBUtil::getInsertID ($this->_objType, $this->_objField);
+		$cus_id = $this->_objData['id'];
+		//echo $id; exit;
         $object = array('booking_id'=>$bookingid);
-        $where  = " cus_id = ".$id;
+        $where  = " cus_id = ".$cus_id;
 		//echo $where; exit;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-		$where_day_booking  = " day_cus_id = ".$id;
+		$where_day_booking  = " day_cus_id = ".$cus_id;
         DBUtil::updateObject($object,'pobbooking_daybooking',$where_day_booking);
-		$where_booking  = " boo_cus_id = ".$id;
+		$where_booking  = " boo_cus_id = ".$cus_id;
         DBUtil::updateObject($object,'pobbooking_booking',$where_booking);
         
         $mystring = $response;
@@ -443,10 +445,8 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         $pos = strpos($mystring, $findme);
         curl_close($ch);
         
-        
-        $this->updatePostCalendar($id);
-		        
         if($pos > 0){
+		  $this->updatePostCalendar($cus_id, $form['url']);
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'success', 'bid'=>$bookingid));
           pnRedirect($url);
           exit;
@@ -471,16 +471,37 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         return $csv;
     }
 
-    private function updatePostCalendar($cus_id=''){
+    private function updatePostCalendar($cus_id='',$url=false){
 	  //echo $cus_id; exit;
+	  //check url
+
       //load class
       if (!($class = Loader::loadClassFromModule ('POBBooking', 'DayBookingArray', false)))
         return LogUtil::registerError ('Unable to load class [DayBookingArray] ...');
 
       $object = new $class ();
       $object->get(" day_cus_id = ".$cus_id);
-      
-      pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $object->_objData);
+
+	  //print_r($object); 
+
+	  if($url){
+		    //$endpoint = $url."/index.php?module=postcalendar&type=user&func=jsonInsertBooking";
+			$endpoint = "http://localhost/pob2/index.php?module=postcalendar&type=user&func=jsonInsertBooking";
+		    $data = json_encode($object->_objData);
+		    //echo $data; 
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8')); 
+			curl_setopt($ch, CURLOPT_URL, $endpoint);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			curl_exec($ch);
+			//$response = curl_exec($ch);
+			//echo $response; exit;
+			curl_close($ch);
+	  }else{
+		pnModAPIFunc('PostCalendar', 'user', 'insertBooking', json_encode($object->_objData));
+	  }
     }
 
 }
