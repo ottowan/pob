@@ -97,15 +97,18 @@ function postcalendar_pntables()
     $pntable['postcalendar_room_column'] = array(
                                           'id' => 'room_id',
                                           'guest_room_type_id' => 'room_guest_room_type_id',
+                                          'guest_room_name' => 'room_guest_room_name',
                                           'name' =>'room_name',
                                           'description' => 'room_description'
     );
     $pntable['postcalendar_room_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'guest_room_type_id' =>'INT(11)',
+                                          'guest_room_name' =>'VARCHAR(255)',
                                           'name' =>'VARCHAR(255)',
                                           'description' =>'VARCHAR(255)'
     );
+
     $pntable['postcalendar_room_primary_key_column'] = 'id';
     //add standard data fields
     ObjectUtil::addStandardFieldsToTableDefinition ($pntable['postcalendar_room_column'], 'room_');
@@ -115,6 +118,81 @@ function postcalendar_pntables()
     );
 
 
+
+      $pntable['postcalendar_daybooking'] = DBUtil::getLimitedTablename('postcalendar_daybooking');
+
+      $pntable['postcalendar_daybooking_column'] = array(
+                                                  'id'                  => 'day_id',
+                                                  'cus_id'              => 'day_cus_id',
+                                                  'customer_refid'      => 'day_customer_refid',
+                                                  'booking_id'          => 'day_booking_id',
+                                                  'status_id'           => 'day_status_id',
+                                                  'chaincode'           => 'day_chaincode',
+                                                  'hotelname'           => 'day_hotelname',
+                                                  'isocurrency'         => 'day_isocurrency',
+                                                  'date'                => 'day_date',
+                                                  'invcode'             => 'day_invcode',
+                                                  'rate'                => 'day_rate',
+                                                  'identificational'    => 'day_identificational',
+                                                  'nameprefix'          => 'day_nameprefix',
+                                                  'givenname'           => 'day_givenname',
+                                                  'surname'             => 'day_surname',
+                                                  'addressline'         => 'day_addressline',
+                                                  'cityname'            => 'day_cityname',
+                                                  'stateprov'           => 'day_stateprov',
+                                                  'countryname'         => 'day_countryname',
+                                                  'postalcode'          => 'day_postalcode',
+                                                  'mobile'              => 'day_mobile',
+                                                  'phone'               => 'day_phone',
+                                                  'email'               => 'day_email',
+                                                  'addition_request'    => 'day_addition_request',
+                                                  'cardcode'            => 'day_cardcode',
+                                                  'cardnumber'          => 'day_cardnumber',
+                                                  'cardholdername'      => 'day_cardholdernamer',
+                                                  'cardexpire'          => 'day_cardexpire',
+                                                  'issue_date'          => 'day_issue_date',
+                                                  'cardsecurecode'      => 'day_cardsecurecode',
+                                                  'cardbankname'        => 'day_cardbankname',
+                                                  'cardissuingcountry'  => 'day_cardissuingcountry'
+                                          );
+
+      $pntable['postcalendar_daybooking_column_def'] = array(
+                                                  'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
+                                                  'cus_id'           => 'INT(11)',
+                                                  'customer_refid'   => 'TEXT',
+                                                  'booking_id'       => 'VARCHAR(255)',
+                                                  'status_id'        => 'INT(2) default 2',
+                                                  'chaincode'        => 'VARCHAR(10)',
+                                                  'hotelname'        => 'VARCHAR(255)',
+                                                  'isocurrency'      => 'VARCHAR(10)',
+                                                  'date'             => 'DATE',
+                                                  'checkout_date'    => 'DATE',
+                                                  'date'             => 'DATE',
+                                                  'invcode'          => 'VARCHAR(255)',
+                                                  'rate'             => 'DOUBLE',
+                                                  'identificational' => 'VARCHAR(50) DEFUALT NULL',
+                                                  'nameprefix'       => 'VARCHAR(50) DEFUALT NULL',
+                                                  'givenname'        => 'TEXT',
+                                                  'surname'          => 'TEXT',
+                                                  'addressline'      => 'TEXT',
+                                                  'stateprov'        => 'VARCHAR(255) DEFUALT NULL',
+                                                  'cityname'         => 'VARCHAR(255) DEFUALT NULL',
+                                                  'countryname'      => 'VARCHAR(255) DEFUALT NULL',
+                                                  'postalcode'       => 'VARCHAR(50)  DEFUALT NULL',
+                                                  'mobile'           => 'VARCHAR(255) DEFUALT NULL',
+                                                  'phone'            => 'VARCHAR(255) DEFUALT NULL',
+                                                  'email'            => 'TEXT',
+                                                  'addition_request' => 'TEXT',
+                                                  'cardcode'         => 'VARCHAR(255)',
+                                                  'cardnumber'       => 'VARCHAR(255)',
+                                                  'cardholdername'   => 'VARCHAR(255)',
+                                                  'cardexpire'       => 'VARCHAR(255)',
+                                                  'issue_date'       => 'DATETIME',
+                                                  'cardsecurecode'   => 'VARCHAR(255)',
+                                                  'cardbankname'       => 'VARCHAR(255)',
+                                                  'cardissuingcountry'  => 'VARCHAR(255)'
+                                                  );
+      $pntable['postcalendar_daybooking_primary_key_column'] = 'id';
 
     return $pntable;
 }

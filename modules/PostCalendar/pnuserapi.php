@@ -366,9 +366,11 @@ function PostCalendar_userapi_insertRoom($args) {
 ////////////////////////////
 function PostCalendar_userapi_insertBooking($args) {
 
-  print_r($args);
-/*
+  //print_r($args);
+
   if($args["id"]){
+
+/*
     //Insert statement
     $obj = array(
                  'id'                 => $args["id"],
@@ -440,33 +442,58 @@ function PostCalendar_userapi_insertBooking($args) {
   `pc_cr_uid` int(11) NOT NULL default '0',
   `pc_lu_date` datetime NOT NULL default '1970-01-01 00:00:00',
   `pc_lu_uid` int(11) NOT NULL default '0',
-
+*/
 
     $dom = ZLanguage::getModuleDomain('PostCalendar');
 
     Loader::loadClass('CategoryUtil');
     $cat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/PostCalendar/Events');
 
+    $title = 'Booking ID : $args["booking_id"]';
+
+    $hometext = ':text:"Booking ID : $args["booking_id"] price : $args["rate"] THB"';
+
+    $location = 
+'a:7:{s:12:"locations_id";s:2:"-1";s:14:"event_location";s:6:"$args["addressline"]";s:13:"event_street1";s:6:"patong";s:13:"event_street2";s:0:"";s:10:"event_city";s:5:"$args["cityname"]";s:11:"event_state";s:6:"$args["stateprov"]";s:12:"event_postal";s:5:"$args["postalcode"]";}';
+
+    $recurrspec = 
+'a:5:{s:17:"event_repeat_freq";s:0:"";s:22:"event_repeat_freq_type";s:1:"0";s:19:"event_repeat_on_num";s:1:"1";s:19:"event_repeat_on_day";s:1:"0";s:20:"event_repeat_on_freq";s:0:"";}';
+
+
+    if(isset($args["mobile"]) && isset($args["phone"]) ){
+       $conttel = $args["mobile"].",".$args["phone"];
+    }else if(isset($args["mobile"])){
+      $conttel = $args["mobile"];
+    }else if(isset($args["phone"])){
+      $conttel = $args["phone"];
+    }else {
+      $conttel = "";
+    }
+
+    $contname = $args["identificational"]." : ".$args["nameprefix"].$args["givenname"]." ".$args["surname"];
+
     $event = array(
-        'title'          => __('PostCalendar Installed', $dom),
-        'hometext'       => __(':text:On this date, the PostCalendar module was installed. Thank you for trying PostCalendar! This event can be safely deleted if you wish.', $dom),
-        'aid'            => SessionUtil::getVar('uid'),
-        'time'           => date("Y-m-d H:i:s"),
-        'informant'      => SessionUtil::getVar('uid'),
-        'eventDate'      => date('Y-m-d'),
-        'duration'       => 3600,
-        'recurrtype'     => 0,  //norepeat
-        'recurrspec'     => 'a:5:{s:17:"event_repeat_freq";s:0:"";s:22:"event_repeat_freq_type";s:1:"0";s:19:"event_repeat_on_num";s:1:"1";s:19:"event_repeat_on_day";s:1:"0";s:20:"event_repeat_on_freq";s:0:"";}',
-        'startTime'      => '01:00:00',
-        'alldayevent'    => 1,
-        'location'       => 'a:6:{s:14:"event_location";s:0:"";s:13:"event_street1";s:0:"";s:13:"event_street2";s:0:"";s:10:"event_city";s:0:"";s:11:"event_state";s:0:"";s:12:"event_postal";s:0:"";}',
-        'eventstatus'    => 1,  // approved
-        'sharing'        => 3,  // global
-        'website'        => 'http://code.zikula.org/soundwebdevelopment/wiki/PostCalendar',
-        '__CATEGORIES__' => array(
-            'Main' => $cat['id']),
-        '__META__'       => array(
-            'module' => 'PostCalendar'));
+                    'title'          => __($title, $dom),
+                    'hometext'       => __($hometext, $dom),
+                    'aid'            => SessionUtil::getVar('uid'),
+                    'time'           => date("Y-m-d H:i:s"),
+                    'informant'      => SessionUtil::getVar('uid'),
+                    'eventDate'      => $args["date"],
+                    'duration'       => 3600,
+                    'recurrtype'     => 0,  //norepeat
+                    'recurrspec'     => $recurrspec,
+                    'startTime'      => '01:00:00',
+                    'alldayevent'    => 1,
+                    'location'       => $location,
+                    'eventstatus'    => 1,  // approved
+                    'sharing'        => 3,  // global
+                    '__CATEGORIES__' => array('Main' => $cat['id']),
+                    '__META__'       => array('module' => 'PostCalendar'),
+                    'conttel'        => $conttel,
+                    'contname'       => $contname,
+                    'contemail'      => $args["email"],
+                    'fee'            => $args["rate"]
+              );
 
     if (DBUtil::insertObject($event, 'postcalendar_events', 'eid')) {
         LogUtil::registerStatus(__("PostCalendar: Installation event created.", $dom));
@@ -480,7 +507,7 @@ function PostCalendar_userapi_insertBooking($args) {
   } else{
     return false;
   }
-*/
+
 
 
 }
