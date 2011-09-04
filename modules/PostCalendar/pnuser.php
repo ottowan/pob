@@ -160,3 +160,15 @@ function postcalendar_user_display($args)
             break;
     } // end switch
 }
+
+
+function postcalendar_user_jsonInsertBooking(){
+  header('Content-Type: text/html; charset=utf-8'); 
+  $data = file_get_contents("php://input");
+  $args = json_decode($data);
+  pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $args);
+  //echo "aaa";
+  pnShutDown();
+
+}
+
