@@ -366,144 +366,148 @@ function PostCalendar_userapi_insertRoom($args) {
 ////////////////////////////
 function PostCalendar_userapi_insertBooking($args) {
 
-  //print_r($args);
+  //print_r($args); exit;
 
-  if($args["id"]){
+  if($args){
+	foreach($args as $item){
 
 /*
-    //Insert statement
-    $obj = array(
-                 'id'                 => $args["id"],
-                 'cus_id'             => $args["cus_id"],
-                 'customer_refid'     => $args["customer_refid"],
-                 'booking_id'         => $args["booking_id"],
-                 'status_id'          => $args["status_id"],
-                 'chaincode'          => $args["chaincode"],
-                 'hotelname'          => $args["hotelname"],
-                 'isocurrency'        => $args["isocurrency"],
-                 'date'               => $args["date"],
-                 'invcode'            => $args["invcode"],
-                 'rate'               => $args["rate"],
-                 'identificational'   => $args["identificational"],
-                 'nameprefix'         => $args["nameprefix"],
-                 'givenname'          => $args["givenname"],
-                 'surname'            => $args["surname"],
-                 'addressline'        => $args["addressline"],
-                 'cityname'           => $args["cityname"],
-                 'stateprov'          => $args["stateprov"],
-                 'countryname'        => $args["countryname"],
-                 'postalcode'         => $args["postalcode"],
-                 'mobile'             => $args["mobile"],
-                 'phone'              => $args["phone"],
-                 'email'              => $args["email"],
-                 'addition_request'   => $args["addition_request"],
-                 'cardcode'           => $args["cardcode"],
-                 'cardnumber'         => $args["cardnumber"],
-                 'cardholdername'     => $args["cardholdername"],
-                 'cardexpire'         => $args["cardexpire"],
-                 'issue_date'         => $args["issue_date"],
-                 'cardsecurecode'     => $args["cardsecurecode"],
-                 'cardbankname'       => $args["cardbankname"],
-                 'cardissuingcountry' => $args["cardissuingcountry"]
-           );
+		//Insert statement
+		$obj = array(
+					 'id'                 => $item["id"],
+					 'cus_id'             => $item["cus_id"],
+					 'customer_refid'     => $item["customer_refid"],
+					 'booking_id'         => $item["booking_id"],
+					 'status_id'          => $item["status_id"],
+					 'chaincode'          => $item["chaincode"],
+					 'hotelname'          => $item["hotelname"],
+					 'isocurrency'        => $item["isocurrency"],
+					 'date'               => $item["date"],
+					 'invcode'            => $item["invcode"],
+					 'rate'               => $item["rate"],
+					 'identificational'   => $item["identificational"],
+					 'nameprefix'         => $item["nameprefix"],
+					 'givenname'          => $item["givenname"],
+					 'surname'            => $item["surname"],
+					 'addressline'        => $item["addressline"],
+					 'cityname'           => $item["cityname"],
+					 'stateprov'          => $item["stateprov"],
+					 'countryname'        => $item["countryname"],
+					 'postalcode'         => $item["postalcode"],
+					 'mobile'             => $item["mobile"],
+					 'phone'              => $item["phone"],
+					 'email'              => $item["email"],
+					 'addition_request'   => $item["addition_request"],
+					 'cardcode'           => $item["cardcode"],
+					 'cardnumber'         => $item["cardnumber"],
+					 'cardholdername'     => $item["cardholdername"],
+					 'cardexpire'         => $item["cardexpire"],
+					 'issue_date'         => $item["issue_date"],
+					 'cardsecurecode'     => $item["cardsecurecode"],
+					 'cardbankname'       => $item["cardbankname"],
+					 'cardissuingcountry' => $item["cardissuingcountry"]
+			   );
 
-    // do the insert
-    DBUtil::insertObject($obj, 'postcalendar_daybooking');
-
-
+		// do the insert
+		DBUtil::insertObject($obj, 'postcalendar_daybooking');
 
 
 
-  `pc_eid` int(11) unsigned NOT NULL auto_increment,
-  `pc_aid` varchar(30) NOT NULL default '',
-  `pc_title` varchar(150) default '',
-  `pc_time` datetime default NULL,
-  `pc_hometext` text,
-  `pc_informant` varchar(20) NOT NULL default '',
-  `pc_eventDate` date NOT NULL default '0000-00-00',
-  `pc_duration` bigint(20) NOT NULL default '0',
-  `pc_endDate` date NOT NULL default '0000-00-00',
-  `pc_recurrtype` int(1) NOT NULL default '0',
-  `pc_recurrspec` text,
-  `pc_startTime` varchar(8) default '00:00:00',
-  `pc_alldayevent` int(1) NOT NULL default '0',
-  `pc_location` text,
-  `pc_conttel` varchar(50) default '',
-  `pc_contname` varchar(50) default '',
-  `pc_contemail` varchar(255) default '',
-  `pc_website` varchar(255) default '',
-  `pc_fee` varchar(50) default '',
-  `pc_eventstatus` int(11) NOT NULL default '0',
-  `pc_sharing` int(11) NOT NULL default '0',
-  `pc_hooked_modulename` varchar(50) default '',
-  `pc_hooked_objectid` int(11) default '0',
-  `pc_obj_status` varchar(1) NOT NULL default 'A',
-  `pc_cr_date` datetime NOT NULL default '1970-01-01 00:00:00',
-  `pc_cr_uid` int(11) NOT NULL default '0',
-  `pc_lu_date` datetime NOT NULL default '1970-01-01 00:00:00',
-  `pc_lu_uid` int(11) NOT NULL default '0',
-*/
-
-    $dom = ZLanguage::getModuleDomain('PostCalendar');
-
-    Loader::loadClass('CategoryUtil');
-    $cat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/PostCalendar/Events');
-
-    $title = 'Booking ID : $args["booking_id"]';
-
-    $hometext = ':text:"Booking ID : $args["booking_id"] price : $args["rate"] THB"';
-
-    $location = 
-'a:7:{s:12:"locations_id";s:2:"-1";s:14:"event_location";s:6:"$args["addressline"]";s:13:"event_street1";s:6:"patong";s:13:"event_street2";s:0:"";s:10:"event_city";s:5:"$args["cityname"]";s:11:"event_state";s:6:"$args["stateprov"]";s:12:"event_postal";s:5:"$args["postalcode"]";}';
-
-    $recurrspec = 
-'a:5:{s:17:"event_repeat_freq";s:0:"";s:22:"event_repeat_freq_type";s:1:"0";s:19:"event_repeat_on_num";s:1:"1";s:19:"event_repeat_on_day";s:1:"0";s:20:"event_repeat_on_freq";s:0:"";}';
 
 
-    if(isset($args["mobile"]) && isset($args["phone"]) ){
-       $conttel = $args["mobile"].",".$args["phone"];
-    }else if(isset($args["mobile"])){
-      $conttel = $args["mobile"];
-    }else if(isset($args["phone"])){
-      $conttel = $args["phone"];
-    }else {
-      $conttel = "";
-    }
+	  `pc_eid` int(11) unsigned NOT NULL auto_increment,
+	  `pc_aid` varchar(30) NOT NULL default '',
+	  `pc_title` varchar(150) default '',
+	  `pc_time` datetime default NULL,
+	  `pc_hometext` text,
+	  `pc_informant` varchar(20) NOT NULL default '',
+	  `pc_eventDate` date NOT NULL default '0000-00-00',
+	  `pc_duration` bigint(20) NOT NULL default '0',
+	  `pc_endDate` date NOT NULL default '0000-00-00',
+	  `pc_recurrtype` int(1) NOT NULL default '0',
+	  `pc_recurrspec` text,
+	  `pc_startTime` varchar(8) default '00:00:00',
+	  `pc_alldayevent` int(1) NOT NULL default '0',
+	  `pc_location` text,
+	  `pc_conttel` varchar(50) default '',
+	  `pc_contname` varchar(50) default '',
+	  `pc_contemail` varchar(255) default '',
+	  `pc_website` varchar(255) default '',
+	  `pc_fee` varchar(50) default '',
+	  `pc_eventstatus` int(11) NOT NULL default '0',
+	  `pc_sharing` int(11) NOT NULL default '0',
+	  `pc_hooked_modulename` varchar(50) default '',
+	  `pc_hooked_objectid` int(11) default '0',
+	  `pc_obj_status` varchar(1) NOT NULL default 'A',
+	  `pc_cr_date` datetime NOT NULL default '1970-01-01 00:00:00',
+	  `pc_cr_uid` int(11) NOT NULL default '0',
+	  `pc_lu_date` datetime NOT NULL default '1970-01-01 00:00:00',
+	  `pc_lu_uid` int(11) NOT NULL default '0',
+	*/
 
-    $contname = $args["identificational"]." : ".$args["nameprefix"].$args["givenname"]." ".$args["surname"];
+		$dom = ZLanguage::getModuleDomain('PostCalendar');
 
-    $event = array(
-                    'title'          => __($title, $dom),
-                    'hometext'       => __($hometext, $dom),
-                    'aid'            => SessionUtil::getVar('uid'),
-                    'time'           => date("Y-m-d H:i:s"),
-                    'informant'      => SessionUtil::getVar('uid'),
-                    'eventDate'      => $args["date"],
-                    'duration'       => 3600,
-                    'recurrtype'     => 0,  //norepeat
-                    'recurrspec'     => $recurrspec,
-                    'startTime'      => '01:00:00',
-                    'alldayevent'    => 1,
-                    'location'       => $location,
-                    'eventstatus'    => 1,  // approved
-                    'sharing'        => 3,  // global
-                    '__CATEGORIES__' => array('Main' => $cat['id']),
-                    '__META__'       => array('module' => 'PostCalendar'),
-                    'conttel'        => $conttel,
-                    'contname'       => $contname,
-                    'contemail'      => $args["email"],
-                    'fee'            => $args["rate"]
-              );
+		Loader::loadClass('CategoryUtil');
+		$cat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/PostCalendar/Events');
 
-    if (DBUtil::insertObject($event, 'postcalendar_events', 'eid')) {
-        LogUtil::registerStatus(__("PostCalendar: Installation event created.", $dom));
-        return true;
-    }
+		$title = 'Booking ID : '.$item["booking_id"].'';
 
-    return LogUtil::registerError(__('Error! Could not create an installation event.', $dom));
+		$hometext = ':text:Booking ID : '.$item["booking_id"].' price : '.$item["rate"].' THB';
+		
+		$location = 
+	'a:7:{s:12:"locations_id";s:2:"-1";s:14:"event_location";s:'.strlen($item["addressline"]).':"'.$item["addressline"].'";s:13:"event_street1";s:6:"patong";s:13:"event_street2";s:0:"";s:10:"event_city";s:'.strlen($item["cityname"]).':"'.$item["cityname"].'";s:11:"event_state";s:'.strlen($item["stateprov"]).':"'.$item["stateprov"].'";s:12:"event_postal";s:'.strlen($item["postalcode"]).':"'.$item["postalcode"].'";}';
+		//echo $location; exit;
+
+		$recurrspec = 
+	'a:5:{s:17:"event_repeat_freq";s:0:"";s:22:"event_repeat_freq_type";s:1:"0";s:19:"event_repeat_on_num";s:1:"1";s:19:"event_repeat_on_day";s:1:"0";s:20:"event_repeat_on_freq";s:0:"";}';
+		
+		//echo $hometext; exit;
+
+		if(isset($item["mobile"]) && isset($item["phone"]) ){
+		   $conttel = $item["mobile"].",".$item["phone"];
+		}else if(isset($item["mobile"])){
+		  $conttel = $item["mobile"];
+		}else if(isset($item["phone"])){
+		  $conttel = $item["phone"];
+		}else {
+		  $conttel = "";
+		}
+
+		$contname = $item["identificational"]." : ".$item["nameprefix"].$item["givenname"]." ".$item["surname"];
+
+		$event = array(
+						'title'          => __($title, $dom),
+						'hometext'       => __($hometext, $dom),
+						'aid'            => SessionUtil::getVar('uid'),
+						'time'           => date("Y-m-d H:i:s"),
+						'informant'      => SessionUtil::getVar('uid'),
+						'eventDate'      => $item["date"],
+						'duration'       => 3600,
+						'recurrtype'     => 0,  //norepeat
+						'recurrspec'     => $recurrspec,
+						'startTime'      => '01:00:00',
+						'alldayevent'    => 1,
+						'location'       => $location,
+						'eventstatus'    => 1,  // approved
+						'sharing'        => 3,  // global
+						'__CATEGORIES__' => array('Main' => $cat['id']),
+						'__META__'       => array('module' => 'PostCalendar'),
+						'conttel'        => $conttel,
+						'contname'       => $contname,
+						'contemail'      => $item["email"],
+						'fee'            => $item["rate"]
+				  );
+
+		if (DBUtil::insertObject($event, 'postcalendar_events', 'eid')) {
+			LogUtil::registerStatus(__("PostCalendar: Installation event created.", $dom));
+			return true;
+		}
+
+		return LogUtil::registerError(__('Error! Could not create an installation event.', $dom));
 
 
-    return true;
+		return true;
+	}
   } else{
     return false;
   }
