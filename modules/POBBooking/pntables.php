@@ -101,6 +101,7 @@
                                                   'id'                  => 'boo_id',
                                                   'cus_id'              => 'boo_cus_id',
                                                   'customer_refid'      => 'boo_customer_refid',
+                                                  'booking_id'          => 'boo_booking_id',
                                                   'status_id'           => 'boo_status_id',
                                                   'chaincode'           => 'boo_chaincode',
                                                   'hotelname'           => 'boo_hotelname',
@@ -134,13 +135,15 @@
                                                   'issue_date'          => 'boo_issue_date',
                                                   'cardsecurecode'      => 'boo_cardsecurecode',
                                                   'cardbankname'        => 'boo_cardbankname',
-                                                  'cardissuingcountry'  => 'boo_cardissuingcountry'
+                                                  'cardissuingcountry'  => 'boo_cardissuingcountry',
+                                                  'issue_date'			=> 'DATETIME',
                                           );
 
       $pntable['pobbooking_booking_column_def'] = array(
                                                   'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
                                                   'cus_id'           => 'INT(11)',
                                                   'customer_refid'   => 'TEXT',
+                                                  'booking_id'       => 'TEXT',
                                                   'status_id'        => 'INT(2) default 2',
                                                   'chaincode'        => 'VARCHAR(10)',
                                                   'hotelname'        => 'VARCHAR(255)',
@@ -220,7 +223,8 @@
                                                   'issue_date'          => 'day_issue_date',
                                                   'cardsecurecode'      => 'day_cardsecurecode',
                                                   'cardbankname'        => 'day_cardbankname',
-                                                  'cardissuingcountry'  => 'day_cardissuingcountry'
+                                                  'cardissuingcountry'  => 'day_cardissuingcountry',
+                                                  'issue_date'          => 'DATETIME'
                                           );
 
       $pntable['pobbooking_daybooking_column_def'] = array(
