@@ -135,7 +135,7 @@
                                                   'cardsecurecode'      => 'boo_cardsecurecode',
                                                   'cardbankname'        => 'boo_cardbankname',
                                                   'cardissuingcountry'  => 'boo_cardissuingcountry',
-                                                  'issue_date'			=> 'DATETIME'                                          );
+                                                  'issue_date'			=> 'boo_issue_date'                                          );
 
       $pntable['pobbooking_booking_column_def'] = array(
                                                   'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
