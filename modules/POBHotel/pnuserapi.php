@@ -31,7 +31,7 @@ function POBHotel_userapi_checkout($args) {
 
     Loader::loadClass('OTA_RoomCheckOut',"modules/POBHotel/pnincludes");
     $checkout = new OTA_RoomCheckOut();
-    $checkout->checkOut($args['hotelCode'], $args['invCode'], $args['startDate'], $args['endDate='], $args['quantity']);
+    $checkout->checkOut($args['hotelCode'], $args['invCode'], $args['startDate'], $args['endDate'], $args['quantity']);
     
     return true;
 }
