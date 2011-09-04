@@ -83,7 +83,7 @@ class PNCustomer extends PNObject {
 
         $object = array('refid'=>$refid
                         );
-        $where  = " cus_id = ".$id;
+        $where  = " cus_id = ".$cus_id;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
         if ($_POST['forward'] ) {
             $forward  = $_POST['forward'];
@@ -431,9 +431,12 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         $id = DBUtil::getInsertID ($this->_objType, $this->_objField);
         $object = array('booking_id'=>$bookingid);
         $where  = " cus_id = ".$id;
+		//echo $where; exit;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-        DBUtil::updateObject($object,'pobbooking_daybooking',$where);
-        DBUtil::updateObject($object,'pobbooking_booking',$where);
+		$where_day_booking  = " day_cus_id = ".$id;
+        DBUtil::updateObject($object,'pobbooking_daybooking',$where_day_booking);
+		$where_booking  = " boo_cus_id = ".$id;
+        DBUtil::updateObject($object,'pobbooking_booking',$where_booking);
         
         $mystring = $response;
         $findme   = '<Success>';
@@ -442,7 +445,7 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         
         
         $this->updatePostCalendar($id);
-        
+		        
         if($pos > 0){
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'success', 'bid'=>$bookingid));
           pnRedirect($url);
@@ -469,12 +472,13 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
     }
 
     private function updatePostCalendar($cus_id=''){
+	  //echo $cus_id; exit;
       //load class
-      if (!($class = Loader::loadClassFromModule ('POBHotel', 'DayBookingArray', false)))
+      if (!($class = Loader::loadClassFromModule ('POBBooking', 'DayBookingArray', false)))
         return LogUtil::registerError ('Unable to load class [DayBookingArray] ...');
 
       $object = new $class ();
-      $object->get(" cus_id = ".$cus_id);
+      $object->get(" day_cus_id = ".$cus_id);
       
       pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $object->_objData);
     }
