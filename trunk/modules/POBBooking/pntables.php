@@ -132,12 +132,10 @@
                                                   'cardnumber'          => 'boo_cardnumber',
                                                   'cardholdername'      => 'boo_cardholdernamer',
                                                   'cardexpire'          => 'boo_cardexpire',
-                                                  'issue_date'          => 'boo_issue_date',
                                                   'cardsecurecode'      => 'boo_cardsecurecode',
                                                   'cardbankname'        => 'boo_cardbankname',
                                                   'cardissuingcountry'  => 'boo_cardissuingcountry',
-                                                  'issue_date'			=> 'DATETIME',
-                                          );
+                                                  'issue_date'			=> 'DATETIME'                                          );
 
       $pntable['pobbooking_booking_column_def'] = array(
                                                   'id'               => 'INT(11) NOTNULL AUTOINCREMENT PRIMARY',
@@ -220,7 +218,6 @@
                                                   'cardnumber'          => 'day_cardnumber',
                                                   'cardholdername'      => 'day_cardholdernamer',
                                                   'cardexpire'          => 'day_cardexpire',
-                                                  'issue_date'          => 'day_issue_date',
                                                   'cardsecurecode'      => 'day_cardsecurecode',
                                                   'cardbankname'        => 'day_cardbankname',
                                                   'cardissuingcountry'  => 'day_cardissuingcountry',
@@ -236,8 +233,6 @@
                                                   'chaincode'        => 'VARCHAR(10)',
                                                   'hotelname'        => 'VARCHAR(255)',
                                                   'isocurrency'      => 'VARCHAR(10)',
-                                                  'date'             => 'DATE',
-                                                  'checkout_date'    => 'DATE',
                                                   'date'             => 'DATE',
                                                   'invcode'          => 'VARCHAR(255)',
                                                   'rate'             => 'DOUBLE',
