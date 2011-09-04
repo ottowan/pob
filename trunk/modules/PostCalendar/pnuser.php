@@ -164,11 +164,30 @@ function postcalendar_user_display($args)
 
 function postcalendar_user_jsonInsertBooking(){
   header('Content-Type: text/html; charset=utf-8'); 
-  $data = file_get_contents("php://input");
-  $args = json_decode($data);
+  $args = file_get_contents("php://input");
+  
+  //print_r($args);
   pnModAPIFunc('PostCalendar', 'user', 'insertBooking', $args);
   //echo "aaa";
   pnShutDown();
+
+}
+
+
+
+function postcalendar_user_checkout(){
+	/*
+	if (!SecurityUtil::checkPermission('PostCalendar::', '::', ACCESS_ADMIN)) {
+		return LogUtil::registerPermissionError();
+	}
+
+  
+  $args = array(
+				  "" => ""
+		);
+  pnModAPIFunc('POBHotel', 'user', 'checkout', $args);
+*/
+
 
 }
 
