@@ -157,8 +157,8 @@ class PNCustomer extends PNObject {
             $this->array_to_CSV($objects);
         }
        //print_r($availabilities);exit;
-        foreach($availabilities as $itemavAilabilities) {
-            //Gennerate next id
+        foreach($availabilities as $itemAilabilities) {
+			//Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_daybooking', 'id', 'MAX', '');
             if($current_booking_id == null) {
                 $current_booking_id = 1;
@@ -172,9 +172,9 @@ class PNCustomer extends PNObject {
                     'chaincode'           => $form['chaincode'],
                     'hotelname'           => $form['hotelname'],
                     'isocurrency'         => $form['isocurrency'],
-                    'date'                => $item['date'],
-                    'invcode'             => $item['invcode'],
-                    'rate'                => $item['rate'],
+                    'date'                => $itemAilabilities['date'],
+                    'invcode'             => $itemAilabilities['invcode'],
+                    'rate'                => $itemAilabilities['rate'],
                     'identificational'    => $form['identificational'],
                     'nameprefix'          => $form['nameprefix'],
                     'givenname'           => $form['givenname'],
