@@ -156,6 +156,16 @@ function POBRoomSearch_search_view(){
       $view = $repackObjectArray["Properties"][0];
     }
 
+    //Get Domain Name
+    $args = array("hotelcode"=>$view["HotelCode"]);
+    $api = pnModAPIFunc('POBMember', 'user', 'getDomainName', $args);
+    //print_r($api); exit;
+
+    if(isset($api["domainname"])){
+      $view["URL"] = $api["domainname"].".phuketcity.com";
+    }else{
+      $view["URL"] = "false";
+    }
     $view["startDate"] = $startDate;
     $view["endDate"] = $endDate;
 
