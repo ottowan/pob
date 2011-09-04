@@ -76,13 +76,13 @@ function smarty_function_innova_html_options($params, &$smarty)
     if (isset($options)) {
         
         foreach ($options as $_key=>$_val)
-            $_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected);
+            $_html_result .= smarty_function_innovaportal_html_options_optoutput($_key, $_val, $selected);
 
     } else {
         
         foreach ($values as $_i=>$_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
-            $_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected);
+            $_html_result .= smarty_function_innovaportal_html_options_optoutput($_key, $_val, $selected);
         }
 
     } 
@@ -95,7 +95,7 @@ function smarty_function_innova_html_options($params, &$smarty)
   
 }
 
-function smarty_function_html_options_optoutput($key, $value, $selected) {
+function smarty_function_innovaportal_html_options_optoutput($key, $value, $selected) {
     if(!is_array($value)) {
         $_html_result = '<option label="' . smarty_function_escape_special_chars($value) . '" value="' .
             smarty_function_escape_special_chars($key) . '"';
@@ -103,15 +103,15 @@ function smarty_function_html_options_optoutput($key, $value, $selected) {
             $_html_result .= ' selected="selected"';
         $_html_result .= '>' . smarty_function_escape_special_chars($value) . '</option>' . "\n";
     } else {
-        $_html_result = smarty_function_html_options_optgroup($key, $value, $selected);
+        $_html_result = smarty_function_innovaportal_html_options_optgroup($key, $value, $selected);
     }
     return $_html_result;
 }
 
-function smarty_function_html_options_optgroup($key, $values, $selected) {
+function smarty_function_innovaportal_html_options_optgroup($key, $values, $selected) {
     $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($key) . '">' . "\n";
     foreach ($values as $key => $value) {
-        $optgroup_html .= smarty_function_html_options_optoutput($key, $value, $selected);
+        $optgroup_html .= smarty_function_innovaportal_html_options_optoutput($key, $value, $selected);
     }
     $optgroup_html .= "</optgroup>\n";
     return $optgroup_html;
