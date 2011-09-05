@@ -176,7 +176,7 @@ function postcalendar_user_jsonInsertBooking(){
 
 
 function postcalendar_user_checkout(){
-	/*
+
 	if (!SecurityUtil::checkPermission('PostCalendar::', '::', ACCESS_ADMIN)) {
 		return LogUtil::registerPermissionError();
 	}
@@ -186,8 +186,6 @@ function postcalendar_user_checkout(){
 				  "" => ""
 		);
   pnModAPIFunc('POBHotel', 'user', 'checkout', $args);
-*/
-
 
 }
 
