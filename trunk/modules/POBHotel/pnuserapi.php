@@ -26,6 +26,7 @@ function POBHotel_userapi_getHotelCode($args) {
     return $result;
 }
 
+
 function POBHotel_userapi_checkout($args) {
 
 
@@ -35,7 +36,4 @@ function POBHotel_userapi_checkout($args) {
     
     return true;
 }
-
-
-
 ?>
