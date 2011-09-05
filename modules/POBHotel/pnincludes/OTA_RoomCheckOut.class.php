@@ -27,7 +27,9 @@ class OTA_RoomCheckOut {
     $this->hotelData = $this->getHotelAvail();
     
     header("content-type:text/xml");
-    $this->sendContent($this->genHotelAvailNotif(),"http://pob-ws.heroku.com/api/hotel_avail_notif");
+    $result = $this->sendContent($this->genHotelAvailNotif(),"http://pob-ws.heroku.com/api/hotel_avail_notif");
+    
+    return $result;
   }
   
   public function getHotelAvail(){
