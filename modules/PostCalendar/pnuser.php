@@ -181,10 +181,13 @@ function postcalendar_user_checkout(){
 		return LogUtil::registerPermissionError();
 	}
 
+  $hotelCode = pnModAPIFunc('POBHotel', 'user', 'getHotelCode');
   
-  $args = array(
-				  "" => ""
-		);
+  $args['hotelCode'] = $hotelCode["hotelcode"];
+  $args['invCode'] = FormUtil::getPassedValue('invcode');
+  $args['startDate'] = FormUtil::getPassedValue('startdate');
+  $args['endDate'] = FormUtil::getPassedValue('enddate');
+  $args['quantity'] = FormUtil::getPassedValue('quantity');
   pnModAPIFunc('POBHotel', 'user', 'checkout', $args);
 
 }
