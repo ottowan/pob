@@ -134,8 +134,6 @@ function extractArrayForDisplay($originalArray){
   $extractArray = array();
   //$extractArray["Properties"] = $originalArray["Properties"]["Property"];
 
-
-
   //Re array Properties
   if(isset($originalArray["Properties"]["Property"])){
       $extractArray["Properties"]["Properties"][0] = $originalArray["Properties"]["Property"];
@@ -205,8 +203,8 @@ function repackArrayForDisplay($originalArray){
       //Display one item (page view)
       //////////////////////////////////////////
       //Repack Hotel information
-      $repackArray["HotelCode"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
-      $repackArray["HotelName"] = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
+      $repackArray["HotelCode"]     = $originalArray["Properties"]["Property"]["@attributes"]["HotelCode"];
+      $repackArray["HotelName"]     = $originalArray["Properties"]["Property"]["@attributes"]["HotelName"];
       $repackArray["Description"]   = $originalArray["Properties"]["Property"]["@attributes"]["Description"];
 
       //Repack Relative position
@@ -226,19 +224,19 @@ function repackArrayForDisplay($originalArray){
 
       if($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]){
           for($j=0; $j<count($originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"]); $j++){
-            $repackArray["Availabilities"][$j]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Date"];
-            $repackArray["Availabilities"][$j]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["InvCode"];
-            $repackArray["Availabilities"][$j]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Limit"];
-            $repackArray["Availabilities"][$j]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Rate"];
+            $repackArray["Availabilities"][$j]["Date"]         = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Date"];
+            $repackArray["Availabilities"][$j]["InvCode"]      = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["InvCode"];
+            $repackArray["Availabilities"][$j]["Limit"]        = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Limit"];
+            $repackArray["Availabilities"][$j]["Rate"]         = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["Rate"];
             $repackArray["Availabilities"][$j]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availabilities"][$j]["Availability"]["RatePlanCode"];
           }
       //}else if($originalArray["Properties"]["Property"]["Availabilities"]["Availability"]){
       }else{
         //var_dump($originalArray["Properties"]["Property"]["Availabilities"]); exit;
-        $repackArray["Availabilities"][0]["Date"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Date"];
-        $repackArray["Availabilities"][0]["InvCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["InvCode"];
-        $repackArray["Availabilities"][0]["Limit"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Limit"];
-        $repackArray["Availabilities"][0]["Rate"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Rate"];
+        $repackArray["Availabilities"][0]["Date"]         = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Date"];
+        $repackArray["Availabilities"][0]["InvCode"]      = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["InvCode"];
+        $repackArray["Availabilities"][0]["Limit"]        = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Limit"];
+        $repackArray["Availabilities"][0]["Rate"]         = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["Rate"];
         $repackArray["Availabilities"][0]["RatePlanCode"] = $originalArray["Properties"]["Property"]["Availabilities"]["Availability"]["Availability"]["RatePlanCode"];
       }
 
@@ -279,7 +277,7 @@ function repackArrayForDisplay($originalArray){
 
 
 
-  public function repackObjectArrayForDisplay($xmlObject){
+public function repackObjectArrayForDisplay($xmlObject){
 
   //var_dump($xmlObject->getName()); exit;
   //var_dump($xmlObject->children()); exit;
@@ -291,6 +289,11 @@ function repackArrayForDisplay($originalArray){
 
   //<Property>
   $Property = $xmlObject->Properties->Property;
+
+
+  //print_r($Property->Policies); exit;
+
+  //exit;
   for($i=0; $i<count($Property); $i++){
     $repackArray["Properties"][$i]["Description"] = $this->cleanElementZero($Property[$i]->attributes()->Description);
     $repackArray["Properties"][$i]["HotelCode"] = $this->cleanElementZero($Property[$i]->attributes()->HotelCode);
@@ -305,6 +308,18 @@ function repackArrayForDisplay($originalArray){
     $repackArray["Properties"][$i]["CountryName"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->CountryName);
     $repackArray["Properties"][$i]["PostalCode"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->PostalCode);
     $repackArray["Properties"][$i]["StateProv"] = $this->cleanElementZero($Property[$i]->ContactInfo->attributes()->StateProv);
+
+
+    //<Policies>
+    if($Property[$i]->Policies->Policy->CancelPolicy){
+      //print_r($Property->Policies); exit;
+      $policyName = $Property[$i]->Policies->Policy->CancelPolicy->attributes()->Name;
+      $policyText = $Property[$i]->Policies->Policy->CancelPolicy->Text;
+
+      $repackArray["Properties"][$i]["PolicyName"] = $policyName;
+      $repackArray["Properties"][$i]["PolicyText"] = $policyText;
+    }
+
 
     //<Availability>
     $Availabilities = $Property[$i]->Availabilities;
@@ -322,6 +337,7 @@ function repackArrayForDisplay($originalArray){
 
       //<MultimediaDescriptions>
       $MultimediaDescriptions = $Availability[$j]->MultimediaDescriptions;
+
       //print_r($MultimediaDescriptions);
       for($k=0; $k<count($MultimediaDescriptions); $k++){
 
@@ -342,14 +358,19 @@ function repackArrayForDisplay($originalArray){
             unset($repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]);
             $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Title"] = $this->cleanElementZero($TextItems[$l]->TextItem->attributes()->Title);
             $repackArray["Properties"][$i]["Availabilities"][$j]["MultimediaDescriptions"][$k]["TextItems"][$l]["Description"] = $this->cleanElementZero($TextItems[$l]->TextItem->Description);
-
         }
         
       }//End MultimediaDescriptions loop
+
     }//End Availability loop
   }//End Property loop
   //exit;
   //print_r($repackArray); exit;
+
+
+
+
+
   return $repackArray;
 }
 
