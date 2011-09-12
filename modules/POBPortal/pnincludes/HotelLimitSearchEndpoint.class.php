@@ -370,7 +370,6 @@ function repackObjectArrayLimitForDisplay($xmlObject){
   //<Property>
 
   //echo count($xmlObject->Properties->Property); exit;
-  print_r($xmlObject); exit;
   //<Property>
   $Property = $xmlObject->Properties->Property;
   for($i=0; $i<count($Property); $i++){
@@ -384,6 +383,16 @@ function repackObjectArrayLimitForDisplay($xmlObject){
     $repackArray["Properties"][$i]["CountryName"] = $Property[$i]->ContactInfo->attributes()->CountryName;
     $repackArray["Properties"][$i]["PostalCode"] = $Property[$i]->ContactInfo->attributes()->PostalCode;
     $repackArray["Properties"][$i]["StateProv"] = $Property[$i]->ContactInfo->attributes()->StateProv;
+
+    //<Policies>
+    if($Property[$i]->Policies->Policy->CancelPolicy){
+      //print_r($Property->Policies); exit;
+      $policyName = $Property[$i]->Policies->Policy->CancelPolicy->attributes()->Name;
+      $policyText = $Property[$i]->Policies->Policy->CancelPolicy->Text;
+
+      $repackArray["Properties"][$i]["PolicyName"] = $policyName;
+      $repackArray["Properties"][$i]["PolicyText"] = $policyText;
+    }
 
     //<Availability>
     $Availabilities = $Property[$i]->Availabilities;
