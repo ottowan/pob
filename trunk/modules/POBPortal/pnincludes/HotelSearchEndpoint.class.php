@@ -504,6 +504,17 @@ Class HotelSearchEndpoint {
       //$repackArray["Properties"][$i]["Latitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Latitude);
       //$repackArray["Properties"][$i]["Longitude"] = $this->cleanElementZero($Property[$i]->RelativePosition->attributes()->Longitude);
 
+
+      //<Policies>
+      if($Property[$i]->Policies->Policy->CancelPolicy){
+        //print_r($Property->Policies); exit;
+        $policyName = $Property[$i]->Policies->Policy->CancelPolicy->attributes()->Name;
+        $policyText = $Property[$i]->Policies->Policy->CancelPolicy->Text;
+
+        $repackArray["Properties"][$i]["PolicyName"] = $policyName;
+        $repackArray["Properties"][$i]["PolicyText"] = $policyText;
+      }
+
       //<Availability>
       $Availabilities = $Property[$i]->Availabilities;
       $Availability = $Property[$i]->Availabilities->Availability;
