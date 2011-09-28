@@ -1,4 +1,10 @@
 <?php
+/////////////////////////////
+//
+//    $args = array("hotelcode"=>"POBHT000005");
+//    pnModAPIFunc('POBMember', 'user', 'getDomainName', $args);
+//
+////////////////////////////
 function POBHotel_userapi_getLatLon($args) {
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelArray] ...');
