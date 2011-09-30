@@ -112,6 +112,10 @@ Class HotelDescContentGenerator {
     $ContractInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("ContactInfo")->item(0), true);
     $HotelDescriptiveContent->appendChild($ContractInfoNode);
 
+    $LoadedXML = DOMDocument::loadXML($this->genPolicy());
+    $PoliciesNode = $xml->importNode($LoadedXML->getElementsByTagName("Policies")->item(0), true);
+    $HotelDescriptiveContent->appendChild($PoliciesNode);
+
     $HotelDescriptiveContents->appendChild($HotelDescriptiveContent);
     $OTA_HotelDescriptiveContentNotifRQ->appendChild($HotelDescriptiveContents);
     $xml->appendChild($OTA_HotelDescriptiveContentNotifRQ);
@@ -299,5 +303,24 @@ Class HotelDescContentGenerator {
       return $xml->saveXML();
   }
 
+  private function genPolicy(){
+    if(isset($this->hotelObject["pilicy"])){
+      $policy = htmlentities($this->hotelObject["pilicy"]);
+    }else{
+      $policy = htmlentities("Cancellations or changes to bookings for this room must be made at least 72 hours prior to the check in date and time or you will be charged the full amount of the first changed or cancelled night.");
+    }
+
+
+    $xml = new DOMDocument();
+
+    $Policies = $xml->createElement("Policies");
+    $Policy = $xml->createElement("Policy");
+    $CancelPolicy = $xml->createElement("CancelPolicy",$policy);
+
+    $Policy->appendChild($CancelPolicy);
+    $Policies->appendChild($Policy);
+    $xml->appendChild($Policies);
+    return $xml->saveXML();
+  }
 }
 ?>
