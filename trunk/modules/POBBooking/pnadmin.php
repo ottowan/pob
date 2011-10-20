@@ -231,4 +231,17 @@ function POBBooking_admin_delete() {
       die;
     }
 }
+
+function POBBooking_admin_batch() {
+    _autoexecute();
+    $render = pnRender::getInstance('POBBooking');
+    $ctrl    = 'batch';
+    $func  =  'form';
+    $render->assign ('_GET', $_GET);
+    $render->assign ('_POST', $_POST);
+    $render->assign ('_REQUEST', $_REQUEST);
+    return $render->fetch('admin_'.$func.'_'.strtolower($ctrl).'.htm');
+}
+
+
 ?>

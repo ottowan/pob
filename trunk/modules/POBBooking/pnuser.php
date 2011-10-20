@@ -222,4 +222,10 @@ function POBBooking_user_list() {
     return $render->fetch('user_'.$func.'_'.strtolower($ctrl).'.htm');
 }
 
+//create captcha image
+function InnoReservation_user_getCaptcha(){
+  $result = pnModAPIFunc('InnoCaptcha', 'user', 'createCaptchaImage');
+  return true ;
+}
+
 ?>

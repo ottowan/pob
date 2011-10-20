@@ -4,44 +4,31 @@
 <FORM id='form' 
             class='form' 
             name="formBook"
-            action="<!--[pnmodurl modname='POBBooking' type='user' func='form' ctrl='Payment']-->"
+            action="<!--[pnmodurl modname='POBBooking' type='adminform' func='submit' ctrl='Customer']-->"
             method="post"
-            onsubmit="return validateForm(this)"
-  >
-      <input type="hidden" name="forward[modname]" value="POBBooking" />
-      <input type="hidden" name="forward[type]" value="user" />
-      <input type="hidden" name="forward[func]" value="page" />
-      <input type="hidden" name="forward[ctrl]" value="Redirect" />
+            onsubmit="return validateForm(this)">
 
-      <input type="hidden" name="current[url]" value="<!--[$smarty.post.transaction.url]-->" />
+  <input type="hidden" name="current[url]" value="<!--[$smarty.post.transaction.url]-->" />
 
-      <input type="hidden" name="booking[hotelname]" value="<!--[$smarty.post.transaction.hotelname]-->" />
-      <input type="hidden" name="booking[hotelcode]" value="<!--[$smarty.post.transaction.hotelcode]-->" />
-      <input type="hidden" name="booking[hotelcontact]" value="<!--[$smarty.post.transaction.contactinfo]-->" />
-      <input type="hidden" name="booking[chaincode]" value="HT" />
+  <input type="hidden" name="booking[hotelname]" value="<!--[$smarty.post.transaction.hotelname]-->" />
+  <input type="hidden" name="booking[hotelcode]" value="<!--[$smarty.post.transaction.hotelcode]-->" />
+  <input type="hidden" name="booking[hotelcontact]" value="<!--[$smarty.post.transaction.contactinfo]-->" />
+  <input type="hidden" name="booking[chaincode]" value="HT" />
 
-
+  <!--[foreach from=$smarty.post.transaction.availabilities item=item name="foo"]-->
+    <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
+    <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][date]" value="<!--[$item.date]-->">
+    <input type="hidden" name="booking[availabilities][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
+  <!--[/foreach]-->
 
 <div align="center" style="padding: 2px; background-color: rgb(253, 253, 253); border: 1px dashed rgb(192, 192, 192);">
   <TABLE width="100%">
     <TR>
-      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"><!--[pnml name="_POBBOOKING_USER_RESERVATION_DETAILS"]--></TH>
+      <TH align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"><h4><!--[$smarty.post.transaction.hotelname]--></h4></TH>
     </TR>
     <TR>
       <TD colspan="2" align="left">
-        <table width="100%">
-          <tr>
-            <td valign="top"><h4><!--[$smarty.post.transaction.hotelname]--></h4></td>
-            <td rowspan="2" style="float:right; width:100px; height:75px;">
-            </td>
-          </tr>
-          <tr>
-            <td><div style="margin:-40px 0 0 0;"> <!--[pnml name="_POBBOOKING_USER_CONTACT"]--> : <!--[$smarty.post.transaction.contactinfo]--></div></td>
-          </tr>
-          <tr>
-            <td colspan="2"><p class="description3" style="margin:30px 0 0 0px;"><!--[$smarty.post.transaction.description]--></p></td>
-          </tr>
-        </table>
+        <h4><!--[$smarty.post.transaction.hotelname]--></h4>
       </TD>
     </TR>
     <TR>
@@ -58,64 +45,49 @@
           </TR>
           <!--[assign var="total_rooms" value=0]-->
           <!--[foreach from=$smarty.post.transaction.roomstays item=item name="foo"]-->
-
+          
           <!--[assign var="rooms" value=$item.numberofunit]-->
-            <!--[math equation=x+y x=$total_rooms y=$rooms assign="total_rooms"]-->
+          <!--[math equation=x+y x=$total_rooms y=$rooms assign="total_rooms"]-->
+          
+          <!--[if $item.numberofunit > 0]-->
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
             
-            <!--[if $item.numberofunit > 0]-->
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]" value="<!--[$item.numberofunit]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$item.startdate]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$item.enddate]-->">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][adult]" value="2">
-              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="0">
-              <TR>
-                <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
-                <TD align="center"><!--[$item.numberofunit]--></TD>
-                <TD align="center"><!--[$item.startdate]--> <!--[pnml name="_POBBOOKING_USER_TO"]--> <!--[$item.enddate]--></TD>
-                <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]-->
-                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
-                    <!--[math equation=a/b/c a=$item.rate b=$item.numberofunit c=$datediff assign="roomrate"]-->
-                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
-                </TD>
-                <TD align="center"><!--[math equation="a*b" a=$item.numberofunit b=2]--><!--[$item.adult]--></TD>
-                <TD align="center">
-                  <!--[if $item.child]-->
-                    <!--[$item.child]-->
-                  <!--[else]-->
-                    -
-                  <!--[/if]-->
-                </TD>
-                <TD align="right">
-                  <!--[math equation="a*b" a=$item.numberofunit b=$item.rate assign="total"]-->
-                  <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][room_rate_total]" value="<!--[$total]-->">
-                  <!--[pnml name="_POBBOOKING_USER_THB"]--> <!--[$total|number_format:2:".":","]-->
-                  <!--[php]-->
-                      $total = $this->get_template_vars("total");
-                      $totalAll += $total;
-                      $this->assign("totalAll", $totalAll);
-                  <!--[/php]-->
-                  
-                </TD>
-              </TR>
-
-              <!--[assign var="i" value="0"]-->
-              <!--[section name=sec start=0 loop=$datediff step=1]-->
-                
-                <!--[date_increment date=$item.startdate add=$smarty.section.sec.index]-->
-                <!--[foreach from=$smarty.post.transaction.availabilities item=aitem name="afoo"]-->
-                  <!--[if $aitem.invcode==$item.invcode && $aitem.date==$date_inc]-->
-                    <input type="hidden" name="booking[availabilities][<!--[$i]-->][invcode]" value="<!--[$aitem.invcode]-->">
-                    <input type="hidden" name="booking[availabilities][<!--[$i]-->][date]" value="<!--[$aitem.date]-->">
-                    <input type="hidden" name="booking[availabilities][<!--[$i]-->][rate]" value="<!--[$aitem.rate]-->">
-                    <!--[math equation="a+b" a=$i b=1 assign="i"]-->
-                  <!--[/if]-->
-                <!--[/foreach]-->
-              <!--[/section]-->
-
-
-            <!--[/if]-->
-         <!--[/foreach]-->
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]" value="<!--[$item.numberofunit]-->">
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$item.startdate]-->">
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$item.enddate]-->">
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][adult]" value="2">
+          <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][child]" value="0">
+          <TR>
+            <TD align="left">&nbsp;<!--[$item.invcode]--><br><!--[$item.Price]--></TD>
+            <TD align="center"><!--[$item.numberofunit]--></TD>
+            <TD align="center"><!--[$item.startdate]--> <!--[pnml name="_POBBOOKING_USER_TO"]--> <!--[$item.enddate]--></TD>
+            <TD align="center"><!--[date_diff date1=$item.startdate date2=$item.enddate assign="datediff"]--> <!--[$datediff]-->
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][night]" value="<!--[$datediff]-->">
+                <!--[math equation=a/b/c a=$item.rate b=$item.numberofunit c=$datediff assign="roomrate"]-->
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
+            </TD>
+            <TD align="center"><!--[math equation="a*b" a=$item.numberofunit b=2]--><!--[$item.adult]--></TD>
+            <TD align="center">
+              <!--[if $item.child]-->
+                <!--[$item.child]-->
+              <!--[else]-->
+                -
+              <!--[/if]-->
+            </TD>
+            <TD align="right">
+              <!--[math equation="a*b" a=$item.numberofunit b=$item.rate assign="total"]-->
+              <input type="hidden" name="booking[roomstays][<!--[$smarty.foreach.foo.index]-->][room_rate_total]" value="<!--[$total]-->">
+              <!--[pnml name="_POBBOOKING_USER_THB"]--> <!--[$total|number_format:2:".":","]-->
+              <!--[php]-->
+                  $total = $this->get_template_vars("total");
+                  $totalAll += $total;
+                  $this->assign("totalAll", $totalAll);
+              <!--[/php]-->
+              
+            </TD>
+          </TR>
+          <!--[/if]-->
+       <!--[/foreach]-->
           <TR>
             <TD colspan="7" align="center">
               <div align="center" style=" font-family:Arial, Helvetica, sans-serif;font-size:16px; background-color:#FDF5E6; padding:3px; width:80%; border: #99bf00 1px  dotted;">
@@ -770,22 +742,21 @@
       <TD align="left" >
         <select name="guset[card_expire_month]" id="card_expire_month" tabindex="112">
           <option value=""><!--[pnml name="_POBBOOKING_USER_MONTH"]--></option>
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
         </select>
         
         <select name="guset[card_expire_year]" id="card_expire_year" tabindex="112">
-          </option>
           <option value="">Year</option>
           <option value="2010">2010</option>
           <option value="2011">2011</option>
@@ -1317,9 +1288,6 @@
       <TH align="left" colspan="2" align="left" colspan="2" style="border-bottom: 1px solid rgb(192, 192, 192);"> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING"]--> : </TH>
     </TR>
     <TR>
-      <TD>&nbsp;</TD>
-    </TR>
-    <TR>
       <TD>
           <div style="padding-top: 10px; font-family: 
       Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
@@ -1335,7 +1303,8 @@
           <li><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_5"]--></li>
         </div><BR>
 
-        <div style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; padding-left: 30px; padding-right: 30px;" align="left">
+        <div style="font-family: Arial,Helvetica,sans-serif; font-size: 
+      12px; padding-left: 30px; padding-right: 30px;" align="left">
           <strong><!--[pnml name="_POBBOOKING_USER_HOTEL_POLICY_1"]--> of <!--[$smarty.post.transaction.hotelname]--></strong><br>
           <P><!--[$smarty.post.transaction.policyname]--></P>
           <P><!--[$smarty.post.transaction.policytext]--></P>
@@ -1344,32 +1313,43 @@
             <input name="agree" value="y" id="agree" type="checkbox"> 
               <font style="text-decoration: underline; font-size: 12px; color:
        rgb(238, 0, 0);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_1"]--></i></b></font>
-       <a href="#"><font
+       <a href="https://ido24.com/secure/cancel_policy.html" target="_blank"><font
        style="text-decoration: underline; font-size: 12px; color: rgb(5, 94, 
       185);"><b><i><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_6_2"]--></i></b></font></a>   </div>
 
-      <div align="center">
-         <table width="100%">
-            <tr>
-              <td><div style="padding-top: 15px; padding-bottom: 2px;" align="center">
-                  <input  name="bbSubmit" id="bbSubmit" class="searchButton" 
-                      style="font-weight: bold; font-size: 11pt; width: 210px; cursor: 
-                      pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" 
-                      value="Process Your Reservation" type="submit">
-                </div></td>
-            </tr>
-            <tr>
-              <td><div style="padding-top: 3px; font-family: Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
-                 <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>“<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>”</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
-                 <p><img src="booking_form.php_files/line.gif" height="1"></p>
-                 <p>
-                  <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
-                    <!--[pnml name="_POBBOOKING_USER_CUSTOMER_SERVICE"]-->&nbsp;:&nbsp;<a href="mailto:info@phuketcity.com">info@phuketcity.com</a>  
-                 </p>
-               </div></td>
-            </tr>
-          </table>
-      </div><BR>
+<div align="center">
+
+
+       <table width="100%">
+          <tr>
+            <td><div style="padding-top: 15px; padding-bottom: 2px;" align="center">
+                <input  name="bbSubmit" id="bbSubmit" class="searchButton" 
+                    style="font-weight: bold; font-size: 11pt; width: 210px; cursor: 
+                    pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" 
+                    value="Process Your Reservation" type="submit">
+              </div></td>
+          </tr>
+          <tr>
+            <td><div style="padding-top: 3px; font-family: Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
+               <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>“<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>”</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
+               <p><img src="booking_form.php_files/line.gif" height="1"></p>
+               <p>
+                <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
+                  <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
+                  Tel. +66x xxx xxxx &nbsp; 
+                  Fax. +66x xxx xxxx&nbsp; 
+                  Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
+               </p>
+             </div></td>
+          </tr>
+        </table>
+
+        
+</div><BR>
+              
+
+          
+
       </TD>
     </TR>
   </TABLE>

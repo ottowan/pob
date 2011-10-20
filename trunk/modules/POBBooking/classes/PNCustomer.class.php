@@ -1,5 +1,6 @@
 <?php
 class PNCustomer extends PNObject {
+
     function PNCustomer($init=null, $where='') {
         $this->PNObject();
 
@@ -10,6 +11,7 @@ class PNCustomer extends PNObject {
         $this->_init($init, $where);
     }
 
+    
     private function encrypt($source){
       $fp=fopen("modules/POBBooking/pnincludes/pob.public.pem","r"); 
       $pub_key=fread($fp,8192); 
@@ -30,21 +32,25 @@ class PNCustomer extends PNObject {
       }
     }
 
-
+    function setData($data){
+      $this->data = $data;
+      //echo "Calling setData";exit;
+    }
 
     function insertPreProcess() {
         //get
         $form = FormUtil::getPassedValue ('form', false );
+        if(!$form){
+          $form = $this->data;
+        }
         $card_exp_month = $form['card_exp_month'];//$this->_objData['card_exp_month'];
         $card_exp_year = substr($form['card_exp_month'], -2);
         $cardexpiredate = $card_exp_month.$card_exp_year;
         $datenow = date("Y-m-d H:i:s");
-		//var_dump($datenow);
-        //exit;
-	  	  $roomstays = $form['roomstays'];
+        $roomstays = $form['roomstays'];
         $total_rooms = 0;
         foreach($roomstays as $item) {
-        $total_rooms+=$item[numberofunits];
+          $total_rooms+=$item[numberofunits];
         }
 
         ///// Encryption Payment detail //////
@@ -54,9 +60,7 @@ class PNCustomer extends PNObject {
         $cardid = $this->encrypt($form['cardid']);
         $cardholdername = $this->encrypt($form['cardholdername']);
 
-        //$roomstays = $form['roomstays'];
         //insert
-//        echo " --> Insert Data"."\n";
         $this->_objData['cardexpire'] = $cardexpire;
         $this->_objData['cardcode'] = $cardcode;
         $this->_objData['cardnumber'] = $cardnumber;
@@ -64,9 +68,10 @@ class PNCustomer extends PNObject {
         $this->_objData['cardholdername'] = $cardholdername;
         $this->_objData['booking_date'] = $datenow;
         $this->_objData['total_rooms'] = $total_rooms;
-        
+      
         return true;
     }
+
 
 
     function insertPostProcess() {
@@ -93,6 +98,9 @@ class PNCustomer extends PNObject {
 
         //Get form value to insert booking
         $form = FormUtil::getPassedValue ('form', false );
+        if(!$form){
+          $form = $this->data;
+        }
         $card_exp_month = $form['card_exp_month'];
         $card_exp_year = substr($form['card_exp_year'], -2);
         $cardexpire = $card_exp_month.$card_exp_year;
@@ -153,12 +161,10 @@ class PNCustomer extends PNObject {
             );
             
             DBUtil::insertObject($objects,'pobbooking_booking');
-            //creating CSV
-            $this->array_to_CSV($objects);
         }
        //print_r($availabilities);exit;
         foreach($availabilities as $itemAilabilities) {
-			//Gennerate next id
+        //Gennerate next id
             $current_booking_id = DBUtil::selectFieldMax( 'pobbooking_daybooking', 'id', 'MAX', '');
             if($current_booking_id == null) {
                 $current_booking_id = 1;
@@ -234,6 +240,9 @@ class PNCustomer extends PNObject {
     function sendXML() {
 //      echo " --> func sendXML"."\n";
     $form = FormUtil::getPassedValue ('form', false );
+    if(!$form){
+      $form = $this->data;
+    }
     $chaincode = "";
     $card_exp_month = $form['card_exp_month'];
     $card_exp_year = substr($form['card_exp_year'], -2);
@@ -429,15 +438,15 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
 ////////update booking id to table
         Loader::loadClass('DataUtilEx', "modules/POBBooking/pnincludes");
         //$id = DBUtil::getInsertID ($this->_objType, $this->_objField);
-		$cus_id = $this->_objData['id'];
-		//echo $id; exit;
+        $cus_id = $this->_objData['id'];
+        //echo $id; exit;
         $object = array('booking_id'=>$bookingid);
         $where  = " cus_id = ".$cus_id;
-		//echo $where; exit;
+        //echo $where; exit;
         DBUtil::updateObject($object,'pobbooking_customer',$where);
-		$where_day_booking  = " day_cus_id = ".$cus_id;
+        $where_day_booking  = " day_cus_id = ".$cus_id;
         DBUtil::updateObject($object,'pobbooking_daybooking',$where_day_booking);
-		$where_booking  = " boo_cus_id = ".$cus_id;
+        $where_booking  = " boo_cus_id = ".$cus_id;
         DBUtil::updateObject($object,'pobbooking_booking',$where_booking);
         
         $mystring = $response;
@@ -446,7 +455,7 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         curl_close($ch);
         
         if($pos > 0){
-		  $this->updatePostCalendar($cus_id, $form['url']);
+        $this->updatePostCalendar($cus_id, $form['url']);
           $url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'success', 'bid'=>$bookingid));
           pnRedirect($url);
           exit;
@@ -459,16 +468,6 @@ $rqid = $this->encrypt('638fdJa7vRmkLs5');
         //print $response;
         //exit;
 
-    }
-
-    function array_to_CSV($data)
-    {
-        $outstream = fopen("php://temp", 'r+');
-        fputcsv($outstream, $data, ',', '"');
-        rewind($outstream);
-        $csv = fgets($outstream);
-        fclose($outstream);
-        return $csv;
     }
 
     private function updatePostCalendar($cus_id='',$url=false){

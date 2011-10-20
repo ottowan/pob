@@ -1,3 +1,5 @@
+<script type="text/javascript" src="modules/POBBooking/pnjavascript/validatecapchaform.js"></script>
+
 <style type="text/css">
 <!--
 .style5 {font-size: medium; font-weight: bold; }
@@ -62,10 +64,7 @@
           <tr>
             <td colspan="3" bgcolor="#DCF5FA"><h6><!--[pnml name="_POBBOOKING_USER_PAYMENT_HOTEL"]-->&nbsp;<!--[$smarty.post.booking.hotelname]-->      &nbsp;</h6></td>
           </tr>
-          
           <!--[foreach from=$smarty.post.booking.roomstays item=item name="foo"]-->
-
-
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$item.invcode]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$item.rate]-->">
               <input type="hidden" name="form[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunits]" value="<!--[$item.numberofunit]-->">
@@ -142,45 +141,49 @@
       </TR>
       <TR>
     <TD colspan="2">
+        <div style="padding-top: 15px; padding-bottom: 2px;" align="center">
+          <table align="center" width="50%" >
+                <tr>
+                  <td width="50%" align="left"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_NET_PRICE"]-->              </td>
+                  <td align="right"><!--[math equation="x-(x*y)" x=$_POST.booking.totalall y=0.07 assign="net"]--><!--[$net|number_format:2:".":","]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
+                </tr>
+                <tr>
+                  <td width="50%" align="left"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_INTEREST"]-->
+                  </td>
+                  <td align="right"><!--[math equation="x*y" x=$_POST.booking.totalall y=0.07 assign="interest"]--><!--[$interest|number_format:2:".":","]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
+                </tr>
+                <tr>
+                  <td align="left"><font size="3" color="#FF3300"><b>
+                    <!--[pnml name="_POBBOOKING_USER_TOTAL_PRICE"]-->
+                  </b></font></td>
+                  <td align="right"><font size="3" color="#FF3300"><b><!--[$_POST.booking.totalall|number_format:2:".":","]-->&nbsp; <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></b></font></td>
+                </tr>
+          </table>
+          <BR>
 
-  <div style="padding-top: 15px; padding-bottom: 2px;" align="center">
-		<table align="center" width="50%" >
-          <tr>
-            <td width="50%" align="left"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_NET_PRICE"]-->              </td>
-            <td align="right"><!--[math equation="x-(x*y)" x=$_POST.booking.totalall y=0.07 assign="net"]--><!--[$net|number_format:2:".":","]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
-          </tr>
-          <tr>
-            <td width="50%" align="left"><!--[pnml name="_POBBOOKING_USER_PAYMENT_ROOM_INTEREST"]-->
-            </td>
-            <td align="right"><!--[math equation="x*y" x=$_POST.booking.totalall y=0.07 assign="interest"]--><!--[$interest|number_format:2:".":","]-->&nbsp;<!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></td>
-          </tr>
-          <tr>
-            <td align="left"><font size="3" color="#FF3300"><b>
-              <!--[pnml name="_POBBOOKING_USER_TOTAL_PRICE"]-->
-            </b></font></td>
-            <td align="right"><font size="3" color="#FF3300"><b><!--[$_POST.booking.totalall|number_format:2:".":","]-->&nbsp; <!--[pnml name="_POBBOOKING_USER_PAYMENT_BAHT"]--></b></font></td>
-          </tr>
-    </table>
-    <BR>
+            <TABLE>
+              <TR>
+                <TD><!--[gencaptcha]--></TD>
+                <TD><input type="text" size="4" name="form[captcha]" id="captcha" />
+                        <!--[if not empty($_ERROR)]-->
+                          &nbsp;<FONT  COLOR="#F00"><!--[$_ERROR]--></FONT>
+                        <!--[/if]--></TD>
+              </TR>
+            </TABLE>
 
-		<br>
-		<input name="bbSubmit" id="bbSubmit" class="searchButton" style="font-weight: bold; font-size: 11pt; width: 210px; cursor: pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" value="Confirm Your Reservation" type="submit">
-  </div>
-   <div style="padding-top: 3px; font-family: Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
-		   <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>"<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>"</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
-		   <p><img src="booking_form.php_files/line.gif" height="1"></p>
-
-		   <p>
-			<a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
-			  <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
-			  Tel. +66x xxx xxxx &nbsp; 
-			  Fax. +66x xxx xxxx&nbsp; 
-			  Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
-		  </p>
-
-    </div>  
-
-
+            <input name="bbSubmit" id="bbSubmit" class="searchButton" style="font-weight: bold; font-size: 11pt; width: 210px; cursor: pointer; color: rgb(0, 0, 0); font-family: tahama; height: 32px;" value="Confirm Your Reservation" type="submit">
+            </div>
+          <div style="padding-top: 3px; font-family: Arial,Helvetica,sans-serif; font-size: 12px;" align="center">
+             <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1"]--> <i>"<b><!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2"]--></b>"</i> <!--[pnml name="_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3"]-->
+              <p><img src="booking_form.php_files/line.gif" height="1"></p>
+              <p>
+                <a href="http://phuketcity.com/" target="_blank">www.phuketcity.com</a> <BR>
+                  <!--[pnml name="_POBBOOKING_USER_CUSTOMER_CENTER"]--></b>&nbsp; 
+                  Tel. +66x xxx xxxx &nbsp; 
+                  Fax. +66x xxx xxxx&nbsp; 
+                Email : <a href="mailto:info@phuketcity.com">info@phuketcity.com</a> 
+              </p>
+          </div>
       </TD>
     </TR>
   </TABLE>

@@ -1,0 +1,42 @@
+
+<script type="text/javascript">
+  function validateForm(form) {
+
+    var filename=document.getElementById('form_batch_file_').value;
+    var extension=filename.substr(filename.lastIndexOf('.')+1).toLowerCase();
+    //alert(extension);
+    if(extension=='csv') {
+        return true;
+    } else {
+        alert('Please upload only .csv extention file.');
+        return false;
+    }
+
+  }
+</script>
+
+
+<body>  
+  
+    <!--[if $smarty.request.available eq 'no']-->
+      <div class="grid_23" style="font-size: x-large; color: red; text-align:center;">
+           Can not find available room.
+          <br /><BR>
+      </div><h1></h1>
+    <!--[/if]-->
+<BR>
+  <CENTER><H2>อัพโหลดบันทึกการจองห้องออฟไลน์ (CSV file)</H2>
+      <form id="form" method=POST action="<!--[pnmodurl modname='POBBooking' type='adminform' func='Batch']-->" enctype="multipart/form-data" onSubmit="return validateForm(this)">
+      <input type="hidden" name="current[url]" value="<!--[$smarty.server.SERVER_NAME]-->" />
+      <TABLE width="200" valign="middle" border="0" >
+        <TR>
+          <TD align="right" valign="middle"><input id="form_batch_file_" type="file" name="files" size="38"/>&nbsp;</TD>
+        </TR>
+        <TR>
+          <TD align="center" valign="top"><!-- <input type="submit" value='Submit' name='Submit' type="submit" > &nbsp;<BR> --><INPUT type="image" name="Submit" src="modules/POBBooking/pnimages/db_comit.gif" border="0" ><BR>Submit</TD>
+        </TR>
+      </TABLE>
+      </form>
+  </CENTER>
+
+</body>

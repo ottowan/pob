@@ -65,11 +65,13 @@
   define('_POBBOOKING_USER_PROCESS_BOOKING_6_1','I have read and agreed to all the terms of the');
   define('_POBBOOKING_USER_PROCESS_BOOKING_6_2','Terms & Conditions');
 
+  define('_POBBOOKING_USER_HOTEL_POLICY_1','Hotel Policy');
+
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1','Please click');
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2','Process Your Reservation');
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3','button only once and wait until the page is completely loaded.');
 
-  define('_POBBOOKING_USER_CUSTOMER_CENTER','Customer Center:');
+  define('_POBBOOKING_USER_CUSTOMER_SERVICE','Customer Service.');
 
 //POBHOTEL BOOKING PAYMENT FORM (user_form_payment.htm)
   define('_POBBOOKING_USER_PAYMENT_SUMMARY_CONFIRMATION','Summary and Confirmation');
