@@ -316,7 +316,6 @@
         card1.style.borderWidth = "1px";
         card1.focus();
         return false;
-
     } else if(card1.value.length < 4){
         alert("Please enter 4 digit.");
         card1.style.borderStyle = "solid";
@@ -331,7 +330,34 @@
         card1.style.borderWidth = "1px";
         card1.focus();
         return false;
-    } else{
+    } else if(cardType.value == 'MC'){
+        if(card1.substring(0,2)!='51' || card1.substring(0,2)!='52' || card1.substring(0,2)!='53' || card1.substring(0,2)!='54' || card1.substring(0,2)!='55'){
+          alert("Card number not match with type!");
+          card1.style.borderStyle = "solid";
+          card1.style.borderColor = "#FF0000";
+          card1.style.borderWidth = "1px";
+          card1.focus();
+          return false;
+        }
+    }else if(cardType.value == 'VC'){
+        if(card1.substring(0,1)!='4'){
+          alert("Card number not match with type!");
+          card1.style.borderStyle = "solid";
+          card1.style.borderColor = "#FF0000";
+          card1.style.borderWidth = "1px";
+          card1.focus();
+          return false;
+        }
+    }else if(cardType.value == 'AC'){
+        if(card1.substring(0,2)!='34' || card1.substring(0,2)!='37'){
+          alert("Card number not match with type!");
+          card1.style.borderStyle = "solid";
+          card1.style.borderColor = "#FF0000";
+          card1.style.borderWidth = "1px";
+          card1.focus();
+          return false;
+        }
+    }else{
       card1.style.borderStyle = "solid";
       card1.style.borderColor = "#00CC00";
       card1.style.borderWidth = "1px";
@@ -409,7 +435,6 @@
         card4.style.borderWidth = "1px";
         card4.focus();
         return false;
-
     } else if(!check_number(trimString(card4.value))){
         alert("Please enter number only.");
         card4.style.borderStyle = "solid";
@@ -420,6 +445,73 @@
     } else{
       card4.style.borderStyle = "solid";
       card4.style.borderColor = "#00CC00";
+      card4.style.borderWidth = "1px";
+    }
+
+    //Check card digit match
+    var card_no = card1.value + card2.value + card3.value + card4.value;
+    var card_no_trim = trimString(card_no);
+    var card_no_length = card_no_trim.length;
+    if (cardType.value == 'MC' && card_no_length != 16) {
+        alert("Card number not match with type.");
+        card1.style.borderStyle = "solid";
+        card2.style.borderStyle = "solid";
+        card3.style.borderStyle = "solid";
+        card4.style.borderStyle = "solid";
+        card1.style.borderColor = "#FF0000";
+        card2.style.borderColor = "#FF0000";
+        card3.style.borderColor = "#FF0000";
+        card4.style.borderColor = "#FF0000";
+        card1.style.borderWidth = "1px";
+        card2.style.borderWidth = "1px";
+        card3.style.borderWidth = "1px";
+        card4.style.borderWidth = "1px";
+        card4.focus();
+        return false;
+    } else if(cardType.value == 'VS' && card_no_length != 16 || card_no_length != 13){
+        alert("Card number not match with type.");
+        card1.style.borderStyle = "solid";
+        card2.style.borderStyle = "solid";
+        card3.style.borderStyle = "solid";
+        card4.style.borderStyle = "solid";
+        card1.style.borderColor = "#FF0000";
+        card2.style.borderColor = "#FF0000";
+        card3.style.borderColor = "#FF0000";
+        card4.style.borderColor = "#FF0000";
+        card1.style.borderWidth = "1px";
+        card2.style.borderWidth = "1px";
+        card3.style.borderWidth = "1px";
+        card4.style.borderWidth = "1px";
+        card4.focus();
+        return false;
+    } else if(cardType.value == 'AC' && card_no_length != 15){
+        alert("Card number not match with type.");
+        card1.style.borderStyle = "solid";
+        card2.style.borderStyle = "solid";
+        card3.style.borderStyle = "solid";
+        card4.style.borderStyle = "solid";
+        card1.style.borderColor = "#FF0000";
+        card2.style.borderColor = "#FF0000";
+        card3.style.borderColor = "#FF0000";
+        card4.style.borderColor = "#FF0000";
+        card1.style.borderWidth = "1px";
+        card2.style.borderWidth = "1px";
+        card3.style.borderWidth = "1px";
+        card4.style.borderWidth = "1px";
+        card4.focus();
+        return false;
+    } else{
+      card1.style.borderStyle = "solid";
+      card2.style.borderStyle = "solid";
+      card3.style.borderStyle = "solid";
+      card4.style.borderStyle = "solid";
+      card1.style.borderColor = "#00CC00";
+      card2.style.borderColor = "#00CC00";
+      card3.style.borderColor = "#00CC00";
+      card4.style.borderColor = "#00CC00";
+      card1.style.borderWidth = "1px";
+      card2.style.borderWidth = "1px";
+      card3.style.borderWidth = "1px";
       card4.style.borderWidth = "1px";
     }
 

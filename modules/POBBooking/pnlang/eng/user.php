@@ -1,33 +1,4 @@
 <?php
-// $Id: user.php,v 1.1 2009/12/24 03:41:10 puum Exp $
-// ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Everyone
-// Purpose of file: Translation files
-// Translation team: Read credits in /docs/CREDITS.txt
-// ----------------------------------------------------------------------
-
 
 //POBHOTEL BOOKING FORM (user_form_booking.htm)
   define('_POBBOOKING_USER_RESERVATION_DETAILS','Reservation Details');
@@ -93,12 +64,13 @@
   define('_POBBOOKING_USER_PROCESS_BOOKING_6_1','I have read and agreed to all the terms of the');
   define('_POBBOOKING_USER_PROCESS_BOOKING_6_2','Terms & Conditions');
 
+  define('_POBBOOKING_USER_HOTEL_POLICY_1','Hotel Policy');
+
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_1','Please click');
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_2','Process Your Reservation');
   define('_POBBOOKING_USER_PROCESS_BOOKING_BUTTON_3','button only once and wait until the page is completely loaded.');
 
-  define('_POBBOOKING_USER_CUSTOMER_CENTER','Customer Center:');
-
+  define('_POBBOOKING_USER_CUSTOMER_SERVICE','Customer Service.');
 
 //POBHOTEL BOOKING PAYMENT FORM (user_form_payment.htm)
   define('_POBBOOKING_USER_PAYMENT_SUMMARY_CONFIRMATION','Summary and Confirmation');

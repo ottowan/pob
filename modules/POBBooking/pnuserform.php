@@ -8,7 +8,6 @@ function POBBooking_userform_submit ()
 
     $view_url = pnModURL('POBBooking', 'user', 'view' , array('ctrl'=>$ctrl));
     $list_url = pnModURL('POBBooking', 'user', 'list' , array('ctrl'=>$ctrl));
-    //$success_url = pnModURL('iHotel', 'user', 'page', array('ctrl'=>'redirect'));
     $success_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'redirect'));
     $form = FormUtil::getPassedValue ('form', null);
     $invalidate_form_url = pnModURL('POBBooking', 'user', 'page', array('ctrl'=>'unsuccess', 'hotel'=>$form['hotelname']));
@@ -17,9 +16,8 @@ function POBBooking_userform_submit ()
     }
 
     
-    //////////////////////// Add innocaptcha//////////////////////
+//////////////////////// Add innocaptcha//////////////////////
       //$object->getDataFromInput ('form',null,'POST');
-
       $is_validate = true;
       //var_dump($form['captcha']);
       //exit;
@@ -28,7 +26,6 @@ function POBBooking_userform_submit ()
       } else {
         $is_validate = true;
       }
-
       if($is_validate) {
           SessionUtil::delVar('YLERROR');
           $is_validate = true;
@@ -37,11 +34,13 @@ function POBBooking_userform_submit ()
         SessionUtil::setVar('YLERROR', $error, '/', true, true);
         $is_validate = false;
       }
+//////////////////////// END innocaptcha//////////////////////
 
     if ($_POST['button_cancel'] || $_POST['button_cancel_x']){
       pnRedirect($list_url);
       return true;
     }
+
 
     if (!($class = Loader::loadClassFromModule ('POBBooking', $ctrl))){
       v4b_exit ("Unable to load class [$ctrl] ...");
@@ -55,7 +54,6 @@ function POBBooking_userform_submit ()
       $object->prepareLanguageForInput();
     }
 
-    
     if (method_exists($object,'validate')){
       if (!$object->validate())
       {
@@ -101,6 +99,8 @@ function POBBooking_userform_sent (){
 
 
 }
+
+
 
 /**
 * @param $urlArray  the array to generate contain key and value
