@@ -303,14 +303,14 @@ function POBBooking_adminform_submit ()
                       );
     }
 
+    unset($objArr);
+    fclose($objCSV);
     if (!($class = Loader::loadClassFromModule ('POBBooking', 'Customer'))){
       echo "Unable to load class [Customer]...";
     }
     $object = new $class ();
     $object->setData($form);
     unset($form);
-    unset($objArr);
-    fclose($objCSV);
     return true;
   }
 

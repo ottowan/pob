@@ -2,7 +2,7 @@
 $modversion['name'] = "POBBooking";
 $modversion['displayname'] = "POBBooking";
 $modversion['description'] = "POBBooking provide booking information";
-$modversion['version'] = '1.0';
+$modversion['version'] = '1.1';
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/install.txt';
 $modversion['changelog'] = 'pndocs/changelog.txt';
