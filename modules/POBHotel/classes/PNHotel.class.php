@@ -314,7 +314,7 @@
           }elseif($filetype == "image/gif"){
             $image = imagecreatefromgif($file) ;
           }
-            imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
+          imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
         }
 
         if($filetype == "image/pjpeg" || $filetype == "image/jpeg"){

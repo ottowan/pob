@@ -1,0 +1,210 @@
+
+<!--[if isset($view)]-->
+  <style>
+  img.recthumb{
+        float:left;
+        padding:15px 10px 0px 0px;
+  }
+  tr.result {
+        min-height:110px;
+        width:100%;
+        border-width:1px;
+        border-top-style:dotted;
+        clear:both;
+        float:left;
+        margin-top:5px;
+  }
+  div.result h1 {
+        font-size:16px;
+  }
+
+  #bookingButton{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border:none;
+    width:150px;
+    height:35px;
+    color:#fff;
+    font-size:20px;
+    border:#FFF 3px solid;
+    background-color:#0896ff;
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    float:right;
+  }
+
+  #bookingButton a{
+    color:#fff;
+  }
+
+  #bookingButton a:hover{
+    text-decoration:none;
+  }
+
+  #distance{
+    color:#cccccc;
+  }
+
+  #address{
+    color:#ff9900;
+  }
+
+  #link{
+    color:#3366ff;
+    font-weight:bolder;
+  }
+
+  #hotelname{
+    color:#6AA118;
+    font-size:16px;
+    font-weight:bolder;
+    
+  }
+
+</style>
+<!--[group_availabilities_array avail=$view.Availabilities]-->
+
+<script type="text/javascript">
+  function validateNumberOfRoom(){
+
+    var rows = <!--[$groupAvailabilities|@count]-->;
+    
+    var number = 0;
+    var validate = false;
+    for (i=0;i<rows;i++){
+      number = document.getElementById("number_"+i).value;
+      //alert(number+"<br>");
+      if(number > 0){
+        validate = true;
+      }
+    }
+
+    if(!validate) {
+      alert("<!--[pnml name='_POBROOMSEARCH_ERROR_SELECT_ROOM']-->");
+      return false;
+    }
+  }
+</script>
+
+<form method="post" action="index.php?module=POBBooking">
+
+<input type="hidden" name="transaction[hotelname]" value="<!--[$view.HotelName]-->">
+<input type="hidden" name="transaction[hotelcode]" value="<!--[$view.HotelCode]-->">
+<input type="hidden" name="transaction[description]" value="<!--[$view.Description]-->">
+<input type="hidden" name="transaction[contactinfo]" value="<!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]-->">
+
+
+  <table width="100%">
+      <tr>
+        <td valign="top">
+          <p>
+            <span id="hotelname"><a href="#"><!--[$view.HotelName]--></a></span> 
+            <img src="modules/POBRoomSearch/pnimages/stars<!--[math equation=rand(2,5)]-->.gif" width="66px" height="12px" align="absmiddle" alt="ประกาศ" title="rating"/>
+            <em id="address"><!--[$view.AddressLine]-->, <!--[$view.StateProv]-->, <!--[$view.CountryName]-->, <!--[$view.PostalCode]--></em><br>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <!--[if isset($view.ImageItems)]-->
+            <table width="100%">
+              <tr>
+                <td>
+                  <table>
+                  <!--[foreach from=$view.ImageItems item=imageItems]-->
+                    <!--[foreach from=$imageItems.ImageItem item=imageItem]-->
+                      <tr>
+                        <td><img  src="<!--[$imageItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb"></td>
+                      </tr>
+                    <!--[/foreach]-->
+                  <!--[/foreach]-->
+                  </table>
+                </td>
+                <td>
+                  <!--[foreach from=$view.ImageItems item=imageItems]-->
+                    <!--[foreach from=$imageItems.ThumbItem item=thumbItem]-->
+                      <img  src="<!--[$thumbItem.URL]-->" alt="<!--[$view.HotelName]-->" class="recthumb">
+                    <!--[/foreach]-->
+                  <!--[/foreach]-->
+                </td>
+              </tr>
+            </table>
+            <input type="hidden" name="transaction[image]" value="<!--[$imageItem.URL]-->">
+            <input type="hidden" name="transaction[thumb]" value="<!--[$thumbItem.URL]-->">
+          <!--[else]-->
+                <img width="100" height="100" src="modules/POBRoomSearch/pnimages/no_image.gif" alt="<!--[$view.HotelName]-->" class="recthumb">
+          <!--[/if]-->
+        </td>
+      </tr>
+      <tr class="result">
+        <td>
+          <p>
+            <span class="description">&nbsp;&nbsp;<!--[$view.Description]-->&nbsp;&nbsp;</span>
+          </p>
+        </td>
+      </tr>
+      <!--[foreach from=$view.Availabilities item=tempAvailabilities]-->
+      <!--[/foreach]-->
+
+      <!--[if $tempAvailabilities.Limit]-->
+      <tr>
+        <td>
+            <table width="100%">
+              <tr>
+                <th width="40%" align="left"><!--[pnml name="_POBROOMSEARCH_AVAILABLE_ROOM_TYPE"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBROOMSEARCH_AVAILABLE_ROOM_AMOUNT"]--></th>
+                <th width="15%" align="center"><!--[pnml name="_POBROOMSEARCH_ROOM_AMOUNT"]--></th>
+                <th width="30%" align="right"><!--[pnml name="_POBROOMSEARCH_ROOM_RATE"]--></th>
+              </tr>
+
+              <!--[group_availabilities_array avail=$view.Availabilities]-->
+              <!--[foreach from=$groupAvailabilities item=itemAvailabilities name=foo]-->
+
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][invcode]" value="<!--[$itemAvailabilities.InvCode]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][rate]" value="<!--[$itemAvailabilities.Rate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][startdate]" value="<!--[$smarty.request.startDate]-->">
+              <input type="hidden" name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][enddate]" value="<!--[$smarty.request.endDate]-->">
+              <tr>
+                <td align="left">
+                  <a href="index.php?module=POBRoomSearch&type=search&func=view&lat=<!--[$view.Latitude]-->&lon=<!--[$view.Longitude]-->&startDate=<!--[$view.startDate]-->&endDate=<!--[$view.endDate]-->&InvCode=<!--[$itemAvailabilities.InvCode]-->">
+                    <!--[$itemAvailabilities.InvCode]-->
+                  </a>
+                </td>
+                <td align="center"><!--[$itemAvailabilities.Limit]--></td>
+                <td align="left">
+                  <select id="number_<!--[$smarty.foreach.foo.index]-->" 
+                          name="transaction[roomstays][<!--[$smarty.foreach.foo.index]-->][numberofunit]">
+                    <!--[math equation="x+y" x=$itemAvailabilities.Limit y=1 assign="amountLimitRoom"]-->
+                    <!--[section name=limit loop=$amountLimitRoom  start=0 step=1]-->
+
+                      <option value="<!--[$smarty.section.limit.index]-->" ><!--[$smarty.section.limit.index]-->
+                    <!--[/section]-->
+                  </select>
+                </td>
+                <td align="right">THB <!--[$itemAvailabilities.Rate|number_format:2:".":","]--></td>
+              </tr>
+              <!--[/foreach]-->
+            </table>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;
+        </td>
+      </tr>
+      <tr align="right">
+        <td><button id="bookingButton" type="submit" onclick="return validateNumberOfRoom();"><!--[pnml name="_POBROOMSEARCH_BOOKING_BUTTON"]--></button></td>
+      </tr>
+      <!--[else]-->
+      <tr align="center">
+        <td><font color="#cc0066"><b><!--[pnml name="_POBROOMSEARCH_NO_ROOM_LEFT"]--></b></font></td>
+      </tr>
+      <!--[/if]-->
+  </table>
+</form>
+<!--[else]-->
+<div class="recommend">
+    <p>
+      <h1><!--[pnml name="_POBROOMSEARCH_USER_NO_RESULT"]--></h1>
+    </p>
+</div>
+<!--[/if]-->

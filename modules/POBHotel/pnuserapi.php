@@ -2,7 +2,7 @@
 /////////////////////////////
 //
 //    $args = array("hotelcode"=>"POBHT000005");
-//    pnModAPIFunc('POBMember', 'user', 'getDomainName', $args);
+//    pnModAPIFunc('POBHotel', 'user', 'getLatLon', $args);
 //
 ////////////////////////////
 function POBHotel_userapi_getLatLon($args) {
@@ -19,6 +19,12 @@ function POBHotel_userapi_getLatLon($args) {
     return $result;
 }
 
+/////////////////////////////
+//
+//    $args = array("hotelcode"=>"POBHT000005");
+//    pnModAPIFunc('POBHotel', 'user', 'getHotelCode', null);
+//
+////////////////////////////
 function POBHotel_userapi_getHotelCode($args) {
     if (!($class = Loader::loadClassFromModule ('POBHotel', 'HotelArray', false)))
       return LogUtil::registerError ('Unable to load class [HotelArray] ...');

@@ -1,0 +1,34 @@
+<TABLE width="900">
+ <!--[get_all_location_category]-->
+ <tr>
+	<!--[if isset($form)]-->
+	<!--[foreach from]-->
+	<td>
+	<select>
+		<option value="<!--[$form.location_description]-->"><!--[$itemAllLocationCategory.location_category_name]--></option>
+	</select>
+	</td>
+	<td>
+		<INPUT TYPE="text" NAME="form[location_description]" value="<!--[$form.location_description]-->">
+	</td>
+	<!--[/if]-->
+</tr>
+<tr>
+	<td>
+	<select>
+	<!--[foreach from=$locationCategoryArray item=itemAllLocationCategory name=fooLocation]-->
+	  <!--[assign var='compare' value='false']-->
+	  <!--[foreach from=$extendResult.locationCategory item=itemLocationCategory]-->
+	    <!--[if $itemAllLocationCategory.location_category_id eq $itemLocationCategory.location_category_id]-->
+		  <!--[assign var='compare' value='true']-->
+		<!--[/if]-->
+	  <!--[/foreach]-->
+		<option value="itemLocationCategory[<!--[$itemAllLocationCategory.location_category_id]-->]"><!--[$itemAllLocationCategory.location_category_name]--></option>
+	<!--[/foreach]-->
+	</select>
+	</td>
+	<td>
+		<INPUT TYPE="text" NAME="form[location_description]" value="<!--[$form.location_description]-->">
+	</td>
+</tr>
+</TABLE>

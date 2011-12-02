@@ -16,6 +16,7 @@
                                           'start' =>'hotel_start',
                                           'when_built' => 'hotel_when_built',
                                           'descriptions'=> 'hotel_descriptions',
+                                          'policy' => 'hotel_policy',
                                           'position_latitude'=> 'hotel_position_latitude',
                                           'position_longitude'=> 'hotel_position_longitude',
                                           'address_line' => 'hotel_address_line',
@@ -37,6 +38,7 @@
                                           'start' => 'DATE',
                                           'when_built'=> 'DATE',
                                           'descriptions' => 'TEXT  DEFAULT NULL',
+                                          'policy' => 'TEXT  DEFAULT NULL',
                                           'position_latitude' => 'DOUBLE',
                                           'position_longitude' => 'DOUBLE',
                                           'address_line' => 'VARCHAR(255)',
@@ -418,7 +420,7 @@
     //add standard data fields
     ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_guest_room_column'], 'guest_room_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_guest_room_column_def']);
-    
+
 ////////////////////////////////////////////////////////////////////////////////////////
     $pntable['pobhotel_guest_room_type'] = DBUtil::getLimitedTablename('pobhotel_guest_room_type');
     $pntable['pobhotel_guest_room_type_column'] = array(
@@ -435,7 +437,7 @@
     //add standard data fields
     ObjectUtil::addStandardFieldsToTableDefinition ($pntable['pobhotel_guest_room_type_column'], 'guest_room_type_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($pntable['pobhotel_guest_room_type_column_def']);
-    
+
 ////////////////////////////////////////////
     $pntable['pobhotel_guest_room_image'] = DBUtil::getLimitedTablename('pobhotel_guest_room_image');
     $pntable['pobhotel_guest_room_image_column'] = array(
