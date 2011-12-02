@@ -12,6 +12,7 @@ class PNRoom extends PNObject {
     
     function insertPostProcess(){
       $this->updatePostCalendar("insertRoom");
+      
     }
     
     function updatePostProcess(){

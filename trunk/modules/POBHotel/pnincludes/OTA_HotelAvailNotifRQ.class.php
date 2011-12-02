@@ -33,6 +33,7 @@ Class OTA_HotelAvailNotifRQ {
   public function sendContent(){
     $url = 'http://pob-ws.heroku.com/api/hotel_avail_notif';
     $data = $this->genHotelAvailNotif();
+    //header ('Content-type: text/xml; charset=utf-8');echo $data;exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -92,7 +93,7 @@ Class OTA_HotelAvailNotifRQ {
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title","Description");
-      $Description = $xml->createElement("Description",htmlentities($guestRoom["type_description"]));
+      $Description = $xml->createElement("Description",$guestRoom["type_description"]);
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
       $MultimediaDescription->appendChild($TextItems);

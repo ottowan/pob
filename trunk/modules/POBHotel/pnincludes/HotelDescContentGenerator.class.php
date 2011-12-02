@@ -74,7 +74,7 @@ Class HotelDescContentGenerator {
   }
   private function genHotelDescriptive(){
     $xml = new DOMDocument('1.0','utf-8');
-    $xml->formatOutput = true;
+    //$xml->formatOutput = true;
       //OTA_HotelDescriptiveContentNotifRQ
     $OTA_HotelDescriptiveContentNotifRQ = $xml->createElement("OTA_HotelDescriptiveContentNotifRQ");
     // Set the attributes.
@@ -112,21 +112,21 @@ Class HotelDescContentGenerator {
     $ContractInfoNode = $xml->importNode($LoadedXML->getElementsByTagName("ContactInfo")->item(0), true);
     $HotelDescriptiveContent->appendChild($ContractInfoNode);
 
+
     $LoadedXML = DOMDocument::loadXML($this->genPolicy());
     $PoliciesNode = $xml->importNode($LoadedXML->getElementsByTagName("Policies")->item(0), true);
     $HotelDescriptiveContent->appendChild($PoliciesNode);
-
+	
     $HotelDescriptiveContents->appendChild($HotelDescriptiveContent);
     $OTA_HotelDescriptiveContentNotifRQ->appendChild($HotelDescriptiveContents);
     $xml->appendChild($OTA_HotelDescriptiveContentNotifRQ);
-
     return $xml;
   }
   private function genHotelInfo(){
 
-
-    $xml = new DOMDocument();
+    $xml = new DOMDocument('1.0','utf-8');
     //$xml->formatOutput = true;
+    $xml->encoding = 'utf-8';
 
 
     $HotelInfo = $xml->createElement("HotelInfo");
@@ -161,7 +161,7 @@ Class HotelDescContentGenerator {
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title",htmlentities($value["amenity_name"]));
-      $Description = $xml->createElement("Description",htmlentities($value["description"]));
+      $Description = $xml->createElement("Description",$value["description"]);
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
       $MultimediaDescription->appendChild($TextItems);
@@ -177,19 +177,18 @@ Class HotelDescContentGenerator {
     $TextItems = $xml->createElement("TextItems");
     $TextItem = $xml->createElement("TextItem");
     $TextItem->setAttribute("Title","Description");
-    $Description = $xml->createElement("Description",htmlentities($this->hotelObject["descriptions"]));
+    $Description = $xml->createElement("Description",$this->hotelObject["descriptions"]);
     $TextItem->appendChild($Description);
     $TextItems->appendChild($TextItem);
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
-
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
     $TextItems = $xml->createElement("TextItems");
     foreach($this->facilityInfoObject AS $key=>$value){
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title","FacilityInfo");
-      $TextItem->setAttribute("Name",$value["attraction_name"]);
-      $Description = $xml->createElement("Description",htmlentities($value["description"]));
+      $TextItem->setAttribute("Name",htmlentities($value["attraction_name"]));
+      $Description = $xml->createElement("Description",$value["description"]);
       $TextItem->appendChild($Description);
     }
     $TextItems->appendChild($TextItem);
@@ -246,12 +245,13 @@ Class HotelDescContentGenerator {
     $HotelInfo->appendChild($Position);
     $HotelInfo->appendChild($Services);
     $xml->appendChild($HotelInfo);
+    //header("Content-type: text/xml");
     return $xml->saveXML();
 
   }
   private function genContractInfo(){
 
-      $xml = new DOMDocument();
+      $xml = new DOMDocument('1.0','utf-8');
 
       $ContractInfo = $xml->createElement("ContactInfo");
       $ContractInfo->setAttribute("ContactProfileType","Property Info");
@@ -311,7 +311,7 @@ Class HotelDescContentGenerator {
     }
 
 
-    $xml = new DOMDocument();
+    $xml = new DOMDocument('1.0','utf-8');
 
     $Policies = $xml->createElement("Policies");
     $Policy = $xml->createElement("Policy");

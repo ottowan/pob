@@ -1,8 +1,13 @@
-<!--[foreach from=$objectArray item=item name=foo]-->
-    <div id="facility_title">
-    - <!--[$item.amenity_name]-->
-    </div>
-    <div id="facility_desciption">
-    &nbsp;&nbsp;<font size="" color="#999999"><!--[$item.description]--></font><br><br>
-    </div>
-<!--[/foreach]-->
+
+<!--[if $objectArray]-->
+	<!--[foreach from=$objectArray item=item name=foo]-->
+			<div id="facility_title">
+			- <!--[$item.amenity_name]-->
+			</div>
+			<div id="facility_desciption">
+			&nbsp;&nbsp;<font size="" color="#999999"><!--[$item.description]--></font><br><br>
+			</div>
+	<!--[/foreach]-->
+<!--[else]-->	
+	No facilities information.
+<!--[/if]-->	
