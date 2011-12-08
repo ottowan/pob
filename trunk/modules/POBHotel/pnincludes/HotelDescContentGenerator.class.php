@@ -57,9 +57,9 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
-    //header("Content-type: text/xml");
-    //print $data;
-    //exit;
+    header("Content-type: text/xml");
+    print $data;
+    exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -175,11 +175,23 @@ Class HotelDescContentGenerator {
 
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
     $TextItems = $xml->createElement("TextItems");
-    $TextItem = $xml->createElement("TextItem");
-    $TextItem->setAttribute("Title","Description");
-    $Description = $xml->createElement("Description",$this->hotelObject["descriptions"]);
-    $TextItem->appendChild($Description);
-    $TextItems->appendChild($TextItem);
+    
+    $TextItemTH = $xml->createElement("TextItem");
+    $TextItemTH->setAttribute("Title","Description");
+    $TextItemTH->setAttribute("Language",'th');
+    $DescriptionTH = $xml->createElement("Description",$this->hotelObject["descriptions"]);
+    $TextItemTH->appendChild($DescriptionTH);
+    
+    
+    $TextItemEN = $xml->createElement("TextItem");
+    $TextItemEN->setAttribute("Title","Description");
+    $TextItemEN->setAttribute("Language",'en');
+    $DescriptionEN = $xml->createElement("Description",$this->hotelObject["descriptions_en"]);
+    $TextItemEN->appendChild($DescriptionEN);
+    
+    $TextItems->appendChild($TextItemTH);
+    $TextItems->appendChild($TextItemEN);
+
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
@@ -190,8 +202,9 @@ Class HotelDescContentGenerator {
       $TextItem->setAttribute("Name",htmlentities($value["attraction_name"]));
       $Description = $xml->createElement("Description",$value["description"]);
       $TextItem->appendChild($Description);
+      $TextItems->appendChild($TextItem);
     }
-    $TextItems->appendChild($TextItem);
+    
     $MultimediaDescription->appendChild($TextItems);
     $MultimediaDescriptions->appendChild($MultimediaDescription);
 

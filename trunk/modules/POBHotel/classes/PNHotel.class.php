@@ -199,6 +199,7 @@
     }
 
   function uploadFiles($id){
+  //var_dump($_FILES['images']);
     if ($id && ((in_array(0,$_FILES['images']['error'])))){
         $images = $_FILES['images'];
 
