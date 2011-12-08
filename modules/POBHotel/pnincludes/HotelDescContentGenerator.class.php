@@ -57,9 +57,9 @@ Class HotelDescContentGenerator {
     $url = 'http://pob-ws.heroku.com/api/hotel_descriptive_content_notif';
     $data = $this->genHotelDescriptive();
     $data = $data->saveXML();
-    header("Content-type: text/xml");
-    print $data;
-    exit;
+    //header("Content-type: text/xml");
+    //print $data;
+    //exit;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -317,10 +317,15 @@ Class HotelDescContentGenerator {
   }
 
   private function genPolicy(){
-    if(isset($this->hotelObject["pilicy"])){
-      $policy = htmlentities($this->hotelObject["pilicy"]);
+    if(isset($this->hotelObject["policy"])){
+      $policy = $this->hotelObject["policy"];
     }else{
-      $policy = htmlentities("Cancellations or changes to bookings for this room must be made at least 72 hours prior to the check in date and time or you will be charged the full amount of the first changed or cancelled night.");
+      $policy = "Cancellations or changes to bookings for this room must be made at least 72 hours prior to the check in date and time or you will be charged the full amount of the first changed or cancelled night.";
+    }
+    if(isset($this->hotelObject["policy_en"])){
+      $policy_en = $this->hotelObject["policy_en"];
+    }else{
+      $policy_en = "Cancellations or changes to bookings for this room must be made at least 72 hours prior to the check in date and time or you will be charged the full amount of the first changed or cancelled night.";
     }
 
 
@@ -328,8 +333,22 @@ Class HotelDescContentGenerator {
 
     $Policies = $xml->createElement("Policies");
     $Policy = $xml->createElement("Policy");
-    $CancelPolicy = $xml->createElement("CancelPolicy",$policy);
-
+    $CancelPolicy = $xml->createElement("CancelPolicy");
+    $CancelPenalty = $xml->createElement("CancelPenalty");
+    
+    $PenaltyDescriptionTH = $xml->createElement("PenaltyDescription");
+    $TextTH = $xml->createElement("Text",$policy);
+    $TextTH->setAttribute("Language",'th');
+    $PenaltyDescriptionTH->appendChild($TextTH);
+    
+    $PenaltyDescriptionEN = $xml->createElement("PenaltyDescription");
+    $TextEN = $xml->createElement("Text",$policy_en);
+    $TextEN->setAttribute("Language",'en');
+    $PenaltyDescriptionEN->appendChild($TextEN);
+    
+    $CancelPenalty->appendChild($PenaltyDescriptionTH);
+    $CancelPenalty->appendChild($PenaltyDescriptionEN);
+    $CancelPolicy->appendChild($CancelPenalty);
     $Policy->appendChild($CancelPolicy);
     $Policies->appendChild($Policy);
     $xml->appendChild($Policies);
