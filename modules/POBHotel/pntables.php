@@ -16,7 +16,9 @@
                                           'start' =>'hotel_start',
                                           'when_built' => 'hotel_when_built',
                                           'descriptions'=> 'hotel_descriptions',
+                                          'descriptions_en'=> 'hotel_descriptions_en',
                                           'policy' => 'hotel_policy',
+                                          'policy_en' => 'hotel_policy_en',
                                           'position_latitude'=> 'hotel_position_latitude',
                                           'position_longitude'=> 'hotel_position_longitude',
                                           'address_line' => 'hotel_address_line',
@@ -38,7 +40,9 @@
                                           'start' => 'DATE',
                                           'when_built'=> 'DATE',
                                           'descriptions' => 'TEXT  DEFAULT NULL',
+                                          'descriptions_en' => 'TEXT  DEFAULT NULL',
                                           'policy' => 'TEXT  DEFAULT NULL',
+                                          'policy_en' => 'TEXT  DEFAULT NULL',
                                           'position_latitude' => 'DOUBLE',
                                           'position_longitude' => 'DOUBLE',
                                           'address_line' => 'VARCHAR(255)',
@@ -766,13 +770,16 @@
                                           'id' => 'room_id',
                                           'guest_room_type_id' => 'room_guest_room_type_id',
                                           'name' =>'room_name',
-                                          'description' => 'room_description'
+                                          'description' => 'room_description',
+                                          'images' => 'room_images'
+                                          
     );
     $pntable['pobhotel_room_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'guest_room_type_id' =>'INT(11)',
                                           'name' =>'VARCHAR(255)',
-                                          'description' =>'VARCHAR(255)'
+                                          'description' =>'VARCHAR(255)',
+                                          'images' => 'TEXT  DEFAULT NULL'
     );
     $pntable['pobhotel_room_primary_key_column'] = 'id';
     //add standard data fields

@@ -44,8 +44,8 @@ function POBHotel_ajax_form(){
         $mode = 'new';
       }
       $render->assign ('mode', $mode);
-      echo $render->fetch('ajax_'.$func.'_'.strtolower($ctrl).'.htm');
-      return true;
+      echo  $render->fetch('ajax_'.$func.'_'.strtolower($ctrl).'.htm');
+       return true;
     }
     echo "Load form failed!";
     return false;

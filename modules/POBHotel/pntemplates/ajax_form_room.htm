@@ -19,6 +19,18 @@
 				callback_refresh()
 		return false;
 	});
+
+	  function readURL1(input) {
+			alert($(this));
+		  if (input.files && input.files[0]) {
+			  var reader = new FileReader();
+			  reader.onload = function (e) {
+				  $('#image1').attr('src', e.target.result).width(150);
+			  }
+			  reader.readAsDataURL(input.files[0]);
+		  }
+		  
+	  }
 </script>
 <!--[get_all_guest_room_type]-->
 
@@ -58,6 +70,17 @@
         <INPUT TYPE="text" NAME="form[description]" value="<!--[$form.description]-->" size="40">
         </td>
       </tr>
+	  <!--
+	  <tr>
+        <td>
+        <!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_IMAGES"]-->
+		<!--
+        </td>
+        <td>
+        <INPUT TYPE="file" NAME="form[images]" onChange="readURL1(this);"><img id="image1" src="modules/POBHotel/pnimages/emptypic.png" alt="your image" />
+        </td>
+      </tr>
+	  -->
       <tr>
         <td>
         <button id="registerButton" type="submit"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_SUBMIT"]--></button> <button id="resetButton" type="reset"><!--[pnml name="_POBHOTEL_AJAX_FORM_LEGEND_ROOM_CANCEL"]--></button>
