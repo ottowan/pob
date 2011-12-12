@@ -176,6 +176,18 @@ Class HotelDescContentGenerator {
     $MultimediaDescription = $xml->createElement("MultimediaDescription");
     $TextItems = $xml->createElement("TextItems");
     
+    $TextItemHOTELNAME_EN = $xml->createElement("TextItem");
+    $TextItemHOTELNAME_EN->setAttribute("Title","HotelName");
+    $TextItemHOTELNAME_EN->setAttribute("Language",'en');
+    $DescriptionHOTELNAME_EN = $xml->createElement("Description",$this->hotelObject["name_en"]);
+    $TextItemHOTELNAME_EN->appendChild($DescriptionHOTELNAME_EN);
+    
+    $TextItemHOTELNAME_TH = $xml->createElement("TextItem");
+    $TextItemHOTELNAME_TH->setAttribute("Title","HotelName");
+    $TextItemHOTELNAME_TH->setAttribute("Language",'th');
+    $DescriptionHOTELNAME_TH = $xml->createElement("Description",$this->hotelObject["name"]);
+    $TextItemHOTELNAME_TH->appendChild($DescriptionHOTELNAME_TH);
+    
     $TextItemTH = $xml->createElement("TextItem");
     $TextItemTH->setAttribute("Title","Description");
     $TextItemTH->setAttribute("Language",'th');
@@ -189,6 +201,8 @@ Class HotelDescContentGenerator {
     $DescriptionEN = $xml->createElement("Description",$this->hotelObject["descriptions_en"]);
     $TextItemEN->appendChild($DescriptionEN);
     
+    $TextItems->appendChild($TextItemHOTELNAME_EN);
+    $TextItems->appendChild($TextItemHOTELNAME_TH);
     $TextItems->appendChild($TextItemTH);
     $TextItems->appendChild($TextItemEN);
 
