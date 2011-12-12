@@ -72,6 +72,10 @@
 
 
       }
+      $CurLang = ZLanguage::getLanguageCode();
+      if($CurLang == "en"){
+        $this->_objData['descriptions'] = $this->_objData['descriptions_en'];
+      }
       return $result;
     }
 
