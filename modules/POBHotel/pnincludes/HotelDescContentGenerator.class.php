@@ -95,11 +95,11 @@ Class HotelDescContentGenerator {
     $HotelDescriptiveContents = $xml->createElement("HotelDescriptiveContents");
     $HotelDescriptiveContent = $xml->createElement("HotelDescriptiveContent");
 
-    $HotelDescriptiveContent->setAttribute("BrandCode",htmlentities($this->hotelObject["name"]));
-    $HotelDescriptiveContent->setAttribute("BrandName",htmlentities($this->hotelObject["name"]));
+    $HotelDescriptiveContent->setAttribute("BrandCode",$this->hotelObject["name"]);
+    $HotelDescriptiveContent->setAttribute("BrandName",$this->hotelObject["name"]);
     $HotelDescriptiveContent->setAttribute("CurrencyCode","THB");
-    $HotelDescriptiveContent->setAttribute("HotelCode",htmlentities($this->hotelObject["code"]));
-    $HotelDescriptiveContent->setAttribute("HotelName",htmlentities($this->hotelObject["name"]));
+    $HotelDescriptiveContent->setAttribute("HotelCode",$this->hotelObject["code"]);
+    $HotelDescriptiveContent->setAttribute("HotelName",$this->hotelObject["name"].$this->hotelObject["name_en"]);
     $HotelDescriptiveContent->setAttribute("LanguageCode","TH");
 
     if(!is_null($this->hotelObject)){
@@ -130,9 +130,9 @@ Class HotelDescContentGenerator {
 
 
     $HotelInfo = $xml->createElement("HotelInfo");
-    $HotelInfo->setAttribute("HotelStatus",htmlentities($this->hotelObject["status_name"]));
+    $HotelInfo->setAttribute("HotelStatus",$this->hotelObject["status_name"]);
     $HotelInfo->setAttribute("LastUpdated",str_replace(" ","T",$this->hotelObject["lu_date"]));
-    $HotelInfo->setAttribute("Start",htmlentities($this->hotelObject["start"]));
+    $HotelInfo->setAttribute("Start",$this->hotelObject["start"]);
     $HotelInfo->setAttribute("WhenBuilt",substr($this->hotelObject["when_built"],0,4));
 
     $CategoryCodes = $xml->createElement("CategoryCodes");
@@ -160,7 +160,7 @@ Class HotelDescContentGenerator {
       $MultimediaDescription = $xml->createElement("MultimediaDescription");
       $TextItems = $xml->createElement("TextItems");
       $TextItem = $xml->createElement("TextItem");
-      $TextItem->setAttribute("Title",htmlentities($value["amenity_name"]));
+      $TextItem->setAttribute("Title",$value["amenity_name"]);
       $Description = $xml->createElement("Description",$value["description"]);
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
@@ -213,7 +213,7 @@ Class HotelDescContentGenerator {
     foreach($this->facilityInfoObject AS $key=>$value){
       $TextItem = $xml->createElement("TextItem");
       $TextItem->setAttribute("Title","FacilityInfo");
-      $TextItem->setAttribute("Name",htmlentities($value["attraction_name"]));
+      $TextItem->setAttribute("Name",$value["attraction_name"]);
       $Description = $xml->createElement("Description",$value["description"]);
       $TextItem->appendChild($Description);
       $TextItems->appendChild($TextItem);
