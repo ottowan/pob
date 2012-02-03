@@ -432,12 +432,16 @@
     $pntable['pobhotel_guest_room_type_column'] = array(
                                           'id' => 'guest_room_type_id',
                                           'name' => 'guest_room_type_name',
-                                          'description' => 'guest_room_description'
+                                          'name_en' => 'guest_room_type_name_en',
+                                          'description' => 'guest_room_description',
+                                          'description_en' => 'guest_room_description_en'
     );
     $pntable['pobhotel_guest_room_type_column_def'] = array(
                                           'id' => 'INT(11)  NOTNULL AUTOINCREMENT PRIMARY',
                                           'name' =>'TEXT  DEFAULT NULL',
-                                          'description' =>'TEXT  DEFAULT NULL'
+                                          'name_en' =>'TEXT  DEFAULT NULL',
+                                          'description' =>'TEXT  DEFAULT NULL',
+                                          'description_en' =>'TEXT  DEFAULT NULL'
     );
     $pntable['pobhotel_guest_room_type_primary_key_column'] = 'id';
     //add standard data fields

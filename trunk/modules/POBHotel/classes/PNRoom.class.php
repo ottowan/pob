@@ -1,26 +1,26 @@
 <?php
 class PNRoom extends PNObject {
-    function PNRoom($init=null, $where='') {
-      $this->PNObject();
+  function PNRoom($init=null, $where='') {
+    $this->PNObject();
 
-      $this->_objType       = 'pobhotel_room';
-      $this->_objField      = 'id';
-      $this->_objPath       = 'form';
+    $this->_objType       = 'pobhotel_room';
+    $this->_objField      = 'id';
+    $this->_objPath       = 'form';
 
-      $this->_init($init, $where);
-    }
-    
-    function insertPostProcess(){
-      $this->updatePostCalendar("insertRoom");
-      $id = $this->_objData['id'];
-      $this->uploadFiles($id);
-    }
-    
-    function updatePostProcess(){
-      $this->updatePostCalendar("updateRoom");
-    }
-    
-    private function updatePostCalendar($event){
+    $this->_init($init, $where);
+  }
+  
+  function insertPostProcess(){
+    $this->updatePostCalendar("insertRoom");
+    $id = $this->_objData['id'];
+    $this->uploadFiles($id);
+  }
+  
+  function updatePostProcess(){
+    $this->updatePostCalendar("updateRoom");
+  }
+  
+  private function updatePostCalendar($event){
       //load class
       if (!($class = Loader::loadClassFromModule ('POBHotel', 'GuestRoomType', false)))
         return LogUtil::registerError ('Unable to load class [GuestRoomType] ...');
@@ -37,8 +37,7 @@ class PNRoom extends PNObject {
       );
       pnModAPIFunc('PostCalendar', 'user', $event, $args);
     }
-  
-  
+
   function uploadFiles($id){
 
     if ($id && ((in_array(0,$_FILES['images']['error'])))){
@@ -201,7 +200,8 @@ class PNRoom extends PNObject {
           copy($file, $save) ;
         }
 
-          $data = array(
+                       
+          $objects = array(
                         'room_id'         => $next_id,
                         'filename'   => $filename_temp,
                         'filesize'   => $filesize,
@@ -212,17 +212,24 @@ class PNRoom extends PNObject {
                         'thumbtype'  => $filetype,
                         'thumbpath'   => $thumbspath
                        );
-                       
-                       
-          $objects = array(
-                            'images' => serialize($data)
-                          );
           
-          DBUtil::updateObject($objects,'pobhotel_room'," WHERE room_id=$id");
+          DBUtil::updateObject($objects,'pobhotel_room_image');
         }
       }
     }
   }
 
+  function selectExtendResult(){
+    $id = $this->_objData['id'];
+    //load class RoomImagesArray
+    if (!($class = Loader::loadClassFromModule ('POBHotel', 'RoomImagesArray', false)))
+      return LogUtil::registerError ('Unable to load class [RoomImagesArray] ...');
+
+    $imagesArrayObject = new $class;
+    $imagesArrayObject->get("WHERE room_id = $id");
+    $result['roomImages'] = $imagesArrayObject->getData();
+    
+    return $result;
+  }
 }
 ?>
